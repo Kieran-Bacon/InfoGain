@@ -1,0 +1,103 @@
+\begin{thebibliography}{10}
+
+\bibitem{snowball}
+E.~Agichtein and L.~Gravano.
+\newblock Snowball: Extracting relations from large plain-text collections.
+\newblock In {\em Proceedings of the fifth ACM conference on Digital
+  libraries}, pages 85--94. ACM, 2000.
+
+\bibitem{freebaseKnowledge}
+K.~Bollacker, C.~Evans, P.~Paritosh, T.~Sturge, and J.~Taylor.
+\newblock Freebase: a collaboratively created graph database for structuring
+  human knowledge.
+\newblock In {\em Proceedings of the 2008 ACM SIGMOD international conference
+  on Management of data}, pages 1247--1250. AcM, 2008.
+
+\bibitem{learningExtraction}
+R.~Bunescu and R.~Mooney.
+\newblock Learning to extract relations from the web using minimal supervision.
+\newblock In {\em ACL}, pages 614--621, 2007.
+
+\bibitem{ACE}
+G.~R. Doddington, A.~Mitchell, M.~A. Przybocki, L.~A. Ramshaw, S.~Strassel, and
+  R.~M. Weischedel.
+\newblock The automatic content extraction (ace) program-tasks, data, and
+  evaluation.
+\newblock In {\em LREC}, volume~2, pages 837--840, 2004.
+
+\bibitem{unsupervisedEntity}
+O.~Etzioni, M.~Cafarella, D.~Downey, A.-M. Popescu, T.~Shaked, S.~Soderland,
+  D.~S. Weld, and A.~Yates.
+\newblock Unsupervised named-entity extraction from the web: An experimental
+  study.
+\newblock {\em Artificial intelligence}, 165(1):91--134, 2005.
+
+\bibitem{nonlocalExtraction}
+J.~R. Finkel, T.~Grenager, and C.~Manning.
+\newblock Incorporating non-local information into information extraction
+  systems by gibbs sampling.
+\newblock In {\em Proceedings of the 43rd annual meeting on association for
+  computational linguistics}, pages 363--370. Association for Computational
+  Linguistics, 2005.
+
+\bibitem{learningPartWhole}
+R.~Girju, A.~Badulescu, and D.~Moldovan.
+\newblock Learning semantic constraints for the automatic discovery of
+  part-whole relations.
+\newblock In {\em Proceedings of the 2003 Conference of the North American
+  Chapter of the Association for Computational Linguistics on Human Language
+  Technology-Volume 1}, pages 1--8. Association for Computational Linguistics,
+  2003.
+
+\bibitem{exploringVarious}
+Z.~GuoDong, S.~Jian, Z.~Jie, and Z.~Min.
+\newblock Exploring various knowledge in relation extraction.
+\newblock In {\em Proceedings of the 43rd annual meeting on association for
+  computational linguistics}, pages 427--434. Association for Computational
+  Linguistics, 2005.
+
+\bibitem{combining}
+N.~Kambhatla.
+\newblock Combining lexical, syntactic, and semantic features with maximum
+  entropy models for extracting relations.
+\newblock In {\em Proceedings of the ACL 2004 on Interactive poster and
+  demonstration sessions}, page~22. Association for Computational Linguistics,
+  2004.
+
+\bibitem{supervisedDistant}
+M.~Mintz, S.~Bills, R.~Snow, and D.~Jurafsky.
+\newblock Distant supervision for relation extraction without labeled data.
+\newblock In {\em Proceedings of the Joint Conference of the 47th Annual
+  Meeting of the ACL and the 4th International Joint Conference on Natural
+  Language Processing of the AFNLP: Volume 2-Volume 2}, pages 1003--1011.
+  Association for Computational Linguistics, 2009.
+
+\bibitem{espressoExtraction}
+P.~Pantel and M.~Pennacchiotti.
+\newblock Espresso: Leveraging generic patterns for automatically harvesting
+  semantic relations.
+\newblock In {\em Proceedings of the 21st International Conference on
+  Computational Linguistics and the 44th annual meeting of the Association for
+  Computational Linguistics}, pages 113--120. Association for Computational
+  Linguistics, 2006.
+
+\bibitem{selfsupervisedExtraction}
+B.~Rozenfeld and R.~Feldman.
+\newblock Self-supervised relation extraction from the web.
+\newblock {\em Knowledge and Information Systems}, 17(1):17--33, 2008.
+
+\bibitem{robustPerceptron}
+M.~Surdeanu and M.~Ciaramita.
+\newblock Robust information extraction with perceptrons.
+\newblock In {\em Proceedings of the NIST 2007 Automatic Content Extraction
+  Workshop (ACE07)}, 2007.
+
+\bibitem{treeKernel}
+G.~Zhou, M.~Zhang, D.~Ji, and Q.~Zhu.
+\newblock Tree kernel-based relation extraction with context-sensitive
+  structured parse tree information.
+\newblock In {\em Proceedings of the 2007 Joint Conference on Empirical Methods
+  in Natural Language Processing and Computational Natural Language Learning
+  (EMNLP-CoNLL)}, 2007.
+
+\end{thebibliography}
