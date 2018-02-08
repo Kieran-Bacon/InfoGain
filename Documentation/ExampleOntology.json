@@ -1,0 +1,20 @@
+{
+    "Name":"FootballExample",
+
+    "Concepts":{
+        "Player":{},
+        "Club":{}
+    },
+
+    "Relations":{
+        "plays_for":{
+            "domain":["Player"],
+            "target":["Club"]
+        },
+
+        "has_contract_with":{
+            "domain":["Club"],
+            "Player":["Player"]
+        }
+    }
+}
