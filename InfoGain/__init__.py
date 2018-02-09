@@ -9,3 +9,6 @@ from .RelationExtractor import RelationExtractor
 
 # Inference
 from .ReasoningEngine import ReasoningEngine
+
+# Documents
+from .Document import Document, TrainingDocument
