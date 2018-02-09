@@ -1,13 +1,14 @@
 class Concept:
 
-    def __init__(self, name: str, permeable = False ):
+    def __init__(self, name: str, permeable = False):
         self.name = name
         self.permeable = permeable
         self.parents = set()
         self.children = set()
+        self.text = set()
 
     def __str__(self):
-        return ">" + self.name + "<"
+        return "<c>" + self.name + "</c>"
 
     def __eq__(self, other):
         if isinstance(other, Concept):
@@ -19,6 +20,14 @@ class Concept:
 
     def __hash__(self):
         return hash(self.name)
+
+    def addRepr(self, text: str):
+        """ Add the representation into the set """
+        self.text.add(text)
+
+    def textRepr(self):
+        """ Return the representations of the concept """
+        return self.text
 
     def isParentOf(self, concept) -> bool:
         return concept in self.children
