@@ -1,4 +1,4 @@
-import json
+import logging, json
 
 from .Ontology import Ontology
 from .RelationExtractor import Datapoint
@@ -15,24 +15,26 @@ class Document():
 
 class TrainingDocument(Document):
 
-    def __init__(self, ontology: Ontology, content = None, file_address = None):
+    def __init__(self, ontology: Ontology, content = None, filepath = None):
         self.ontology = ontology # Storage a reference to the ontology
         self.datapoints = set()
 
-        if not file_address is None:
-            with open(file_address) as filehandler:
+        if not filepath is None:
+            with open(filepath) as filehandler:
                 content = json.load(filehandler)
 
-        for data in content["datapoints"]:
-            # Assign text representations to the concepts
-            self.ontology.concept(data["domain"]["concept"]).addRepr(data["domain"]["text"])
-            self.ontology.concept(data["target"]["concept"]).addRepr(data["target"]["text"])
+        if (content and filepath) is None:
+            logging.warning("No content provided in document initialisation")
 
-            self.datapoints.add(Datapoint(\
-                data["domain"]["concept"],\
-                data["target"]["concept"],\
-                data["relation"],\
-                Document.sentenceEmbed(data["lContext"]),\
-                Document.sentenceEmbed(data["mContext"]),\
-                Document.sentenceEmbed(data["rContext"]),\
-                data["class"]))
+        for data in content["datapoints"]:
+            try:
+                # Assign text representations to the concepts
+                self.ontology.concept(data["domain"]["concept"]).addRepr(data["domain"]["text"])
+                self.ontology.concept(data["target"]["concept"]).addRepr(data["target"]["text"])
+
+                # Convert and save the datapoint
+            
+                self.datapoints.add(Datapoint(ontology, data))
+            except:
+                logging.warning("Corrupted datapoint found :: %s", str(data))
+

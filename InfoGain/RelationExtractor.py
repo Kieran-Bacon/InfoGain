@@ -27,10 +27,6 @@ class RelationExtractor:
         Params:
             - Annotated_Documents: A single file, or a list of file paths to training documents 
         """
-
-        
-
-
         pass
 
     def predict(self):
@@ -38,11 +34,41 @@ class RelationExtractor:
 
 class Datapoint:
 
-    def __init__(self, domain, target, relation, lc, mc, rc, classification):
-        self.domain = domain
-        self.target = target
-        self.relation = relation
-        self.lContext = lContext
-        self.mContext = mContext
-        self.rContext = rContext
-        self.classification = classification
+    def __eq__(self, other):
+        if isinstance(other, Datapoint):
+
+            return (self.text == other.text and\
+                    self.domain == other.domain and\
+                    self.target == other.target and\
+                    self.relation == other.relation and\
+                    self.annotation == other.annotation)
+
+        return self.text == other
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __hash__(self):
+        return hash(self.text)
+
+    def __init__(self, ontology:Ontology, data: dict):
+        """ Taking a dictionary representation of a datapoint. Assign the information to object
+        variables for convience.
+
+        Params:
+            - data: A dictionary of the datapoint information.
+        """
+
+        # Link the object to the ontology structures
+        self.domain = ontology.concept(data["domain"]["concept"])
+        self.target = ontology.concept(data["target"]["concept"])
+        self.relation = ontology.relation(data["relation"])
+
+        self.text = data["text"]
+
+        self.lContext = data["context"]["left"]
+        self.mContext = data["context"]["middle"]
+        self.rContext = data["context"]["right"]
+
+        self.annotation = data["annotation"]
+
