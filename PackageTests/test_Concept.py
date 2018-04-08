@@ -6,9 +6,9 @@ class Test_Concept(unittest.TestCase):
 
     def setUp(self):
         # Set up of concepts
-        self.concept = Concept("Kieran",False)
-        self.parentConcept = Concept("Student",False)
-        self.grandparentConcept = Concept("Person", False)
+        self.concept = Concept("Kieran",{})
+        self.parentConcept = Concept("Student",{})
+        self.grandparentConcept = Concept("Person",{})
 
         # Assigining concept
         self.parentConcept.addParent(self.grandparentConcept)

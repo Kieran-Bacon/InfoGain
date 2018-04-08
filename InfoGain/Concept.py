@@ -1,14 +1,18 @@
 class Concept:
 
-    def __init__(self, name: str, permeable = False):
+    def __init__(self, name: str, content = {}):
         self.name = name
-        self.permeable = permeable
+        self._state = "valid"
+
         self.parents = set()
         self.children = set()
-        self.text = set()
+        self.text = set(content.get("textRepr", []))
+
+        self.permeable = content.get("permeable", False)
+        self._properties = content.get("properties",{})
 
     def __str__(self):
-        return "<c>" + self.name + "</c>"
+        return "<c 'state'='" + self._state + "'>" + self.name + "</c>"
 
     def __eq__(self, other):
         if isinstance(other, Concept):
@@ -21,6 +25,18 @@ class Concept:
     def __hash__(self):
         return hash(self.name)
 
+    def clone(self):
+        """ Return an new partial concept with identical information but invalid concept connections
+        """
+
+        clone = Concept(self.name, {"permeable": self.permeable, "properties": self._properties.copy()})
+
+        clone._state = "clone"
+        clone.parents = {p.name for p in self.parents}
+        clone.children = {c.name for c in self.children}
+
+        return clone
+
     def addRepr(self, text: str):
         """ Add the representation into the set """
         self.text.add(text)
@@ -28,6 +44,21 @@ class Concept:
     def textRepr(self):
         """ Return the representations of the concept """
         return self.text
+
+    def addProperty(self, name: str, value) -> None:
+        self._properties[name] = value
+        return
+
+    def removeProperty(self, name: str) -> None:
+        if name in self._properties:
+            del self._properties[name]
+        return
+
+    def property(self, prop: str):
+        return self._properties["prop"]
+
+    def properties(self):
+        return self._properties.keys()
 
     def isParentOf(self, concept) -> bool:
         return concept in self.children
@@ -89,15 +120,15 @@ class Concept:
         """
 
         for concept in ancestors:
-            if concept in self.parents.keys():
+            if concept in self.parents:
                 raise ValueError( "Circular expression found." )
 
         for concept in decendants:
-            if concept in self.children.keys():
+            if concept in self.children:
                 raise ValueError( "Circular expression found." )
 
-        for p in self.parents.values():
+        for p in self.parents:
             p.isCircular( ancestors = ancestors + [self.name] )
 
-        for c in self.children.values():
+        for c in self.children:
             c.isCircular( decendants = decendants + [self.name] )

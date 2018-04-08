@@ -77,5 +77,8 @@ class Test_Ontology_Creation(unittest.TestCase):
         conceptKieran = ont.concept("Kieran")
         self.assertEqual(conceptKieran.textRepr(),{"Legend", "Champ","Badass"})
 
+    def test_familyTree_Concepts(self):
+        raise NotImplementedError()
+
 if __name__ == "__main__":
     unittest.main()

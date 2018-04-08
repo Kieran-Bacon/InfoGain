@@ -2,8 +2,12 @@
     "Name": "Language",
     
     "Concepts": {
-        "Person": {},
-        "Kieran":{ "parents":["Person"], "textRepr":["Legend","Badass","Champ"]},
+        "Person": {
+            "properties": {
+                "name": null
+            }
+        },
+        "Kieran":{"parents":["Person"], "textRepr":["Legend","Badass","Champ"]},
         "Luke":{"parents":["Person"]},
         "Charlie":{"parents":["Person"]},
 

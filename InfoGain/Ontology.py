@@ -5,13 +5,14 @@ from .Relation import Relation
 from .Fact import Fact
 from .Condition import Condition
 
+
 class Ontology:
     """
     Ontology object, its represents and holds the concepts and relationships described in the ontology.
     """
 
-    def __init__(self, name = None, filepath = None ):
-        
+    def __init__(self, name=None, filepath=None):
+
         self.name = name                        # Simply idenfitication of the ontology, no functional use
         self._concepts = {}                     # Unique concept store
         self._relations = {}                    # Unique relation store
@@ -20,31 +21,27 @@ class Ontology:
         if filepath:
 
             # Extract the information from the input ontology file
-            with open( filepath ) as ontologyFile:
-                data = json.load( ontologyFile )
+            with open(filepath) as ontologyFile:
+                data = json.load(ontologyFile)
 
             # Concept creation
             def conceptCreation(name: str) -> None:
                 """ Creates concept object for given name, if object does not already exist """
-                
-                if self.concept(name) is not None: return # Do nothing when concept exists
+                if self.concept(name) is not None:
+                    return  # Do nothing as the concept exists
 
-                rawConcept = data["Concepts"][name] # Extract concept information from the input file
+                conceptData = data["Concepts"][name]  # Extract concept information from the input file
+                concept = Concept(name, conceptData)  # Construct the concept object
 
-                concept = Concept(name, rawConcept.get("permable", False)) # Construct the concept object
+                if "parents" in conceptData:
+                    for parentName in conceptData["parents"]:
+                        conceptCreation(parentName)  # if exists: do nothing, else: create parent object
+                        concept.addParent(self.concept(parentName))  # Collect parent and bind to current concept
 
-                if "textRepr" in rawConcept:
-                    [concept.addRepr(text) for text in rawConcept["textRepr"]]
-                
-                if "parents" in rawConcept:
-                    for parentName in rawConcept["parents"]:
-                        conceptCreation(parentName) # if exists: do nothing, else: create parent object
-                        concept.addParent(self.concept(parentName)) # Collect parent and bind to current concept
-
-                self.addConcept(concept) # Add concept to the ontology
+                self.addConcept(concept)  # Add concept to the ontology
 
             if "Concepts" in data:
-                [conceptCreation(name) for name in data["Concepts"].keys()] # Load in all concepts
+                [conceptCreation(name) for name in data["Concepts"].keys()]  # Load in all concepts
 
             # Relation creation
             if "Relations" in data:
@@ -55,11 +52,11 @@ class Ontology:
                     targets = [self.concept(tar) for tar in rawRelation["target"]]
 
                     # Protect against referencing non existent concepts
-                    if any( [ con == None for con in domains + targets ] ):
-                        raise ValueError( "Relation references unknown concept." )
+                    if any([con is None for con in domains + targets]):
+                        raise ValueError("Relation references unknown concept.")
 
                     # Store the relation within the ontology
-                    self.addRelation( Relation( domains, name, targets ) )
+                    self.addRelation(Relation(domains, name, targets))
 
             # Fact creation
             if "Facts" in data:
@@ -70,52 +67,77 @@ class Ontology:
                     relation = self.relation(rawFact["relation"])
                     target = self.concept(rawFact["target"])
 
-                    if any([i == None for i in [domain,relation,target]]):
+                    if any([i is None for i in [domain, relation, target]]):
                         raise ValueError("Fact refers to unknown objects.")
 
                     # Create fact object
-                    fact = Fact( domain, relation, target, rawFact["confidence"] )
+                    fact = Fact(domain, relation, target, rawFact["confidence"])
 
                     if "conditions" in rawFact:
                         # Add the conditions to the fact object
-                        [fact.addCondition(condition(con["logic"], con["salience"])) for con in rawFact["conditions"]]
+                        [fact.addCondition(Condition(con["logic"], con["salience"])) for con in rawFact["conditions"]]
 
                     # Add fact to ontology
                     self.addFact(fact)
 
     def addConcept(self, concept: Concept) -> None:
-        """
-        Add concept object to ontology, overwrite previous concept if present. Identifies the relation ships 
-        concepts parent objects are and becomes members to those relations if applicable.
-        """
+        """ Add concept object to ontology, overwrite previous concept if present.
+        Identifies the relation ships concepts parent objects are and becomes members to those
+        relations if applicable. """
         self._concepts[concept.name] = concept
         [relation.subscribe(concept) for relation in self._relations.values()]
 
-    def addRelation(self, relation: Relation):
+    def addRelation(self, relation: Relation) -> None:
         """ Adds a relation object to the ontology """
         self._relations[relation.name] = relation        # Store the relation, overwrite previous
         self._facts[relation.name] = []
 
-    def addFact(self, fact: Fact):
+    def addFact(self, fact: Fact) -> None:
         """ Adds a fact object to the ontology """
         self._facts[fact.relation.name].append(fact)
-
-    def concepts(self) -> [str]:
-        return list(self._concepts.keys())
 
     def concept(self, conceptName: str) -> Concept:
         return self._concepts.get(conceptName, None)
 
-    def relations(self) -> [str]:
-        return list(self._relations.keys())
+    def concepts(self) -> [str]:
+        return list(self._concepts.values())
 
     def relation(self, relationName: str) -> Relation:
         return self._relations.get(relationName, None)
 
+    def relations(self) -> [str]:
+        return list(self._relations.keys())
+
     def facts(self, relationName: str) -> list:
         return self._facts[relationName]
 
-    def save(self, filename = None) -> None:
+    def clone(self):
+        """ Create a new ontology object that is a deep copy of this ontology instance """
+
+        ontologyClone = Ontology(self.name)
+        
+        # Clone concepts
+        [ontologyClone.addConcept(con.clone()) for con in self.concepts()]
+
+        for concept in self.concepts():
+            # Connect the cloned concepts with their new cloned parents/children and make valid
+            concept.parents = {self.concept(con) for con in concept.parents}
+            concept.children = {self.concept(con) for con in concept.children}
+            concept._state = "valid"
+
+        # Clone relationships
+        for relation in self._relations.values():
+            domains = {ontologyClone.concept(dom.name) for dom in relation.domains()}
+            targets = {ontologyClone.concept(tar.name) for tar in relation.targets()}
+            ontologyClone.addRelation(Relation(domains, relation.name, targets))
+
+        # Clone facts
+        #TODO: Clone facts, min: switch for logging function.
+        print("Warning :: Clone does not close facts")
+
+        return ontologyClone
+
+    def save(self, filename=None) -> None:
         """ Save the file to the current working directory or the filename provided """
 
         if filename is None:
@@ -123,14 +145,14 @@ class Ontology:
 
         concepts = {}
         for name, concept in self._concepts.items():
-            concepts[name] = {"parents":[name for name in concept.parents]}
+            concepts[name] = {"parents": [name for name in concept.parents]}
 
         relations = {}
         for relname, relation in self._relations.items():
-            relations[relname] = {"domain":[con.name for con in relation.domains()], "target":[con.name for con in relation.targets()]}
+            relations[relname] = {"domain": [con.name for con in relation.domains()], "target": [con.name for con in relation.targets()]}
 
         # TODO:Add facts
-        ontology = {"Concepts":concepts, "Relations":relations}
+        ontology = {"Concepts": concepts, "Relations": relations}
 
         with open(filename, "w") as handler:
-            handler.write(json.dumps(ontology,indent=4))
+            handler.write(json.dumps(ontology, indent=4))

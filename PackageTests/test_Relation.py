@@ -9,7 +9,7 @@ class Test_Relation(unittest.TestCase):
         self.person = Concept("Person")
         self.dave = Concept("Dave")
         self.karen = Concept("Karen")
-        self.domain_viewless = Concept("Not viewable domain", permeable=True)
+        self.domain_viewless = Concept("Not viewable domain", {"permeable": True})
         
         self.person.addChild(self.dave)
         self.person.addChild(self.karen)
@@ -21,7 +21,7 @@ class Test_Relation(unittest.TestCase):
         self.vehicle = Concept("Vehicle")
         self.car = Concept("Car")
         self.truck = Concept("Truck")
-        self.target_viewless = Concept("Not viewable target", permeable=True)
+        self.target_viewless = Concept("Not viewable target", {"permeable":True})
 
         self.vehicle.addChild(self.car)
         self.vehicle.addChild(self.truck)
@@ -69,7 +69,7 @@ class Test_Relation(unittest.TestCase):
 
     def test_permeable_subscribe(self):
 
-        permeable_testConcept = Concept("permeable", permeable=True)
+        permeable_testConcept = Concept("permeable", {"permeable":True})
         dom_testConcept = Concept("dom")
         tar_testConcept = Concept("tar")
 
