@@ -4,3 +4,15 @@
 **/Datasets/*
 *.pyc
 .cache/*
+
+# Text ignore
+
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.toc
+*.bib.bak
+*.bbl
+*.blg
