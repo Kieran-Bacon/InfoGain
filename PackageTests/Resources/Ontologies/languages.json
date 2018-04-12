@@ -8,6 +8,7 @@
             }
         },
         "Kieran":{"parents":["Person"], "textRepr":["Legend","Badass","Champ"]},
+        "Sad_Kieran":{"parents":["Kieran"]},
         "Luke":{"parents":["Person"]},
         "Charlie":{"parents":["Person"]},
 

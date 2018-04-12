@@ -4,6 +4,7 @@ from . import LANGUAGE_ONTOLOGY
 
 from InfoGain import Ontology, Concept, Relation
 
+
 class Test_Ontology_Creation(unittest.TestCase):
 
     def setUp(self):
@@ -73,12 +74,54 @@ class Test_Ontology_Creation(unittest.TestCase):
         self.assertNotEqual(ont.concept("France"), None)
         self.assertNotEqual(ont.concept("Germany"), None)
 
+    def test_loadOntology_Concepts_textRepresentations(self):
         # Check that text representations are loaded correctly
-        conceptKieran = ont.concept("Kieran")
-        self.assertEqual(conceptKieran.textRepr(),{"Legend", "Champ","Badass"})
+        ont = Ontology(filepath=LANGUAGE_ONTOLOGY)
+        kieran = ont.concept("Kieran")
+        self.assertEqual(kieran.textRepr(), {"Legend", "Champ", "Badass"})
 
     def test_familyTree_Concepts(self):
-        raise NotImplementedError()
+
+        ont = Ontology(filepath=LANGUAGE_ONTOLOGY)
+
+        person = ont.concept("Person")
+        kieran = ont.concept("Kieran")
+        sadKieran = ont.concept("Sad_Kieran")
+
+        self.assertTrue(person.isAncestorOf(kieran))
+        self.assertTrue(person.isParentOf(kieran))
+        self.assertTrue(kieran.isChildOf(person))
+        self.assertTrue(kieran.isDecendantOf(person))
+
+        self.assertTrue(person.isAncestorOf(sadKieran))
+        self.assertFalse(person.isParentOf(sadKieran))
+        self.assertFalse(sadKieran.isChildOf(person))
+        self.assertTrue(sadKieran.isDecendantOf(person))
+
+    def test_conceptText(self):
+        ont = Ontology(filepath=LANGUAGE_ONTOLOGY)
+
+        print(ont.conceptText())
+
+        expectedRepr = {'Badass': ['Kieran'],
+                        'Champ': ['Kieran'],
+                        'Charlie': ['Charlie'],
+                        'Country': ['Country'],
+                        'England': ['England'],
+                        'English': ['English'],
+                        'France': ['France'],
+                        'French': ['French'],
+                        'German': ['German'],
+                        'Germany': ['Germany'],
+                        'Kieran': ['Kieran'],
+                        'Language': ['Language'],
+                        'Legend': ['Kieran'],
+                        'Luke': ['Luke'],
+                        'Person': ['Person'],
+                        'Sad_Kieran': ['Sad_Kieran']}
+
+        self.assertEqual(ont.conceptText(), expectedRepr)
+
 
 if __name__ == "__main__":
     unittest.main()

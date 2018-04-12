@@ -1,19 +1,29 @@
 import os, unittest
-from . import LOCATION
+from . import DOCUMENTS, ONTOLOGIES
 
-from InfoGain import Ontology, TrainingDocument
+from InfoGain import Ontology, Document, TrainingDocument
 
 class Test_Document(unittest.TestCase):
 
     def setUp(self):
-        self.trainingDocumentLocation = os.path.join(LOCATION, "Resources/Documents/training.json")
+        pass
+
+    def test_document_init(self):
+        # TODO: Place holder for verifying paragraphs and sentences
+        pass
+
+    def test_document_processKnowledge(self):
+        ont = Ontology(filepath=os.path.join(ONTOLOGIES, "languages.json"))
+        doc = Document(filepath=os.path.join(DOCUMENTS, "Predictlanguages.txt"))
+
+        doc.processKnowledge(ont)
 
     def test_document_text(self):
         raise NotImplementedError()
 
     def test_TrainingDocument_Load(self):
         """Open a valid training document structure and verify that its attributes are correct"""
-        document = TrainingDocument(filepath=self.trainingDocumentLocation)
+        document = TrainingDocument(filepath=os.path.join(DOCUMENTS, "training.json"))
 
         self.assertEqual(len(document), 210)
 

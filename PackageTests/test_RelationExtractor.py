@@ -1,16 +1,17 @@
 import os, unittest
-from . import LANGUAGE_ONTOLOGY
+from . import DOCUMENTS, ONTOLOGIES
 
-from InfoGain import RelationExtractor, Ontology
+from InfoGain import Ontology, Document, TrainingDocument, RelationExtractor
 
 class Test_RelationExtractor(unittest.TestCase):
 
     def setUp(self):
-        with open(LANGUAGE_ONTOLOGY) as f:
-            print(f.read())
-        print(LANGUAGE_ONTOLOGY)
-        self.ontology = Ontology(filepath=LANGUAGE_ONTOLOGY)
+        self.training = TrainingDocument(filepath=os.path.join(DOCUMENTS, "training.json"))
+        self.testing = Document(filepath=os.path.join(DOCUMENTS, "testing.txt"))
+        self.ontology = Ontology(filepath=os.path.join(ONTOLOGIES, "medical.ont"))
 
     def test_ExtractorGeneration(self):
         """ Extractor object """
         extractor = RelationExtractor(ontology=self.ontology, k=20)
+        extractor.fit(self.training)
+        extractor.predict(self.testing)

@@ -1,5 +1,5 @@
 from .Ontology import Ontology
-from .Document import TrainingDocument
+from .Document import Document, TrainingDocument
 from sklearn.neural_network import MLPClassifier
 
 from gensim.models import Word2Vec
@@ -79,9 +79,26 @@ class RelationExtractor(Ontology):
                 modelData[point.relation].append(self._sentenceEmbedding(point))
 
         [self.ensemble[rel].fit(data) for rel, data in modelData.items()]
+        
+    def predict(self, documents: [Document]) -> [Document]:
 
-    def predict(self):
-        pass
+        if isinstance(documents, Document):
+            documents = [documents]
+
+        processedPile = []
+
+        for doc in documents:
+
+            doc.processKnowledge(self)
+
+            processed = self._processDocument(doc)  # Identify and extract potential relations
+
+            for point in processed.points():  # Predict each point in the document.
+                point.prediction = self.ensemble[point.relation].predict(point)
+
+            processedPile.append(processed)
+
+        return processedPile
 
 class RelationModel:
     """ The model the learns the sentence embeddings for a particular relationship """

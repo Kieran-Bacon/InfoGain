@@ -36,7 +36,9 @@ class Ontology:
                 if "parents" in conceptData:
                     for parentName in conceptData["parents"]:
                         conceptCreation(parentName)  # if exists: do nothing, else: create parent object
-                        concept.addParent(self.concept(parentName))  # Collect parent and bind to current concept
+                        parent = self.concept(parentName)
+                        parent.addChild(concept)
+                        concept.addParent(parent)
 
                 self.addConcept(concept)  # Add concept to the ontology
 
@@ -48,11 +50,11 @@ class Ontology:
                 for name, rawRelation in data["Relations"].items():
 
                     # Collect the domain and ranges together from the ontology concepts
-                    domains = [self.concept(dom) for dom in rawRelation["domain"]]
-                    targets = [self.concept(tar) for tar in rawRelation["target"]]
+                    domains = {self.concept(dom) for dom in rawRelation["domain"]}
+                    targets = {self.concept(tar) for tar in rawRelation["target"]}
 
                     # Protect against referencing non existent concepts
-                    if any([con is None for con in domains + targets]):
+                    if any([con is None for con in domains.union(targets)]):
                         raise ValueError("Relation references unknown concept.")
 
                     # Store the relation within the ontology
@@ -106,7 +108,7 @@ class Ontology:
         return self._relations.get(relationName, None)
 
     def relations(self) -> [str]:
-        return list(self._relations.keys())
+        return list(self._relations.values())
 
     def facts(self, relationName: str) -> list:
         return self._facts[relationName]
@@ -119,10 +121,10 @@ class Ontology:
         # Clone concepts
         [ontologyClone.addConcept(con.clone()) for con in self.concepts()]
 
-        for concept in self.concepts():
+        for concept in ontologyClone.concepts():
             # Connect the cloned concepts with their new cloned parents/children and make valid
-            concept.parents = {self.concept(con) for con in concept.parents}
-            concept.children = {self.concept(con) for con in concept.children}
+            concept.parents = {ontologyClone.concept(con) for con in concept.parents}
+            concept.children = {ontologyClone.concept(con) for con in concept.children}
             concept._state = "valid"
 
         # Clone relationships
@@ -136,6 +138,21 @@ class Ontology:
         print("Warning :: Clone does not close facts")
 
         return ontologyClone
+
+    def conceptText(self) -> {str: [str]}:
+        """ Return a map from concept text repr into the concept name """
+
+        ontTextRepr = {name: [name] for name in self._concepts.keys()}  # Concept names are also repr
+
+        for concept in self.concepts():
+            for text in concept.textRepr():
+                if not text in ontTextRepr:
+                    ontTextRepr[text] = []
+                
+                ontTextRepr[text].append(concept.name)
+
+        return ontTextRepr
+
 
     def save(self, filename=None) -> None:
         """ Save the file to the current working directory or the filename provided """
