@@ -4,9 +4,9 @@
 **/Datasets/*
 *.pyc
 .cache/*
+*.pdf
 
-# Text ignore
-
+# Tex ignore
 *.aux
 *.fdb_latexmk
 *.fls
