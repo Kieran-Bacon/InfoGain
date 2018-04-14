@@ -1,7 +1,8 @@
 from .Ontology import Ontology
 from .Document import Document, TrainingDocument
-from sklearn.neural_network import MLPClassifier
 
+import numpy
+from sklearn.neural_network import MLPClassifier
 from gensim.models import Word2Vec
 
 class RelationExtractor(Ontology):
@@ -10,7 +11,7 @@ class RelationExtractor(Ontology):
     which in turn provide evidence for various relationships. The class provides 
     a collection of useful methods for interacting with the model. """
 
-    def __init__(self, name=None, filepath=None, ontology=None, k=20):
+    def __init__(self, name=None, filepath=None, ontology=None, k=20, embeddingSize=300):
         """ Initialising the pool of relation classifiers and defining the method of learning
         that will take place.
 
@@ -22,6 +23,8 @@ class RelationExtractor(Ontology):
         """
 
         self.name = name
+        self.contextWindow = k
+        self.embeddingSize = embeddingSize
 
         if filepath:
             # Call ontology constructor
@@ -36,18 +39,34 @@ class RelationExtractor(Ontology):
             self._facts = ontologyClone._facts
 
         self.WordEmbedding = None
-        self.ensemble = {rel:RelationModel() for rel in ontology.relations()}
+        self.ensemble = {rel.name:RelationModel() for rel in self.relations()}
         
         self._trainingCorpus = set()
 
     def _trainWordEmbeddings(self):
-        pass
-        sentences = [ doc.text.split() for doc in self._trainingCorpus]
-        #sentences = [point.text for doc in annotated_documents for point in doc.datapoints()]
-        self.WordModel = Word2Vec(sentences, min_count=1, size=300)
+        """ Train the word embedding model on the words provided by the training documents """
+        sentences = [sentence for doc in self._trainingCorpus for sentence in doc.sentences()]
+        self.wordModel = Word2Vec(sentences, min_count=1, size=self.embeddingSize)
 
-    def _sentenceEmbedding(self, datapoint):
-        pass
+    def _embedSentence(self, sentence: str) -> numpy.array:
+        """ Convert a sentence of variable length into a sentence embedding using the learn word
+        embeddings"""
+
+        embedding = numpy.zeros(self.embeddingSize)
+        words = sentence.split()
+
+        def pf(index: int) -> float:
+            """ Return the output of a monotonic function as to reduce traling word embeddings """
+            # TODO: Change function to something meaningful with support from someone
+            return -numpy.log((index+1)/(len(words)+1))
+
+        for index, word in enumerate(words):
+            try:
+                embedding += pf(index)*self.wordModel.wv[word]
+            except:
+                print("Word not about of vocabulary ::", word)
+
+        return embedding
 
     def fit(self, training_documents: [TrainingDocument] ) -> None:
         """ Use the provided annotated document to provide training data to the
@@ -67,7 +86,7 @@ class RelationExtractor(Ontology):
             self._trainingCorpus.add(document)
 
             # Extract text representations and save them to the ontology
-            [self.concept(con).addRepr(t) for con, text in document.concepts() for t in text]
+            [self.concept(name).addRepr(text) for name, textRepr in document.concepts() for text in textRepr]
 
         # Train the word embedding method
         self._trainWordEmbeddings()
@@ -76,7 +95,18 @@ class RelationExtractor(Ontology):
         modelData = {rel: [] for rel in self.ensemble.keys()}
         for document in training_documents:
             for point in document.datapoints():
-                modelData[point.relation].append(self._sentenceEmbedding(point))
+                # Pass the embedding function to the point to embed its context
+                point.embedContext(self._embedSentence)
+                # Store the embedded point
+                try:
+                    modelData[point.relation].append(point)
+                except:
+                    print(modelData.keys())
+                    assert(point.relation in self._relations)
+                    assert(point.relation in modelData)
+
+                    print("relation not found ::", point.relation)
+                    print(point.text)
 
         [self.ensemble[rel].fit(data) for rel, data in modelData.items()]
         
@@ -89,14 +119,13 @@ class RelationExtractor(Ontology):
 
         for doc in documents:
 
+            # Process the document given knowledge in the extractor to form potential datapoints
             doc.processKnowledge(self)
 
-            processed = self._processDocument(doc)  # Identify and extract potential relations
-
-            for point in processed.points():  # Predict each point in the document.
+            for point in doc.datapoints():
                 point.prediction = self.ensemble[point.relation].predict(point)
 
-            processedPile.append(processed)
+            processedPile.append(doc)
 
         return processedPile
 
@@ -109,4 +138,4 @@ class RelationModel:
         pass
 
     def predict(self, point):
-        pass
+        return "yes"

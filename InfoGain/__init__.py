@@ -11,7 +11,7 @@ from .RelationExtractor import RelationExtractor
 from .ReasoningEngine import ReasoningEngine
 
 # Documents
-from .Document import Document, TrainingDocument
+from .Document import PredictionDocument, TrainingDocument
 
 import logging
 logging.basicConfig(format='%(asctime)s|%(levelname)s|%(message)s', datefmt='%m/%d/%Y %I:%M:%S')
