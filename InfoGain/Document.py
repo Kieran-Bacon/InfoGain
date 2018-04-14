@@ -3,47 +3,66 @@ import itertools as tools
 
 from .Ontology import Ontology
 
-class Document():
+class Document:
+    pass
+
+class PredictionDocument(Document):
     """ Representation of processable documents. """
 
-    def __init__(self, filepath: str):
+    def __init__(self, content=None, filepath=None):
 
-        def cleanWord(word: str) -> str:
-            """ Remove grammar and unwanted words """
-            clean = re.search("([A-Z])\w+", word)
-            if clean is None: raise Exception("Word couldn't be found")
-            return clean.group(0)
+        if content:
+            self.content = content
+        elif filepath:
+            with open(filepath) as filehandler:
+                self.content = filehandler.read()
+        else:
+            raise Exception("Attempted to make a document without content")
 
-        with open(filepath) as filehandler:
-            self.content = filehandler.read()
+        self._datapoints = []
 
-            # Split the content into paragraphs
-            rawParagraphs = self.content.split("\n\n")
+        # Split the content into paragraphs
+        rawParagraphs = self.content.split("\n\n")
 
-            self.paragraphs, self.cleanedParagraphs = [], []
-            
-            # Split the paragraphs into sentences
-            for rawParagraph in rawParagraphs:
-                rawSentences = rawParagraph.split(".")
+        self.paragraphs, self.cleanedParagraphs = [], []
+        
+        # Split the paragraphs into sentences
+        for rawParagraph in rawParagraphs:
+            rawSentences = rawParagraph.split(".")
 
-                sentences, cleanedSentences = [], []
+            sentences, cleanedSentences = [], []
 
-                # Create a cleaned version of the sentences
-                for rawSentence in rawSentences:
-                    # Split the sentence into words and record the words.
-                    sentence = rawSentence.split()
-                    sentences.append(sentence)
-                    
-                    cleanedSentence = []
-                    # Replace some of the pronouns with the correct concepts
-                    # TODO: identify the words that that are meant to be replaced
-                    for rawWord in sentence:
-                        cleanedSentence.append(cleanWord(rawWord))
+            # Create a cleaned version of the sentences
+            for rawSentence in rawSentences:
+                # Split the sentence into words and record the words.
+                if not len(rawSentence): continue  # Empty sentence
+                sentence = rawSentence.split()
+                sentences.append(sentence)
+                
+                cleanedSentence = []
+                # Replace some of the pronouns with the correct concepts
+                # TODO: identify the words that that are meant to be replaced
+                for rawWord in sentence:
+                    cleanedSentence.append(cleanWord(rawWord))
 
-                    cleanedSentences.append(cleanedSentence)
+                cleanedSentences.append(cleanedSentence)
 
-                self.paragraphs.append(sentences)
-                self.cleanedParagraphs.append(cleanedSentences)
+            self.paragraphs.append(sentences)
+            self.cleanedParagraphs.append(cleanedSentences)
+
+    def text(self) -> str:
+        """ Return the document content """
+        return self.content
+
+    def cleanText(self) -> str:
+        """ Return the cleaned version of the document content """
+        content = []
+        for sentences in self.cleanedParagraphs:
+            paragraph = []
+            for sentence in sentences:
+                paragraph.append(" ".join(sentence))
+            content.append(" ".join(paragraph))
+        return "\n".join(content)
 
     def processKnowledge(self, ontology: Ontology) -> None:
         """ Iterate over the document and create potential datapoints for all possible combinations 
@@ -53,53 +72,66 @@ class Document():
             ontology - The ontology object that contains all the information about the concepts and 
                 relationships we care about
         """
-
-        contextWindow = 20
-
         reprMap = ontology.conceptText()  # Collect all the ways in which some text may mean a concept
         self._datapoints = []  # Ordered list of datapoints, as it links with location in the document
 
-        for index, word in enumerate(self.context):
+        for paragraph in self.cleanedParagraphs:
             # Iterate over every word of the document
+            for sentence in paragraph:
+                for position, word in enumerate(sentence):
+                    if word in reprMap:
+                        # Found a word that is a concept
 
-            if word in reprMap:
-                # Word is a concept
+                        for offset in range(1, ontology.contextWindow):
+                            # Offset
+                            if len(sentence) <= position + offset:
+                                # We have finished the search for another concept to link too.
+                                break
 
-                print(word, end=" ")
+                            if sentence[position+offset] in reprMap:
+                                # Found a second valid concept
+                                frameStart = position - ontology.contextWindow
+                                position2 = position + offset
+                                word2 = sentence[position2]
+                                frameEnd = position + offset + ontology.contextWindow
 
-                for offset in range(1, contextWindow):
-                    # Scan ahead for another concept
+                                # Relation look up
+                                # Test that first word is domain
+                                combinations = list(tools.product(reprMap(word), reprMap(word2)))
+                                for com in combinations:
+                                    for relation in ontology.findRelations(domain=com[0], target=com[1]):
 
-                    if index + offset >= len(self.context): break 
+                                        self._datapoints.append(Datapoint({
+                                            "domain": {"text": word, "concept": com[0]},
+                                            "target": {"text": word2, "concept": com[1]},
+                                            "relation": relation.name,
+                                            "text": " ".join(sentence[frameStart: frameEnd]),
+                                            "context":{
+                                                "left": sentence[frameStart:position],
+                                                "middle": sentence[position:position2],
+                                                "right": sentence[position2:frameEnd]
+                                            }
+                                        }))
 
-                    windowStart = index - contextWindow if index - contextWindow > 0 else 0
-                    index2 = index + offset
-                    word2 = self.context[index2]   
+                                # Test that first word is target
+                                combinations = list(tools.product(reprMap(word2), reprMap(word)))
+                                for com in combinations:
+                                    for relation in ontology.findRelations(domain=com[0], target=com[1]):
 
-                    if word2 in reprMap:
-                        # Found another concept within range
-
-                        combinations = list(tools.product(reprMap[word], reprMap[word2])) + list(tools.product(reprMap[word2], reprMap[word]))
-
-                        for com in combinations:
-                            for relation in ontology.relations():
-                                if relation.hasDomain(com[0]) and relation.hasTarget(com[1]):
-
-                                    self._datapoints.append(Datapoint({
-                                        "domain": {"text": None, "concept": com[0]},
-                                        "target": {"text": None, "concept": com[1]},
-                                        "relation": relation.name,
-                                        "text": " ".join(self.context[windowStart:index2 + contextWindow]),
-                                        "context":{
-                                            "left": self.context[windowStart:index],
-                                            "middle": self.context[index:index2],
-                                            "right": self.context[index2:index2+contextWindow]
-                                        }
-                                    }))
+                                        self._datapoints.append(Datapoint({
+                                            "domain": {"text": word2, "concept": com[0]},
+                                            "target": {"text": word, "concept": com[1]},
+                                            "relation": relation.name,
+                                            "text": " ".join(sentence[frameStart: frameEnd]),
+                                            "context":{
+                                                "left": sentence[frameStart:position],
+                                                "middle": sentence[position:position2],
+                                                "right": sentence[position2:frameEnd]
+                                            }
+                                        }))
 
     def datapoints(self):
-        if not self.datapoints:
-            raise Exception("Need to process knowledge before extracting datapoints")
+        """ Extract the datapoints """
         return self._datapoints
 
 
@@ -114,7 +146,7 @@ class TrainingDocument(Document):
                 the same document
         """
 
-        self._datapoints = set()  # The datapoints extracted from the document
+        self._datapoints = []  # The datapoints extracted from the document
         self._concepts = {}  # Set of instance names of concepts within the text
 
         # Prefer filepath over content, open file and load data
@@ -125,7 +157,7 @@ class TrainingDocument(Document):
         for data in content["datapoints"]:
 
             # Process datapoint and add it to the document storage
-            self._datapoints.add(Datapoint(data))
+            self._datapoints.append(Datapoint(data))
 
             # Extract and store the domain and the target
             if data["domain"]["concept"] in self._concepts:
@@ -141,8 +173,23 @@ class TrainingDocument(Document):
     def __len__(self):
         return len(self._datapoints)
 
+    def sentences(self) -> [[str]]:
+        """ """
+        return [cleanSentence(data.text).split() for data in self._datapoints]    
+
+    def words(self) -> [str]:
+        """ For each of the datapoints within the document, collect the datapoints text and split it
+        into the words 
+        
+        Returns:
+            [str] - An ordered list of words that appear within the document's datapoints 
+        """
+
+        #TODO: Document should contain have non datapoint words too, that should be included
+        return [word for data in self._datapoints for word in data.text.split()]
+
     def concepts(self):
-        return self._concepts
+        return self._concepts.items()
 
     def datapoints(self):
         for point in self._datapoints:
@@ -189,5 +236,28 @@ class Datapoint:
 
         self.annotation = data.get("annotation", None)
 
+    def embedContext(self, embedder: object) -> None:
+        """ Embed the context text according to the embedder function """
+        self.lContextEmbedding = embedder(cleanSentence(self.lContext))
+        self.mContextEmbedding = embedder(cleanSentence(self.mContext))
+        self.rContextEmbedding = embedder(cleanSentence(self.rContext))
+
     def __str__(self):
         return self.text
+
+def cleanSentence(sentence: str) -> str:
+    
+    words = sentence.split()
+    cleanedWords = []
+    for word in words:
+        cleaned = cleanWord(word)
+        if cleaned:
+            cleanedWords.append(cleaned)
+
+    return " ".join(cleanedWords)
+
+def cleanWord(word: str) -> str:
+    """ Remove grammar and unwanted words """
+    clean = re.search("\w+-\w+|\w+", word)
+    if clean is None: return None
+    return clean.group(0).lower()

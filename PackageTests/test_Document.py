@@ -1,31 +1,26 @@
-import os, unittest
+import os, unittest, json
 from . import DOCUMENTS, ONTOLOGIES
 
 from InfoGain import Ontology, Document, TrainingDocument
+from InfoGain.Document import cleanSentence, cleanWord
 
 class Test_Document(unittest.TestCase):
 
-    def setUp(self):
-        pass
+    def test_cleanSentence(self):
+        sentenceMapping = {"Well this should work, I mean, I really hope that it does.":
+            "well this should work i mean i really hope that it does"}
 
-    def test_document_init(self):
-        # TODO: Place holder for verifying paragraphs and sentences
-        pass
+        for dirty, clean in sentenceMapping.items():
+            self.assertEqual(cleanSentence(dirty), clean)
 
-    def test_document_processKnowledge(self):
-        ont = Ontology(filepath=os.path.join(ONTOLOGIES, "languages.json"))
-        doc = Document(filepath=os.path.join(DOCUMENTS, "Predictlanguages.txt"))
+    def test_cleanWord(self):
 
-        doc.processKnowledge(ont)
+        wordMapping = {"Kieran's": "kieran", "un-holy": "un-holy", "word_spagetti": "word_spagetti",
+            "is": "is", "the": "the", "WORST": "worst"}
 
-    def test_document_text(self):
-        raise NotImplementedError()
+        for dirty, clean in wordMapping.items():
+            self.assertEqual(cleanWord(dirty), clean)
 
-    def test_TrainingDocument_Load(self):
-        """Open a valid training document structure and verify that its attributes are correct"""
-        document = TrainingDocument(filepath=os.path.join(DOCUMENTS, "training.json"))
-
-        self.assertEqual(len(document), 210)
 
 if __name__ == "__main__":
     unittest.main()
