@@ -13,10 +13,12 @@ class Ontology:
 
     def __init__(self, name=None, filepath=None):
 
-        self.name = name                        # Simply idenfitication of the ontology, no functional use
+        # Simply idenfitication of the ontology, no functional use
+        self.name = name
         self._concepts = {}                     # Unique concept store
         self._relations = {}                    # Unique relation store
-        self._facts = {}                        # key is relation, value list of facts for relation
+        # key is relation, value list of facts for relation
+        self._facts = {}
 
         if filepath:
 
@@ -30,12 +32,15 @@ class Ontology:
                 if self.concept(name) is not None:
                     return  # Do nothing as the concept exists
 
-                conceptData = data["Concepts"][name]  # Extract concept information from the input file
-                concept = Concept(name, conceptData)  # Construct the concept object
+                # Extract concept information from the input file
+                conceptData = data["Concepts"][name]
+                # Construct the concept object
+                concept = Concept(name, conceptData)
 
                 if "parents" in conceptData:
                     for parentName in conceptData["parents"]:
-                        conceptCreation(parentName)  # if exists: do nothing, else: create parent object
+                        # if exists: do nothing, else: create parent object
+                        conceptCreation(parentName)
                         parent = self.concept(parentName)
                         parent.addChild(concept)
                         concept.addParent(parent)
@@ -43,19 +48,23 @@ class Ontology:
                 self.addConcept(concept)  # Add concept to the ontology
 
             if "Concepts" in data:
-                [conceptCreation(name) for name in data["Concepts"].keys()]  # Load in all concepts
+                # Load in all concepts
+                [conceptCreation(name) for name in data["Concepts"].keys()]
 
             # Relation creation
             if "Relations" in data:
                 for name, rawRelation in data["Relations"].items():
 
                     # Collect the domain and ranges together from the ontology concepts
-                    domains = {self.concept(dom) for dom in rawRelation["domain"]}
-                    targets = {self.concept(tar) for tar in rawRelation["target"]}
+                    domains = {self.concept(dom)
+                               for dom in rawRelation["domain"]}
+                    targets = {self.concept(tar)
+                               for tar in rawRelation["target"]}
 
                     # Protect against referencing non existent concepts
                     if any([con is None for con in domains.union(targets)]):
-                        raise ValueError("Relation references unknown concept.")
+                        raise ValueError(
+                            "Relation references unknown concept.")
 
                     # Store the relation within the ontology
                     self.addRelation(Relation(domains, name, targets))
@@ -73,11 +82,13 @@ class Ontology:
                         raise ValueError("Fact refers to unknown objects.")
 
                     # Create fact object
-                    fact = Fact(domain, relation, target, rawFact["confidence"])
+                    fact = Fact(domain, relation, target,
+                                rawFact["confidence"])
 
                     if "conditions" in rawFact:
                         # Add the conditions to the fact object
-                        [fact.addCondition(Condition(con["logic"], con["salience"])) for con in rawFact["conditions"]]
+                        [fact.addCondition(Condition(con["logic"], con["salience"]))
+                         for con in rawFact["conditions"]]
 
                     # Add fact to ontology
                     self.addFact(fact)
@@ -110,6 +121,15 @@ class Ontology:
     def relations(self) -> [str]:
         return list(self._relations.values())
 
+    def findRelations(self, domain: str, target: str):
+        """ Return a list of relations that could be formed between the domain and the target """
+        dom, tar = self.concept(domain), self.concept(target)
+        if None in (dom, tar): raise Exception("Invalid concepts provided when looking for relations")
+
+        for relation in self.relations():
+            if relation.hasDomain(dom) and relation.hasTarget(tar):
+                yield relation
+
     def facts(self, relationName: str) -> list:
         return self._facts[relationName]
 
@@ -117,7 +137,7 @@ class Ontology:
         """ Create a new ontology object that is a deep copy of this ontology instance """
 
         ontologyClone = Ontology(self.name)
-        
+
         # Clone concepts
         [ontologyClone.addConcept(con.clone()) for con in self.concepts()]
 
@@ -134,7 +154,7 @@ class Ontology:
             ontologyClone.addRelation(Relation(domains, relation.name, targets))
 
         # Clone facts
-        #TODO: Clone facts, min: switch for logging function.
+        # TODO: Clone facts, min: switch for logging function.
         print("Warning :: Clone does not close facts")
 
         return ontologyClone
@@ -142,17 +162,17 @@ class Ontology:
     def conceptText(self) -> {str: [str]}:
         """ Return a map from concept text repr into the concept name """
 
-        ontTextRepr = {name: [name] for name in self._concepts.keys()}  # Concept names are also repr
+        # Concept names are also repr
+        ontTextRepr = {name: name for name in self._concepts.keys()}
 
         for concept in self.concepts():
             for text in concept.textRepr():
-                if not text in ontTextRepr:
-                    ontTextRepr[text] = []
-                
-                ontTextRepr[text].append(concept.name)
+
+                #TODO: Either handle overlapping reprs or ensure that it doesn't happen
+
+                ontTextRepr[text] = concept.name
 
         return ontTextRepr
-
 
     def save(self, filename=None) -> None:
         """ Save the file to the current working directory or the filename provided """
@@ -166,7 +186,8 @@ class Ontology:
 
         relations = {}
         for relname, relation in self._relations.items():
-            relations[relname] = {"domain": [con.name for con in relation.domains()], "target": [con.name for con in relation.targets()]}
+            relations[relname] = {"domain": [con.name for con in relation.domains()], "target": [
+                con.name for con in relation.targets()]}
 
         # TODO:Add facts
         ontology = {"Concepts": concepts, "Relations": relations}

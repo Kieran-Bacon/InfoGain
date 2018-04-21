@@ -3,66 +3,112 @@ import itertools as tools
 
 from .Ontology import Ontology
 
+class Datapoint:
+
+    def __init__(self, data: dict):
+        """ Initialise the datapoint information, unpack it from a dictionary item.
+
+        Params:
+            data - A dictionary of the datapoint information.
+        """
+
+        # TODO: include the in text value
+        self.domain = data["domain"]["concept"]
+        self.target = data["target"]["concept"]
+        self.relation = data["relation"]
+
+        self.text = data["text"]  # TODO: Find out what this is (not clear enough)
+
+        self.lContext = data["context"]["left"]
+        self.mContext = data["context"]["middle"]
+        self.rContext = data["context"]["right"]
+
+        self.annotation = data.get("annotation", None)
+
+        self.prediction = None
+
+        self.embedded = False
+        self.lContextEmbedding, self.mContextEmbedding, self.rContextEmbedding = None, None, None
+
+    def embedContext(self, embedder: object) -> None:
+        """ Embed the context text according to the embedder function """
+        self.lContextEmbedding = embedder(cleanSentence(self.lContext))
+        self.mContextEmbedding = embedder(cleanSentence(self.mContext))
+        self.rContextEmbedding = embedder(cleanSentence(self.rContext))
+        self.embedded = True
+
+    def features(self):
+        if not self.embedded:
+            raise Exception("Embeddings not set for this datapoint")
+
+        return [self.lContextEmbedding,self.lContextEmbedding,self.lContextEmbedding], self.annotation
+
 class Document:
-    pass
+
+    PARAGRAPH = re.compile("[\n\n]")
+    SENTENCE = re.compile("(?!\w+)[.?!][^\w+]")
+
+    def __init__(self, filepath):
+        with open(filepath) as handler:
+            self.content = handler.read()
+
+    def sentences(self):
+        sen = self.content.split(".")
+        return [cleanSentence(s).split() for s in sen]
+
+    @staticmethod
+    def split(text: str, separator: re) -> [str]:
+        """ Separate the text with the various separators that has been given. Replace all
+        separators with a single separator and then split by the single separator
+        
+        Params:
+            text - The string to be split
+            separators - A list of separator strings to have the string split by
+            
+        Returns:
+            str - A collection of ordered strings representing the initial text split by the
+                separators
+        """
+
+        split = []  # The segments of the text
+
+        while True:
+            # Match the separator
+            match = separator.search(text)
+            if match is None: break
+
+            # break up the text by the separator
+            s, e = match.span()
+            split.append(text[:s])
+            text = text[e:]
+
+        split.append(text)
+
+        return split
 
 class PredictionDocument(Document):
     """ Representation of processable documents. """
 
     def __init__(self, content=None, filepath=None):
+        """ Initialise the variables """
 
         if content:
-            self.content = content
+            self._content = content
         elif filepath:
             with open(filepath) as filehandler:
-                self.content = filehandler.read()
+                self._content = filehandler.read()
         else:
             raise Exception("Attempted to make a document without content")
 
         self._datapoints = []
 
-        # Split the content into paragraphs
-        rawParagraphs = self.content.split("\n\n")
-
-        self.paragraphs, self.cleanedParagraphs = [], []
-        
-        # Split the paragraphs into sentences
-        for rawParagraph in rawParagraphs:
-            rawSentences = rawParagraph.split(".")
-
-            sentences, cleanedSentences = [], []
-
-            # Create a cleaned version of the sentences
-            for rawSentence in rawSentences:
-                # Split the sentence into words and record the words.
-                if not len(rawSentence): continue  # Empty sentence
-                sentence = rawSentence.split()
-                sentences.append(sentence)
-                
-                cleanedSentence = []
-                # Replace some of the pronouns with the correct concepts
-                # TODO: identify the words that that are meant to be replaced
-                for rawWord in sentence:
-                    cleanedSentence.append(cleanWord(rawWord))
-
-                cleanedSentences.append(cleanedSentence)
-
-            self.paragraphs.append(sentences)
-            self.cleanedParagraphs.append(cleanedSentences)
-
     def text(self) -> str:
         """ Return the document content """
-        return self.content
+        return self._content
 
-    def cleanText(self) -> str:
-        """ Return the cleaned version of the document content """
-        content = []
-        for sentences in self.cleanedParagraphs:
-            paragraph = []
-            for sentence in sentences:
-                paragraph.append(" ".join(sentence))
-            content.append(" ".join(paragraph))
-        return "\n".join(content)
+    def datapoints(self) -> [Datapoint]:
+        """ Return the datapoints within the document """
+        return self._datapoints
 
     def processKnowledge(self, ontology: Ontology) -> None:
         """ Iterate over the document and create potential datapoints for all possible combinations 
@@ -72,68 +118,52 @@ class PredictionDocument(Document):
             ontology - The ontology object that contains all the information about the concepts and 
                 relationships we care about
         """
+
+        self._datapoints = []  # Reset any datapoints currently stored
         reprMap = ontology.conceptText()  # Collect all the ways in which some text may mean a concept
-        self._datapoints = []  # Ordered list of datapoints, as it links with location in the document
 
-        for paragraph in self.cleanedParagraphs:
-            # Iterate over every word of the document
-            for sentence in paragraph:
-                for position, word in enumerate(sentence):
-                    if word in reprMap:
-                        # Found a word that is a concept
+        def createDatapoint(dom, tar, relations, sentence):
+            """ Generate the datapoints and add them to the document datapoint collection """ 
 
-                        for offset in range(1, ontology.contextWindow):
-                            # Offset
-                            if len(sentence) <= position + offset:
-                                # We have finished the search for another concept to link too.
-                                break
+            p1, p2 = (dom.span(), tar.span()) if dom.span()[0] < tar.span()[0] else (tar.span(), dom.span())
 
-                            if sentence[position+offset] in reprMap:
-                                # Found a second valid concept
-                                frameStart = position - ontology.contextWindow
-                                position2 = position + offset
-                                word2 = sentence[position2]
-                                frameEnd = position + offset + ontology.contextWindow
+            for relation in relations:
+                # Construct the datapoint
+                dp = Datapoint({
+                    "domain": {"concept": reprMap[dom.group(0)], "text": dom.group(0)},
+                    "target": {"concept": reprMap[tar.group(0)], "text": tar.group(0)},
+                    "relation": relation.name,
+                    "text": sentence,
+                    "context": {
+                        "left": sentence[:p1[0]],
+                        "middle": sentence[p1[1]:p2[0]],
+                        "right": sentence[p2[1]:]
+                    }
+                })
 
-                                # Relation look up
-                                # Test that first word is domain
-                                combinations = list(tools.product(reprMap(word), reprMap(word2)))
-                                for com in combinations:
-                                    for relation in ontology.findRelations(domain=com[0], target=com[1]):
+                # Record the new datapoint
+                self._datapoints.append(dp)
 
-                                        self._datapoints.append(Datapoint({
-                                            "domain": {"text": word, "concept": com[0]},
-                                            "target": {"text": word2, "concept": com[1]},
-                                            "relation": relation.name,
-                                            "text": " ".join(sentence[frameStart: frameEnd]),
-                                            "context":{
-                                                "left": sentence[frameStart:position],
-                                                "middle": sentence[position:position2],
-                                                "right": sentence[position2:frameEnd]
-                                            }
-                                        }))
+        # Split the document by the paragraph
+        for paragraph in Document.split(self._content, Document.PARAGRAPH):
+            for sentence in Document.split(paragraph, Document.SENTENCE):
 
-                                # Test that first word is target
-                                combinations = list(tools.product(reprMap(word2), reprMap(word)))
-                                for com in combinations:
-                                    for relation in ontology.findRelations(domain=com[0], target=com[1]):
+                # Look for instances within the sentence
+                instances = [match for pattern in reprMap.keys() for match in re.finditer(pattern, sentence)]
 
-                                        self._datapoints.append(Datapoint({
-                                            "domain": {"text": word2, "concept": com[0]},
-                                            "target": {"text": word, "concept": com[1]},
-                                            "relation": relation.name,
-                                            "text": " ".join(sentence[frameStart: frameEnd]),
-                                            "context":{
-                                                "left": sentence[frameStart:position],
-                                                "middle": sentence[position:position2],
-                                                "right": sentence[position2:frameEnd]
-                                            }
-                                        }))
+                while instances:
+                    # While there are instances to work on
 
-    def datapoints(self):
-        """ Extract the datapoints """
-        return self._datapoints
+                    inst = instances.pop()
 
+                    for match in instances:
+                        instConcept, matchConcept = reprMap[inst.group(0)], reprMap[match.group(0)]
+                        
+                        relations = ontology.findRelations(domain=instConcept, target=matchConcept)
+                        createDatapoint(inst, match, relations, sentence)
+
+                        relations = ontology.findRelations(domain=matchConcept, target=instConcept)
+                        createDatapoint(match, inst, relations, sentence)
 
 class TrainingDocument(Document):
 
@@ -194,56 +224,6 @@ class TrainingDocument(Document):
     def datapoints(self):
         for point in self._datapoints:
             yield point
-
-class Datapoint:
-
-    def __eq__(self, other):
-        if isinstance(other, Datapoint):
-            # Compare the properties of the two datapoints and return if equal
-
-            return (self.text == other.text and\
-                    self.domain == other.domain and\
-                    self.target == other.target and\
-                    self.relation == other.relation and\
-                    self.annotation == other.annotation)
-
-        # Compare the text representation with the 
-        return self.text == other
-
-    def __ne__(self, other):
-        return not self.__eq__(other)
-
-    def __hash__(self):
-        return hash(self.text)
-
-    def __init__(self, data: dict):
-        """ Initialise the datapoint information, unpack it from a dictionary item.
-
-        Params:
-            data - A dictionary of the datapoint information.
-        """
-
-        # TODO: include the in text value
-        self.domain = data["domain"]["concept"]
-        self.target = data["target"]["concept"]
-        self.relation = data["relation"]
-
-        self.text = data["text"]  # TODO: Find out what this is (not clear enough)
-
-        self.lContext = data["context"]["left"]
-        self.mContext = data["context"]["middle"]
-        self.rContext = data["context"]["right"]
-
-        self.annotation = data.get("annotation", None)
-
-    def embedContext(self, embedder: object) -> None:
-        """ Embed the context text according to the embedder function """
-        self.lContextEmbedding = embedder(cleanSentence(self.lContext))
-        self.mContextEmbedding = embedder(cleanSentence(self.mContext))
-        self.rContextEmbedding = embedder(cleanSentence(self.rContext))
-
-    def __str__(self):
-        return self.text
 
 def cleanSentence(sentence: str) -> str:
     

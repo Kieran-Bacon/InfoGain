@@ -1,5 +1,5 @@
 import os, unittest
-from . import DOCUMENTS, ONTOLOGIES
+from . import DOCUMENTS, ONTOLOGIES, PATHS
 
 from InfoGain import Ontology, PredictionDocument
 
@@ -16,20 +16,15 @@ class Test_PredictionDocument(unittest.TestCase):
 
         document = PredictionDocument(content=contents)
 
-        # Check that only a single paragraph has been loaded.
-        self.assertEqual(len(document.paragraphs), 1)
-        self.assertEqual(len(document.cleanedParagraphs), 1)
-
-        # Check that correct number of sentences is generated
-        self.assertEqual(len(document.paragraphs[0]), 2)
-        self.assertEqual(len(document.cleanedParagraphs[0]),2)
-
-        # Check the contents are complete
-        self.assertEqual(document.text(), contents)
-        self.assertEqual(document.cleanText(), cleanedContents)
-
     def test_document_processKnowledge(self):
-        ont = Ontology(filepath=os.path.join(ONTOLOGIES, "languages.json"))
-        doc = PredictionDocument(filepath=os.path.join(DOCUMENTS, "Predictlanguages.txt"))
+        """ Set that the datapoints are generated correctly. """
 
-        doc.processKnowledge(ont)
+        language_content = "Luke has been living in England for about 10 years. When he first arrived he didn't know much"+\
+        " English. Luke has been studying French, German and Spanish in a local community college."
+
+        languages = Ontology(filepath=PATHS["language"]["ontology"])
+        doc = PredictionDocument(content=language_content)
+
+        doc.processKnowledge(languages)
+
+        self.assertEqual(len(doc.datapoints()), 5)

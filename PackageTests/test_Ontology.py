@@ -101,24 +101,24 @@ class Test_Ontology_Creation(unittest.TestCase):
     def test_conceptText(self):
         ont = Ontology(filepath=LANGUAGE_ONTOLOGY)
 
-        print(ont.conceptText())
-
-        expectedRepr = {'Badass': ['Kieran'],
-                        'Champ': ['Kieran'],
-                        'Charlie': ['Charlie'],
-                        'Country': ['Country'],
-                        'England': ['England'],
-                        'English': ['English'],
-                        'France': ['France'],
-                        'French': ['French'],
-                        'German': ['German'],
-                        'Germany': ['Germany'],
-                        'Kieran': ['Kieran'],
-                        'Language': ['Language'],
-                        'Legend': ['Kieran'],
-                        'Luke': ['Luke'],
-                        'Person': ['Person'],
-                        'Sad_Kieran': ['Sad_Kieran']}
+        expectedRepr = {'Badass': 'Kieran',
+                        'Champ': 'Kieran',
+                        'Charlie': 'Charlie',
+                        'Country': 'Country',
+                        'England': 'England',
+                        'English': 'English',
+                        'France': 'France',
+                        'French': 'French',
+                        'German': 'German',
+                        'Germany': 'Germany',
+                        'Kieran': 'Kieran',
+                        'Language': 'Language',
+                        'Legend': 'Kieran',
+                        'Luke': 'Luke',
+                        'Person': 'Person',
+                        'Sad_Kieran': 'Sad_Kieran',
+                        'Spanish': 'Spanish',
+                        'Spain':'Spain'}
 
         self.assertEqual(ont.conceptText(), expectedRepr)
 

@@ -12,15 +12,17 @@
         "Luke":{"parents":["Person"]},
         "Charlie":{"parents":["Person"]},
 
-        "Language":{ "permeable" : true },
-        "English":{ "parents":["Language"] },
+        "Language":{"permeable" : true },
+        "English":{"parents":["Language"] },
         "German":{"parents":["Language"]},
         "French":{"parents":["Language"]},
+        "Spanish":{"parents":["Language"]},
 
-        "Country": { "permeable" : true },
-        "England": { "parents": ["Country"] },
+        "Country": {"permeable" : true },
+        "England": {"parents": ["Country"] },
         "Germany":{"parents":["Country"]},
-        "France":{"parents":["Country"]}
+        "France":{"parents":["Country"]},
+        "Spain":{"parents":["Country"]}
     },
 
     "Relations": {

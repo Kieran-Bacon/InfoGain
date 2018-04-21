@@ -1,7 +1,7 @@
 from .Ontology import Ontology
 from .Document import Document, TrainingDocument
 
-import numpy
+import os, numpy
 from sklearn.neural_network import MLPClassifier
 from gensim.models import Word2Vec
 
@@ -45,7 +45,12 @@ class RelationExtractor(Ontology):
 
     def _trainWordEmbeddings(self):
         """ Train the word embedding model on the words provided by the training documents """
-        sentences = [sentence for doc in self._trainingCorpus for sentence in doc.sentences()]
+        sentences = []
+        text_locations = os.path.join(os.path.dirname(os.path.abspath(__file__)),"TextCollections")
+        txtCollections = [Document(os.path.join(text_locations, x)) for x in os.listdir(text_locations)]
+        for doc in txtCollections:
+            sentences += doc.sentences()
+        sentences += [sentence for doc in self._trainingCorpus for sentence in doc.sentences()]
         self.wordModel = Word2Vec(sentences, min_count=1, size=self.embeddingSize)
 
     def _embedSentence(self, sentence: str) -> numpy.array:
@@ -63,9 +68,9 @@ class RelationExtractor(Ontology):
         for index, word in enumerate(words):
             try:
                 embedding += pf(index)*self.wordModel.wv[word]
-            except:
-                print("Word not about of vocabulary ::", word)
-
+            except Exception as e:
+                print("Error during sentence embedding: " + str(e))
+                
         return embedding
 
     def fit(self, training_documents: [TrainingDocument] ) -> None:
@@ -100,13 +105,11 @@ class RelationExtractor(Ontology):
                 # Store the embedded point
                 try:
                     modelData[point.relation].append(point)
-                except:
-                    print(modelData.keys())
-                    assert(point.relation in self._relations)
-                    assert(point.relation in modelData)
+                except Exception as e:
+                    print("Error during processing training document: " + str(e))
 
-                    print("relation not found ::", point.relation)
-                    print(point.text)
+        for rel, data in modelData.items():
+            print("Relation:", rel, "Datapoints:", len(data))
 
         [self.ensemble[rel].fit(data) for rel, data in modelData.items()]
         
@@ -122,8 +125,13 @@ class RelationExtractor(Ontology):
             # Process the document given knowledge in the extractor to form potential datapoints
             doc.processKnowledge(self)
 
+            relations = {rel: [] for rel in self.ensemble.keys()}
             for point in doc.datapoints():
-                point.prediction = self.ensemble[point.relation].predict(point)
+                point.embedContext(self._embedSentence)
+                relations[point.relation].append(point)
+
+            for rel, points in relations.items():
+                self.ensemble[rel].predict(points)
 
             processedPile.append(doc)
 
@@ -132,10 +140,38 @@ class RelationExtractor(Ontology):
 class RelationModel:
     """ The model the learns the sentence embeddings for a particular relationship """
 
+    def __init__(self):
+        self.fitted = False
+        self.classifier = MLPClassifier(hidden_layer_sizes=(900,50,20))
+
     def fit(self, datapoints):
+        """ Fit the datapoints """
 
+        if not len(datapoints):
+            return 
+
+        Xtr, ttr = [], []
+        for point in datapoints:
+            x, t = point.features()
+            Xtr.append(numpy.concatenate(x))
+            ttr.append(t)
+
+        self.classifier.fit(Xtr, ttr)
+        self.fitted = True
         # Cross validation in here
-        pass
 
-    def predict(self, point):
-        return "yes"
+    def predict(self, points):
+        if not self.fitted:
+            return
+
+        compressed = []
+        for point in points:
+            x, _ = point.features()
+            compressed.append(numpy.concatenate(x))
+
+        predictions = self.classifier.predict(compressed)
+
+        print("WHAT", predictions)
+
+        for point, prediction in zip(points, predictions):
+            point.prediction = prediction
