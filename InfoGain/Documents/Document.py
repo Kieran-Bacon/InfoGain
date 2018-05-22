@@ -4,9 +4,15 @@ import itertools as tools
 from InfoGain.Ontology import Ontology
 from .Datapoint import Datapoint
 import InfoGain.Documents.DocumentOperations as DO
+from InfoGain.Documents.DocumentErrors import EmptyDocument
 
 class Document():
     """ Representation of processable documents. """
+
+    @classmethod
+    def anaphoraResolution(cls, content: str) -> str:
+        """ Resolve anaphorical issues present within the document """
+        return content
 
     def __init__(self, content=None, filepath=None):
         """ Initialise the variables """
@@ -17,8 +23,9 @@ class Document():
             with open(filepath) as filehandler:
                 self._content = filehandler.read()
         else:
-            raise Exception("Attempted to make a document without content")
+            raise EmptyDocument("Attempted to create document without content")
 
+        self._content = Document.anaphoraResolution(self._content)
         self._datapoints = []
 
     def sentences(self):
@@ -42,7 +49,6 @@ class Document():
                 relationships we care about
         """
 
-        self._datapoints = []  # Reset any datapoints currently stored
         reprMap = ontology.conceptText()  # Collect all the ways in which some text may mean a concept
 
         def createDatapoint(dom, tar, relations, sentence):
@@ -64,12 +70,16 @@ class Document():
                     }
                 })
 
-                # Record the new datapoint
-                self._datapoints.append(dp)
+                # return the datapoints
+                yield dp
+
+        self._datapoints = []  # Reset any datapoints currently stored
 
         # Split the document by the paragraph
         for paragraph in DO.split(self._content, DO.PARAGRAPH):
             for sentence in DO.split(paragraph, DO.SENTENCE):
+
+                datapoints = []  # Collections of datapoints for this sentence.
 
                 # Look for instances within the sentence
                 instances = [match for pattern in reprMap.keys() for match in re.finditer(re.escape(pattern), sentence)]
@@ -80,15 +90,13 @@ class Document():
                     inst = instances.pop()
 
                     for match in instances:
-                        try:
-                            instConcept, matchConcept = reprMap[inst.group(0)], reprMap[match.group(0)]
-                        except:
-                            print("Document Error")
-                            print(sentence)
-                            raise ValueError
+                        # Collect the concept names the representations relate too
+                        instConcept, matchConcept = reprMap[inst.group(0)], reprMap[match.group(0)]
                         
                         relations = ontology.findRelations(domain=instConcept, target=matchConcept)
-                        createDatapoint(inst, match, relations, sentence)
+                        [datapoints.append(p) for p in createDatapoint(inst, match, relations, sentence)]
 
                         relations = ontology.findRelations(domain=matchConcept, target=instConcept)
-                        createDatapoint(match, inst, relations, sentence)
+                        [datapoints.append(p) for p in createDatapoint(match, inst, relations, sentence)]
+
+                self._datapoints.append(datapoints)
