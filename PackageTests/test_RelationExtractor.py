@@ -1,7 +1,7 @@
 import os, unittest
 from . import DOCUMENTS, ONTOLOGIES, PATHS
 
-from InfoGain import Ontology, PredictionDocument, TrainingDocument, RelationExtractor
+from InfoGain import Ontology, Document, TrainingDocument, RelationExtractor
 
 class Test_RelationExtractor(unittest.TestCase):
 
@@ -31,7 +31,7 @@ class Test_RelationExtractor(unittest.TestCase):
 
         # Load Training documents
         training = [TrainingDocument(filepath=x) for x in self.paths["language"]["training"]]
-        predicting = [PredictionDocument(filepath=x) for x in self.paths["language"]["predicting"]]
+        predicting = [Document(filepath=x) for x in self.paths["language"]["predicting"]]
 
         extractor = RelationExtractor(filepath=PATHS["language"]["ontology"])
         extractor.fit(training)

@@ -22,12 +22,22 @@ class Relation:
         self._targets = targets.copy()
         [self._targets.add(con) for tar in targets for con in tar.descendants() if not con.permeable]
 
-    def domains(self) -> None:
+    def domains(self, dom: Concept = None) -> None:
         """ Return the domain concepts linked with the relation """
+        if not dom is None:
+            self._domains.add(dom)
+            [self._domains.add(con) for con in dom.descendants() if not con.permeable]
+            return
+
         return self._domains
 
-    def targets(self) -> None:
+    def targets(self, tar: Concept = None) -> None:
         """ Return the target concepts linked with the relation """
+        if not tar is None:
+            self._targets.add(tar)
+            [self._targets.add(con) for con in tar.descendants() if not con.permeable]
+            return
+
         return self._targets
 
     def hasDomain( self, concept: Concept) -> bool:
@@ -52,6 +62,14 @@ class Relation:
         """ Return a relation instance if applicable """
         if self.hasDomain(domain) and self.hasTarget(target):
             return RelationInstance(domain, self, target)
+
+    def minimise(self) -> dict:
+        """ Return only the information the relation represents """
+        relation = {
+            "domain": [con.name for con in self._domains],
+            "target": [con.name for con in self._targets]
+        }
+        return relation
 
 class RelationInstance:
     """ A relation instances describes one of a relations possible definitions """

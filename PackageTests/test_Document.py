@@ -1,26 +1,32 @@
-import os, unittest, json
-from . import DOCUMENTS, ONTOLOGIES
+import os, unittest
+from . import DOCUMENTS, ONTOLOGIES, PATHS
 
-from InfoGain import Ontology, Document, TrainingDocument
-from InfoGain.Document import cleanSentence, cleanWord
+from InfoGain import Ontology, Document
 
 class Test_Document(unittest.TestCase):
+    """ Test the functionality and inner workings of the generic prediction document """
 
-    def test_cleanSentence(self):
-        sentenceMapping = {"Well this should work, I mean, I really hope that it does.":
-            "well this should work i mean i really hope that it does"}
+    def test_content_load(self):
+        """ Generate a document with content that has been passed to the document """
+        contents = "When I generate a document in this manner, I want to ensure that the document "+\
+        "object is created correctly. This is the initial test! Fingers crossed!!! Testing sentence end."
 
-        for dirty, clean in sentenceMapping.items():
-            self.assertEqual(cleanSentence(dirty), clean)
+        cleanedContents = "when i generate a document in this manner i want to ensure that the " +\
+        "document object is created correctly this is the initial test fingers crossed testing sentence end"
 
-    def test_cleanWord(self):
+        document = Document(content=contents)
 
-        wordMapping = {"Kieran's": "kieran", "un-holy": "un-holy", "word_spagetti": "word_spagetti",
-            "is": "is", "the": "the", "WORST": "worst"}
+        # TODO: This needs to be finished.
 
-        for dirty, clean in wordMapping.items():
-            self.assertEqual(cleanWord(dirty), clean)
+    def test_document_processKnowledge(self):
+        """ Set that the datapoints are generated correctly. """
 
+        language_content = "Luke has been living in England for about 10 years. When he first arrived he didn't know much"+\
+        " English. Luke has been studying French, German and Spanish in a local community college."
 
-if __name__ == "__main__":
-    unittest.main()
+        languages = Ontology(filepath=PATHS["language"]["ontology"])
+        doc = Document(content=language_content)
+
+        doc.processKnowledge(languages)
+
+        self.assertEqual(len(doc.datapoints()), 5)

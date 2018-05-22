@@ -112,7 +112,8 @@ class Ontology:
     def concept(self, conceptName: str) -> Concept:
         return self._concepts.get(conceptName, None)
 
-    def concepts(self) -> [str]:
+    def concepts(self) -> [Concept]:
+        """ Return a list of concepts found within the ontology, order is non deterministic """
         return list(self._concepts.values())
 
     def relation(self, relationName: str) -> Relation:
@@ -180,17 +181,13 @@ class Ontology:
         if filename is None:
             filename = "./" + self.name + ".json"
 
-        concepts = {}
-        for name, concept in self._concepts.items():
-            concepts[name] = {"parents": [name for name in concept.parents]}
-
-        relations = {}
-        for relname, relation in self._relations.items():
-            relations[relname] = {"domain": [con.name for con in relation.domains()], "target": [
-                con.name for con in relation.targets()]}
+        concepts = {name: concept.minimise() for name, concept in self._concepts.items()}
+        relations = {name: relation.minimise() for name, relation in self._relations.items()}
 
         # TODO:Add facts
         ontology = {"Concepts": concepts, "Relations": relations}
+
+        if not self.name is None: ontology["name"] = self.name
 
         with open(filename, "w") as handler:
             handler.write(json.dumps(ontology, indent=4))

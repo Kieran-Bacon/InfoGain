@@ -1,5 +1,7 @@
 from .Ontology import Ontology
-from .Document import Document, TrainingDocument
+
+from .Documents.Document import Document
+from .Documents.TrainingDocument import TrainingDocument
 
 import os, numpy
 from sklearn.neural_network import MLPClassifier

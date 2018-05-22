@@ -110,6 +110,19 @@ class Concept:
 
         return decendants
 
+    def minimise(self) -> dict:
+        """ Return only the information the concept represents """
+        concept = {
+            "name": self.name,
+            "parents" : list(self.parents),
+        }
+
+        if len(self.text): concept["textRepr"] = list(self.text)
+        if len(self._properties): concept["properties"] = self._properties
+        if self.permeable: concept["permeable"] = True
+
+        return concept
+
     def isCircular(self, ancestors = [], decendants = [] ):
         """ Raises a value error if the concept is linked in a circular fashion with
         other concepts.

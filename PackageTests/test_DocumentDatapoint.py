@@ -1,6 +1,6 @@
 import os, unittest
 
-from InfoGain.Document import Datapoint
+from InfoGain.Documents.Datapoint import Datapoint
 
 class Test_Document_Datapoint(unittest.TestCase):
     pass
