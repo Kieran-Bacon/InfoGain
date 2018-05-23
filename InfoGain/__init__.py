@@ -14,6 +14,7 @@ from .ReasoningEngine import ReasoningEngine
 from .Documents.Datapoint import Datapoint
 from .Documents.Document import Document
 from .Documents.TrainingDocument import TrainingDocument
+from .Documents.AnnotationDocument import AnnotationDocument
 
 import logging
 logging.basicConfig(format='%(asctime)s|%(levelname)s|%(message)s', datefmt='%m/%d/%Y %I:%M:%S')

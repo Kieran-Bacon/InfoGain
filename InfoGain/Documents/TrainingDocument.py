@@ -70,7 +70,7 @@ class TrainingDocument:
 
     def addDatapoint(self, point: Datapoint) -> None:
         """ Add a datapoint into the training document """
-        self.content += " " + point.text
+        self.content += " " + point.text + "."
         self._datapoints.append(point)
 
     def removeDatapoint(self, point: Datapoint) -> None:
@@ -99,4 +99,4 @@ class TrainingDocument:
         }
         path = os.path.join(folder, filename)
         with open(path, "w") as filehandler:
-            filehandler.write(json.dumps(struct))
+            filehandler.write(json.dumps(struct, indent=4))
