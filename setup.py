@@ -1,6 +1,6 @@
 from setuptools import setup
 
-requires = []
+requires = ["gensim"]
 
 setup(name='InfoGain',
       install_requires=requires,

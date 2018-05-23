@@ -4,6 +4,18 @@ import re
 PARAGRAPH = re.compile("[\n\n]")
 SENTENCE = re.compile("(?!\w+)[.?!][^\w+]")
 
+def cmdread(msg: str, valid: list = None):
+    """ Read input from the command line ensuring that the input is valid """
+
+    if valid:
+        msg += " ("+",".join(valid)+")"
+
+    while True:
+        read = input(msg + "\n")
+        if valid is None or read in valid: return read
+        else: print("Invalid input.")
+            
+
 def cleanWhiteSpace(content: str) -> str:
     """ Remove excessive whitespace from a document. """
     content = re.sub("[ \t]+", " ", content)

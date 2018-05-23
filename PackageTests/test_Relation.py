@@ -33,11 +33,11 @@ class Test_Relation(unittest.TestCase):
         self.drives = Relation({self.person},"drives",{self.vehicle})
 
     def test_domains(self):
-        self.assertEqual(Relation({},"test",{}).domains(), {})
+        self.assertEqual(Relation(set(),"test",set()).domains(), set())
         self.assertEqual(self.drives.domains(),{self.person, self.dave, self.karen})
 
     def test_targets(self):
-        self.assertEqual(Relation({},"test",{}).targets(), {})
+        self.assertEqual(Relation(set(),"test",set()).targets(), set())
         self.assertEqual(self.drives.targets(),{self.vehicle,self.car,self.truck})
 
     def test_hadDomain(self):
