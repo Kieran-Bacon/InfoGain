@@ -5,6 +5,7 @@
 *.pyc
 .cache/*
 *.pdf
+**/.pytest_cache/*
 
 # Tex ignore
 *.aux
