@@ -55,16 +55,21 @@ class Ontology:
             if "Relations" in data:
                 for name, rawRelation in data["Relations"].items():
 
-                    # Collect the domain and ranges together from the ontology concepts
-                    domains = {self.concept(dom)
-                               for dom in rawRelation["domain"]}
-                    targets = {self.concept(tar)
-                               for tar in rawRelation["target"]}
+                    rawDomains = rawRelation["domain"]
+                    rawTargets = rawRelation["target"]
 
-                    # Protect against referencing non existent concepts
-                    if any([con is None for con in domains.union(targets)]):
-                        raise ValueError(
-                            "Relation references unknown concept.")
+                    if not rawRelation.get("sets",False):
+                        rawDomains, rawTargets = [rawDomains], [rawTargets]
+
+                    # Relation contains sets of domain, target pairings
+                    
+                    domains = [{self.concept(dom) for dom in domset} 
+                        for domset in rawDomains]
+                    targets = [{self.concept(tar) for tar in tarset}
+                        for tarset in rawTargets]
+
+                    if any([con is None for group in domains+targets for con in group]):
+                        raise MissingConcept("Relation '"+name+"' references unknown concept.")
 
                     # Store the relation within the ontology
                     self.addRelation(Relation(domains, name, targets))
@@ -156,7 +161,7 @@ class Ontology:
 
         # Clone facts
         # TODO: Clone facts, min: switch for logging function.
-        print("Warning :: Clone does not close facts")
+        print("Warning :: Clone does not clone facts")
 
         return ontologyClone
 
@@ -191,3 +196,6 @@ class Ontology:
 
         with open(filename, "w") as handler:
             handler.write(json.dumps(ontology, indent=4))
+
+class MissingConcept(Exception):
+    pass
