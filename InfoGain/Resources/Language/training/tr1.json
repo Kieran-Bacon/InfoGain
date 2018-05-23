@@ -1,0 +1,112 @@
+{
+    "datapoints": [
+        {
+            "annotation": 0,
+            "context": {
+                "left": "Once upon a time, ",
+                "middle": " decided that he would like to study ",
+                "right": ", rather than French"
+            },
+            "domain": {
+                "concept": "Luke",
+                "text": "Luke"
+            },
+            "relation": "speaks",
+            "target": {
+                "concept": "English",
+                "text": "English"
+            },
+            "text": "Once upon a time, Luke decided that he would like to study English, rather than French"
+        },
+        {
+            "annotation": 1,
+            "context": {
+                "left": "Once upon a time, ",
+                "middle": " decided that he would like to study English, rather than ",
+                "right": ""
+            },
+            "domain": {
+                "concept": "Luke",
+                "text": "Luke"
+            },
+            "relation": "speaks",
+            "target": {
+                "concept": "French",
+                "text": "English"
+            },
+            "text": "Once upon a time, Luke decided that he would like to study English, rather than French"
+        },
+        {
+            "annotation": 0,
+            "context": {
+                "left": "",
+                "middle": " doesn't speak ",
+                "right": ""
+            },
+            "domain":{
+                "concept":"Luke",
+                "text": "Luke"
+            },
+            "relation": "speaks",
+            "target":{
+                "concept": "English",
+                "text": "English"
+            },
+            "text": "Luke doesn't speak English"
+        },
+        {
+            "annotation": 1,
+            "context": {
+                "left": "",
+                "middle": " speaks ",
+                "right": ""
+            },
+            "domain":{
+                "concept":"Luke",
+                "text": "Luke"
+            },
+            "relation": "speaks",
+            "target":{
+                "concept": "English",
+                "text": "English"
+            },
+            "text": "Luke speaks English"
+        },
+        {
+            "annotation": 1,
+            "context": {
+                "left": "",
+                "middle": " has been speaking ",
+                "right": " for years"
+            },
+            "domain":{
+                "concept":"Luke",
+                "text": "Luke"
+            },
+            "relation": "speaks",
+            "target":{
+                "concept": "English",
+                "text": "English"
+            },
+            "text": "Luke has been speaking English for years"
+        },
+        {
+            "annotation": 0,
+            "context": {
+                "left": "Years ago, ",
+                "middle": " wanted to learn how to speak ",
+                "right": ", but he never did"
+            },
+            "domain":{
+                "concept":"Luke",
+                "text": "Luke"
+            },
+            "relation": "speaks",
+            "target":{
+                "concept": "English",
+                "text": "English"
+            },
+            "text": "Years ago, Luke wanted to learn how to speak English, but he never did"
+        }
+    ]
+}

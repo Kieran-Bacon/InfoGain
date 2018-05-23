@@ -84,6 +84,14 @@ class Datapoint:
 
         return [self.lContextEmbedding,self.lContextEmbedding,self.lContextEmbedding], self.annotation
 
+    def isDuplicate(self, point) -> bool:
+        """ Check if another point expresses the same relationship for the same segment of a document """
+
+        return (self.domainRepr == point.domainRepr and
+            self.targetRepr == point.targetRepr and
+            self.relation == point.relation and
+            self.text == point.text)
+
     def minimise(self) -> dict:
         struct = {
             "domain": {

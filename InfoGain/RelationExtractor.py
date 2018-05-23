@@ -3,7 +3,10 @@ from .Ontology import Ontology
 from .Documents.Document import Document
 from .Documents.TrainingDocument import TrainingDocument
 
-import os, numpy
+import os, numpy, logging
+from queue import Queue
+from threading import Thread
+
 from sklearn.neural_network import MLPClassifier
 from gensim.models import Word2Vec
 
@@ -27,6 +30,7 @@ class RelationExtractor(Ontology):
         self.name = name
         self.contextWindow = k
         self.embeddingSize = embeddingSize
+        self.MAXTHREADS = 4
 
         if filepath:
             # Call ontology constructor
@@ -41,7 +45,7 @@ class RelationExtractor(Ontology):
             self._facts = ontologyClone._facts
 
         self.WordEmbedding = None
-        self.ensemble = {rel.name:RelationModel() for rel in self.relations()}
+        self.ensemble = {rel.name:RelationModel(rel.name) for rel in self.relations()}
         
         self._trainingCorpus = set()
 
@@ -100,80 +104,180 @@ class RelationExtractor(Ontology):
 
         # Train the relation models
         modelData = {rel: [] for rel in self.ensemble.keys()}
+
         for document in training_documents:
             for point in document.datapoints():
                 # Pass the embedding function to the point to embed its context
                 point.embedContext(self._embedSentence)
                 # Store the embedded point
-                try:
-                    modelData[point.relation].append(point)
-                except Exception as e:
-                    print("Error during processing training document: " + str(e))
+                modelData[point.relation].append(point)
 
-        for rel, data in modelData.items():
-            print("Relation:", rel, "Datapoints:", len(data))
+        # Begin training of the relation models, threading each model for efficiency
+        def trainRelationModel(queue: Queue):
+            while True:
+                print("WHat")
+                data = queue.get()
+                if data is None: break
 
-        [self.ensemble[rel].fit(data) for rel, data in modelData.items()]
+                rel, data = data  # Expand the struction
+                self.ensemble[rel].fit(data)  # Fit the data
+                queue.task_done()  # Single that the task is done
+
+        relationQueue = Queue()
+
+        num_threads = range(min(len(modelData), self.MAXTHREADS))
+        threads = [Thread(target=trainRelationModel, args=(relationQueue,)) for _ in num_threads]
+
+        # Start threads and add relations data to processing queue
+        [t.start() for t in threads]
+        [relationQueue.put(data) for data in modelData.items()]
+
+        # Process till training is complete
+        relationQueue.join()
+
+        # Signal the threads to stop computation and join
+        [relationQueue.put(None) for _ in num_threads]
+        [t.join() for t in threads]
         
     def predict(self, documents: [Document]) -> [Document]:
+        """
+        Take a collection of documents and predict each of the extractable datapoints
+        found. The documents are paralised to provide a performance boost. Documents have 
+        datapoints classified and generated.
+
+        Params:
+            documents - A collection of Documents
+
+        Returns:
+            [Document] - Initial document collection (order altered) process and predicted
+        """
 
         if isinstance(documents, Document):
             documents = [documents]
 
-        processedPile = []
+        # Set up document queue and processed pile
+        documentQueue, processedPile = Queue(), set()
 
-        for doc in documents:
+        # Generate threads
+        num_threads = range(min(len(documents), self.MAXTHREADS))
+        threads = [Thread(target=self._predictDocument, args=(documentQueue, processedPile)) for _ in num_threads]
 
-            # Process the document given knowledge in the extractor to form potential datapoints
-            doc.processKnowledge(self)
+        # Start threads and add documents to processing queue
+        [t.start() for t in threads]
+        [documentQueue.put(document) for document in documents]
 
-            relations = {rel: [] for rel in self.ensemble.keys()}
-            for point in doc.datapoints():
-                point.embedContext(self._embedSentence)
-                relations[point.relation].append(point)
+        # Process till documents are complete
+        documentQueue.join()
 
-            for rel, points in relations.items():
-                self.ensemble[rel].predict(points)
+        # Signal the threads to stop computation and join
+        [documentQueue.put(None) for _ in num_threads]
+        [t.join() for t in threads]
 
-            processedPile.append(doc)
+        return list(processedPile)
 
-        return processedPile
+    def _predictDocument(self, documentQueue: Queue, processedPile: set):
 
+        while True:
+            document = documentQueue.get()
+            if document is None: break  # No more documents to process
+
+            # Process the document according to the ontology
+            document.processKnowledge(self)
+
+            # Extract the datapoints from the document
+            documentPredictions = []
+            for segment in document.datapoints():
+
+                # Separate out the datapoints into relations
+                models = {}
+                for point in segment:
+                    # Pass the embedding function to convert its context
+                    point.embedContext(self._embedSentence)
+                    collection = models.get(point.relation, [])
+                    collection.append(point)
+                    models[point.relation] = collection
+
+                # Predict the points by their respective models
+                predictedPoints = []
+                for model, collection in models.items():
+                    predictedPoints += self.ensemble[model].predict(collection)
+
+                # Store the points and their predictions
+                documentPredictions.append(predictedPoints)
+
+            # Return to the document the new point set
+            document.datapoints(documentPredictions)
+                
 class RelationModel:
     """ The model the learns the sentence embeddings for a particular relationship """
 
-    def __init__(self):
-        self.fitted = False
+    # TODO: Set the neural network sizes
+
+    def __init__(self, name: str):
+        self.name = name
         self.classifier = MLPClassifier(hidden_layer_sizes=(900,50,20))
+        self.fitted = False
 
     def fit(self, datapoints):
         """ Fit the datapoints """
 
+        # Do nothing if no datapoints have been provided
         if not len(datapoints):
+            logging.warning("Fitting Relation model for '"+self.name+"' without any datapoints")
             return 
 
-        Xtr, ttr = [], []
-        for point in datapoints:
-            x, t = point.features()
-            Xtr.append(numpy.concatenate(x))
-            ttr.append(t)
+        # Convert the point structure into something usable by sklearn
 
+        Xtr, ttr = [], []
+        [Xtr.append(numpy.concatenate(x)) or ttr.append(t) for point in datapoints for x, t in point.features()]
+            
+        # Fit the classifier
         self.classifier.fit(Xtr, ttr)
         self.fitted = True
-        # Cross validation in here
+
+        # TODO: Cross Validation
+
 
     def predict(self, points):
+
         if not self.fitted:
+            logging.error("Attempt to predict on unfitted relation model: " + self.name)
             return
 
-        compressed = []
-        for point in points:
-            x, _ = point.features()
-            compressed.append(numpy.concatenate(x))
+        # Extract data point feature information
+        Xte = [numpy.concatenate(x) for point in points for x, _ in point.features()]
 
-        predictions = self.classifier.predict(compressed)
+        # Predict on the data
+        predictions = self.classifier.predict(Xte)
+        probabilities = self.classifier.predict_proba(Xte)
 
-        print("WHAT", predictions)
+        for point, pred, prob in zip(points, predictions, probabilities):
+            point.prediction = pred
+            point.predProb = prob[self.classifier.classes_.index(pred)]
 
-        for point, prediction in zip(points, predictions):
-            point.prediction = prediction
+        processedPoints = []
+
+        # Verify the points
+        while points:
+
+            # Extract each point
+            point = points.pop()
+
+            # Find any duplicate relations
+            duplicates = [p for p in points if point.isDuplicate(p)]
+
+            # Extract them and remove them from the orginal structure
+            for p in duplicates:
+                del points[points.index(p)]
+
+            while duplicates:
+
+                # Iteratively record out of the duplicated points the one with the greatest probability
+                dup = duplicates.pop()
+                point = point if point.predProb > dup else dup
+
+            # Store the winner
+            processedPoints.append(point)
+
+        return processedPoints
+            

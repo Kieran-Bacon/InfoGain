@@ -1,4 +1,4 @@
-import os, re, logging, json
+import os, re, logging, json, logging
 import itertools as tools
 
 from InfoGain.Ontology import Ontology
@@ -12,6 +12,7 @@ class Document():
     @classmethod
     def anaphoraResolution(cls, content: str) -> str:
         """ Resolve anaphorical issues present within the document """
+        logging.warning("Anaphora resolution is not implemented")
         return content
 
     def __init__(self, content=None, filepath=None):
@@ -36,8 +37,13 @@ class Document():
         """ Return the document content """
         return self._content
 
-    def datapoints(self) -> [Datapoint]:
-        """ Return the datapoints within the document """
+    def datapoints(self, data: [[Datapoint]] = None) -> [Datapoint]:
+        """
+        Return the datapoints held by the document. If datapoints have been provided replace
+        the currently held datapoints and record new datapoins. Function is used by the relation
+        extractor to replace predicted points and remove duplocated point
+        """
+        if data: self._datapoints = data
         return self._datapoints
 
     def processKnowledge(self, ontology: Ontology) -> None:

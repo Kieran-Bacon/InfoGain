@@ -154,10 +154,6 @@ class Ontology:
             targets = {ontologyClone.concept(tar.name) for tar in relation.targets()}
             ontologyClone.addRelation(Relation(domains, relation.name, targets))
 
-        # Clone facts
-        # TODO: Clone facts, min: switch for logging function.
-        print("Warning :: Clone does not close facts")
-
         return ontologyClone
 
     def conceptText(self) -> {str: [str]}:
