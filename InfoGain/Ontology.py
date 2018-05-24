@@ -130,10 +130,11 @@ class Ontology:
     def findRelations(self, domain: str, target: str):
         """ Return a list of relations that could be formed between the domain and the target """
         dom, tar = self.concept(domain), self.concept(target)
-        if None in (dom, tar): raise Exception("Invalid concepts provided when looking for relations")
+        if None in (dom, tar):
+            raise Exception("Invalid concepts provided when looking for relations")
 
         for relation in self.relations():
-            if relation.hasDomain(dom) and relation.hasTarget(tar):
+            if relation.hasDomainTargetPair(dom, tar):
                 yield relation
 
     def facts(self, relationName: str) -> list:

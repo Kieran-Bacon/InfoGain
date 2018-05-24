@@ -9,7 +9,7 @@ class Datapoint:
             data - A dictionary of the datapoint information.
         """
 
-        self.annotation, self.prediction = None, None
+        self.annotation, self.prediction, self.predProb = None, None, None
 
         self.embedded = False
         self.lContextEmbedding, self.mContextEmbedding, self.rContextEmbedding = None, None, None
@@ -30,6 +30,9 @@ class Datapoint:
 
             # The datapoint's class definition
             self.annotation = data.get("annotation", None)
+
+    def __str__(self):
+        return " ".join([self.domainRepr, self.relation, self.targetRepr, str(self.annotation), str(self.prediction), str(self.predProb)])
 
     def __eq__(self, other):
 

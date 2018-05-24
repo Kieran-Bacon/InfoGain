@@ -34,9 +34,9 @@ class AnnotationDocument(Document):
 
                 print("RELATION: {} {} {}".format(point.domain, point.relation, point.target))
 
-                ans = DO.cmdread("Does this string represent this relation?",['0','1','y','n'])
+                ans = DO.cmdread("Does this string represent this relation?",['-1','0','1'])
 
-                point.annotation = 1 if ans in ('1','y') else 0
+                point.annotation = int(ans)
                 xtr.addDatapoint(point)
 
                 print("\n\n\n\n")

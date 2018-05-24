@@ -26,12 +26,13 @@ class Document():
         else:
             raise EmptyDocument("Attempted to create document without content")
 
-        self._content = Document.anaphoraResolution(self._content)
+        # TODO: Complete the resolution
+        #self._content = Document.anaphoraResolution(self._content)
         self._datapoints = []
 
     def sentences(self):
         """ Return the sentences """
-        return [DO.cleanSentence(s).split() for s in self._content.split(".")]
+        return DO.split(self._content, DO.SENTENCE)
 
     def text(self) -> str:
         """ Return the document content """
