@@ -6,7 +6,7 @@ from .Documents.TrainingDocument import TrainingDocument
 import InfoGain.Resources.TextCollections as TEXT
 import InfoGain.Documents.DocumentOperations as DO
 
-import os, numpy, logging
+import os, numpy, logging, sys
 from queue import Queue
 from threading import Thread
 
@@ -37,6 +37,8 @@ class RelationExtractor(Ontology):
         self.contextWindow = k
         self.embeddingSize = embeddingSize
         self.MAXTHREADS = 4
+
+        RelationModel.defineStructure((embeddingSize, 50, 20))
 
         if filepath:
             # Call ontology constructor
@@ -79,14 +81,14 @@ class RelationExtractor(Ontology):
         def pf(index: int) -> float:
             """ Return the output of a monotonic function as to reduce traling word embeddings """
             # TODO: Change function to something meaningful with support from someone
-            return -numpy.log((index+1)/(len(words)+1))
+            return 1  #-numpy.log((index+1)/(len(words)+1))
 
         for index, word in enumerate(words):
             if not word in self.wordModel.wv:
                 raise UnseenWord("During sentence embedding, encountered word without embedding: '" + word+ "'")
             embedding += pf(index)*self.wordModel.wv[word]
                 
-        return embedding
+        return embedding if not len(words) else embedding/len(words)
 
     def fit(self, training_documents: [TrainingDocument] ) -> None:
         """ Use the provided annotated document to provide training data to the
@@ -131,6 +133,7 @@ class RelationExtractor(Ontology):
                 self.ensemble[rel].fit(data)  # Fit the data
                 queue.task_done()  # Single that the task is done
 
+        # Begin the relation queue structure
         relationQueue = Queue()
 
         num_threads = range(min(len(modelData), self.MAXTHREADS))
@@ -140,8 +143,22 @@ class RelationExtractor(Ontology):
         [t.start() for t in threads]
         [relationQueue.put(data) for data in modelData.items()]
 
+        sys.stdout.write("Training process has begun:\n")
+
+        while relationQueue.qsize():
+
+            count = len(modelData) - relationQueue.qsize()
+            mult = 25 - int((relationQueue.qsize()/len(modelData)*25))
+
+            sys.stdout.write("\r|" + "#"*mult + "-"*(25-mult) + "| ( {}/{} ) training...".format(count, len(modelData) ))
+            sys.stdout.flush()
+
         # Process till training is complete
         relationQueue.join()
+        
+        # Pretty prompt
+        sys.stdout.write("\r|" + "#"*25 + "| ( {}/{} ) training... Complete!\n".format(len(modelData),len(modelData)))
+        sys.stdout.flush()
 
         # Signal the threads to stop computation and join
         [relationQueue.put(None) for _ in num_threads]
@@ -228,11 +245,16 @@ class RelationExtractor(Ontology):
 class RelationModel:
     """ The model the learns the sentence embeddings for a particular relationship """
 
-    # TODO: Set the neural network sizes
+    structure = (900, 5)
+    #structure = (900,50,20)
+
+    @classmethod
+    def defineStructure(cls, shape: tuple):
+        cls.structure = shape
 
     def __init__(self, name: str):
         self.name = name
-        self.classifier = MLPClassifier(hidden_layer_sizes=(900,50,20))
+        self.classifier = MLPClassifier(hidden_layer_sizes=RelationModel.structure)
         self.fitted = False
 
     def fit(self, datapoints):

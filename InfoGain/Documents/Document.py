@@ -63,7 +63,7 @@ class Document(DocumentBase):
                 datapoints = []  # Collections of datapoints for this sentence.
 
                 # Look for instances within the sentence - ensuring that you only match with individual words.
-                instances = [match for pattern in reprMap.keys() for match in re.finditer("(?!\s)"+re.escape(pattern)+"(?=(\W))", sentence)]
+                instances = [match for pattern in reprMap.keys() for match in re.finditer("(?!\s)"+re.escape(pattern)+"((?=\W)|$)", sentence)]
 
                 while instances:
                     # While there are instances to work on

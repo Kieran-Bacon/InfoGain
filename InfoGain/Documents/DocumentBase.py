@@ -1,4 +1,3 @@
-
 import uuid
 
 from .Datapoint import Datapoint
@@ -40,6 +39,10 @@ class DocumentBase:
         length of the content """
         if self._datapoints: return len(self._datapoints)
         return len(self._content)
+
+    def text(self) -> str:
+        """ Return the content of the document """
+        return self._content
  
     def sentences(self) -> [str]:
         """ Split the content of the document into sentences, and return the collection of 

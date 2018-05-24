@@ -1,7 +1,7 @@
 import re
 
 # Document specific definitions
-PARAGRAPH = re.compile("[\n\n]")
+PARAGRAPH = re.compile("[\n\n|\n]")
 SENTENCE = re.compile("(?!\w+)[.?!][^\w+]")
 
 def cmdread(msg: str, valid: list = None):

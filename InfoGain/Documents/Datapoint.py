@@ -85,7 +85,7 @@ class Datapoint:
         if not self.embedded:
             raise Exception("Embeddings not set for this datapoint")
 
-        return [self.lContextEmbedding,self.lContextEmbedding,self.lContextEmbedding], self.annotation
+        return [self.lContextEmbedding,self.mContextEmbedding,self.rContextEmbedding], self.annotation
 
     def isDuplicate(self, point) -> bool:
         """ Check if another point expresses the same relationship for the same segment of a document """
