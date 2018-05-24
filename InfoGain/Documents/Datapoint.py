@@ -112,7 +112,9 @@ class Datapoint:
                 "middle": self.mContext,
                 "right": self.rContext
             },
-            "annotation": self.annotation
+            "annotation": self.annotation,
+            "prediction": self.prediction,
+            "probability": self.predProb
         }
 
         return struct

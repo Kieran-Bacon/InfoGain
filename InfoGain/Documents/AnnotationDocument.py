@@ -19,16 +19,15 @@ class AnnotationDocument(Document):
         self.processKnowledge(ont)
 
         index, total = 0, sum([len(x) for x in self._datapoints])
-
-        xtr = TrainingDocument()
+        annotated = []
 
         for segment in self.datapoints():
             for point in segment:
 
                 index += 1
-                mult = int((index/total)*10)
+                mult = int((index/total)*25)
 
-                print("|" + "#"*mult + "-"*(10-mult) + "|", "({}/{} datapoints)".format(index, total))
+                print("|" + "#"*mult + "-"*(25-mult) + "|", "({}/{} datapoints)".format(index, total))
 
                 print("TEXT:\n{}\n".format(point.text))
 
@@ -37,10 +36,13 @@ class AnnotationDocument(Document):
                 ans = DO.cmdread("Does this string represent this relation?",['-1','0','1'])
 
                 point.annotation = int(ans)
-                xtr.addDatapoint(point)
+                annotated.append(point)
 
                 print("\n\n\n\n")
 
+        xtr = TrainingDocument(content=self._content)
+        xtr.datapoints(annotated)
+        
         if filename: xtr.save(filename=filename)
 
         return xtr

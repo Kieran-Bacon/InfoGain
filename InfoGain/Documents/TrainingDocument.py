@@ -1,82 +1,41 @@
 import os, json
 
+from .DocumentBase import DocumentBase
+
 import InfoGain.Documents.DocumentOperations as DO
 from .Datapoint import Datapoint
 
-class TrainingDocument:
+class TrainingDocument(DocumentBase):
 
-    def __init__(self, name: str = None, filepath: str = None, content: dict = None):
-        """ Initialise the training document
+    def __init__(self, name: str = None, content: dict = None, filepath: str = None,):
+        super().__init__(name, content, filepath)
 
-        Params:
-            filepath (string) - Valid filepath to the document to be processed
-            content (dict) - A collection of valid datapoints that are meant to be treated as from
-                the same document
-        """
+        self._concepts = {}
 
-        self.name = name
-        self.content = ""
-        self._datapoints = []  # The datapoints extracted from the document
-        self._concepts = {}  # Set of instance names of concepts within the text
+        try:
+            content = json.loads(self._content)
+        except:
+            return 
 
-        # Prefer filepath over content, open file and load data
-        if not filepath is None:
-            with open(filepath) as filehandler:
-                content = json.load(filehandler)
+        if "name" in content: self.name = content["name"]
+        if "content" in content: self._content = content["content"]
 
-        if content is None: return
+        if "datapoints" in content:
+            
+            for data in content["datapoints"]:
+                # Add all the datapoints to the document
+                self._datapoints.append(Datapoint(data))
 
-        for data in content["datapoints"]:
+                # Store the text representations of the datapoints
+                dom, tar = data["domain"]["concept"], data["target"]["concept"]
+                if not dom in self._concepts: self._concepts[dom] = set()
+                if not tar in self._concepts: self._concepts[tar] = set()
 
-            # Process datapoint and add it to the document storage
-            self._datapoints.append(Datapoint(data))
-
-            # Extract and store the domain and the target
-            if data["domain"]["concept"] in self._concepts:
-                self._concepts[data["domain"]["concept"]].add(data["domain"]["text"])
-            else:
-                self._concepts[data["domain"]["concept"]] = {data["domain"]["text"]}
-
-            if data["target"]["concept"] in self._concepts:
-                self._concepts[data["target"]["concept"]].add(data["target"]["text"])
-            else:
-                self._concepts[data["target"]["concept"]] = {data["target"]["text"]}
-
-        # Set the content
-        self._content = content.get("content", "")
-        self._content = DO.cleanWhiteSpace(self.content)
-
-    def __len__(self):
-        return len(self._datapoints)
-
-    def sentences(self):
-        """ Return the sentences """
-        return DO.split(self._content, DO.SENTENCE)
-
-    def words(self) -> [str]:
-        """ For each of the datapoints within the document, collect the datapoints text and split it
-        into the words 
-        
-        Returns:
-            [str] - An ordered list of words that appear within the document's datapoints 
-        """
-
-        #TODO: Document should contain have non datapoint words too, that should be included
-        return [word for data in self._datapoints for word in data.text.split()]
+                self._concepts[dom].add(data["domain"]["text"])
+                self._concepts[tar].add(data["target"]["text"])
 
     def concepts(self):
         return self._concepts.items()
-
-    def addDatapoint(self, point: Datapoint) -> None:
-        """ Add a datapoint into the training document """
-        self._datapoints.append(point)
-
-    def removeDatapoint(self, point: Datapoint) -> None:
-        del self._datapoints[self._datapoints.index(point)]
-
-    def datapoints(self):
-        for point in self._datapoints:
-            yield point
 
     def save(self, folder: str = "./", filename: str = None) -> None:
         """
@@ -91,7 +50,7 @@ class TrainingDocument:
         if filename is None: filename = self.name
             
         struct = {
-            "name": filename,
+            "name": self.name,
             "content": DO.cleanWhiteSpace(self._content),
             "datapoints": [point.minimise() for point in self._datapoints]
         }
