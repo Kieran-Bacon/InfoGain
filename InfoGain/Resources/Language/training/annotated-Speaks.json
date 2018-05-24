@@ -1,0 +1,346 @@
+{
+    "content": "Kieran speaks English\nKieran speaks Spanish\nKieran can speak English\nKieran can speak Spanish\nKieran has shown that he can speak Spanish\nKieran has learnt how to speak Spanish\nKieran's Spanish is rather good\nKieran can speak English fluently \n\nLuke cannot speak English\nLuke can't speak English\nLuke can't speak Spanish\nLuke cannot speak Spanish\nLuke doesn't speak English\nLuke doesn't speak Spanish\nLuke never learnt how to speak Spanish\nLuke always wanted to learn Spanish, but he never did\nLuke has never wanted to learn Spanish\nLuke cannot speak English",
+    "datapoints": [
+        {
+            "domain": {
+                "text": "Kieran",
+                "concept": "Kieran"
+            },
+            "text": "Kieran speaks English\n",
+            "relation": "speaks",
+            "context": {
+                "middle": "speaks",
+                "left": "",
+                "right": ""
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": 1,
+            "target": {
+                "text": "English",
+                "concept": "English"
+            }
+        },
+        {
+            "domain": {
+                "text": "Kieran",
+                "concept": "Kieran"
+            },
+            "text": "Kieran speaks Spanish\n",
+            "relation": "speaks",
+            "context": {
+                "middle": "speaks",
+                "left": "",
+                "right": ""
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": 1,
+            "target": {
+                "text": "Spanish",
+                "concept": "Spanish"
+            }
+        },
+        {
+            "domain": {
+                "text": "Kieran",
+                "concept": "Kieran"
+            },
+            "text": "Kieran can speak English\n",
+            "relation": "speaks",
+            "context": {
+                "middle": "can speak",
+                "left": "",
+                "right": ""
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": 1,
+            "target": {
+                "text": "English",
+                "concept": "English"
+            }
+        },
+        {
+            "domain": {
+                "text": "Kieran",
+                "concept": "Kieran"
+            },
+            "text": "Kieran can speak Spanish\n",
+            "relation": "speaks",
+            "context": {
+                "middle": "can speak",
+                "left": "",
+                "right": ""
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": 1,
+            "target": {
+                "text": "Spanish",
+                "concept": "Spanish"
+            }
+        },
+        {
+            "domain": {
+                "text": "Kieran",
+                "concept": "Kieran"
+            },
+            "text": "Kieran has shown that he can speak Spanish\n",
+            "relation": "speaks",
+            "context": {
+                "middle": "has shown that he can speak",
+                "left": "",
+                "right": ""
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": 1,
+            "target": {
+                "text": "Spanish",
+                "concept": "Spanish"
+            }
+        },
+        {
+            "domain": {
+                "text": "Kieran",
+                "concept": "Kieran"
+            },
+            "text": "Kieran has learnt how to speak Spanish\n",
+            "relation": "speaks",
+            "context": {
+                "middle": "has learnt how to speak",
+                "left": "",
+                "right": ""
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": 1,
+            "target": {
+                "text": "Spanish",
+                "concept": "Spanish"
+            }
+        },
+        {
+            "domain": {
+                "text": "Kieran",
+                "concept": "Kieran"
+            },
+            "text": "Kieran's Spanish is rather good\n",
+            "relation": "speaks",
+            "context": {
+                "middle": "'s",
+                "left": "",
+                "right": "is rather good"
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": 1,
+            "target": {
+                "text": "Spanish",
+                "concept": "Spanish"
+            }
+        },
+        {
+            "domain": {
+                "text": "Kieran",
+                "concept": "Kieran"
+            },
+            "text": "Kieran can speak English fluently \n",
+            "relation": "speaks",
+            "context": {
+                "middle": "can speak",
+                "left": "",
+                "right": "fluently"
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": 1,
+            "target": {
+                "text": "English",
+                "concept": "English"
+            }
+        },
+        {
+            "domain": {
+                "text": "Luke",
+                "concept": "Luke"
+            },
+            "text": "Luke cannot speak English\n",
+            "relation": "speaks",
+            "context": {
+                "middle": "cannot speak",
+                "left": "",
+                "right": ""
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": -1,
+            "target": {
+                "text": "English",
+                "concept": "English"
+            }
+        },
+        {
+            "domain": {
+                "text": "Luke",
+                "concept": "Luke"
+            },
+            "text": "Luke can't speak English\n",
+            "relation": "speaks",
+            "context": {
+                "middle": "can't speak",
+                "left": "",
+                "right": ""
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": -1,
+            "target": {
+                "text": "English",
+                "concept": "English"
+            }
+        },
+        {
+            "domain": {
+                "text": "Luke",
+                "concept": "Luke"
+            },
+            "text": "Luke can't speak Spanish\n",
+            "relation": "speaks",
+            "context": {
+                "middle": "can't speak",
+                "left": "",
+                "right": ""
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": -1,
+            "target": {
+                "text": "Spanish",
+                "concept": "Spanish"
+            }
+        },
+        {
+            "domain": {
+                "text": "Luke",
+                "concept": "Luke"
+            },
+            "text": "Luke cannot speak Spanish\n",
+            "relation": "speaks",
+            "context": {
+                "middle": "cannot speak",
+                "left": "",
+                "right": ""
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": -1,
+            "target": {
+                "text": "Spanish",
+                "concept": "Spanish"
+            }
+        },
+        {
+            "domain": {
+                "text": "Luke",
+                "concept": "Luke"
+            },
+            "text": "Luke doesn't speak English\n",
+            "relation": "speaks",
+            "context": {
+                "middle": "doesn't speak",
+                "left": "",
+                "right": ""
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": -1,
+            "target": {
+                "text": "English",
+                "concept": "English"
+            }
+        },
+        {
+            "domain": {
+                "text": "Luke",
+                "concept": "Luke"
+            },
+            "text": "Luke doesn't speak Spanish\n",
+            "relation": "speaks",
+            "context": {
+                "middle": "doesn't speak",
+                "left": "",
+                "right": ""
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": -1,
+            "target": {
+                "text": "Spanish",
+                "concept": "Spanish"
+            }
+        },
+        {
+            "domain": {
+                "text": "Luke",
+                "concept": "Luke"
+            },
+            "text": "Luke never learnt how to speak Spanish\n",
+            "relation": "speaks",
+            "context": {
+                "middle": "never learnt how to speak",
+                "left": "",
+                "right": ""
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": -1,
+            "target": {
+                "text": "Spanish",
+                "concept": "Spanish"
+            }
+        },
+        {
+            "domain": {
+                "text": "Luke",
+                "concept": "Luke"
+            },
+            "text": "Luke always wanted to learn Spanish, but he never did\n",
+            "relation": "speaks",
+            "context": {
+                "middle": "always wanted to learn",
+                "left": "",
+                "right": ", but he never did"
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": -1,
+            "target": {
+                "text": "Spanish",
+                "concept": "Spanish"
+            }
+        },
+        {
+            "domain": {
+                "text": "Luke",
+                "concept": "Luke"
+            },
+            "text": "Luke has never wanted to learn Spanish\n",
+            "relation": "speaks",
+            "context": {
+                "middle": "has never wanted to learn",
+                "left": "",
+                "right": ""
+            },
+            "probability": null,
+            "prediction": null,
+            "annotation": 0,
+            "target": {
+                "text": "Spanish",
+                "concept": "Spanish"
+            }
+        }
+    ],
+    "name": "2d3c9a938afa4eb2aef30529d7b5d5ff"
+}

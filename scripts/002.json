@@ -1,0 +1,60 @@
+{
+    "datapoints": [
+        {
+            "relation": "speaks",
+            "domain": {
+                "concept": "Kieran",
+                "text": "Kieran"
+            },
+            "text": "Kieran has been learning to speak French and his local community college",
+            "context": {
+                "right": "and his local community college",
+                "left": "",
+                "middle": "has been learning to speak"
+            },
+            "annotation": 1,
+            "target": {
+                "concept": "French",
+                "text": "French"
+            }
+        },
+        {
+            "relation": "speaks",
+            "domain": {
+                "concept": "Luke",
+                "text": "Luke"
+            },
+            "text": "Luke has been studying English and German.",
+            "context": {
+                "right": "and German.",
+                "left": "",
+                "middle": "has been studying"
+            },
+            "annotation": 1,
+            "target": {
+                "concept": "English",
+                "text": "English"
+            }
+        },
+        {
+            "relation": "speaks",
+            "domain": {
+                "concept": "Luke",
+                "text": "Luke"
+            },
+            "text": "Luke has been studying English and German.",
+            "context": {
+                "right": ".",
+                "left": "",
+                "middle": "has been studying English and"
+            },
+            "annotation": 1,
+            "target": {
+                "concept": "German",
+                "text": "German"
+            }
+        }
+    ],
+    "name": "002.json",
+    "content": "Kieran has been learning to speak French and his local community college. Luke has been studying English and German.. Luke has been studying English and German.."
+}
