@@ -25,19 +25,25 @@ def cleanWhiteSpace(content: str) -> str:
 def cleanSentence(sentence: str) -> str:
     """ Clean a sentence by breaking up and cleaning each word individually. """
     words = sentence.split()
-    cleanedWords = []
-    for word in words:
-        cleaned = cleanWord(word)
-        if cleaned:
-            cleanedWords.append(cleaned)
 
-    return " ".join(cleanedWords)
+    cleaned = [word for rawWord in words for word in cleanWord(rawWord)]
+
+    return " ".join(cleaned)
 
 def cleanWord(word: str) -> str:
     """ Remove grammar and unwanted words """
-    clean = re.search("\w+-\w+|\w+", word)
-    if clean is None: return None
-    return clean.group(0).lower()
+
+    # Expand words
+    word = re.sub("n't$", " not", word)
+
+    # Remove posession
+    word = re.sub("'s$", "", word)
+
+    # Lower the case
+    word = word.lower()
+
+    # Find words and return
+    return re.findall("[A-Za-z-_]+", word)
 
 def split(text: str, separator: re) -> [str]:
     """ Separate the text with the separators that has been given. Replace all
@@ -63,7 +69,7 @@ def split(text: str, separator: re) -> [str]:
 
         # break up the text by the separator
         s, e = match.span()
-        split.append(text[:s])
+        split.append(text[:s] + match.group(0))
         text = text[e:]
 
     split.append(text)

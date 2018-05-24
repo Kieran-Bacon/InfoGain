@@ -37,7 +37,5 @@ class Test_RelationExtractor(unittest.TestCase):
         extractor.fit(training)
         extractor.predict(predicting)
 
-        for doc in predicting:
-            for points in doc.datapoints():
-                print("point:", points.text)
-                #self.assertEqual(points.prediction, "NO")
+        # TODO: Check the results, get some consistent results
+        pass

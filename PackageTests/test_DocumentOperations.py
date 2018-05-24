@@ -19,7 +19,7 @@ class Test_DocumentOperations(unittest.TestCase):
             "is": "is", "the": "the", "WORST": "worst"}
 
         for dirty, clean in wordMapping.items():
-            self.assertEqual(DO.cleanWord(dirty), clean)
+            self.assertEqual(DO.cleanWord(dirty), clean.split())
 
 
 if __name__ == "__main__":

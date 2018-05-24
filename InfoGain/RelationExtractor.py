@@ -3,12 +3,18 @@ from .Ontology import Ontology
 from .Documents.Document import Document
 from .Documents.TrainingDocument import TrainingDocument
 
+import InfoGain.Resources.TextCollections as TEXT
+import InfoGain.Documents.DocumentOperations as DO
+
 import os, numpy, logging
 from queue import Queue
 from threading import Thread
 
 from sklearn.neural_network import MLPClassifier
 from gensim.models import Word2Vec
+
+class UnseenWord(Exception):
+    pass
 
 class RelationExtractor(Ontology):
     """ This object represents a machine learning method of extracting relationships
@@ -51,12 +57,16 @@ class RelationExtractor(Ontology):
 
     def _trainWordEmbeddings(self):
         """ Train the word embedding model on the words provided by the training documents """
-        sentences = []
-        text_locations = os.path.join(os.path.dirname(os.path.abspath(__file__)),"TextCollections")
-        txtCollections = [Document(os.path.join(text_locations, x)) for x in os.listdir(text_locations)]
-        for doc in txtCollections:
-            sentences += doc.sentences()
-        sentences += [sentence for doc in self._trainingCorpus for sentence in doc.sentences()]
+
+        # Collect the text collections and collect their sentences
+        documents, sentences = [Document(filepath=path) for path in TEXT.COLLECTIONS], []
+        [sentences.append(DO.cleanSentence(sentence)) for doc in documents for sentence in doc.sentences()]
+
+        # Add the sentences from the training documents
+        [sentences.append(DO.cleanSentence(sentence)) for doc in self._trainingCorpus for sentence in doc.sentences()]
+        
+        # Train the Word embedding model on the sentences
+        sentences = [line.split() for line in sentences]
         self.wordModel = Word2Vec(sentences, min_count=1, size=self.embeddingSize)
 
     def _embedSentence(self, sentence: str) -> numpy.array:
@@ -72,10 +82,9 @@ class RelationExtractor(Ontology):
             return -numpy.log((index+1)/(len(words)+1))
 
         for index, word in enumerate(words):
-            try:
-                embedding += pf(index)*self.wordModel.wv[word]
-            except Exception as e:
-                print("Error during sentence embedding: " + str(e))
+            if not word in self.wordModel.wv:
+                raise UnseenWord("During sentence embedding, encountered word without embedding: '" + word+ "'")
+            embedding += pf(index)*self.wordModel.wv[word]
                 
         return embedding
 
@@ -115,7 +124,6 @@ class RelationExtractor(Ontology):
         # Begin training of the relation models, threading each model for efficiency
         def trainRelationModel(queue: Queue):
             while True:
-                print("WHat")
                 data = queue.get()
                 if data is None: break
 
@@ -200,13 +208,22 @@ class RelationExtractor(Ontology):
                 # Predict the points by their respective models
                 predictedPoints = []
                 for model, collection in models.items():
-                    predictedPoints += self.ensemble[model].predict(collection)
+                    # Predict on the datapoints
+                    predictions = self.ensemble[model].predict(collection)
+                    if predictions is None: continue  # Protect against unfitted models
+
+                    # Record predictions
+                    predictedPoints += predictions
 
                 # Store the points and their predictions
                 documentPredictions.append(predictedPoints)
 
             # Return to the document the new point set
             document.datapoints(documentPredictions)
+
+            # Add document to the processed pile and complete task
+            processedPile.add(document)
+            documentQueue.task_done()
                 
 class RelationModel:
     """ The model the learns the sentence embeddings for a particular relationship """
@@ -229,7 +246,10 @@ class RelationModel:
         # Convert the point structure into something usable by sklearn
 
         Xtr, ttr = [], []
-        [Xtr.append(numpy.concatenate(x)) or ttr.append(t) for point in datapoints for x, t in point.features()]
+        for point in datapoints:
+            x, t = point.features()
+            Xtr.append(numpy.concatenate(x))
+            ttr.append(t)
             
         # Fit the classifier
         self.classifier.fit(Xtr, ttr)
@@ -245,7 +265,10 @@ class RelationModel:
             return
 
         # Extract data point feature information
-        Xte = [numpy.concatenate(x) for point in points for x, _ in point.features()]
+        Xte = []
+        for point in points:
+            x, _ = point.features()
+            Xte.append(numpy.concatenate(x))
 
         # Predict on the data
         predictions = self.classifier.predict(Xte)
@@ -253,7 +276,7 @@ class RelationModel:
 
         for point, pred, prob in zip(points, predictions, probabilities):
             point.prediction = pred
-            point.predProb = prob[self.classifier.classes_.index(pred)]
+            point.predProb = prob[list(self.classifier.classes_).index(pred)]
 
         processedPoints = []
 

@@ -1,28 +1,53 @@
 import os
 ROOT = os.path.dirname(os.path.realpath(__file__))
 
+class Language:
 
-def ontology():
-    from InfoGain import Ontology
+    ontologyObj = None
+    trainingSet = None
+    trainingSize = None
+    testingSet = None
+    testingSize = None
 
-    return Ontology(filepath=os.path.join(ROOT, "./languages.json"))
+    @classmethod
+    def ontology(cls):
 
-def getTraining(num_of_docs=None):
-    import os
-    from InfoGain import TrainingDocument
+        if cls.ontologyObj is None:
 
-    files = os.listdir(os.path.join(ROOT, "training"))
-    if num_of_docs: files = files[:num_of_docs]
+            from InfoGain import Ontology
+            cls.ontologyObj = Ontology(filepath=os.path.join(ROOT, "./languages.json"))
+            return cls.ontologyObj
 
-    for name in files:
-        yield TrainingDocument(filename=os.path.join(ROOT, "training", name))
+        return cls.ontologyObj
 
-def getTesting(num_of_docs=None):
-    import os
-    from InfoGain import Document
+    @classmethod
+    def training(cls, num_of_docs=None):
 
-    files = os.listdir(os.path.join(ROOT, "testing"))
-    if num_of_docs: files = files[:num_of_docs]
+        if cls.trainingSet is None or num_of_docs != cls.trainingSize:
 
-    for name in files:
-        yield Document(filepath=os.path.join(ROOT, "testing", name))
+            import os
+            from InfoGain import TrainingDocument
+
+            files = os.listdir(os.path.join(ROOT, "training"))
+            if num_of_docs: files = files[:num_of_docs]
+            
+            cls.trainingSet = [TrainingDocument(filepath=os.path.join(ROOT, "training", name)) for name in files]
+            cls.trainingSize = num_of_docs
+
+        return cls.trainingSet
+
+    @classmethod
+    def testing(cls, num_of_docs=None):
+
+        if cls.testingSet is None or num_of_docs != cls.testingSize:
+
+            import os
+            from InfoGain import Document
+
+            files = os.listdir(os.path.join(ROOT, "testing"))
+            if num_of_docs: files = files[:num_of_docs]
+
+            cls.testingSet = [Document(filepath=os.path.join(ROOT, "testing", name)) for name in files]
+            cls.testingSize = num_of_docs
+
+        return cls.testingSet

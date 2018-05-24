@@ -1,3 +1,5 @@
+I have never been able to go to the cinemar. Peter has never played the piano. Clair once killed someone, she will never get out of prison.
+
 This thesis defines a multi–label classification problem for extracting the relation candidates
 from a question. We target a widely used question dataset [15], which is crawled from
 WikiAnswer and consists of a set of questions with over 19K relations. We assume that
@@ -470,4 +472,4 @@ Spelling Corrector
 Spelling Corrector is a tool to correct typos [38]. It is used to correct spelling errors in
 dataset with pre–trained 3 million words and phrases (GoogleNews–vectors–negative3000)
 as dictionary. As questions of are crawled from WikiAnswer, dataset contains many typos
-and grammar error. Spelling corrector is helpful to remove noises in dataset.
+and grammar error. Spelling corrector is helpful to remove noises in dataset. There was a problem and someone decided to move the money into the weather spoons. They as a group decided to do something. This is the conventional use of that word. A decision is when someone decides to do something.

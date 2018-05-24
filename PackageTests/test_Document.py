@@ -29,4 +29,6 @@ class Test_Document(unittest.TestCase):
 
         doc.processKnowledge(languages)
 
-        self.assertEqual(len(doc.datapoints()), 5)
+        # Check the total sum of datapoints
+        self.assertEqual(len(doc.datapoints()), 3)  # The number of segments
+        self.assertEqual(len([point for group in doc.datapoints() for point in group]), 5)  # The number of datapoints
