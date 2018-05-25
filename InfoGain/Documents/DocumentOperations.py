@@ -18,6 +18,8 @@ def cmdread(msg: str, valid: list = None):
 
 def cleanWhiteSpace(content: str) -> str:
     """ Remove excessive whitespace from a document. """
+    if content is None:
+        return content
     content = re.sub("[ \t]+", " ", content)
     content = re.sub(" (?=[\.'!?,%])", "", content)
     return content.strip()

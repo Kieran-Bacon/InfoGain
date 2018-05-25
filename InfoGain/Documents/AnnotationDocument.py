@@ -31,7 +31,7 @@ class AnnotationDocument(Document):
 
                 print("TEXT:\n{}\n".format(point.text))
 
-                print("RELATION: {} {} {}".format(point.domain, point.relation, point.target))
+                print("RELATION: {}  {}   {}  {}   {}".format(point.domain, point.domainRepr, point.relation, point.target, point.targetRepr))
 
                 ans = DO.cmdread("Does this string represent this relation?",['-1','0','1'])
 

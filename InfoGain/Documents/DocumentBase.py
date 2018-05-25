@@ -47,7 +47,11 @@ class DocumentBase:
     def sentences(self) -> [str]:
         """ Split the content of the document into sentences, and return the collection of 
         sentences. """
-        return DO.split(self._content, DO.SENTENCE)
+        if self._content:
+            return DO.split(self._content, DO.SENTENCE)
+        
+        if self._datapoints:
+            return [point.text for point in self._datapoints]
 
     def datapoints(self, data: [Datapoint] = None) -> [Datapoint]:
         """

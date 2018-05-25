@@ -85,7 +85,8 @@ class RelationExtractor(Ontology):
 
         for index, word in enumerate(words):
             if not word in self.wordModel.wv:
-                raise UnseenWord("During sentence embedding, encountered word without embedding: '" + word+ "'")
+                logging.warning("Vocabulary missing during sentence embedding: '"+ word +"'")
+                continue
             embedding += pf(index)*self.wordModel.wv[word]
                 
         return embedding if not len(words) else embedding/len(words)
@@ -143,21 +144,20 @@ class RelationExtractor(Ontology):
         [t.start() for t in threads]
         [relationQueue.put(data) for data in modelData.items()]
 
-        sys.stdout.write("Training process has begun:\n")
-
-        while relationQueue.qsize():
-
-            count = len(modelData) - relationQueue.qsize()
-            mult = 25 - int((relationQueue.qsize()/len(modelData)*25))
-
-            sys.stdout.write("\r|" + "#"*mult + "-"*(25-mult) + "| ( {}/{} ) training...".format(count, len(modelData) ))
+        size = 0
+        while relationQueue.unfinished_tasks:
+            if relationQueue.unfinished_tasks == size: continue
+            else: size = relationQueue.unfinished_tasks
+            count = len(modelData) - relationQueue.unfinished_tasks
+            mult = 25 - int((relationQueue.unfinished_tasks/len(modelData)*25))
+            sys.stdout.write("\rTraining Extractor |" + "#"*mult + "-"*(25-mult) + "| ( {}/{} ) training...".format(count, len(modelData) ))
             sys.stdout.flush()
 
         # Process till training is complete
         relationQueue.join()
         
         # Pretty prompt
-        sys.stdout.write("\r|" + "#"*25 + "| ( {}/{} ) training... Complete!\n".format(len(modelData),len(modelData)))
+        sys.stdout.write("\rTraining Extractor |" + "#"*25 + "| ( {}/{} ) training... Complete!\n".format(len(modelData),len(modelData)))
         sys.stdout.flush()
 
         # Signal the threads to stop computation and join
@@ -297,8 +297,9 @@ class RelationModel:
         probabilities = self.classifier.predict_proba(Xte)
 
         for point, pred, prob in zip(points, predictions, probabilities):
-            point.prediction = pred
-            point.predProb = prob[list(self.classifier.classes_).index(pred)]
+            assert(pred == int(pred))
+            point.prediction = int(pred)
+            point.predProb = float(prob[list(self.classifier.classes_).index(pred)])
 
         processedPoints = []
 

@@ -19,6 +19,22 @@ class Document(DocumentBase):
 
     def __init__(self, name: str = None, content: dict = None, filepath: str = None,):
         super().__init__(name, content, filepath)
+
+        try:
+            content = json.loads(self._content)
+        except:
+            return 
+
+        if "name" in content: self.name = content["name"]
+        if "content" in content: self._content = content["content"]
+
+        if "datapoints" in content:
+            for group in content["datapoints"]:
+                datapoints = []
+                for data in group:
+                    datapoints.append(Datapoint(data))
+                self._datapoints.append(datapoints)
+
         #self._content = Document.anaphoraResolution(self._content)
 
     def processKnowledge(self, ontology: Ontology) -> None:
@@ -29,7 +45,10 @@ class Document(DocumentBase):
             ontology - The ontology object that contains all the information about the concepts and 
                 relationships we care about
         """
-
+        if self._datapoints:
+            logging.info("Avoiding processing document, datapoints already initialised")
+            return 
+            
         reprMap = ontology.conceptText()  # Collect all the ways in which some text may mean a concept
 
         def createDatapoint(dom, tar, relations, sentence):
@@ -53,8 +72,6 @@ class Document(DocumentBase):
 
                 # return the datapoints
                 yield dp
-
-        self._datapoints = []  # Reset any datapoints currently stored
 
         # Split the document by the paragraph
         for paragraph in DO.split(self._content, DO.PARAGRAPH):

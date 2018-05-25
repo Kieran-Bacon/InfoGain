@@ -79,7 +79,7 @@ class Relation:
         domains = [[con.name for con in group] for group in self._domains]
         targets = [[con.name for con in group] for group in self._targets]
 
-        if len(domains) == 1:
+        if len(self._domains) == 1:
             domains, targets = domains[0], targets[0]
 
         relation = {
@@ -87,7 +87,7 @@ class Relation:
             "target": targets
         }
 
-        if len(domains) > 1:
+        if len(self._domains) > 1:
             relation["sets"] = True
             
         return relation

@@ -30,6 +30,8 @@ class Datapoint:
 
             # The datapoint's class definition
             self.annotation = data.get("annotation", None)
+            self.prediction = data.get("prediction", None)
+            self.predProb = data.get("probability", None)
 
     def __str__(self):
         return " ".join([self.domainRepr, self.relation, self.targetRepr, str(self.annotation), str(self.prediction), str(self.predProb)])
@@ -70,7 +72,7 @@ class Datapoint:
     def setContext(self, left: str, middle: str, right: str):
         self.lContext, self.mContext, self.rContext = left, middle, right
 
-    def setAnnotation(self, annotation: bool) -> None:
+    def setAnnotation(self, annotation: int) -> None:
         """ Set the datapoint annotation class """
         self.annotation = annotation
 
