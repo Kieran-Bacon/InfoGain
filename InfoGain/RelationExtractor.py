@@ -3,6 +3,7 @@ from .Ontology import Ontology
 from .Documents.Document import Document
 from .Documents.TrainingDocument import TrainingDocument
 
+import InfoGain.Resources as RESOURCES
 import InfoGain.Resources.TextCollections as TEXT
 import InfoGain.Documents.DocumentOperations as DO
 
@@ -22,7 +23,15 @@ class RelationExtractor(Ontology):
     which in turn provide evidence for various relationships. The class provides 
     a collection of useful methods for interacting with the model. """
 
-    def __init__(self, name=None, filepath=None, ontology=None, k=20, embeddingSize=300):
+    def __init__(self,
+        name: str = None,
+        filepath: str = None,
+        ontology: Ontology = None,
+        word_embedding_model: Word2Vec = None,
+        embedding_size: int = 300,
+        min_count: int = 1,
+        workers: int = 4,
+        hidden_layers: (int) = (50,20)):
         """ Initialising the pool of relation classifiers and defining the method of learning
         that will take place.
 
@@ -32,13 +41,6 @@ class RelationExtractor(Ontology):
             k - The number of words taken as context from either side of the 
                 relation entities
         """
-
-        self.name = name
-        self.contextWindow = k
-        self.embeddingSize = embeddingSize
-        self.MAXTHREADS = 4
-
-        RelationModel.defineStructure((embeddingSize, 50, 20))
 
         if filepath:
             # Call ontology constructor
@@ -52,24 +54,49 @@ class RelationExtractor(Ontology):
             self._relations = ontologyClone._relations
             self._facts = ontologyClone._facts
 
-        self.WordEmbedding = None
+        # Overload name if given
+        if name: self.name = name
+
+        # Load resouces embedder if embedder not provided
+        if word_embedding_model is None and RESOURCES.hasEmbedder():
+            word_embedding_model = RESOURCES.loadEmbedder()
+
+        # Collect information from embedder or generate new embedder
+        if word_embedding_model:
+            self.wordModel = word_embedding_model
+        else:
+            # Define the word model
+            self.wordModel = Word2Vec(size=embedding_size, min_count=min_count, workers=workers)
+
+            # Collect the text data
+            documents = [Document(filepath=path) for path in RESOURCES.TEXT_COLLECTIONS]
+            sentences = [DO.cleanSentence(sentence).split() for doc in documents for sentence in doc.sentences()]
+            
+            
+            # Help build spelling Corrector
+            self.wordModel.build_vocab(sentences)
+
+        # Record embedding information
+        self.embeddingSize = self.wordModel.layer1_size
+        self.MAXTHREADS = self.wordModel.workers
+
+        # Inform the relation model structure
+        RelationModel.defineStructure((self.embeddingSize, *hidden_layers))
+    
+        # Build relation model objects
         self.ensemble = {rel.name:RelationModel(rel.name) for rel in self.relations()}
         
+        # Data structure for traiing corpus
         self._trainingCorpus = set()
 
     def _trainWordEmbeddings(self):
         """ Train the word embedding model on the words provided by the training documents """
 
-        # Collect the text collections and collect their sentences
-        documents, sentences = [Document(filepath=path) for path in TEXT.COLLECTIONS], []
-        [sentences.append(DO.cleanSentence(sentence)) for doc in documents for sentence in doc.sentences()]
+        # Collect sentences from training documents
+        sentences = [DO.cleanSentence(sentence).split() for doc in self._trainingCorpus for sentence in doc.sentences()]
 
-        # Add the sentences from the training documents
-        [sentences.append(DO.cleanSentence(sentence)) for doc in self._trainingCorpus for sentence in doc.sentences()]
-        
-        # Train the Word embedding model on the sentences
-        sentences = [line.split() for line in sentences]
-        self.wordModel = Word2Vec(sentences, min_count=1, size=self.embeddingSize)
+        self.wordModel.build_vocab(sentences, update=True)
+        self.wordModel.train(sentences, total_examples=len(sentences), epochs=1)
 
     def _embedSentence(self, sentence: str) -> numpy.array:
         """ Convert a sentence of variable length into a sentence embedding using the learn word
