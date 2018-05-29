@@ -59,7 +59,7 @@
 \textsc{\large ECMM428 Individual Research Project}\\[0.5cm] % Minor heading such as course title
 
 \HRule \\[0.4cm]
-{ \huge \bfseries Supervised, Ontology Driven, Semantic relationship extraction via an ensemble of neural networks}\\[0.4cm] % Title of your document
+{ \huge \bfseries Supervised, Ontology Driven, Semantic Relationship Extraction via an Ensemble of Neural Networks}\\[0.4cm] % Title of your document
 \HRule \\[1.5cm]
 
 \begin{minipage}{0.4\textwidth}
@@ -121,53 +121,308 @@ Something here, probably remove.
 
 
 \section{Introduction}
-\subsection{Aim, Objectives, Deliverables, Report structure}
 
-Hey look I can do it and it will do everything Just need to save
+Relation extraction is an aspect of natural language processing aimed at automatically detecting and classifying semantic relationship mentions within natural language. A semantic relationship is expressed as a connection between two separate entities or concepts, that depict, that a process, action or dependence may exist. Native language conveys most of it is information in the form of a  relationship between concepts, and it is the principal method by which human cognition is able to reason and inferrer additional information about the world. We build an internalised web of ideas and relations to encapsulate our impression of the world and the manner in which we interact with it. Take as an example, the scenario that one is trying to educate another about a previously unheard of concept, Melanoma. The first thing that one might say in an attempt to pass on their knowledge would be to indicate its relationship with some other well-known concepts. “Melanoma is a type of Cancer”, from this alone one can infer that its a medical disease, that is life-threatening and that chemotherapy will likely be the treatment choice. All of this information can be viewed as a series of relationships, that can cascade down onto the newly introduced idea.
 
-\section{Project Methodology}
-\subsection{Schedule, Modifications to the original plan, Approach}
-\section{Backgroud Research}
-\subsection{Formal Problem Difinition, Word embeddings, And the other shit}
+Pursuant to the goal of ever more intelligent machines, being able to express native language as a set of relationships between concepts can reduce complexity significantly. The problem of understanding natural language is in a sense translated into the problem or evaluating and reasoning upon concepts and relations. Knowledge representation is a field unto itself that studies logical and statistical paradigms that operate on these constructions to resolve high-level questions. The resolution of these relations will ultimately appear to give a machine an ability to comprehend, reason and infer knowledge. The first step is to be able to convert incoming information that is expressed in natural language into a structured, computer amenable format. Native language is very complex in its arrangement as a result of many thousands of grammatical rules and context-specific interactions. Accompanied with varying definitions over differing contexts, entity extraction, relation extraction and ultimately information extraction is a complex and challenging pursuit. 
+
+Within this paper, I will be presenting a system for general, domain-specific, relation extraction. With the assumption, that the system will ultimately serve a purpose in another process. There is a limit to the kinds of information one might want to extract, a limit that will be much less than all the available information within a corpus. Additionally, the method will be used in a consistent space that will innately contain consistent grammatical patterns. My method requires the user to provide an ontology to guide relation extraction and is a supervised method that uses an ensemble of neural network classifiers to extract relationships. The overarching principle is that words are given semantic meaning as a product of their context, as such, the context around a passage that asserts a relationship can be used as a feature for future identification of relationships.
+
+I was motivated to develop a relation extraction system during a summer placement. I was working with a team to construct a cognitive reasoning engine capable of inferring the severity of a person’s condition. Information was to be extracted from their written medical reports that originated from their hospital and GP visits. The kind of information we were aiming to extract was well defined within the companies underwriting philosophy (UP) known to all subject matter experts. Forming the domain, we constructed an ontology to express the UP and began looking for a method of extracting the relevant information. Due to the erratic nature of the corpus, being that reports were filled with spelling mistakes and grammatical errors and contained rather more direct and explicit notes rather than sentences, methods weren’t able to adapt. Furthermore, a lot of systems were based on seed instances, that expanded the scope continually attempting to extract more entities and relationships than specified. I concluded that a domain-specific method that had a core philosophy could be preferable and more flexible for end users. The necessity for this perspective becomes clear when considering two separate domains like medical care and advertising. For a document detailing a child’s day spent in an amusement park, what can be described as relevant information for one domain will likely not intersect with the other. 
+
+\subsection{Aims and objectives}
+
+The system should be accessible and flexible. During the development of the system, consideration should be given to the fact that there is an ultimate purpose, that the system shall be used to help define and extract relations in another system. As such, it should be extendable, easily implementable and intuitive in its interface.
+
+Given that domains can vary greatly in their scale, the system should scale equally well. Training should be conducted relatively quickly for small and large corpora, and redundant information should be eliminated where ever possible. The focus should be on ensuring efficient training cycles.
+
+To offer a simplistic interface, the number of parameters that affect the behaviour of the system would be minimal. As the system scales, it’s behaviour and predictability should remain consistent.
+
+The method relies heavily on the development of an ontology that truly represents the domain of knowledge that the user intends to operate in. This ontology, therefore, has to be expressive yet efficient in its method of encapsulating this knowledge. The relationships that are a part of the ontology shouldn’t require an alignment with the conventional use of the language, instead, they should only require a consistent ideal between the member concepts.
+
+And fundamentally, that the system should yield competitive performance to the other relation extraction methods. With the restriction of the domain to a set of relevant concepts, the recall and precision of the system should be able to match that of other semi-supervised and supervised methods.
+
+\subsection{Deliverables}
+
+I will be delivering a python library that contains the functionality necessary to generate the relation extraction model. To facilitate the extraction, it provides the functionality to process documents into a form that is computationally amenable, allowing for quick training and annotation. All of which adhere to the information expressed in an ontology that can be programmatically generated from the package, such that the relation extraction model can be trained.
+
+A word embedding model trained on the latest Wikipedia article corpus accompanies the package and is by default chosen as the base word embedding model for quick efficient training. The system exposes functionality to train new word embedding if required, or even, to make use of an external model.
+
+A collection of full relation extraction examples are also provided. These examples walk through the process of generating an ontology, producing some training documents with hand labelled annotations, and finally demonstrating the method of prediction.
+
+The package also comes with a rudimental calibration module, that helps tune the hyperparameters of the models/system. Examples of can see TODO reference
+
+\section{Related Work}
+
+The system intends to fulfil a purpose and to make the best use of the currently available techniques. The envisioned system is an interconnect assortment of various models and classifiers. I will be examining the some of the other works so identify issues that may arise during development and the practices that are most likely to yield greater performance.
+
+\subsection{Kernel-based parse tree extraction}
+Many variations of parse tree implementations have been made to help solve relation extraction. Among them, feature-based methods achieve success by employing a large amount of diverse linguistic features, varying from lexical knowledge, entity related information to syntactic parse trees, dependency trees and semantic information. TODO [9] [8] Zhou et al (2007) presents an alternative method to feature-based parse tree implementations that achieved comparable performance with other ‘state of the art’ SVM implementations with linear kernels. A primary issue for other tree implementations is that they look specifically at the information between the entities to classify. For relationships like ‘marriedTo’, we can expect to get statements like “John and Sarah have gotten married” which explicitly defines the relation. Conventional tree parsing would not be capable of defining this relationship as the necessary context falls outside the tree. G. Zhou et al (2007) adaptation is to use a context-sensitive convolution tree kernel that includes the parsing of nearby context words by matching on ancestral nodes between different sub-trees.
+
+In conclusion, it was thought that the parent and grandparent nodes of a sub-tree contain the majority of the information necessary for relation extraction. Considering more ancestral nodes did not yield improvement, a claim supported by G. Zhou et al (2005). For the various testing implementations, they were able to achieve general precision scores of 77\% with recall of around 63\%.
+
+\subsection{Snowball Relation Extractor}
+
+E. Agichtein (2000) presents a semi-supervised method of relation extraction named the “Dual Iterative Pattern Expansion”. The methods aim was to extract a structured table of relations from a collection of documents similar to those found on the web. DIPRE exploits the inherent structure in the collection to extract the target relation with minimal training from a user. The method generates a collection of extraction patterns through a process of recombination and generalisation of patterns over iterations of learnings. The initial seed pairings are used to search the text to collect context information for any segment that contains them. The information is collected into tuples of information describing the sequences of words to the left, right and between the entities. Tuples that have similar or equal length middle sequences undergo combination and a pattern is formed. These patterns are then scored by comparing the number of positive relations it extracts that were given in the input, with the number of relations it returns. The method seemed to have a trade-off between precision and recall however an optimum was found that yield around 80\% for both.
+
+\subsection{Semantic constraints for part-whole extraction}
+
+Meronomy is a hierarchy that describes the relationships formed between entities that indicate that one entity is part of another entity. One of many entities that form a whole. e.g. ‘handle’ is a part of a ‘door’. Girju et al. (2003) have devised a supervised method for identifying this information within the text by constructing a decision tree filled with if-then rules. Each rule is learnt through a process of searching a hypothesis space with varying complexity of assumption. When a hypothesis is found that is relatively consistent with the data, it is introduced into the tree structure. It is known that the relationship has two types of lexicosyntactic patterns: Explicit constructions where the sentence literally describes the membership of one entity to another “The door is made of steel ”; and implicit construction, during identification of the entity, you identify its membership to another “door knob”. 
+
+Girju et al. (2003) have been able to achieve precision and recall rates of 84\% and 98\% respectively which is exceptional. However, as this method takes advantage of the innate properties of this specific relation its use is limited. I envision this method being extremely useful in the identification of the entities or concepts within a named entity recogniser, or ontology builder.
+
+\subsection{Gibbs sampling to incorporate non-local information}
+
+Finkel et al. (2005) identify that most statistical models that perform natural language processing tasks tend to represent only local structure. They found the constraint to be paramount in allowing the problem to be tractable but felt it was a key limitation generally. They believed that relaxing the requirement of exact inference and instead utilising approximate inference algorithms would allow for a tractable non-localised model to perform classification. The method makes use of the Monte Carlo method referred to as ‘Gibbs sampling’ to produce Markov chains across the corpus. The nodes are in spaces of possible variable assignments such that the stationary distribution of the Markov chain is the joint distribution of the variables. This quantity is easy to compute in any Markov sequence model but the entire process is rather inefficient. As a method, Finkel et al. (2005)’s would likely perform well as an anaphora resolution method for relation identification that does not contain two entities. The method was able to achieve averagely 89\% precision on the CoNLL named entity recognition task, and the CMU Seminar Announcements information extraction task.
+
+\subsection{Exploring Various Knowledge}
+
+TODO relate the basicness of this co-referencing method
+
+G. Zhou et al (2005) has conducted an investigation into the merits of employing diverse lexical, syntactic and semantic knowledge in feature-based support vector machine implementations. Support vectors were chosen to perform relation extraction as Zhou felt that they offered the best comparative learning aspects of machine learning techniques. As part of a preprocessing step, pronominal mentions are replaced with the most recent non-pronominal entity mention for a basic implementation of co-referencing. Semantic information from various resources, such as WordNet, is used to classify important words into different semantic lists according to their indicating relationships. G. Zhou et al (2005) demonstrated that the base phrase chunking feature information contributes more to performance than any other syntactic functions. Full parsing of the context information is shown to offer next to no performance enhancement, as relevant information can be found in shallow dives. They suggested that this could be a product of the ACE corpus that their investigation was evaluated on. G. Zhou et al (2005) have designed their system to maintain a classifier for every relation imposing a ‘one vs. all’ strategy to separate the classification of relations. This method has shown the be a competitive 3in performance to the classical k 2 (k − 1) classifier arrangement. Through a combination of the feature vectors produced within the classifier, G. Zhou et al (2005) were able to show improvements of previous feature based systems and tree kernel methods. Precision was marginally better with a score of 84.8\% but benefited from a greatly improved recall rate of 66.7\%.
+
+\subsection{Espresso: leveraging generic patterns}
+
+P. Pantel et al (2006) theorised that given a set of patterns that can extract target relations with high precision but low recall. Any generic pattern can be scored and ranked by comparing the instances they return with the instances identified with the precise set. As a result, P. Pantel et al (2006) constructed a method that performs well demonstrating high precision and recall values across the ACE corpus. The method is a minimally supervised boot-strapping algorithm that takes as input a few seed instances of a particular relation and iteratively learns surface patterns to extract more instances. These seed instances are used to generate the high precision patterns that are used throughout by using an arbitrary pattern learner. Segments have their terminological expressions replaced and their contents generalised before being used to evaluate the locus.
+
+\subsection{Robust information extraction}
+
+TODO mention the expansion later, Not mentioned here anymore but it also talked about the fact that the classifier positive negative and null
+
+M. Surdeanu et al (2007) have developed a classifier that used online learning techniques to generate a large-margin perceptron algorithm to separate relations instances. With an enthesis on simplicity and robustness, M. Surdeanu et al (2007) have used only NLP preprocessing tools that have been proven to work well on any corpus size, such as part of speech tagging and chunking. They designed a novel architecture that is effective and efficient while mitigating errors that arise in early stages of classification. Training points have their part of speech tags and chunking information extracted before heading into an entity mention detector. The detector implements a sequence tagger and attaches marks to the tokens to describe positive entity instances. At this stage, if the detector is unsure about the classification of any entity, multiple instances are created and allowed to permute through the system. Instances then travel into the relation mention detection system to train the system as to their trend. It is expected to receive very unbalanced data, receiving majority positive examples. When conducting an evaluation, every possible relationship that can be expressed within a passage is generated, a single consistent solution is formed later by inference. During the inference stage ambiguities within the entity-tagger are resurfaced to add additional validity to a particular relations confidence.
+
+The method was tested on the ACE 2007 English corpus. The method was noted to be exceptionally fast, collectively taking around an hour to complete training. Overall, the perceptron algorithm was able to achieve a precision score 20\% better than the linear kernel-based SVM implementation, taking 5 minutes compared to the SVM’s 15 hours. M. Surdeanu et al (2007) method did suffer in recall however but consistently produced better F1 scores.
+
+\subsection{Learning to extract relations from the web using minimal supervision}
+
+TODO No pre-processing tools used, did remove stopping words
+
+R.Bunescu et al (2007) have developed a method for relation extraction by extending a weaker form of multiple instance learning using support vector machines and string kernels. The method aims to construct a feature space whose dimensions relate to the sequence of words within an extracted relation instance. The instances are raised to a high dimensional hyperspace and classified linearly. The intention is that the system learns the trends that make a mention of the entity pairings positive or negative and therefore can be used to classify any given document with the generalised information. No pattern is used to find sentences, simply a match on the entity is used, therefore there is no initial confidence in any given data point. Sentences that do not contain pairs that may express a relationship are removed. The sentences that are recorded are split into positive and negative bags depending on their pairing orientation. R.Bunescu et al (2007) have deliberately avoided the use of syntactic analysis as it has often given them unreliable results. They demonstrated that for a variety of documents on the internet, such processing tends not to yield a benefit. These sentences are then used to train the Support vector machine. Stop words and punctuation are removed to form expressions of the original instance, these can be learnt by the SVM. The method was motivated by the high success rate of other SVM implementations for relation extraction. This method can be transformed into a standard supervised method by labelling all the contents of the bag before processing.
+
+\subsection{Self-supervised relation extraction from the web}
+
+Todo referred to a monotonic function
+
+SRES classifies relations from self-taught extraction patterns that are derived from unlabeled text documents. The patterns are formed by generalising the instances of relations extracted by prior patterns by identifying and extracting general keywords and attributes in those sentences. The greatest scoring patterns are kept, similar to an evolutionary algorithm implementation. Initial patterns are required to start this process and they constitute the entire input of the system. They are used to generate pattern seeds which are iteratively fed into the pattern learning aspect of the system. Large collections of patterns are formed by the cross combinations of the sentences extracted. The initial patterns extract a small training set of relation instances with high confidence. These sentences are broken down by the NER element of the system into tokens and keywords which have the potential to become pattern factors. Negative instances of relations are generated by altering positive instance attributes with ‘acceptable’ replacements from their original sentence. Mislabeling is thought to be a small occurring during this process. Patterns are scored via a monotonic function formed from the positive and negative instances of that are generated from their operation.
+
+In general, the process has bad scaling ability due to the expensive generation and combination of extracted sentences to form new potential patterns. A knock on effect is the evaluation of many redundant patterns is conducted which is a further strain despite being linear in operation.
+
+\subsection{Conclusion of Literature}
+
+From looking at the literature, I believe that the decision to develop the system as a supervised method is accepted as a prefered strategy of relation extraction. However, the limitations associated with curating and collecting corpora of annotated information is the primary reason why they haven’t followed this route [12][7][11]. As a result, most methods have devised various seed implementations to strike a balance between some and no supervision, to include at least some initial benefit from having annotated information. Considering the implementation is to be used purposely, I believe the limiting nature of the acquiring annotated data is realistically an issue within research only. For any invested individual looking to make use of such a system, it is very likely they are already exposed to large corpora of information, that is already been processed in some form. Furthermore, as society continues to accumulate masses of data, it is relatively easy to acquire considerable volumes of annotated information.
+
+Various implementations of Support Vector Machines were the prefered choice for information and relation extraction in the reviewed documents.[1][6][11][3][8] Performance is generally derived from the kernel of choice and since many have had relatively good success, the focus has been on the adapting previous works to include additional lexical and semantic knowledge into the classification.[8] However, there is evidence to suggest that the inclusion of such information yields little improvement over the simple chunking and shallow dive techniques. [8] M. Surdeanu et al (2007) has a much more promising technique that has shown to produce on par or better than the common SVM approaches in a greatly reduced time. They make use of only the part-of-speech tags and chunking information to train perceptron based large margin classifier while making use of simple and robust NLP systems. Additionally, they allow multiple hypotheses of a relation to flow through the system to be evaluated at a later point when all information can be aggregated. With the user’s considerations in mind, a combination of M. Surdeanu et al (2007)’s and G. Zhou et al (2005)’s techniques to produce a simplistic but powerful classifier resonates with me best. Implementing the ‘one vs. others’ strategy with neural network based classifiers using simplistic and robust NLP methods is expected to be very promising.[12] Generating an ensemble of neural network classifiers that work specifically to represent a relation group (a single relation with multiple domains and ranges) shall allow for tailored classification. Furthermore they classify the relations into three classes: A positive instance of the relationship; A negative instance of the relationship, the text identifies that the relationship definitely does not hold; or a null instance of the relationship, the context doesn’t indicate anything towards a classification, no conclusion can be drawn from this result. This implementation is likely to best align with the kinds of points that will be extracted from text sources. Many method TODO(refer) break down the surround contexts into three groups, the preceding context, the context between the entities, and the context that follows. TODO() indicates that surrounding context is important as many relationships are in fact defined in such snippets.
+
+I do not intend to use a Named entity recogniser during the operation of the classifier as that information is expected to be included in the ontology. Instead, I intend to record a locus of entity patterns that are collected from the annotated documents. For each entity, a dictionary of phrases will be produced to identify them, and finding segments of a document that contains a relation will be as simple as matching words with entities through those patterns. For this method, I would expect a very high recall rate, although it falls prey to incomplete annotated documents. Relations would not be identified if the entity is described in a way not labelled in the annotated documents (misspelt entities as an example). To counter this, a method of co-referencing the annotated documents would also need to be generated. Finkel et al. (2005) suggest a way of finding entities probabilistically by inference and this could be used as a to resolve entity inconsistencies and co-referencing problems.
+
+\section{Project Specification}
+
+In this section, I will be identifying the specification of the system and where it has changed over the course of the development. Furthermore, I will indicate how the development of the system was carried out, and the reasoning behind the methodology.
+
+\subsection{Original Specification}
+
+Primarily, the system I envisioned was rather more self-contained. It was my intention to interact with the model and functionality through a single object. However, as development began, it became clear that for the intended use, a whole variety of objects could prove as useful supporting objects and structures. Though the package provides many objects to interact with, the goal of maintaining an intuitive method of interaction has been preserved.
+
+\subsubsection{Structure}
+
+The project shall be a python package that enables the creation of the project’s relation classifier. The classifier a simplistic API primarily offering functionality to train and predict on annotated sets. A classifier will take as part of its constructor the ontology that describes the domain. For training, a set of annotated document objects will be taken along with their targets. The inputs to the object shall be in the form of an ontology object/file and a collection of annotated sentences/paragraphs.
+
+\subsubsection{Ontology}
+
+The ontology provides information about the entities and relations contained within the domain. Additionally, it indicates a hierarchy of entities to allow for cascading of relations. e.g. Person drives vehicle can be cascaded to Paul drives BMW. This helps ensure the document is relatively small and simplistic, facilitating development. It provides a powerful tool for the expansion of relations over the domain in a deterministic manner without losing information while being as general or specific as the user intends. Following suit, as a concept can relate to any arbitrary construct, the concept itself will be able to identify if it is expected to appear within a text, and with what representation. This will ensure that relations can cascade correctly, but, the relation extractor will not find to be true relationships between concepts that are not desired. Relations will allow the user to indicate various properties of the relationship, one such property is self-referencing. Though a relation holds between People, the relation does not ever hold for the same person to person.
+
+\subsubsection{Technique}
+
+Classification is to be performed by an ensemble of multilayer perceptron algorithms, similar to those expressed in M. Surdeanu et al (2007). Each classifier shall be tasked with determining the confidence of a particular relationship expressed within the ontology. They shall take as inputs tokens of a sentence that will be anchored around the entities. The number of inputs of a classifier shall be determined by K and shall express the number of context words around the pair to include. An input shall be the words before the first entity, the words between the pair of entities, and the words following the second entity. The entities themselves do not need to be included as they are assumed by the classifier. The classifier can then operate on any combination of entities within the ontology that inherit from the entities of the relationship, allowing one classifier to correctly evaluate many entity pairings. For situations where a single passage has the potential to exhibit multiple relations between concepts, each relation will be classified in turn. The confidence of their prediction will be used to indicate which of the relationships shall indeed hold. Additionally, as the classification of each relationship happens independently from one another, the system shall allow the user to programmatically introduce relations into its evaluation at any time. At such time, additional classifiers will be generated and the model will extend to handle these relations.
+
+\subsubsection{Training}
+
+Training the system focus on paragraphs/sentences that contain entities that can express relationships found within the ontology. For entity pairs, the relations are identified and the classifiers responsible for representing them are found. Words within a sentence shall be tokenized, and the features shall be expanded to include their respective Part of speech tags.
+
+\subsubsection{Prediction}
+
+The system is to return a collection of relations found along with the  segments of text they originated from, their index in the text, and their confidence. During the evaluation section, the input document will be subjected to various refinement processes designed to minimise error. Spelling will be corrected, co-referencing shall be conducted and entities inserted.
+
+\subsection{Development Methodology}
+
+For the development of my project, I adhered to the agile development style as best a singular individual can, by breaking down the aspects of the project into various collections of functionality. I was able to iteratively add features according to their priority in the context of the scope of the project. Along with the development of these features, I spent time ensuring each parts validity by writing unit tests. It was critical to ensure each stage was thoroughly tested to reduce the overhead of resolving issues caused by service integration.
+
+It was important to ensure that the project was correct and complete at each stage of addition of additional features. I intend to continue to develop this package to include other tools and operations for the extraction/generation of information. Each feature added was accompanied by unit and service tests to ensure validity.
+
+\subsection{Deviations from the original Specification}
+
+TODO
+
+\subsubsection{Structure}
+
+Overall the structure of the solutions is consistent with the original envisioned system. The solution is a Python package that contains the functionality to generate and manipulate ontologies and the relation extractor itself. A variety of tools also accompany the package for the convenience of users, most importantly document objects. The relation extractor has itself become a valid ontology object that maintains, along with the concepts and relations of the domain, an ensemble of relation classifiers. The input has become solely the training documents objects that help process raw text into a machine-readable manner.
+
+\subsubsection{Ontology}
+
+The ontology functionality is as originally states, though functionality is divided into the Concept, Relation objects. The ontology maintains this information and provides an expansive interface for interaction with the information.
+
+\subsubsection{Technique}
+
+The parameter “K” (number of words of context) has been removed as it is based on the premise that individual words are to form the features of any given data point and be passed to the classifiers. Due to the variability of sentence length and large occurrence of missing features, the method of tokenizing the context around an entity pair has changed. The training documents along with a collection of external texts are used to produce a model for word embedding, which in turn is used to perform sentence embedding in the context around pairings. The features are then the features of the sentence embedding alleviating the original issues. The total context window has become individual sentences themselves. This has meant a new parameter has been introduced “S” which refers to the size of the word embedding vector, with a default value of 300, as suggested by research conducted by Google TODO REFERENCE.
+
+Other than this change, the relation model operates as originally specified. The concepts themselves are not passed to the model as they are considered interchangeable with any other concepts the relationship connects, as expressed by the ontology. As such, its semantic value shouldn’t and doesn’t impact classification.
+
+\subsubsection{Training}
+
+Training is solely conducted through the use of the training document object. The training documents are to include the text source, and all the data points the text expresses with annotations of the points into three various classifications. The classification: Positive, an example of when a relationship holds; Negative, an example of when the relation is shown to be not true, not present; and Null, when the concepts of a relationship are present, but the context doesn’t offer any information about the relationship. An example:
+
+“Kieran has lived in France for 2 years now, but he still doesn’t know French”
+
+If considering the relationships “born in”, “lives in” and “speaks”. Kieran living in France is a positive instance, Kieran being born in France, is a null instance, and Kieran speaks French is a negative instance. Though it can be inferred that Kieran was not born in France, (if he is older than 2), performing inference is not within scope. The purpose of the extraction is only to extract semantic relationships that are present in the text itself. Since there is no context that gives any indication that the relation “born in” holds, it is considered a null instance.
+
+Training documents can be created programmatically, or via the Annotation Document object, that allows a user to annotate a document from the command line. Given that an ontology of the domain already exists, all the potential data points from a text source can be extracted, and the user can classify each data point, iteratively generating a training document.
+
+\subsubsection{Prediction}
+
+Similar to how one trains a relation extraction model, the method to predict on a source is to generate a document object with the source as its content. These documents are passed into the model and once the predictions have been made, the document objects are updated to contain the data points found. The document has a collection of points for every sentence, ordered accordingly. Each data point contains information about the original text, the matches made, the context, and ultimately the predicted class and its probability. Points that were predicted as null are no present as they yield no information.
+
+My original intention was that the document object was to be responsible for the refinement of its content before evaluation, however, these processes also require training to work effectively. Spelling corrections are handled by a statistical model TODO reference, that is trained on the contents of the training document. The spelling model is then included during the cleaning of a sentence to alleviate issues. 
+
+I have also decided not to remove stopping words, as though my experiments, examples indicated that the removal will definitely lead to incorrect classification. “Kieran can speak English”, “Kieran cannot speak English”, “Kieran doesn’t speak English” will all collapse to “Kieran speak English” via the removal of stopping words thus, they are required.
+
+Anaphora resolution was not implemented within the system due to the complexity of the field, which ultimately reduces the system’s capacity to recall instances. This limitation is confined to cross sentence referencing only, the contextual information innately contains co-referencing information, thus, the system is still able to learn these relationships. The system currently is positioned to allow for the quick adoption of an anaphora resolution method in future iterations.
 
 \section{Design and Implementation}
 
-In solving this problem, I have decided to set up the system and a python library. In doing so
-I provide a simple method of generating and manipulating ontologies for inference learning and for
-relationextraction.
+I designed the solution in the style of a python package such that the system would be easy to include into systems that expand multiple platforms, and to be able to make use of the scientific packages that are popular in python.
 
+\subsection{Ontology}
 
+The ontology object is fundamentally a programmatic implementation of the ontology concept expressed within philosophy. It is a form of Knowledge representation that encompasses the collection and organisation of world knowledge. This knowledge is the backbone of my relation extraction implementation as it guides the processing of input documents and the generation of relation classifiers. Similarly to the philosophical ontology, it expressed information by declaring what things exist (concepts), and how they interact(relationships).
 
-\subsection{Technology, package whatnot}
+\subsubsection{Concept}
 
-\section{Solution Evaluation, Experimental Investigations}
+The concept object represents a singular “thing” in the domain covered by the ontology. A concept can relate to any imaginable construct, including an idea, a location and a time. A concept encapsulated the relevant information necessary to express its part in the ontology and describes how it might interact. Within the project itself, a concept could be considered a bare-bones realisation of this ideal. Concepts are responsible for generating a structure of knowledge and permitting a simplistic method of relation expansion with I will discuss in the following section. Concepts are uniquely identified with a name, and store information about parent and child concepts, possible attributes (properties) and their visibility in the text.
+
+Family membership is a method of implicitly specifying the relation commonly referred to as “is a”. This relation indicates that “child's” concepts can operate in the space of their parents indistinguishably.
+
+The concept object holds this information and provides convenient functions for the use of this information and the comparison with other concepts.
+
+\subsubsection{Relationship}
+
+A relationship defines one of the potentially many forms of interaction between two concepts. Information is encapsulated implicitly in the definition of the relation, it does not in itself relate to any “thing”, but rather, the interaction of “things”. The relation object within the project abstractly represents a collection of semantic relationships that can be formed between concepts. Fundamentally, the relation object is to represent semantic relations that exhibit the same textual representation. As such, it is not subject to the conventional uses of philosophical relations. A relation object instead is used to describe a collection of related semantic relations, that can be referred to as consistent with one another within the domain. The relation object is responsible for maintaining this collection and nothing further.
+
+A relation object maintains a collection of concept to concept pairings which represent the concepts it is expressing a relationship for. These pairs are referred to within the system as domain-target pairings, implicitly indicating that relationships are directional. 
+
+[Person, Business, Country] pays [Person, Business, Country] TODO figure me
+
+Above is an example of a relationship object. Structures as DOMAINS RELATIONSHIP TARGETS, it expresses the idea that the concepts “Person”, “Business” and “Country” can in some form “pay” one another. The relation is as we would expect, that legal tender is passed from one to another, and intuitively we know that this relationship exists between all of the concepts listed. Fundamentally, we know that despite the varying implications, the manner in which each of these pairings would be found within a text is extremely similar. In fact, we would expect that for a sentence that expresses the relationship between one pairing of the sentence, would express the relationship for any pairing if the concepts were interchanged.
+
+The relationship as shown indicates how one might define a bidirectional relation, the number of connections this relation object actually expresses is the product of the domain-target sets. In doing so, all concepts can “pay” themselves. The ability to self-reference has additional benefits when you consider the fact that “Person” is a concept that encompasses a large collection of other concepts. As expressed within the section TODO(refer to the concept) our ontology may contain concepts such as “Kieran”, “Ben” and “Luke”, all of which express the “is a” relationship with “Person”. The structure formed from the “is a” relationship allows this simple relation definition to cascade to include child concepts as domains and targets. This process results in pays(“Kieran”, “Ben”) to be a valid instance of this relationship. In total, this compact definition can, in fact, express 36 different relationship instances.
+
+In the event that the relationship holds for most but not all of the instances that would be generated from the product of the two sets, the relationship can, in fact, define sets of domain-target pairs. Taking the example shown above, if we imagine that there can never be a relationship “Country pays Person”, then the current definition of the relationship is wrong. The original cross-product functionality is maintained as it greatly diminishes complexity, and instead, the instances become the sum of the sets of instances expressed in domain-target sets. The valid relation definition is:
+
+Pays :
+[Person, Business, Country] -> [Business, Country]
+[Person, Business] -> [Person]
+
+Something important to note for this example is that the conventional manner in which a country “pays” an individual is typically through a specific process which is well defined, and accompanied by its own conventions in natural language. Though this would imply that the pairs are not as interchangeable as previously stated, it actually forms the reasoning as to why distinguishing this difference isn’t necessary.
+
+Considering the relation expressed in TODO(figure in the original relation). If there is a convention in natural language that specifically expresses how countries pay other countries, then, this convention is not used to express the payment between other concepts such as people. Following this, the convention shall not appear within an examinable text in the domain expressing the relationship between other concepts. In kind, distinguishing the interactions separately is not necessary as they won’t appear, and the classifier can learn this separation without issue.
+
+A counter argument may be that, though the convention should not appear, natural language is filled with mistakes and misuse, subsequently, it is possible that these events are found. I would argue that this doesn’t undermine any assumptions made when constructing the relationship. Fundamentally, human persons that are confronted with these issues are able to interpret the sentiment of the statement and form their own classification regardless of breaks in the convention. As such the sentiment of the convention is the predominant factor required to inform the decision. This leads to a design decision within the relation extraction process that I will expand upon here. TODO link to the section that holds info
+
+If there is a more critical departure of the textual representations, then as shown in TODO(refer to the second relation) the relation's concepts can be split, or a new relationship can be generated. Situations like this are typically self-evident.
+
+\subsubsection{Ontology}
+
+The ontology class is the data structure that holds and manipulates the concept and relation objects. Exposing a simplistic interface to allow for programmatic addition and removal of concepts and relationships. The ontology class is responsible for ensuring the validity of its contents, propagating relationships down the “is a” relationship structure expressed by TODO(refer) and subscribing new concepts to relations where applicable. Concepts and Relations hold references to one another that are governed and owned by the ontology object, this ensures parallelisation of similar ontologies without conflict. Additionally, it provides the functionality to save and load a construction along with a number of other convenient functions. It acts as the main access point for concepts and relations.
+
+\subsection{Documents}
+
+Documents refer to a textual source of information. For the relation extraction, document objects wrap around content and provide the system with functionality to efficiently extract and use information.
+
+\subsubsection{Datapoint}
+
+All documents maintain a collection of data points, the data points record the all relevant information about a potential semantic relationship found within a snippet of text. A data point contains information about the relationship instance, the text where the relation was assumed to be present, and a breakdown of the snippet into context pockets around the concepts. For data points involved in training, an annotation value is also present.
+
+Additionally, the data point object maintains values for the context embeddings of each context pocket, the prediction value and the probability associated with that prediction.
+
+\subsubsection{Annotator Document and the Prediction Document}
+
+Within the project, a document that is to be treated as a source for prediction is simply referred to as a document. To avoid ambiguity, I will refer to said documents as Prediction documents (PD). Both the Annotator Document (AD) and the PD provide a simple method of interaction with a data source. Their primary responsibility is to process the source such that it is easier to interact with. A PD on generation simply extracts the contents of the source. Upon prediction, an ontology is passed that expresses the domain that document is to be reviewed within. The PD is then responsible for iteratively finding potential data points that may be present within the source.
+
+The text representations of the concepts within the ontology form a collection of patterns used to introspectively query the source. The source is broken down first by paragraph, and then by sentence as dictated by the Document Operations module. Within each sentence, non-overlapping concepts are extracted. For each pair of concepts, the ontology is queried for all relationship that can form between them. All of this information is used to generate a collection of data points. In this state, the document can then be passed into the Relation extractor, as the data points to predict on have been set.
+
+The AD extends the PD and provides a user with the ability to annotate the data points rather than having the prediction applied via the relation extraction system. Currently, the AD has a simplistic command line interface that allows for the generation of training documents off the back of the PD. Despite being a rudimental implementation, the AD allows the user to quickly generate training documents from an arbitrary text source. The responsibilities of this class are expected to greatly increase in future iterations of the system.
+
+\subsubsection{Training Document}
+
+The training document is a structure to contain already annotated data points. Its primary function is to hold the data points and provide a quick method of identifying concept text representations and yielding feature information. The structure of the document is less relevant as its purpose is to provide examples. 
+
+\subsubsection{Document Operations}
+
+Most of the operations conducted throughout the system and generic and stateless, as a result, the Document Operations (DO) module contains a number of convenience functions to process text snippets when applicable.
+
+The most notable function provided by the DO is that conversion of a text snippet into an embeddable format. Referred to as “cleanSentence”, the method removes grammar, expands words and resolves spelling mistakes. Spelling is corrected using a simple implementation of Google’s spelling correction method. The method is essentially a model using probability theory to predict the spelling of a word not seen via the occurrence of candidate spellings in a large text corpus. During the training process of the Relation Extraction Model, the training documents are used along with text collections to train the spelling corrector model.
+
+\subsection{Relation Extractor}
+
+The relation extractor is responsible for the functionality that makes prediction possible. Due to its dependence on the ontology for it to operate, the extractor is an extension of the ontology class and inherits its functionality. This provides much more granular control and flexibility. During initialization, an ensemble of neural network classifiers is generated which correspond one for one with the relationships expressed in the ontology. At this stage, the word embedding model is instantiated.
+
+Word embedding is the blanket term for techniques that maps words and phrases as part of a set of vocabulary into a continuous vector space with greatly reduced dimensionality. This allows the words in the context snippets of a data point to be expressed as a vector of real numbers. The semantic information of a word is what is being represented, as it is believed that the company of a word gives it its definition. As such, Word embedding is a supervised method where large corpora of text are examined to find correlations between various words. The embedder can learn the semantic meaning of the words given the context they appear in.
+
+During the training process, the contents of the training documents are passed into the word embedding model to enable a better fit of the domain-specific contextual semantic meanings of words. After training of the word embedding model is complete, the data points are extracted from the training documents and sorted according to their relationship. Each data point has its context snippets embedded according to the sentence embedding function.
+
+Sentence embedding is a continuation of word embedding, that represents an entire collection of words in a single real vector. An additional consideration of sentence embedding is the information regarding the ordering of the words as this fundamentally alters the semantic definition of a sentence. The relation extractor generates a sentence embedding as the sum of its word embeddings. By default, the relation extractor uses an exponential monotonic function as a multiplier for each word embedding as a method of include positioning information for the embedding of the context.
+
+With the training data points embedded, the Relation extractor trains each of the relation instance models in parallel (according to the number of threads parameter set). The Relation instance model takes the three embedded context snippets as its input only, excluding the concept representations. This is due to the previously stated interchangeability of the concepts in theory, and also to alleviate the semantic differences in the concepts themselves from the semantic construction of the surrounding context.
+
+After the Relation Extractor has been fitted, prediction works in a similar vein to training. The Relation Extractor generates a thread to execute each document, which first passes a reference of the extractor's ontology to the document so that the document can generate its data points. Each of the data points is then embedded according to the sentence embedding function and passed to the relation instance model for classification. The predicted classification and its associated probability are then stored in the data point object itself and passed back to the document. After all of the PDs have been classified, they are passed back to the user's call and the entire process has been concluded.
+
+By having the operation of the relation extractor as written, the interface is limited to the initialisation of the extraction, the calling of the fit method, and the calling of the predict method.
+
+The parameters of the system
+TODO
+The limit and gradient of the function are parameters of the system such that they can best influence the learning and prediction. For different domains, the length and convention behind the context snippets will change greatly.
+
+\subsection{Supporting packages}
+
+\subsubsection{Gensim}
+Gensim is a framework for fast vector space modelling that provides functionality to perform topic modelling, document indexing and general information retrieval. They provide the word embedding implementation that is used within the relation extraction. Their intuitive interfaces expose memory-independent algorithms with respect to corpus size, that can be optimised for multicore implementations and distributed systems equally. They provide lots of utility and are the most popular method of generating word embeddings within Python.
+
+\subsubsection{Sklearn}
+Sklearn is a library built upon SciPy and contains a set of well tested and popular machine learning and data mining algorithms. Sklearn provides a simple and efficient toolset along with many methods of analysis. The SKlearn implementation of the Neural Network was used inside the relation instance model, to be able to classify the data points. These packages are very popular and well maintained themselves which provides validity and assurance to the code.
+
+\section{Experimental Investigation and Analysis}
+
+\section{Solution Evaluation}
 
 \section{Conclusion}
-\subsection{Limitations, Future Improvements, Personal Reflection, What could have been done better, Concluesion}
+
+\subsubsection{Limitations}
+
+A requirement of the system is that the ontology expresses all occurrences of possible concepts and relationships before examining any of the training data. A problem that I have identified during the processing of a TODO(dataset) was the fact that it may not be a realistic expectation to assume that the user knows of all the ways in which a concept will be expressed. Text representations are extracted from the training data and add to the patterns used to extract data points from PD, however, these training documents are likely not able to provide examples of every possible text representation of the potentially expansive ontology structure. Subsequently, the method’s ability to recall instances is limited to the percentage of representation coverage in the ontology and the training documents.
+
+Currently, due to the absence of an anaphora resolution method, recall is affected by relationships that use co-referenced concepts. As the current method of data point generation is pattern matching on the text representations, the system is incapable of matching these co-referencing relations if the original concept is not apart of the sentence. The current method does work for resolving inner sentence co-referencing but in a subpar manner.
+
+“Kieran can speak English rather well, but he has never lived in England.”
+
+This example of an inner match highlights how the system currently operates. It is clear that two relationships are present within the text, Kieran speaks English, and not Kieran lived\_in “England”. A human person would interpret the second relationship between the pronoun “he” and “England”, however, due to the pattern matching, the context extracted for this data point would be the entire middle context as it matches the instance Kieran and the instance England across the text. As this kind of extraction is consistent throughout the training and prediction process, the system shall learn how to correctly predict those points, however, this unintentionally adds additional variety to how the relationship may occur which negatively impacts the classification. Secondly, as the relationship may be expressed but not throughout the sentence, the context in the middle of the sentence has very little or nothing do to do with the relation further harming classification.
+
+In the event that anaphora resolution was introduced, this would likely exacerbate another issue. For sentences that contain multiple references to the same concept, it is possible for multiple data points to be generated with the same relation instances but varying context snippets
+
+“Kieran can speak English well, Kieran has always spoken it well.”
+
+Though it is correct to extract both data points for comparison, a human would interpret the data point that spans “English well, Kieran” as an incorrect point. The issue arises as the method by which a data point is selected is based on the probability of its classification. In turn, the incorrect point can be selected if its classification is made with great certainty. This will result in a malformed explanation of why the relationship is said to be held. Though this is a relatively small inconvenience for the user rather than a flaw, a larger issue arises when a context is malformed enough to provide a different classification. As the malformed context will likely not be used during training of the relation, it is possible that the malformed point will not only be classified with greater probability, but with an incorrect class. Subsequently, negatively impacting the perceived performance of the classifier. As stated, this issue is likely to be exacerbated as the anaphora resolutions are used to find additional concepts within the text.
 
 
+\subsubsection{Future work}
 
-\section{Introduction}
+The predominant problems facing the current version of the system relate to the method by which data points are extracted from the PD. For dealing with issues related to incomplete text representations, incorporating a method of entity recognition during the training phase may allow the extractor to improve upon its recall rates. Additional functionality can be added to allow text representations that are classified as a concept within the ontology, with a confidence above a threshold to be added to the ontology for future use.
 
-I decided that I want to propose a thing for the extraction of the semantic relationships from a
-text and, I decided that the best and more advantages method for doing something like this would be 
-to create an ensemble of neural networks that are trained on the vectors produced through the 
-combination of their word embedding values. 
+Leveraging the TODO(Exploring Various Knowledge) method for the identification of entity types may provide a simplistic method of incorporating some co-referencing resolution. A result would be that the PD documents would be responsible for maintaining two versions of a source's content.
 
-\section{Literature review}
+As the method by which the context is embedded is a combination of the word embeddings, words that form phrases are unable to provide the correct semantic interpretation. A method of identifying phrases, and in turn, generating a phrase embedding for a collection of words, would likely yield an improvement in classification.
 
-\section{Solution specification}
+Adapting the document objects to maintain their contents is a compressed form may help ensure that the memory requirement of the system is kept to a minimum. The document objects would then be responsible for expanding the content when needed and yielding small parts at a time. Additionally, The document objects could also be expanded to handle a greater variety of encodings. Though this will come with greater challenges for the embedding and training aspects of the system, providing greater flexibility is also a requires aspect of a system.
 
-\section{Process}
-The techniques used to solve the problem
-
-\section{Analysis}
-
-\subsection{Benchmarks}
-
-\subsection{Comparison with current techniques}
-
-something
+\subsubsection{Personal Reflection}
 
 \bibliography{SRE}
 

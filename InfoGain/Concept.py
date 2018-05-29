@@ -114,7 +114,7 @@ class Concept:
         """ Return only the information the concept represents """
         concept = {
             "name": self.name,
-            "parents" : list(self.parents),
+            "parents" : [parent.name for parent in self.parents],
         }
 
         if len(self.text): concept["textRepr"] = list(self.text)

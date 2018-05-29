@@ -7,8 +7,8 @@ from .Datapoint import Datapoint
 
 class TrainingDocument(DocumentBase):
 
-    def __init__(self, name: str = None, content: dict = None, filepath: str = None,):
-        super().__init__(name, content, filepath)
+    def __init__(self, name: str = None, content: str = "", datapoints: [Datapoint] = [], filepath: str = None):
+        super().__init__(name, content, datapoints, filepath)
 
         self._concepts = {}
 

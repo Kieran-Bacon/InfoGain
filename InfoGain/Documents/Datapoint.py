@@ -34,7 +34,16 @@ class Datapoint:
             self.predProb = data.get("probability", None)
 
     def __str__(self):
-        return " ".join([self.domainRepr, self.relation, self.targetRepr, str(self.annotation), str(self.prediction), str(self.predProb)])
+        return ":".join([
+            self.domainRepr,
+            self.relation,
+            self.targetRepr,
+            str(self.annotation),
+            str(self.prediction),
+            str(self.predProb),
+            self.lContext,
+            self.mContext,
+            self.rContext,"END"])
 
     def __eq__(self, other):
 

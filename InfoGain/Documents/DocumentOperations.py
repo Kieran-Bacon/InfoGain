@@ -35,6 +35,9 @@ def cleanSentence(sentence: str) -> str:
 def cleanWord(word: str) -> str:
     """ Remove grammar and unwanted words """
 
+    # Protect cant
+    if word == "can't": word = "cant"
+
     # Expand words
     word = re.sub("n't$", " not", word)
 

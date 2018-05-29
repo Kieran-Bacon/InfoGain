@@ -1,5 +1,5 @@
 {
-    "content": "Kieran speaks English\nKieran speaks Spanish\nKieran can speak English\nKieran can speak Spanish\nKieran has shown that he can speak Spanish\nKieran has learnt how to speak Spanish\nKieran's Spanish is rather good\nKieran can speak English fluently \n\nLuke cannot speak English\nLuke can't speak English\nLuke can't speak Spanish\nLuke cannot speak Spanish\nLuke doesn't speak English\nLuke doesn't speak Spanish\nLuke never learnt how to speak Spanish\nLuke always wanted to learn Spanish, but he never did\nLuke has never wanted to learn Spanish\nLuke cannot speak English",
+    "content": "Kieran speaks English\nKieran speaks Spanish\nKieran can speak English\nKieran can speak Spanish\nKieran has shown that he can speak Spanish\nKieran has learnt how to speak Spanish\nKieran's Spanish is rather good\nKieran can speak English fluently \n\nLuke cant speak English\nLuke can't speak English\nLuke can't speak Spanish\nLuke cant speak Spanish\nLuke doesn't speak English\nLuke doesn't speak Spanish\nLuke never learnt how to speak Spanish\nLuke always wanted to learn Spanish, but he never did\nLuke has never wanted to learn Spanish\nLuke cant speak English",
     "datapoints": [
         {
             "domain": {
@@ -166,10 +166,10 @@
                 "text": "Luke",
                 "concept": "Luke"
             },
-            "text": "Luke cannot speak English\n",
+            "text": "Luke cant cant cant cant cant cant speak English\n",
             "relation": "speaks",
             "context": {
-                "middle": "cannot speak",
+                "middle": "cant speak",
                 "left": "",
                 "right": ""
             },
@@ -226,10 +226,10 @@
                 "text": "Luke",
                 "concept": "Luke"
             },
-            "text": "Luke cannot speak Spanish\n",
+            "text": "Luke cant speak Spanish\n",
             "relation": "speaks",
             "context": {
-                "middle": "cannot speak",
+                "middle": "cant speak",
                 "left": "",
                 "right": ""
             },

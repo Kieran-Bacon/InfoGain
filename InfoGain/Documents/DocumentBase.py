@@ -6,9 +6,8 @@ import InfoGain.Documents.DocumentOperations as DO
 
 
 class DocumentBase:
-    pass
 
-    def __init__(self, name: str = None, content: str = "", filepath: str = None):
+    def __init__(self, name: str = None, content: str = "", datapoints: [Datapoint] = [], filepath: str = None):
         """
         Generate a document object that may derive from provided content or a file 
         
@@ -32,7 +31,7 @@ class DocumentBase:
         self._content = DO.cleanWhiteSpace(self._content)
 
         # Maintain a collection of datapoints
-        self._datapoints = []
+        self._datapoints = datapoints
 
     def __len__(self):
         """ Return the assumed length of the document, the number of datapoints, if none give, the 

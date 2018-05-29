@@ -1,5 +1,6 @@
 from .Ontology import Ontology
 
+from .Documents.Datapoint import Datapoint
 from .Documents.Document import Document
 from .Documents.TrainingDocument import TrainingDocument
 
@@ -23,14 +24,14 @@ class RelationExtractor(Ontology):
     which in turn provide evidence for various relationships. The class provides 
     a collection of useful methods for interacting with the model. """
 
-    def __init__(self,
-        name: str = None,
+    def __init__(self, name: str = None, 
         filepath: str = None,
         ontology: Ontology = None,
         word_embedding_model: Word2Vec = None,
         embedding_size: int = 300,
-        min_count: int = 1,
+        min_count: int = 10,
         workers: int = 4,
+        alpha: float = None,
         hidden_layers: (int) = (50,20)):
         """ Initialising the pool of relation classifiers and defining the method of learning
         that will take place.
@@ -67,21 +68,16 @@ class RelationExtractor(Ontology):
         else:
             # Define the word model
             self.wordModel = Word2Vec(size=embedding_size, min_count=min_count, workers=workers)
-
-            # Collect the text data
-            documents = [Document(filepath=path) for path in RESOURCES.TEXT_COLLECTIONS]
-            sentences = [DO.cleanSentence(sentence).split() for doc in documents for sentence in doc.sentences()]
             
-            
-            # Help build spelling Corrector
-            self.wordModel.build_vocab(sentences)
+            # Build the word model correctly
+            self.wordModel.build_vocab(RESOURCES.TEXT())
 
         # Record embedding information
         self.embeddingSize = self.wordModel.layer1_size
         self.MAXTHREADS = self.wordModel.workers
 
-        # Inform the relation model structure
-        RelationModel.defineStructure((self.embeddingSize, *hidden_layers))
+        # Inform the relation model of its static parameters
+        RelationModel.setParameters(alpha, (self.embeddingSize, *hidden_layers))
     
         # Build relation model objects
         self.ensemble = {rel.name:RelationModel(rel.name) for rel in self.relations()}
@@ -96,7 +92,7 @@ class RelationExtractor(Ontology):
         sentences = [DO.cleanSentence(sentence).split() for doc in self._trainingCorpus for sentence in doc.sentences()]
 
         self.wordModel.build_vocab(sentences, update=True)
-        self.wordModel.train(sentences, total_examples=len(sentences), epochs=1)
+        self.wordModel.train(sentences, total_examples=len(sentences), epochs=self.wordModel.epochs)
 
     def _embedSentence(self, sentence: str) -> numpy.array:
         """ Convert a sentence of variable length into a sentence embedding using the learn word
@@ -240,6 +236,9 @@ class RelationExtractor(Ontology):
             documentPredictions = []
             for segment in document.datapoints():
 
+                if isinstance(segment, Datapoint):
+                    segment = [segment]
+
                 # Separate out the datapoints into relations
                 models = {}
                 for point in segment:
@@ -272,11 +271,13 @@ class RelationExtractor(Ontology):
 class RelationModel:
     """ The model the learns the sentence embeddings for a particular relationship """
 
+    alpha = 0.0001
     structure = (900, 5)
     #structure = (900,50,20)
 
     @classmethod
-    def defineStructure(cls, shape: tuple):
+    def setParameters(cls, alpha: float, shape: tuple):
+        cls.alpha = alpha if alpha else cls.alpha
         cls.structure = shape
 
     def __init__(self, name: str):
@@ -347,7 +348,7 @@ class RelationModel:
 
                 # Iteratively record out of the duplicated points the one with the greatest probability
                 dup = duplicates.pop()
-                point = point if point.predProb > dup else dup
+                point = point if point.predProb > dup.predProb else dup
 
             # Store the winner
             processedPoints.append(point)

@@ -17,9 +17,11 @@ class Document(DocumentBase):
         logging.warning("Anaphora resolution is not implemented")
         return content
 
-    def __init__(self, name: str = None, content: dict = None, filepath: str = None,):
-        super().__init__(name, content, filepath)
+    def __init__(self, name: str = None, content: str = None, datapoints: [Datapoint] = [], filepath: str = None,):
+        super().__init__(name, content, datapoints, filepath)
 
+        self._precision, self._recall = None, None
+        
         try:
             content = json.loads(self._content)
         except:
@@ -51,6 +53,9 @@ class Document(DocumentBase):
             
         reprMap = ontology.conceptText()  # Collect all the ways in which some text may mean a concept
 
+        patterns = ["(?!\s)"+re.escape(pattern)+"((?=\W)|$)" for pattern in reprMap.keys()]
+        aggregatedPattern = re.compile("|".join(patterns))
+
         def createDatapoint(dom, tar, relations, sentence):
             """ Generate the datapoints and add them to the document datapoint collection """ 
 
@@ -80,7 +85,8 @@ class Document(DocumentBase):
                 datapoints = []  # Collections of datapoints for this sentence.
 
                 # Look for instances within the sentence - ensuring that you only match with individual words.
-                instances = [match for pattern in reprMap.keys() for match in re.finditer("(?!\s)"+re.escape(pattern)+"((?=\W)|$)", sentence)]
+                #instances = [match for pattern in reprMap.keys() for match in re.finditer("(?!\s)"+re.escape(pattern)+"((?=\W)|$)", sentence)]
+                instances = list(aggregatedPattern.finditer(sentence))
 
                 while instances:
                     # While there are instances to work on
@@ -98,6 +104,60 @@ class Document(DocumentBase):
                         [datapoints.append(p) for p in createDatapoint(match, inst, relations, sentence)]
 
                 self._datapoints.append(datapoints)
+
+    def precision(self):
+        """ Return the precision of the datapoints inside the document """
+
+        correct = total = 0
+        for group in self._datapoints:
+            for point in group:
+                if point.annotation == point.prediction:
+                    correct += 1
+                total +=1
+
+        self._precision = correct/total
+        return correct/total
+
+    def recall(self, ontology):
+        """ Return the recall of the document """
+
+        # Generate the content.
+        Ocontent = self._content
+        content = "".join([sentence[0].text for sentence in self._datapoints if len(sentence)])
+
+        # Record the points
+        Odatapoints = self._datapoints
+
+        # Count the datapoints
+        datapoints = [p for g in self._datapoints for p in g]
+        total = len(datapoints)
+
+        # Process the info
+        self._content = content
+        self._datapoints = []
+        self.processKnowledge(ontology)
+
+        # Collect new points and count recall
+        Ndatapoints = [p for g in self._datapoints for p in g]
+        count = sum([o in Ndatapoints for o in datapoints])
+
+        # Reset document content
+        self._content = Ocontent
+        self._datapoints = Odatapoints
+
+        # Save recall value
+        self._recall = count/total
+
+        # Return 
+        return self._recall
+
+    def F1(self, ontology):
+        """ Calculate the F1 score and return """
+        if not self._precision and not self._recall:
+            self.precision
+            self.recall(ontology)
+
+        return 2*((self._precision*self._recall)/(self._precision + self._recall))
 
     def save(self, folder: str = "./", filename: str = None) -> None:
         """

@@ -17,3 +17,5 @@
 *.bib.bak
 *.bbl
 *.blg
+
+**/*WordEmbedding*
