@@ -16,8 +16,11 @@ from multiprocessing import Process, Queue
 
 def cross_validation(ont: Ontology, training: [Datapoint]):
 
-    structures = [(3,1), (4,2), (6,3), (8,4), (12,6), (20,10)]
-    alphas = logspace(-16,1,20)
+    #structures = [(3,1), (4,2), (6,3), (8,4), (12,6), (20,10)]
+    #alphas = logspace(-16,1,20)
+
+    structures = [(50,20)]
+    alphas =[1.4384498882876659e-09]
 
     logging.getLogger().setLevel(logging.ERROR)
 
