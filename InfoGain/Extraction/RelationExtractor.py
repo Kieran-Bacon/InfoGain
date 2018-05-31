@@ -1,12 +1,6 @@
-from .Ontology import Ontology
-
-from .Documents.Datapoint import Datapoint
-from .Documents.Document import Document
-from .Documents.TrainingDocument import TrainingDocument
-
-import InfoGain.Resources as RESOURCES
-import InfoGain.Resources.TextCollections as TEXT
-import InfoGain.Documents.DocumentOperations as DO
+from ..Knowledge import Ontology
+from ..Documents import Datapoint, Document
+from .. import Resources
 
 import os, numpy, logging, sys
 from queue import Queue
@@ -114,7 +108,7 @@ class RelationExtractor(Ontology):
                 
         return embedding if not len(words) else embedding/len(words)
 
-    def fit(self, training_documents: [TrainingDocument] ) -> None:
+    def fit(self, training_documents: [Document] ) -> None:
         """ Use the provided annotated document to provide training data to the
         regressors of
         
@@ -123,7 +117,7 @@ class RelationExtractor(Ontology):
         """
 
         # Allow single or list of documents, convert training documents
-        if isinstance(training_documents, TrainingDocument):
+        if isinstance(training_documents, Document):
             training_documents = [training_documents]
 
         for document in training_documents:

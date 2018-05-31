@@ -7,8 +7,7 @@
                 "name": null
             }
         },
-        "Kieran":{"parents":["Person"], "textRepr":["Legend","Badass","Champ"]},
-        "Sad_Kieran":{"parents":["Kieran"]},
+        "Kieran":{"parents":["Person"], "alias":["Legend", "Champ", "Badass"]},
         "Luke":{"parents":["Person"]},
         "Charlie":{"parents":["Person"]},
 
@@ -28,18 +27,30 @@
     "Relations": {
 
         "speaks" : {
-            "domain": ["Person", "Country"],
-            "target": ["Language"]
+            "concepts":[
+                {
+                    "domains":["Person", "Country"],
+                    "targets":["Language"]
+                }
+            ]
         },
 
         "born_in" : {
-            "domain": ["Person"],
-            "target": ["Country"]
+            "concepts":[
+                {
+                    "domains":["Person"],
+                    "targets":["Country"]
+                }
+            ]
         },
 
         "lives_in" : {
-            "domain": ["Person"],
-            "target": ["Country"]
+            "concepts":[
+                {
+                    "domains":["Person"],
+                    "targets":["Country"]
+                }
+            ]
         }
     }
 }

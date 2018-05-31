@@ -1,7 +1,7 @@
 import os
 ROOT = os.path.dirname(os.path.realpath(__file__))
 
-class Language:
+class Medicine:
 
     ontologyObj = None
     trainingSet = None
@@ -44,7 +44,7 @@ class Language:
         if cls.testingSet is None or num_of_docs != cls.testingSize:
 
             import os
-            from InfoGain.Documents import Document
+            from InfoGain import Document
 
             files = os.listdir(os.path.join(ROOT, "testing"))
             if num_of_docs: files = files[:num_of_docs]

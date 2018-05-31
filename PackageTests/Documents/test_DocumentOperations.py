@@ -1,5 +1,4 @@
 import os, unittest, json
-from . import DOCUMENTS, ONTOLOGIES
 
 import InfoGain.Documents.DocumentOperations as DO
 

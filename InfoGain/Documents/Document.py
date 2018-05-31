@@ -1,43 +1,105 @@
-import os, re, logging, json, logging
-import itertools as tools
+import os, uuid, json, re
 
-from InfoGain.Ontology import Ontology
+from ..Knowledge import Ontology
+
 from .Datapoint import Datapoint
+from ..Documents import DocumentOperations as DO
 
-from .DocumentBase import DocumentBase
-import InfoGain.Documents.DocumentOperations as DO
-from InfoGain.Documents.DocumentErrors import EmptyDocument
+class Document:
 
-class Document(DocumentBase):
-    """ Representation of processable documents. """
-
-    @classmethod
-    def anaphoraResolution(cls, content: str) -> str:
-        """ Resolve anaphorical issues present within the document """
-        logging.warning("Anaphora resolution is not implemented")
-        return content
-
-    def __init__(self, name: str = None, content: str = None, datapoints: [Datapoint] = [], filepath: str = None,):
-        super().__init__(name, content, datapoints, filepath)
-
-        self._precision, self._recall = None, None
+    def __init__(self, name: str = None, content: str = "", datapoints: [Datapoint] = [], filepath: str = None):
+        """
+        Generate a document object that may derive from provided content or a file 
         
+        Params:
+            name - The name of the document, used as the file name if saved
+            content - The content of the document as a string
+            filepath - The location of the document source, content of the location is
+                made to be the content of the document
+        """
+
+        # Save name or generate an id randomly
+        self.name = name if name else uuid.uuid4().hex
+        self._concepts = None
+        
+        # Save the content, overwrite provided content with read content
+        self._content = content
+        if filepath:
+            with open(filepath) as handler:
+                self._content = handler.read()
+
+        # Clean the content of un-needed white space.
+        self._content = DO.cleanWhiteSpace(self._content)
+
+        # Maintain a collection of datapoints
+        self._datapoints = datapoints
+
         try:
             content = json.loads(self._content)
+            self.name = content.get("name", self.name)
+            self._content = content.get("content", self._content)
+            self._datapoints += [Datapoint(data) for data in content.get("data",[])]
         except:
-            return 
+            pass
 
-        if "name" in content: self.name = content["name"]
-        if "content" in content: self._content = content["content"]
+    def __len__(self):
+        """ Return the assumed length of the document, the number of datapoints, if none give, the 
+        length of the content """
+        if self._datapoints: return len(self._datapoints)
+        return len(self._content)
 
-        if "datapoints" in content:
-            for group in content["datapoints"]:
-                datapoints = []
-                for data in group:
-                    datapoints.append(Datapoint(data))
-                self._datapoints.append(datapoints)
+    def concepts(self) -> {str:str}:
+        if self._concepts is None:
+            self._concepts = {}
 
-        #self._content = Document.anaphoraResolution(self._content)
+            for point in self._datapoints:
+                self._concepts[point.domain["concept"]] = self._concepts.get(point.domain["concept"], []) + [point.domain["text"]]
+                self._concepts[point.target["concept"]] = self._concepts.get(point.target["concept"], []) + [point.target["text"]]
+
+        return self._concepts
+
+    def text(self) -> str:
+        """ Return the content of the document """
+        return self._content
+ 
+    def sentences(self, cleaned: bool = False) -> [str]:
+        """ Split the content of the document into sentences, and return the collection of 
+        sentences. """
+        if self._content:
+            if cleaned:
+                return [DO.cleanSentence(sen) for sen in DO.split(self._content, DO.SENTENCE)]
+            return DO.split(self._content, DO.SENTENCE)
+        
+        if self._datapoints:
+            if cleaned:
+                return [DO.cleanSentence(point.text) for point in self._datapoints]
+            return [point.text for point in self._datapoints]
+
+    def words(self, cleaned: bool = False) -> [[str]]:
+        """ Split the content of the document into sentences and then into words. """
+        if self._content:
+            if cleaned:
+                return [DO.cleanSentence(sen).split() for sen in DO.split(self._content, DO.SENTENCE)]
+            return [sen.split() for sen in DO.split(self._content, DO.SENTENCE)]
+            
+        if self._datapoints:
+            if cleaned:
+                return [DO.cleanSentence(point.text).split() for point in self._datapoints]
+            return [point.text for point in self._datapoints]
+
+    def datapoints(self, data: [Datapoint] = None) -> [Datapoint]:
+        """
+        Return the datapoints held by the document. If datapoints have been provided replace
+        the currently held datapoints with the new datapoins.
+
+        Params:
+            data - The collection of datapoints to introduce back into the document
+
+        Returns:
+            [Datapoint] - A structure holding the datapoints, structure depends on document type
+        """
+        if data: self._datapoints = data
+        return self._datapoints
 
     def processKnowledge(self, ontology: Ontology) -> None:
         """ Iterate over the document and create potential datapoints for all possible combinations 
@@ -47,12 +109,13 @@ class Document(DocumentBase):
             ontology - The ontology object that contains all the information about the concepts and 
                 relationships we care about
         """
-        if self._datapoints:
-            logging.info("Avoiding processing document, datapoints already initialised")
-            return 
-            
-        reprMap = ontology.conceptText()  # Collect all the ways in which some text may mean a concept
+        # TODO There can be a single representation that links to multiple concepts, ergo, randomly can fail.
+        reprMap = {}
+        for concept in ontology.concepts():
+            for alias in concept.alias:
+                reprMap[alias] = reprMap.get(alias, {}).union({concept.name}) 
 
+        # Compile the search patterns into a single pattern.
         patterns = ["(?!\s)"+re.escape(pattern)+"((?=\W)|$)" for pattern in reprMap.keys()]
         aggregatedPattern = re.compile("|".join(patterns))
 
@@ -78,86 +141,25 @@ class Document(DocumentBase):
                 # return the datapoints
                 yield dp
 
-        # Split the document by the paragraph
-        for paragraph in DO.split(self._content, DO.PARAGRAPH):
-            for sentence in DO.split(paragraph, DO.SENTENCE):
+        for sentence in DO.split(self._content, DO.SENTENCE):
 
-                datapoints = []  # Collections of datapoints for this sentence.
+            # Look for instances within the sentence - ensuring that you only match with individual words.
+            instances = list(aggregatedPattern.finditer(sentence))
 
-                # Look for instances within the sentence - ensuring that you only match with individual words.
-                #instances = [match for pattern in reprMap.keys() for match in re.finditer("(?!\s)"+re.escape(pattern)+"((?=\W)|$)", sentence)]
-                instances = list(aggregatedPattern.finditer(sentence))
+            while instances:
+                # While there are instances to work on
 
-                while instances:
-                    # While there are instances to work on
+                inst = instances.pop()
 
-                    inst = instances.pop()
+                for match in instances:
+                    # Collect the concept names the representations relate too
+                    instConcept, matchConcept = reprMap[inst.group(0)], reprMap[match.group(0)]
+                    
+                    relations = ontology.findRelations(domain=instConcept, target=matchConcept)
+                    [self._datapoints.append(p) for p in createDatapoint(inst, match, relations, sentence)]
 
-                    for match in instances:
-                        # Collect the concept names the representations relate too
-                        instConcept, matchConcept = reprMap[inst.group(0)], reprMap[match.group(0)]
-                        
-                        relations = ontology.findRelations(domain=instConcept, target=matchConcept)
-                        [datapoints.append(p) for p in createDatapoint(inst, match, relations, sentence)]
-
-                        relations = ontology.findRelations(domain=matchConcept, target=instConcept)
-                        [datapoints.append(p) for p in createDatapoint(match, inst, relations, sentence)]
-
-                self._datapoints.append(datapoints)
-
-    def precision(self):
-        """ Return the precision of the datapoints inside the document """
-
-        correct = total = 0
-        for group in self._datapoints:
-            for point in group:
-                if point.annotation == point.prediction:
-                    correct += 1
-                total +=1
-
-        self._precision = correct/total
-        return correct/total
-
-    def recall(self, ontology):
-        """ Return the recall of the document """
-
-        # Generate the content.
-        Ocontent = self._content
-        content = "".join([sentence[0].text for sentence in self._datapoints if len(sentence)])
-
-        # Record the points
-        Odatapoints = self._datapoints
-
-        # Count the datapoints
-        datapoints = [p for g in self._datapoints for p in g]
-        total = len(datapoints)
-
-        # Process the info
-        self._content = content
-        self._datapoints = []
-        self.processKnowledge(ontology)
-
-        # Collect new points and count recall
-        Ndatapoints = [p for g in self._datapoints for p in g]
-        count = sum([o in Ndatapoints for o in datapoints])
-
-        # Reset document content
-        self._content = Ocontent
-        self._datapoints = Odatapoints
-
-        # Save recall value
-        self._recall = count/total
-
-        # Return 
-        return self._recall
-
-    def F1(self, ontology):
-        """ Calculate the F1 score and return """
-        if not self._precision and not self._recall:
-            self.precision
-            self.recall(ontology)
-
-        return 2*((self._precision*self._recall)/(self._precision + self._recall))
+                    relations = ontology.findRelations(domain=matchConcept, target=instConcept)
+                    [self._datapoints.append(p) for p in createDatapoint(match, inst, relations, sentence)]
 
     def save(self, folder: str = "./", filename: str = None) -> None:
         """
@@ -173,9 +175,10 @@ class Document(DocumentBase):
             
         struct = {
             "name": self.name,
-            "content": self._content,
-            "datapoints": [[point.minimise() for point in segment] for segment in self._datapoints]
+            "content": DO.cleanWhiteSpace(self._content),
+            "datapoints": [point.minimise() for point in self._datapoints]
         }
+        
         path = os.path.join(folder, filename)
         with open(path, "w") as filehandler:
             filehandler.write(json.dumps(struct, indent=4))
