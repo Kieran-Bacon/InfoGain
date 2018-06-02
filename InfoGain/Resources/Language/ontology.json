@@ -1,54 +1,113 @@
 {
     "Name": "Language",
-    
     "Concepts": {
+        "Kieran": {
+            "alias": [
+                "Legend",
+                "Champ",
+                "Badass"
+            ],
+            "parents": [
+                "Person"
+            ]
+        },
+        "France": {
+            "parents": [
+                "Country"
+            ]
+        },
+        "England": {
+            "parents": [
+                "Country"
+            ]
+        },
+        "Charlie": {
+            "parents": [
+                "Person"
+            ]
+        },
+        "French": {
+            "parents": [
+                "Language"
+            ]
+        },
+        "Language": {
+            "permeable": true
+        },
+        "Spanish": {
+            "parents": [
+                "Language"
+            ]
+        },
+        "Germany": {
+            "parents": [
+                "Country"
+            ]
+        },
+        "German": {
+            "parents": [
+                "Language"
+            ]
+        },
+        "Spain": {
+            "parents": [
+                "Country"
+            ]
+        },
+        "Country": {
+            "permeable": true
+        },
         "Person": {
             "properties": {
                 "name": null
             }
         },
-        "Kieran":{"parents":["Person"], "alias":["Legend", "Champ", "Badass"]},
-        "Luke":{"parents":["Person"]},
-        "Charlie":{"parents":["Person"]},
-
-        "Language":{"permeable" : true },
-        "English":{"parents":["Language"] },
-        "German":{"parents":["Language"]},
-        "French":{"parents":["Language"]},
-        "Spanish":{"parents":["Language"]},
-
-        "Country": {"permeable" : true },
-        "England": {"parents": ["Country"] },
-        "Germany":{"parents":["Country"]},
-        "France":{"parents":["Country"]},
-        "Spain":{"parents":["Country"]}
+        "Luke": {
+            "parents": [
+                "Person"
+            ]
+        },
+        "English": {
+            "parents": [
+                "Language"
+            ]
+        }
     },
-
     "Relations": {
-
-        "speaks" : {
-            "concepts":[
+        "lives_in": {
+            "concepts": [
                 {
-                    "domains":["Person", "Country"],
-                    "targets":["Language"]
+                    "targets": [
+                        "Country"
+                    ],
+                    "domains": [
+                        "Person"
+                    ]
                 }
             ]
         },
-
-        "born_in" : {
-            "concepts":[
+        "speaks": {
+            "concepts": [
                 {
-                    "domains":["Person"],
-                    "targets":["Country"]
+                    "targets": [
+                        "Language"
+                    ],
+                    "domains": [
+                        "Country",
+                        "Person"
+                    ]
                 }
             ]
         },
-
-        "lives_in" : {
-            "concepts":[
+        "born_in": {
+            "concepts": [
                 {
-                    "domains":["Person"],
-                    "targets":["Country"]
+                    "targets": [
+                        "Country"
+                    ],
+                    "domains": [
+                        "Person"
+                    ]
                 }
             ]
         }
