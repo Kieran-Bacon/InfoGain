@@ -1,4 +1,4 @@
-import os, uuid, json, re
+import os, uuid, json, re, itertools
 
 from ..Knowledge import Ontology
 
@@ -7,7 +7,7 @@ from ..Documents import DocumentOperations as DO
 
 class Document:
 
-    def __init__(self, name: str = None, content: str = "", datapoints: [Datapoint] = [], filepath: str = None):
+    def __init__(self, name: str = None, content: str = "", filepath: str = None):
         """
         Generate a document object that may derive from provided content or a file 
         
@@ -32,13 +32,14 @@ class Document:
         self._content = DO.cleanWhiteSpace(self._content)
 
         # Maintain a collection of datapoints
-        self._datapoints = datapoints
+        self._datapoints = []
 
         try:
             content = json.loads(self._content)
             self.name = content.get("name", self.name)
             self._content = content.get("content", self._content)
-            self._datapoints += [Datapoint(data) for data in content.get("data",[])]
+            #self._datapoints += [Datapoint(data) for data in content.get("datapoints",[])]
+            self._datapoints = self._datapoints + [Datapoint(data) for data in content.get("datapoints",[])]
         except:
             pass
 
@@ -110,16 +111,16 @@ class Document:
                 relationships we care about
         """
         # TODO There can be a single representation that links to multiple concepts, ergo, randomly can fail.
-        reprMap = {}
+        reprMap = {concept.name: {concept.name} for concept in ontology.concepts()}
         for concept in ontology.concepts():
             for alias in concept.alias:
-                reprMap[alias] = reprMap.get(alias, {}).union({concept.name}) 
+                reprMap[alias] = reprMap.get(alias, set()).union({concept.name})
 
         # Compile the search patterns into a single pattern.
-        patterns = ["(?!\s)"+re.escape(pattern)+"((?=\W)|$)" for pattern in reprMap.keys()]
+        patterns = ["(^| )"+pattern+"((?=\W)|$)" for pattern in reprMap.keys()]
         aggregatedPattern = re.compile("|".join(patterns))
 
-        def createDatapoint(dom, tar, relations, sentence):
+        def createDatapoint(dom, domCon, tar, tarCon, relations, sentence):
             """ Generate the datapoints and add them to the document datapoint collection """ 
 
             p1, p2 = (dom.span(), tar.span()) if dom.span()[0] < tar.span()[0] else (tar.span(), dom.span())
@@ -127,8 +128,8 @@ class Document:
             for relation in relations:
                 # Construct the datapoint
                 dp = Datapoint({
-                    "domain": {"concept": reprMap[dom.group(0)], "text": dom.group(0)},
-                    "target": {"concept": reprMap[tar.group(0)], "text": tar.group(0)},
+                    "domain": {"concept": domCon, "text": dom.group(0).strip()},
+                    "target": {"concept": tarCon, "text": tar.group(0).strip()},
                     "relation": relation.name,
                     "text": sentence,
                     "context": {
@@ -137,7 +138,6 @@ class Document:
                         "right": sentence[p2[1]:].strip()
                     }
                 })
-
                 # return the datapoints
                 yield dp
 
@@ -153,13 +153,17 @@ class Document:
 
                 for match in instances:
                     # Collect the concept names the representations relate too
-                    instConcept, matchConcept = reprMap[inst.group(0)], reprMap[match.group(0)]
-                    
-                    relations = ontology.findRelations(domain=instConcept, target=matchConcept)
-                    [self._datapoints.append(p) for p in createDatapoint(inst, match, relations, sentence)]
+                    instConcepts, matchConcepts = reprMap[inst.group(0).strip()], reprMap[match.group(0).strip()]
 
-                    relations = ontology.findRelations(domain=matchConcept, target=instConcept)
-                    [self._datapoints.append(p) for p in createDatapoint(match, inst, relations, sentence)]
+                    for instConcept, matchConcept in itertools.product(instConcepts, matchConcepts):
+                    
+                        relations = ontology.findRelations(domain=instConcept, target=matchConcept)
+
+
+                        [self._datapoints.append(p) for p in createDatapoint(inst, instConcept, match, matchConcept, relations, sentence)]
+
+                        relations = ontology.findRelations(domain=matchConcept, target=instConcept)
+                        [self._datapoints.append(p) for p in createDatapoint(match, matchConcept, inst, instConcept, relations, sentence)]
 
     def save(self, folder: str = "./", filename: str = None) -> None:
         """

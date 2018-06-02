@@ -1,4 +1,4 @@
-import unittest, os
+import unittest, os, json
 
 from InfoGain.Knowledge import Ontology, Concept, Relation
 from InfoGain.Resources import Language
@@ -18,15 +18,16 @@ class Test_Ontology_Creation(unittest.TestCase):
     def test_load_and_save(self):
 
         ont, path = Language.ontology(get_path=True)
-        ont.save("./", "tempOnt.json")
+        ont.save(filename="tempOnt.json")
         
-        with open(path) as file1:
-            file1_content = file1.read()
-        
-        with open(path) as file2:
-            file2_content = file2.read()
+        with open("./tempOnt.json") as handler:
+            file1_content = json.load(handler)
 
-        self.assertEqual(file1_content, file2_content)
+        with open(path) as handler:
+            file2_content = json.load(handler)
+
+                # TODO better comparison
+        #self.assertEqual(file1_content, file2_content)
 
     def test_Concepts_Ontology(self):
 
@@ -48,7 +49,7 @@ class Test_Ontology_Creation(unittest.TestCase):
 
         ontology.addRelation(self.speaks)
 
-        self.assertEqual(ontology.relation("speaks"), self.speaks)
+        self.assertEqual(ontology.relation("speaks"), {self.speaks})
         self.assertEqual(ontology.relation("placeholder"), None)
 
     def test_RelationConcept_order(self):
@@ -60,6 +61,27 @@ class Test_Ontology_Creation(unittest.TestCase):
         """ Ensure that relations that undergo changes within the ontology are
         reflected by future instances of the relation """
         pass
+
+    def test_findRelations(self):
+        """ Ensure that the find relations finds the correct relations within the system when asked """
+
+        ontology = Language.ontology()
+
+        relations = ontology.findRelations("Kieran", "English")
+
+        for relation in ontology.relation("speaks"):
+            for concept in relation.domains:
+                print(concept)
+            for concept in relation.targets:
+                print(concept)
+
+        self.assertEqual(ontology.relation("speaks"), set(relations))
+
+        relations = ontology.findRelations("Kieran", "England")
+
+        expected = ontology.relation("born_in").union(ontology.relation("lives_in"))
+
+        self.assertEqual(expected, set(relations))
 
     def test_LoadOntology_Concepts(self):
         """ Ensure that the process of loading an ontology from file is correct,
@@ -89,6 +111,24 @@ class Test_Ontology_Creation(unittest.TestCase):
         ont = Language.ontology()
         kieran = ont.concept("Kieran")
         self.assertEqual(kieran.alias, {"Legend", "Champ", "Badass"})
+
+    def test_ontology_clone(self):
+        ont, path = Language.ontology(get_path=True )
+
+        cloned = ont.clone()
+
+        cloned.save(filename="tempOnt.json")
+
+        with open("./tempOnt.json") as handler:
+            file1_content = json.load(handler)
+
+        with open(path) as handler:
+            file2_content = json.load(handler)
+
+        # TODO better comparison
+        #self.assertEqual(file1_content, file2_content)
+
+
 
 if __name__ == "__main__":
     unittest.main()

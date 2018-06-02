@@ -1,7 +1,10 @@
 import os
 ROOT = os.path.dirname(os.path.realpath(__file__))
 
-class Medicine:
+from ...Knowledge import Ontology
+from ...Documents import Document
+
+class DomainResources:
 
     ontologyObj = None
     trainingSet = None
@@ -10,11 +13,10 @@ class Medicine:
     testingSize = None
 
     @classmethod
-    def ontology(cls, get_path=False):
+    def ontology(cls, get_path=False) -> Ontology:
 
         if cls.ontologyObj is None:
 
-            from InfoGain.Knowledge import Ontology
             cls.ontologyObj = Ontology(filepath=os.path.join(ROOT, "ontology.json"))
             return cls.ontologyObj
 
@@ -23,28 +25,22 @@ class Medicine:
         return cls.ontologyObj
 
     @classmethod
-    def training(cls, num_of_docs=None):
+    def training(cls, num_of_docs=None) -> Document:
 
         if cls.trainingSet is None or num_of_docs != cls.trainingSize:
-
-            import os
-            from InfoGain.Documents import TrainingDocument
 
             files = os.listdir(os.path.join(ROOT, "training"))
             if num_of_docs: files = files[:num_of_docs]
             
-            cls.trainingSet = [TrainingDocument(filepath=os.path.join(ROOT, "training", name)) for name in files]
+            cls.trainingSet = [Document(filepath=os.path.join(ROOT, "training", name)) for name in files]
             cls.trainingSize = num_of_docs
 
         return cls.trainingSet
 
     @classmethod
-    def testing(cls, num_of_docs=None):
+    def testing(cls, num_of_docs=None) -> Document:
 
         if cls.testingSet is None or num_of_docs != cls.testingSize:
-
-            import os
-            from InfoGain import Document
 
             files = os.listdir(os.path.join(ROOT, "testing"))
             if num_of_docs: files = files[:num_of_docs]

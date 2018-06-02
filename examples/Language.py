@@ -1,27 +1,24 @@
-from InfoGain import *
-from InfoGain import Resources
+from InfoGain.Knowledge import Ontology, Concept, Relation
+from InfoGain.Extraction import RelationExtractor
+from InfoGain.Documents import Document
+import InfoGain.Documents as DocFunctions
+
+from InfoGain.Resources import Language
 
 # Creating the language ontology
 LanguageOntology = Ontology("Languages")
 
 # Creating the concepts
-person, country, language = Concept("Person"), Concept("Country"), Concept("Language")
-kieran, luke = Concept("Kieran"), Concept("Luke")
-england, germany, france, spain = Concept("England"), Concept("Germany"), Concept("France"), Concept("Spain")
-english, german, french, spanish = Concept("English"), Concept("German"), Concept("French"), Concept("Spanish")
+person = Concept("Person", children={"Kieran", "Luke"})
+kieran, luke = Concept("Kieran", parents={"Person"}), Concept("Luke", parents={"Person"})
 
-# Defining family membership
-for con in [kieran, luke]:
-    person.addChild(con)
-    con.addParent(person)
+country = Concept("Country", children={"England","Germany","France","Spain"})
+england, germany = Concept("England", parents={country}), Concept("Germany", parents={country})
+france, spain = Concept("France",{country}), Concept("Spain",{country})
 
-for con in [england, germany, france, spain]:
-    country.addChild(con)
-    con.addParent(country)
-
-for con in [english, german, french, spanish]:
-    language.addChild(con)
-    con.addParent(language)
+language = Concept("Language", children={"English", "German", "French", "Spanish"})
+english, german = Concept("English", parents={language}), Concept("German", parents={language})
+french, spanish = Concept("French", parents={language}), Concept("Spanish", parents={language})
 
 # Adding concepts to the ontology
 for concept in [person, country, language, kieran, luke, england, english, germany, german, france, french, spain, spanish]:
@@ -36,24 +33,24 @@ lives_in = Relation({person}, "lives_in", {country})
 for relation in [speaks, born_in, lives_in]:
     LanguageOntology.addRelation(relation)
 
+
+
 # Saving the ontology
-LanguageOntology.save("tempOnt.json")
+LanguageOntology.save(filename = "example language ontology.json")
 
 # Create a training document
 training_string = "Kieran has lived in England for a long time. Kieran can speak English rather well"
-#trainingDocument = AnnotationDocument(content=training_string).annotate(LanguageOntology)
-
-trainingDocument = TrainingDocument(filepath="./test.json")
+trainingDocument = DocFunctions.annotate(LanguageOntology, [Document(content = training_string)])
 
 # Collecting some other examples for better training
-training = [trainingDocument] + Resources.Language.training()
+training = Language.training() #[trainingDocument] + Language.training()
 
 # Create a document to predict
 prediction_string = "Luke can speak English rather well, but Luke doesn't live in England."
 testing = Document(content=prediction_string)
 
 # Create the Relation extractor
-extractor = RelationExtractor(ontology=LanguageOntology)
+extractor = RelationExtractor(ontology=LanguageOntology, min_count=1)
 
 # Fit the training data
 extractor.fit(training)
@@ -61,14 +58,10 @@ extractor.fit(training)
 # Predict on the testing
 extractor.predict(testing)
 
-# Pring the predictions
+print(DocFunctions.score(LanguageOntology, [testing]))
 
+# Pring the predictions
 print("Prediction content:")
 print(prediction_string)
 
-for point in [p for group in testing.datapoints() for p in group]:
-
-    print("Relationship:", point.domainRepr, point.relation, point.targetRepr)
-    print("Class:", point.prediction)
-    print("Probability:", point.predProb)
-    print()
+[print(point) for point in testing.datapoints()]

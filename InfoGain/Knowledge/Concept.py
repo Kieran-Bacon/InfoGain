@@ -77,13 +77,11 @@ class Concept:
 
     def minimise(self) -> dict:
         """ Return only the information the concept represents """
-        concept = {
-            "name": self.name,
-            "parents" : [parent if isinstance(parent, str) else parent.name for parent in self.parents],
-            "children": [child if isinstance(child, str) else child.name for child in self.children],
-            "properties": self.properties,
-            "alias": list(self.alias),
-            "permeable": self.permeable
-        }
+
+        concept = {"name": self.name}
+        if self.parents: concept["parents"] = [parent if isinstance(parent, str) else parent.name for parent in self.parents]
+        if self.properties: concept["properties"] = self.properties
+        if self.alias: concept["alias"] = list(self.alias)
+        if self.permeable: concept["permeable"] = self.permeable
 
         return concept

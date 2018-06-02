@@ -58,11 +58,10 @@ class Test_Concept(unittest.TestCase):
         mini = concept.minimise()
 
         self.assertEqual(mini["name"], "Name")
-        self.assertEqual(mini["parents"], [])
-        self.assertEqual(mini["children"], [])
-        self.assertFalse(mini["permeable"])
-        self.assertEqual(mini["properties"], {})
-        self.assertEqual(mini["alias"], [])
+        self.assertTrue(mini.get("parents", True))
+        self.assertTrue(mini.get("permeable", True))
+        self.assertTrue(mini.get("properties", True))
+        self.assertTrue(mini.get("alias", True))
 
         concept = Concept("Name", parents={"Kieran"}, children={"What", "hey"})
         concept.alias.add("Badass")
@@ -71,8 +70,7 @@ class Test_Concept(unittest.TestCase):
 
         self.assertEqual(mini["name"], "Name")
         self.assertEqual(mini["parents"], ["Kieran"])
-        self.assertEqual(set(mini["children"]), set(["What", "hey"]))
-        self.assertFalse(mini["permeable"])
+        self.assertFalse(mini.get("permeable", False))
         self.assertEqual(mini["properties"], {"age": 24})
         self.assertEqual(mini["alias"], ["Badass"])
 

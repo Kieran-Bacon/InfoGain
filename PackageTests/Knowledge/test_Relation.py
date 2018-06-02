@@ -84,7 +84,7 @@ class Test_Relation(unittest.TestCase):
         con2 = Concept("2", parents={con1})
         con1.children.add(con2)
         con3 = Concept("3", parents={con2})
-        con1.children.add(con3)
+        con2.children.add(con3)
 
         self.assertTrue(con2 == "2")
 
@@ -93,7 +93,7 @@ class Test_Relation(unittest.TestCase):
         mini = relation.minimise()
 
         self.assertEqual(mini["name"], "speaks")
-        self.assertEqual(set(mini["domains"]), {con2.name})
+        self.assertEqual(set(mini["domains"]), {con1.name})
         self.assertEqual(set(mini["targets"]), {con2.name})
 
 if __name__ == "__main__":

@@ -1,13 +1,14 @@
+from .Embedder import Embedder
+from .RelationModel import RelationModel
+
 from ..Knowledge import Ontology
 from ..Documents import Datapoint, Document
 from .. import Resources
 
 import os, numpy, logging, sys
+
 from queue import Queue
 from threading import Thread
-
-from sklearn.neural_network import MLPClassifier
-from gensim.models import Word2Vec
 
 class UnseenWord(Exception):
     pass
@@ -21,7 +22,7 @@ class RelationExtractor(Ontology):
     def __init__(self, name: str = None, 
         filepath: str = None,
         ontology: Ontology = None,
-        word_embedding_model: Word2Vec = None,
+        word_embedding_model = None,
         embedding_size: int = 300,
         min_count: int = 10,
         workers: int = 4,
@@ -47,66 +48,21 @@ class RelationExtractor(Ontology):
             self.name = ontologyClone.name if not ontologyClone is None else name
             self._concepts = ontologyClone._concepts
             self._relations = ontologyClone._relations
-            self._facts = ontologyClone._facts
 
-        # Overload name if given
-        if name: self.name = name
-
-        # Load resouces embedder if embedder not provided
-        if word_embedding_model is None and RESOURCES.hasEmbedder():
-            word_embedding_model = RESOURCES.loadEmbedder()
-
-        # Collect information from embedder or generate new embedder
-        if word_embedding_model:
-            self.wordModel = word_embedding_model
-        else:
-            # Define the word model
-            self.wordModel = Word2Vec(size=embedding_size, min_count=min_count, workers=workers)
-            
-            # Build the word model correctly
-            self.wordModel.build_vocab(RESOURCES.TEXT())
-
+        self.embedder = Embedder(word_embedding_model, embedding_size, min_count, workers)
+        
         # Record embedding information
-        self.embeddingSize = self.wordModel.layer1_size
-        self.MAXTHREADS = self.wordModel.workers
+        self.embeddingSize = self.embedder.size()
+        self.MAXTHREADS = self.embedder.workers()
 
         # Inform the relation model of its static parameters
         RelationModel.setParameters(alpha, (self.embeddingSize, *hidden_layers))
     
         # Build relation model objects
-        self.ensemble = {rel.name:RelationModel(rel.name) for rel in self.relations()}
+        self.ensemble = {rel: RelationModel(rel) for rel in self.relations(keys=True)}
         
         # Data structure for traiing corpus
         self._trainingCorpus = set()
-
-    def _trainWordEmbeddings(self):
-        """ Train the word embedding model on the words provided by the training documents """
-
-        # Collect sentences from training documents
-        sentences = [DO.cleanSentence(sentence).split() for doc in self._trainingCorpus for sentence in doc.sentences()]
-
-        self.wordModel.build_vocab(sentences, update=True)
-        self.wordModel.train(sentences, total_examples=len(sentences), epochs=self.wordModel.epochs)
-
-    def _embedSentence(self, sentence: str) -> numpy.array:
-        """ Convert a sentence of variable length into a sentence embedding using the learn word
-        embeddings"""
-
-        embedding = numpy.zeros(self.embeddingSize)
-        words = sentence.split()
-
-        def pf(index: int) -> float:
-            """ Return the output of a monotonic function as to reduce traling word embeddings """
-            # TODO: Change function to something meaningful with support from someone
-            return 1  #-numpy.log((index+1)/(len(words)+1))
-
-        for index, word in enumerate(words):
-            if not word in self.wordModel.wv:
-                logging.warning("Vocabulary missing during sentence embedding: '"+ word +"'")
-                continue
-            embedding += pf(index)*self.wordModel.wv[word]
-                
-        return embedding if not len(words) else embedding/len(words)
 
     def fit(self, training_documents: [Document] ) -> None:
         """ Use the provided annotated document to provide training data to the
@@ -126,22 +82,31 @@ class RelationExtractor(Ontology):
             self._trainingCorpus.add(document)
 
             # Extract text representations and save them to the ontology
-            [self.concept(name).addRepr(text) for name, textRepr in document.concepts() for text in textRepr]
+            [self.concept(name).alias.add(text) for name, textRepr in document.concepts().items() for text in textRepr]
 
-        # Train the word embedding method
-        self._trainWordEmbeddings()
+        # Collect sentences from training documents - Train word embedder on sentences
+        sentences = []
+        for document in self._trainingCorpus:
+            sentences += document.words(cleaned=True)
+        self.embedder.train(sentences)
 
-        # Train the relation models
+        # Separate out the datapoints for relation models specific collections
         modelData = {rel: [] for rel in self.ensemble.keys()}
-
         for document in training_documents:
             for point in document.datapoints():
                 # Pass the embedding function to the point to embed its context
-                point.embedContext(self._embedSentence)
+                point.embedContext(self.embedder.sentence)
                 # Store the embedded point
                 modelData[point.relation].append(point)
 
-        # Begin training of the relation models, threading each model for efficiency
+        self._trainModels(modelData)
+
+    def _trainModels(self, model_datapoints: {str:[Datapoint]}) -> None:
+
+        """
+
+        start = time.time()
+
         def trainRelationModel(queue: Queue):
             while True:
                 data = queue.get()
@@ -151,35 +116,49 @@ class RelationExtractor(Ontology):
                 self.ensemble[rel].fit(data)  # Fit the data
                 queue.task_done()  # Single that the task is done
 
-        # Begin the relation queue structure
         relationQueue = Queue()
 
-        num_threads = range(min(len(modelData), self.MAXTHREADS))
+        num_threads = range(min(len(model_datapoints), self.MAXTHREADS))
         threads = [Thread(target=trainRelationModel, args=(relationQueue,)) for _ in num_threads]
 
         # Start threads and add relations data to processing queue
         [t.start() for t in threads]
-        [relationQueue.put(data) for data in modelData.items()]
+        [relationQueue.put(data) for data in model_datapoints.items()]
 
         size = 0
         while relationQueue.unfinished_tasks:
             if relationQueue.unfinished_tasks == size: continue
             else: size = relationQueue.unfinished_tasks
-            count = len(modelData) - relationQueue.unfinished_tasks
-            mult = 25 - int((relationQueue.unfinished_tasks/len(modelData)*25))
-            sys.stdout.write("\rTraining Extractor |" + "#"*mult + "-"*(25-mult) + "| ( {}/{} ) training...".format(count, len(modelData) ))
+            count = len(model_datapoints) - relationQueue.unfinished_tasks
+            mult = 25 - int((relationQueue.unfinished_tasks/len(model_datapoints)*25))
+            sys.stdout.write("\rTraining Extractor |" + "#"*mult + "-"*(25-mult) + "| ( {}/{} ) training...".format(count, len(model_datapoints) ))
             sys.stdout.flush()
 
         # Process till training is complete
         relationQueue.join()
         
         # Pretty prompt
-        sys.stdout.write("\rTraining Extractor |" + "#"*25 + "| ( {}/{} ) training... Complete!\n".format(len(modelData),len(modelData)))
+        sys.stdout.write("\rTraining Extractor |" + "#"*25 + "| ( {}/{} ) training... Complete!\n".format(len(model_datapoints),len(model_datapoints)))
         sys.stdout.flush()
 
         # Signal the threads to stop computation and join
         [relationQueue.put(None) for _ in num_threads]
         [t.join() for t in threads]
+
+        print(time.time()-start)
+
+        return"""
+
+        for i, (model, data) in enumerate(model_datapoints.items()):
+
+            perc = i/(len(model_datapoints))
+            sys.stdout.write("\rTraining Extractor |" + "#"*int(perc*25) + "-"*(25-int(perc*25)) + "| ( {}/{} ) training...".format(i, len(model_datapoints)))
+            sys.stdout.flush()
+
+            self.ensemble[model].fit(data)
+
+        sys.stdout.write("\rTraining Extractor |" + "#"*25 + "| ( {}/{} ) training... Complete\n".format(len(model_datapoints), len(model_datapoints)))
+        sys.stdout.flush()
         
     def predict(self, documents: [Document]) -> [Document]:
         """
@@ -197,155 +176,22 @@ class RelationExtractor(Ontology):
         if isinstance(documents, Document):
             documents = [documents]
 
-        # Set up document queue and processed pile
-        documentQueue, processedPile = Queue(), set()
-
-        # Generate threads
-        num_threads = range(min(len(documents), self.MAXTHREADS))
-        threads = [Thread(target=self._predictDocument, args=(documentQueue, processedPile)) for _ in num_threads]
-
-        # Start threads and add documents to processing queue
-        [t.start() for t in threads]
-        [documentQueue.put(document) for document in documents]
-
-        # Process till documents are complete
-        documentQueue.join()
-
-        # Signal the threads to stop computation and join
-        [documentQueue.put(None) for _ in num_threads]
-        [t.join() for t in threads]
-
-        return list(processedPile)
-
-    def _predictDocument(self, documentQueue: Queue, processedPile: set):
-
-        while True:
-            document = documentQueue.get()
-            if document is None: break  # No more documents to process
-
-            # Process the document according to the ontology
+        for document in documents:
+            
+            # Process the knowledge
             document.processKnowledge(self)
 
             # Extract the datapoints from the document
-            documentPredictions = []
-            for segment in document.datapoints():
-
-                if isinstance(segment, Datapoint):
-                    segment = [segment]
-
-                # Separate out the datapoints into relations
-                models = {}
-                for point in segment:
-                    # Pass the embedding function to convert its context
-                    point.embedContext(self._embedSentence)
-                    collection = models.get(point.relation, [])
-                    collection.append(point)
-                    models[point.relation] = collection
-
-                # Predict the points by their respective models
-                predictedPoints = []
-                for model, collection in models.items():
-                    # Predict on the datapoints
-                    predictions = self.ensemble[model].predict(collection)
-                    if predictions is None: continue  # Protect against unfitted models
-
-                    # Record predictions
-                    predictedPoints += predictions
-
-                # Store the points and their predictions
-                documentPredictions.append(predictedPoints)
-
-            # Return to the document the new point set
-            document.datapoints(documentPredictions)
-
-            # Add document to the processed pile and complete task
-            processedPile.add(document)
-            documentQueue.task_done()
-                
-class RelationModel:
-    """ The model the learns the sentence embeddings for a particular relationship """
-
-    alpha = 0.0001
-    structure = (900, 5)
-    #structure = (900,50,20)
-
-    @classmethod
-    def setParameters(cls, alpha: float, shape: tuple):
-        cls.alpha = alpha if alpha else cls.alpha
-        cls.structure = shape
-
-    def __init__(self, name: str):
-        self.name = name
-        self.classifier = MLPClassifier(hidden_layer_sizes=RelationModel.structure)
-        self.fitted = False
-
-    def fit(self, datapoints):
-        """ Fit the datapoints """
-
-        # Do nothing if no datapoints have been provided
-        if not len(datapoints):
-            logging.warning("Fitting Relation model for '"+self.name+"' without any datapoints")
-            return 
-
-        # Convert the point structure into something usable by sklearn
-
-        Xtr, ttr = [], []
-        for point in datapoints:
-            x, t = point.features()
-            Xtr.append(numpy.concatenate(x))
-            ttr.append(t)
             
-        # Fit the classifier
-        self.classifier.fit(Xtr, ttr)
-        self.fitted = True
+            models = {rel: [] for rel in self.ensemble.keys()}
+            for point in document.datapoints():
+                point.embedContext(self.embedder.sentence)
+                models[point.relation].append(point)
 
-        # TODO: Cross Validation
+            predicted = []
+            for rel, datapoints in models.items():
+                predicted += self.ensemble[rel].predict(datapoints)
 
+            document.datapoints(predicted)
 
-    def predict(self, points):
-
-        if not self.fitted:
-            logging.error("Attempt to predict on unfitted relation model: " + self.name)
-            return
-
-        # Extract data point feature information
-        Xte = []
-        for point in points:
-            x, _ = point.features()
-            Xte.append(numpy.concatenate(x))
-
-        # Predict on the data
-        predictions = self.classifier.predict(Xte)
-        probabilities = self.classifier.predict_proba(Xte)
-
-        for point, pred, prob in zip(points, predictions, probabilities):
-            assert(pred == int(pred))
-            point.prediction = int(pred)
-            point.predProb = float(prob[list(self.classifier.classes_).index(pred)])
-
-        processedPoints = []
-
-        # Verify the points
-        while points:
-
-            # Extract each point
-            point = points.pop()
-
-            # Find any duplicate relations
-            duplicates = [p for p in points if point.isDuplicate(p)]
-
-            # Extract them and remove them from the orginal structure
-            for p in duplicates:
-                del points[points.index(p)]
-
-            while duplicates:
-
-                # Iteratively record out of the duplicated points the one with the greatest probability
-                dup = duplicates.pop()
-                point = point if point.predProb > dup.predProb else dup
-
-            # Store the winner
-            processedPoints.append(point)
-
-        return processedPoints
-            
+        return documents

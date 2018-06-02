@@ -27,13 +27,13 @@ class Ontology:
                 data = json.load(ontologyFile)
 
             # Define the name
-            if "name" in data: self.name = data["name"]
+            if "Name" in data: self.name = data["Name"]
 
             # Create the concepts and add them to the ontology store without warnings
             for name, rawConcept in data.get("Concepts", {}).items():
                 concept = Concept(name, json=rawConcept)
                 self.addConcept(concept)
-
+                    
             # Create the relations within the system
             for name, rawRelation in data.get("Relations", {}).items():
 
@@ -51,31 +51,35 @@ class Ontology:
         Identifies the relation ships concepts parent objects are and becomes members to those
         relations if applicable. """
 
-        for con in concept.parents:
-            name = con if isinstance(con, str) else con.name
-            parent = self.concept(name)
+        def link_concepts(first, second):
+            """ Link the two concepts if applicable """
+            if isinstance(second, str):
+                second = self.concept(second)
+                if not second:
+                    return
 
-            if parent:
-                # Align parent to child
-                parent.children.discard(concept)
-                parent.children.add(concept)
+            # Link if first is the parent of second
+            if first in second.parents or second in first.children:
+                second.parents.discard(first)
+                second.parents.add(first)
 
-                # Ensure concept ontology alignment
-                concept.parents.remove(con)
-                concept.parents.add(parent)
+                first.children.discard(second)
+                first.children.add(second)
 
-        for con in concept.children:
-            name = con if isinstance(con, str) else con.name
-            child = self.concept(name)
+            # Link if first is the child of second
+            if first in second.children or second in first.parents:
+                second.children.discard(first)
+                second.children.add(first)
 
-            if child:
-                # Align child concept
-                child.parents.discard(concept)
-                child.parents.add(concept)
+                first.parents.discard(second)
+                first.parents.add(second)
 
-                # Ensure concept ontology aligment
-                concept.children.remove(con)
-                concept.children.add(child)
+        # Link concepts in the ontology that may link to the concept
+        [link_concepts(concept, ontology_concept) for ontology_concept in self._concepts.values()]
+
+        # Link concept to the ontology's concepts
+        [link_concepts(concept, parent) for parent in concept.parents]
+        [link_concepts(concept, child) for child in concept.children]
                 
         # Save concept
         self._concepts[concept.name] = concept
@@ -116,10 +120,10 @@ class Ontology:
     def relation(self, relationName: str) -> Relation:
 
         collection = self._relations.get(relationName, None)
-        if collection and len(collection) == 1: collection = list(collection)[0]
         return collection
 
-    def relations(self) -> [str]:
+    def relations(self, keys=False) -> [str]:
+        if keys: return self._relations.keys()
         return list(self._relations.values())
 
     def findRelations(self, domain: str, target: str):
@@ -128,9 +132,10 @@ class Ontology:
         if None in (dom, tar):
             raise Exception("Invalid concepts provided when looking for relations")
 
-        for relation in self.relations():
-            if relation.hasDomainTargetPair(dom, tar):
-                yield relation
+        for parings in self.relations():
+            for relation in parings:
+                if relation.between(dom, tar):
+                    yield relation
 
     def clone(self):
         """ Create a new ontology object that is a deep copy of this ontology instance """
@@ -157,10 +162,15 @@ class Ontology:
         if filename is None and self.name is None: filename = uuid.uuid4().hex
             
         ontology = {
-            "name": self.name if self.name else filename,
-            "Concepts": {name: con.minimise() for name, con in self._concepts.items()},
+            "Name": self.name if self.name else filename,
+            "Concepts": {},
             "Relations": {}
         }
+
+        for name, concept in self._concepts.items():
+            mini = concept.minimise()
+            del mini["name"]
+            ontology["Concepts"][name] = mini
 
         for name, group in self._relations.items():
 

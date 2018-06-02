@@ -25,19 +25,19 @@ def score(ontology, documents: [Document]):
         newData = set(tempDoc.datapoints())
         allData = set(document.datapoints())
 
-        assert(len(allDatapoints) == len(document.datapoints()))
+        assert(len(allData) == len(document.datapoints()))
 
         recall = len(newData.intersection(allData))/len(allData)
         corpus["recall"] += recall*len(document.datapoints())
 
         # Calculate F1
 
-        f1 = (2*(precision*recall))/(precision+recall)
+        f1 = (2*(precision*recall))/(precision+recall) if precision+recall else 0
         corpus["f1"] += f1*len(document.datapoints())
 
         scores[document] = {"precision": precision, "recall": recall, "f1": f1}
 
-    for k, v in corpus:
+    for k, v in corpus.items():
         corpus[k] = v/total_datapoint_count
 
     return corpus, scores
@@ -68,7 +68,7 @@ def annotate(ontology, documents: [Document]):
 
             print("TEXT:\n{}\n".format(point.text))
 
-            print("RELATION: {}  {}   {}  {}   {}".format(point.domain, point.domainRepr, point.relation, point.target, point.targetRepr))
+            print("RELATION: {}  {}   {}  {}   {}".format(point.domain["concept"], point.domain["text"], point.relation, point.target["concept"], point.target["text"]))
 
             ans = cmdread("Does this string represent this relation?",['-1','0','1'])
 
@@ -77,7 +77,7 @@ def annotate(ontology, documents: [Document]):
 
             print("\n\n\n\n")
 
-        xtr = TrainingDocument(content=document.text())
+        xtr = Document(name=filename, content=document.text())
         xtr.datapoints(annotated)
         
         if filename: xtr.save(filename=filename)
