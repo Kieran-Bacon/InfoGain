@@ -3,9 +3,76 @@ import os, uuid, json, re, itertools
 from ..Knowledge import Ontology
 
 from .Datapoint import Datapoint
-from ..Documents import DocumentOperations as DO
+from .Models import SpellingModel
 
 class Document:
+
+    SENTENCE = re.compile("(!|\?|\.)+(?=\W)")
+
+    @classmethod
+    def removeWhiteSpace(cls, raw_string: str):
+        if raw_string is None: return raw_string
+        raw_string = re.sub("[ \t]+", " ", raw_string)
+        raw_string = re.sub(" (?=[\.'!?,%])", "", raw_string)
+        return raw_string.strip()
+
+    @classmethod
+    def clean(cls, raw_string: str):
+
+        cleaned_string = []
+
+        for rawWord in raw_string.split():
+
+            # Protect cant
+            if rawWord == "can't": rawWord = "cant"
+
+            # Expand words
+            rawWord = re.sub("n't$", " not", rawWord)
+
+            # Remove posession
+            rawWord = re.sub("'s$", "", rawWord)
+
+            # Lower the case
+            rawWord = rawWord.lower()
+
+            # Find words and return
+            cleaned = re.findall("[a-z\-_]+", rawWord)
+
+            # Correct spelling mistakes where applicable
+            cleaned = [SpellingModel.predict(word) for word in cleaned]
+
+            cleaned_string += cleaned
+
+        return " ".join(cleaned_string)
+
+    @classmethod
+    def split(cls, text: str, separators: [re]) -> [str]:
+        """ Separate the text with the separators that has been given. Replace all
+        separators with a single separator and then split by the single separator
+        
+        Params:
+            text - The string to be split
+            separators - A list of separator strings to have the string split by
+            
+        Returns:
+            str - A collection of ordered strings representing the initial text split by the
+                separators
+        """
+
+        if not isinstance(separators, list): separators = [separators]
+
+        # Find all the places the text needs to be split
+        splitIndexes = [match.span()[1] for separator in separators for match in separator.finditer(text)]
+        splitIndexes = sorted(splitIndexes)
+
+        processed = [text[:splitIndexes[0]].strip()]
+        processed += [text[splitIndexes[i-1]:splitIndexes[i]].strip() for i in range(1,len(splitIndexes))]
+        processed += [text[splitIndexes[-1]:].strip()]
+
+        return processed
+
+
+    pass
 
     def __init__(self, name: str = None, content: str = "", filepath: str = None):
         """
@@ -29,7 +96,7 @@ class Document:
                 self._content = handler.read()
 
         # Clean the content of un-needed white space.
-        self._content = DO.cleanWhiteSpace(self._content)
+        self._content = Document.removeWhiteSpace(self._content)
 
         # Maintain a collection of datapoints
         self._datapoints = []
@@ -68,24 +135,24 @@ class Document:
         sentences. """
         if self._content:
             if cleaned:
-                return [DO.cleanSentence(sen) for sen in DO.split(self._content, DO.SENTENCE)]
-            return DO.split(self._content, DO.SENTENCE)
+                return [Document.clean(sen) for sen in Document.split(self._content, Document.SENTENCE)]
+            return Document.split(self._content, Document.SENTENCE)
         
         if self._datapoints:
             if cleaned:
-                return [DO.cleanSentence(point.text) for point in self._datapoints]
+                return [Document.clean(point.text) for point in self._datapoints]
             return [point.text for point in self._datapoints]
 
     def words(self, cleaned: bool = False) -> [[str]]:
         """ Split the content of the document into sentences and then into words. """
         if self._content:
             if cleaned:
-                return [DO.cleanSentence(sen).split() for sen in DO.split(self._content, DO.SENTENCE)]
-            return [sen.split() for sen in DO.split(self._content, DO.SENTENCE)]
+                return [Document.cleanSentence(sen).split() for sen in Document.split(self._content, Document.SENTENCE)]
+            return [sen.split() for sen in Document.split(self._content, Document.SENTENCE)]
             
         if self._datapoints:
             if cleaned:
-                return [DO.cleanSentence(point.text).split() for point in self._datapoints]
+                return [Document.clean(point.text).split() for point in self._datapoints]
             return [point.text for point in self._datapoints]
 
     def datapoints(self, data: [Datapoint] = None) -> [Datapoint]:
@@ -141,7 +208,7 @@ class Document:
                 # return the datapoints
                 yield dp
 
-        for sentence in DO.split(self._content, DO.SENTENCE):
+        for sentence in Document.split(self._content, Document.SENTENCE):
 
             # Look for instances within the sentence - ensuring that you only match with individual words.
             instances = list(aggregatedPattern.finditer(sentence))

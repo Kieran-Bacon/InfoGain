@@ -1,8 +1,8 @@
 class EmptyDocument(Exception): pass
 class IncompleteDatapoint(Exception): pass
 
-from .Datapoint import Datapoint
 from .Document import Document
+from .Datapoint import Datapoint
 
 def score(ontology, documents: [Document]):
 
@@ -45,7 +45,18 @@ def score(ontology, documents: [Document]):
 def annotate(ontology, documents: [Document]):
     """ Annotate some documents! """
 
-    from .DocumentOperations import cmdread
+    def cmdread(msg: str, valid: list = None):
+        """ Read input from the command line ensuring that the input is valid """
+
+        if valid:
+            msg += " ("+",".join(valid)+")"
+
+        msg = "="*(len(msg)+2) + "\n|" + msg + "|\n" + "="*(len(msg)+2) + "\n"
+
+        while True:
+            read = input(msg + "\n")
+            if valid is None or read in valid: return read
+            else: print("Invalid input.")
 
     for document in documents:
 

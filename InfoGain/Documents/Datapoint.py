@@ -1,5 +1,5 @@
 from . import IncompleteDatapoint
-from .DocumentOperations import cleanSentence
+from ..Documents import Document
 
 class Datapoint:
 
@@ -55,7 +55,7 @@ class Datapoint:
         """ Embed the context text according to the embedder function """
         if self.context is None:
             raise IncompleteDatapoint("Attempted to embed a point with no context information")
-        self.embedding = {key: embedder(cleanSentence(context)) for key, context in self.context.items()}
+        self.embedding = {key: embedder(Document.clean(context)) for key, context in self.context.items()}
 
     def features(self):
         if self.embedding is None:

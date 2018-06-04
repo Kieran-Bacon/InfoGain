@@ -128,6 +128,8 @@ class Test_Ontology_Creation(unittest.TestCase):
         # TODO better comparison
         #self.assertEqual(file1_content, file2_content)
 
+        os.remove("tempOnt.json")
+
 
 
 if __name__ == "__main__":
