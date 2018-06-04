@@ -1,7 +1,7 @@
 {
     "datapoints": [
         {
-            "annotation": 0,
+            "annotation": 1,
             "context": {
                 "left": "Once upon a time, ",
                 "middle": " decided that he would like to study ",
@@ -19,7 +19,7 @@
             "text": "Once upon a time, Luke decided that he would like to study English, rather than French"
         },
         {
-            "annotation": 1,
+            "annotation": -1,
             "context": {
                 "left": "Once upon a time, ",
                 "middle": " decided that he would like to study English, rather than ",

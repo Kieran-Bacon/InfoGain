@@ -1,6 +1,6 @@
 from .. import Resources
 
-import logging, numpy
+import logging, numpy, math
 from gensim.models import Word2Vec
 
 class Embedder:
@@ -25,7 +25,6 @@ class Embedder:
     def workers(self):
         return self.model.workers
 
-    
     def word(self, word: str):
         if not word in self.model.wv:
             logging.warning("Vocabulary missing during sentence embedding: '"+ word +"'")
@@ -40,10 +39,12 @@ class Embedder:
         embedding = numpy.zeros(self.size())
         words = sentence.split()
 
-        def pf(index: int) -> float:
+        def pf(index: int, alpha: float = 1, beta: float = 0) -> float:
             """ Return the output of a monotonic function as to reduce traling word embeddings """
             # TODO: Change function to something meaningful with support from someone
-            return 1  #-numpy.log((index+1)/(len(words)+1))
+            #return alpha*(math.e**index) + beta
+            return 1
+            return -numpy.log((index+1)/(len(words)+1))
 
         for index, word in enumerate(words):
             

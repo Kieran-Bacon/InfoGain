@@ -1,7 +1,6 @@
 from InfoGain.Resources import Language
-from InfoGain import Calibrator
-
-from InfoGain import RelationExtractor, Document, TrainingDocument
+from InfoGain.Extraction import Calibrator, RelationExtractor
+from InfoGain.Documents import Document
 
 import random
 
@@ -10,16 +9,9 @@ import matplotlib.pyplot as plt
 training_points = [point for doc in Language.training() for point in doc.datapoints()]
 results, structures, alphas = Calibrator.cross_validation(Language.ontology(), training_points)
 
+print(results)
 
-"""structures = [0,1,2]
-alphas = [0,1,2]
-
-
-results = [
-    [{"precision":1, "recall":2, "F1":3},{"precision":1, "recall":2, "F1":3},{"precision":1, "recall":2, "F1":3}],
-    [{"precision":4, "recall":2, "F1":3},{"precision":3, "recall":2, "F1":3},{"precision":2, "recall":2, "F1":3}],
-    [{"precision":4, "recall":2, "F1":3},{"precision":3, "recall":2, "F1":3},{"precision":2, "recall":2, "F1":3}]
-]"""
+exit()
 
 
 struct_i, alpha_i, precision = 0, 0, 0

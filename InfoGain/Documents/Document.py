@@ -117,7 +117,7 @@ class Document:
                 reprMap[alias] = reprMap.get(alias, set()).union({concept.name})
 
         # Compile the search patterns into a single pattern.
-        patterns = ["(^| )"+pattern+"((?=\W)|$)" for pattern in reprMap.keys()]
+        patterns = ["(^|[ -])"+pattern+"((?=\W)|$)" for pattern in reprMap.keys()]
         aggregatedPattern = re.compile("|".join(patterns))
 
         def createDatapoint(dom, domCon, tar, tarCon, relations, sentence):
@@ -153,7 +153,7 @@ class Document:
 
                 for match in instances:
                     # Collect the concept names the representations relate too
-                    instConcepts, matchConcepts = reprMap[inst.group(0).strip()], reprMap[match.group(0).strip()]
+                    instConcepts, matchConcepts = reprMap[inst.group(0).strip(" -")], reprMap[match.group(0).strip(" -")]
 
                     for instConcept, matchConcept in itertools.product(instConcepts, matchConcepts):
                     
@@ -179,7 +179,7 @@ class Document:
             
         struct = {
             "name": self.name,
-            "content": DO.cleanWhiteSpace(self._content),
+            "content": self._content,
             "datapoints": [point.minimise() for point in self._datapoints]
         }
         

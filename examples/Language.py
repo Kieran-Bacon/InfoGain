@@ -1,7 +1,6 @@
 from InfoGain.Knowledge import Ontology, Concept, Relation
 from InfoGain.Extraction import RelationExtractor
-from InfoGain.Documents import Document
-import InfoGain.Documents as DocFunctions
+from InfoGain.Documents import Document, annotate, score
 
 from InfoGain.Resources import Language
 
@@ -33,17 +32,15 @@ lives_in = Relation({person}, "lives_in", {country})
 for relation in [speaks, born_in, lives_in]:
     LanguageOntology.addRelation(relation)
 
-
-
 # Saving the ontology
 LanguageOntology.save(filename = "example language ontology.json")
 
 # Create a training document
 training_string = "Kieran has lived in England for a long time. Kieran can speak English rather well"
-trainingDocument = DocFunctions.annotate(LanguageOntology, [Document(content = training_string)])
+trainingDocument = annotate(LanguageOntology, [Document(content = training_string)])
 
 # Collecting some other examples for better training
-training = Language.training() #[trainingDocument] + Language.training()
+training = [trainingDocument] + Language.training()
 
 # Create a document to predict
 prediction_string = "Luke can speak English rather well, but Luke doesn't live in England."
@@ -56,9 +53,7 @@ extractor = RelationExtractor(ontology=LanguageOntology, min_count=1)
 extractor.fit(training)
 
 # Predict on the testing
-extractor.predict(testing)
-
-print(DocFunctions.score(LanguageOntology, [testing]))
+extractor.predict([testing])
 
 # Pring the predictions
 print("Prediction content:")

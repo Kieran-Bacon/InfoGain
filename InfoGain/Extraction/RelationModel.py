@@ -41,6 +41,7 @@ class RelationModel:
 
     def predict(self, points):
 
+        if not points: return points
         if not self.fitted:
             logging.error("Attempt to predict on unfitted relation model: " + self.name)
             return

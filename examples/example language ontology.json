@@ -1,0 +1,96 @@
+{
+    "Concepts": {
+        "France": {
+            "parents": [
+                "Country"
+            ]
+        },
+        "Spain": {
+            "parents": [
+                "Country"
+            ]
+        },
+        "Person": {},
+        "Country": {},
+        "Spanish": {
+            "parents": [
+                "Language"
+            ]
+        },
+        "Language": {},
+        "England": {
+            "parents": [
+                "Country"
+            ]
+        },
+        "English": {
+            "parents": [
+                "Language"
+            ]
+        },
+        "French": {
+            "parents": [
+                "Language"
+            ]
+        },
+        "German": {
+            "parents": [
+                "Language"
+            ]
+        },
+        "Germany": {
+            "parents": [
+                "Country"
+            ]
+        },
+        "Luke": {
+            "parents": [
+                "Person"
+            ]
+        },
+        "Kieran": {
+            "parents": [
+                "Person"
+            ]
+        }
+    },
+    "Name": "Languages",
+    "Relations": {
+        "born_in": {
+            "concepts": [
+                {
+                    "targets": [
+                        "Country"
+                    ],
+                    "domains": [
+                        "Person"
+                    ]
+                }
+            ]
+        },
+        "lives_in": {
+            "concepts": [
+                {
+                    "targets": [
+                        "Country"
+                    ],
+                    "domains": [
+                        "Person"
+                    ]
+                }
+            ]
+        },
+        "speaks": {
+            "concepts": [
+                {
+                    "targets": [
+                        "Language"
+                    ],
+                    "domains": [
+                        "Person"
+                    ]
+                }
+            ]
+        }
+    }
+}
