@@ -65,14 +65,13 @@ class Document:
         splitIndexes = [match.span()[1] for separator in separators for match in separator.finditer(text)]
         splitIndexes = sorted(splitIndexes)
 
+        if not splitIndexes: return [text]
+
         processed = [text[:splitIndexes[0]].strip()]
         processed += [text[splitIndexes[i-1]:splitIndexes[i]].strip() for i in range(1,len(splitIndexes))]
         processed += [text[splitIndexes[-1]:].strip()]
 
         return processed
-
-
-    pass
 
     def __init__(self, name: str = None, content: str = "", filepath: str = None):
         """
@@ -147,7 +146,7 @@ class Document:
         """ Split the content of the document into sentences and then into words. """
         if self._content:
             if cleaned:
-                return [Document.cleanSentence(sen).split() for sen in Document.split(self._content, Document.SENTENCE)]
+                return [Document.clean(sen).split() for sen in Document.split(self._content, Document.SENTENCE)]
             return [sen.split() for sen in Document.split(self._content, Document.SENTENCE)]
             
         if self._datapoints:

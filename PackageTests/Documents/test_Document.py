@@ -30,6 +30,8 @@ class Test_Document(unittest.TestCase):
         for dirty, clean in wordMapping.items():
             self.assertEqual(Document.clean(dirty), clean)
 
+        Document.split(Document.clean("Luke can speak English rather well, but Luke doesn't live in England."), Document.SENTENCE)
+
 
     def test_split(self):
         content = Document.split(self.contents, Document.SENTENCE)
@@ -38,6 +40,10 @@ class Test_Document(unittest.TestCase):
                                    "This is the initial test!", 
                                    "Fingers crossed!!!",
                                    "Testing sentence end."])
+
+        content = Document.split("Luke can speak English rather well, but Luke doesn't live in England.", Document.SENTENCE)
+        
+        self.assertEqual(content, ["Luke can speak English rather well, but Luke doesn't live in England."])
 
     def test_removeWhitespace(self):
         self.assertEqual(Document.removeWhiteSpace("content     like this ? Should be fixed.. right   !"), "content like this? Should be fixed.. right!")
@@ -74,6 +80,10 @@ class Test_Document(unittest.TestCase):
 
         # Check the total sum of datapoints
         self.assertEqual(len(doc), 5)
+
+        document = Document(content="Luke can speak English rather well, but Luke doesn't live in England.")
+        document.processKnowledge(languages)
+        self.assertEqual(len(document), 4)
 
     def test_document_save_load(self):
 
