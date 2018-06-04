@@ -83,7 +83,7 @@ class Test_Document(unittest.TestCase):
 
         document = Document(content="Luke can speak English rather well, but Luke doesn't live in England.")
         document.processKnowledge(languages)
-        self.assertEqual(len(document), 4)
+        self.assertEqual(len(document), 7)
 
     def test_document_save_load(self):
 
