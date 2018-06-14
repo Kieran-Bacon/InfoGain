@@ -104,7 +104,6 @@ class Document:
             content = json.loads(self._content)
             self.name = content.get("name", self.name)
             self._content = content.get("content", self._content)
-            #self._datapoints += [Datapoint(data) for data in content.get("datapoints",[])]
             self._datapoints = self._datapoints + [Datapoint(data) for data in content.get("datapoints",[])]
         except:
             pass

@@ -36,6 +36,7 @@ class Concept:
         return not self.__eq__(other)
 
     def __hash__(self):
+        if not self.__dict__: return 0
         return hash(self.name)
 
     def clone(self):

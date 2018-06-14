@@ -130,7 +130,11 @@ class Test_Ontology_Creation(unittest.TestCase):
 
         os.remove("tempOnt.json")
 
-
+    def test_ontology_pickle_able(self):
+        import pickle
+        ont = pickle.loads(pickle.dumps(Language.ontology()))
+        self.assertTrue(ont.concept("Kieran") is not None)
+        self.assertEqual(ont.concept("Kieran"), Language.ontology().concept("Kieran"))
 
 if __name__ == "__main__":
     unittest.main()

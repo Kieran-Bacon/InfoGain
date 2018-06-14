@@ -60,3 +60,5 @@ print("Prediction content:")
 print(prediction_string)
 
 [print(point) for point in testing.datapoints()]
+
+extractor.save()

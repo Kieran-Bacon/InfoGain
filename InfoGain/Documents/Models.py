@@ -1,30 +1,56 @@
 class SpellingModel:
     """ Singleton class for the correction of words present within text """
 
-    WORDS = None
     size = 0
+    WORDS = None
 
     @classmethod
-    def load(cls):
+    def load(cls, filepath: str = None) -> None:
+        """ Initialise the singleton class if the class hasn't already been initialised 
+
+        Params:
+            filepath (str) - path to a saved version of the spelling model
+        """
+
         if cls.WORDS is None:
-            # Import the counter data type
-            import re
-            from .Document import Document
-            from collections import Counter
 
-            from .. import Resources
+            if filepath:
+                import pickle
 
-            def words(text):
-                return re.findall("\w+", text.lower())
+                with open(filepath, "rb") as handler:
+                    data = pickle.load(handler)
+                    cls.size = data["size"]
+                    cls.WORDS = data["WORDS"]
+            
+            else:
+ 
+                # Import the counter data type
+                import re
+                from .Document import Document
+                from collections import Counter
 
-            cls.WORDS = Counter(words(open(Resources.DICTIONARY).read()))
+                from .. import Resources
 
-            documents = [Document(filepath=path) for path in Resources.TEXT_COLLECTIONS]
-            for document in documents:
-                words = [word for sentence in document.words() for word in sentence]
-                cls.WORDS.update(words)
+                def words(text):
+                    return re.findall("\w+", text.lower())
 
-            cls.size = sum(cls.WORDS.values())
+                cls.WORDS = Counter(words(open(Resources.DICTIONARY).read()))
+
+                documents = [Document(filepath=path) for path in Resources.TEXT_COLLECTIONS]
+                for document in documents:
+                    words = [word for sentence in document.words() for word in sentence]
+                    cls.WORDS.update(words)
+
+                cls.size = sum(cls.WORDS.values())
+
+    @classmethod
+    def save(cls, folder: str = "./", filename: str = "SpellingModel.txt"):
+        if cls.WORDS is None: return
+
+        import os, pickle
+
+        with open(os.path.join(folder, filename), "wb") as handler:
+            pickle.dump({"size": cls.size, "WORDS": cls.WORDS}, handler, pickle.HIGHEST_PROTOCOL)
 
     @classmethod
     def train(cls, words: [str]):

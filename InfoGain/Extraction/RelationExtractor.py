@@ -7,9 +7,6 @@ from .. import Resources
 
 import os, numpy, logging, sys
 
-from queue import Queue
-from threading import Thread
-
 class UnseenWord(Exception):
     pass
 
@@ -18,6 +15,15 @@ class RelationExtractor(Ontology):
     from provided corpora. The object maintains a collection of classifiers
     which in turn provide evidence for various relationships. The class provides 
     a collection of useful methods for interacting with the model. """
+
+    @classmethod
+    def load(cls, filepath: str):
+        import pickle
+        from ..Documents.Models import SpellingModel
+
+
+        with open(filepath, "rb") as handler:
+            return pickle.load(handler)
 
     def __init__(self, name: str = None, 
         filepath: str = None,
@@ -65,11 +71,10 @@ class RelationExtractor(Ontology):
         self._trainingCorpus = set()
 
     def fit(self, training_documents: [Document] ) -> None:
-        """ Use the provided annotated document to provide training data to the
-        regressors of
+        """ Train the model on the collection of documents
         
         Params:
-            - annotations: A single file, or a list of file paths to training documents
+            training_documents (Document) - A collection of training files to fit the model on.
         """
 
         # Allow single or list of documents, convert training documents
@@ -102,52 +107,6 @@ class RelationExtractor(Ontology):
         self._trainModels(modelData)
 
     def _trainModels(self, model_datapoints: {str:[Datapoint]}) -> None:
-
-        """
-
-        start = time.time()
-
-        def trainRelationModel(queue: Queue):
-            while True:
-                data = queue.get()
-                if data is None: break
-
-                rel, data = data  # Expand the struction
-                self.ensemble[rel].fit(data)  # Fit the data
-                queue.task_done()  # Single that the task is done
-
-        relationQueue = Queue()
-
-        num_threads = range(min(len(model_datapoints), self.MAXTHREADS))
-        threads = [Thread(target=trainRelationModel, args=(relationQueue,)) for _ in num_threads]
-
-        # Start threads and add relations data to processing queue
-        [t.start() for t in threads]
-        [relationQueue.put(data) for data in model_datapoints.items()]
-
-        size = 0
-        while relationQueue.unfinished_tasks:
-            if relationQueue.unfinished_tasks == size: continue
-            else: size = relationQueue.unfinished_tasks
-            count = len(model_datapoints) - relationQueue.unfinished_tasks
-            mult = 25 - int((relationQueue.unfinished_tasks/len(model_datapoints)*25))
-            sys.stdout.write("\rTraining Extractor |" + "#"*mult + "-"*(25-mult) + "| ( {}/{} ) training...".format(count, len(model_datapoints) ))
-            sys.stdout.flush()
-
-        # Process till training is complete
-        relationQueue.join()
-        
-        # Pretty prompt
-        sys.stdout.write("\rTraining Extractor |" + "#"*25 + "| ( {}/{} ) training... Complete!\n".format(len(model_datapoints),len(model_datapoints)))
-        sys.stdout.flush()
-
-        # Signal the threads to stop computation and join
-        [relationQueue.put(None) for _ in num_threads]
-        [t.join() for t in threads]
-
-        print(time.time()-start)
-
-        return"""
 
         for i, (model, data) in enumerate(model_datapoints.items()):
 
@@ -195,3 +154,15 @@ class RelationExtractor(Ontology):
             document.datapoints(predicted)
 
         return documents
+
+    def save(self, folder: str = "./", filename: str = "RelationExtractor") -> None:
+        """ Save the Relation Extractor object along with the relevent supporting objects """
+
+        import pickle
+        from ..Documents.Models import SpellingModel
+
+
+        self.dependants = {"SpellingModel": SpellingModel}
+
+        with open(os.path.join(folder, filename), "wb") as handler:
+            pickle.dump(self, handler, pickle.HIGHEST_PROTOCOL)
