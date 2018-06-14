@@ -3,7 +3,7 @@ import os, uuid, json, re, itertools
 from ..Knowledge import Ontology
 
 from .Datapoint import Datapoint
-from .Models import SpellingModel
+from ..Resources.Models import SpellingModel
 
 class Document:
 

@@ -3,13 +3,13 @@ from sklearn.model_selection import KFold
 from gensim.models import Word2Vec
 import logging
 
-from ..Knowledge import Ontology
-from ..Documents import Datapoint, Document, score
-from .RelationExtractor import RelationExtractor
+from ...Knowledge import Ontology
+from ...Documents import Datapoint, Document, score
+from ...Extraction import RelationExtractor
 
 from multiprocessing import Process, Queue
 
-def cross_validation(ont: Ontology, training: [Datapoint]):
+def RETune(ont: Ontology, training: [Datapoint]):
 
     structures = [(3,1), (4,2), (6,3), (8,4), (12,6), (20,10), (50,20)]
     alphas = logspace(-16,1,20)

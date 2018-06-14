@@ -19,7 +19,6 @@ class TEXT(object):
 def hasEmbedder():
     return os.path.exists(os.path.join(ROOT,"WikipediaWord2Vec"))
         
-
 def loadEmbedder():
     from gensim.models import Word2Vec
     return Word2Vec.load(os.path.join(ROOT,"WikipediaWord2Vec"))

@@ -26,10 +26,10 @@ class SpellingModel:
  
                 # Import the counter data type
                 import re
-                from .Document import Document
+                from ...Documents import Document
                 from collections import Counter
 
-                from .. import Resources
+                from ... import Resources
 
                 def words(text):
                     return re.findall("\w+", text.lower())

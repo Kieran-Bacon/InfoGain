@@ -1,4 +1,4 @@
-from .. import Resources
+from ... import Resources
 
 import logging, numpy, math
 from gensim.models import Word2Vec

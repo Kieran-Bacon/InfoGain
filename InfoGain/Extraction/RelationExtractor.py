@@ -1,4 +1,4 @@
-from .Embedder import Embedder
+from ..Resources.Models import Embedder
 from .RelationModel import RelationModel
 
 from ..Knowledge import Ontology
@@ -19,9 +19,6 @@ class RelationExtractor(Ontology):
     @classmethod
     def load(cls, filepath: str):
         import pickle
-        from ..Documents.Models import SpellingModel
-
-
         with open(filepath, "rb") as handler:
             return pickle.load(handler)
 
@@ -159,10 +156,5 @@ class RelationExtractor(Ontology):
         """ Save the Relation Extractor object along with the relevent supporting objects """
 
         import pickle
-        from ..Documents.Models import SpellingModel
-
-
-        self.dependants = {"SpellingModel": SpellingModel}
-
         with open(os.path.join(folder, filename), "wb") as handler:
             pickle.dump(self, handler, pickle.HIGHEST_PROTOCOL)

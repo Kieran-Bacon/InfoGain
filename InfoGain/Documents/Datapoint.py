@@ -9,20 +9,18 @@ class Datapoint:
             data - A dictionary of the datapoint information.
         """
 
-        if data:
+        self.domain = data.get("domain", None)
+        self.relation = data.get("relation", None)
+        self.target = data.get("target", None)
 
-            self.domain = data.get("domain", None)
-            self.relation = data.get("relation", None)
-            self.target = data.get("target", None)
+        self.text = data.get("text", None)
+        self.context = data.get("context", None)
 
-            self.text = data.get("text", None)
-            self.context = data.get("context", None)
+        self.annotation = data.get("annotation", None)
+        self.prediction = data.get("prediction", None) 
+        self.probability = data.get("probability", None)
 
-            self.annotation = data.get("annotation", None)
-            self.prediction = data.get("prediction", None) 
-            self.probability = data.get("probability", None)
-
-            self.embedding = data.get("embedding", None)
+        self.embedding = data.get("embedding", None)
 
     def __str__(self):
 

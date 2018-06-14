@@ -1,6 +1,5 @@
 from InfoGain.Documents import Document
 from InfoGain.Extraction import RelationExtractor
-from InfoGain.Documents.Models import SpellingModel
 
 extractor = RelationExtractor.load("./RelationExtractor")
 
