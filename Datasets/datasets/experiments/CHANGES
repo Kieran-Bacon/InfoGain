@@ -1,0 +1,7 @@
+CHANGES
+=======
+
+v2: The file relation_synonyms.txt was added. 
+    This file contains the synonyms used by the automatic annotator.
+
+v1: Initial release

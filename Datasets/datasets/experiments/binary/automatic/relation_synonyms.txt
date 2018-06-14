@@ -1,0 +1,104 @@
+/theater/play/composer	composer	writer	author	novelist	poet	author	compose	indite	pen	write
+/geography/river/origin	source	beginning	origin	root	rootage	flow	stream	course	run	feed	flow	ascent	ascension	rise	rising	ascent	ascension	rise	rising
+/basketball/basketball_team/division	division	class	squad	team	lead	star	principal	place	position	championship	title	win	lose
+/religion/religious_organization/leaders	head	leader	chief	politician	hero	employer	head	lead
+/music/composition/composer	composer	writer	author	novelist	poet	author	compose	indite	pen	write
+/geography/river/cities	bank	watershed	basin	margin	border	perimeter	river	bank	cover	cross	track	traverse	headwater
+/visual_art/art_period_movement/associated_artists	artist	master	painter	dance	art	cubism	brother	member	master	maestro
+/broadcast/tv_station/owner	owner	proprietor	purchase	buy	sell	possess	have	own	proprietorship	ownership	franchise	dealership
+/computer/computer/manufacturer	make	brand	model	sell	make	construct	rebuild	erect	build	introduce	maker	manufacturer
+/book/author/school_or_movement	front	movement	effort	drive	campaign	movement	cause	crusade	brother	member	writer	author	novelist	poet
+/sports/professional_sports_team/owner_s	owner	proprietor	purchase	buy	sell	possess	have	own	proprietorship	ownership	franchise	dealership
+/theater/play/characters	character	cast	character	part	hero	persona	role
+/religion/religion/founding_figures	father	founder	beginner	establish	launch	found	institute	constitute	establish	appoint	plant	found
+/film/film/produced_by	producer	produce
+/geography/lake/inflow	flow	stream	course	run	feed	flow
+/location/location/time_zones
+/people/person/place_of_birth	birth	bear	have	deliver	birth	nascency	nativity	nascence	birthplace	native
+/internet/website/owner	owner	proprietor	purchase	buy	sell	possess	have	own	proprietorship	ownership
+/film/film/edited_by	cut	edit	editor
+/film/film/written_by	writer	author	novelist	poet	author	compose	indite	pen	write	screenplay	conception	creation
+/book/written_work/author	writer	author	novelist	poet	author	compose	indite	pen	write
+/government/political_party/ideology	party	front	movement	effort	drive	campaign	movement	cause	crusade	democracy	conservatism	socialism	liberalism	ideology
+/finance/currency/countries_used	currency	cash
+/book/publishing_company/imprints	imprint	impress	imprint	newspaper	publisher	publish	print	department	division	branch	outfit	force	crew	unit	side	household	team	family	owner	proprietor	purchase	buy	sell	possess	have	own	proprietorship	ownership
+/education/educational_institution/sports_teams	squad	team	rally
+/basketball/basketball_team/conference	lead	star	principal	place	position	championship	title	win	lose
+/people/person/children	kid	babe	baby	child	parent	father	mother	birth	bear	have	deliver	birth	nascency	nativity	nascence	son	boy	daughter	girl
+/transportation/bridge/locale	link	tie	attach	join	connect	side	cross	sweep	span	traverse
+/music/artist/origin	birth	bear	have	deliver	birth	nascency	nativity	nascence	birthplace	establish	launch	found	source	beginning	origin	root	rootage
+/film/film/sequel	sequel	continuation
+/ice_hockey/hockey_team/coach	handler	coach	manager
+/government/political_party/country	party	govern	regularize	regularise	order	regulate	opposition
+/aviation/airline/alliance	brother	member	coalition	alliance	alignment	alinement
+/geography/island/body_of_water	seashore	coast	seacoast	skirt	ring	surround	border	environ
+/military/military_person/participated_in_conflicts	hero	serve	veteran	commander	officer	redcoat	soldier	trooper	participate	enter
+/sports/sports_team/championships	championship	title	win	triumph	victory	champ	champion
+/location/country/official_language	language	speak	stammer	read	sing	begin	mouth	snarl	mumble	verbalise	deliver	utter	shout	murmur	talk	mutter	verbalize	snap	whisper
+/geography/river/basin_countries	bank	watershed	basin	margin	border	perimeter	river	cover	cross	track	traverse	headwater
+/broadcast/radio_station/owner	owner	proprietor	purchase	buy	sell	possess	have	own	proprietorship	ownership
+/location/country/administrative_divisions	province	state	borough	county	section	neighborhood	locality	district	territory	development	dominion	city	metropolis	municipality	town
+/education/academic/advisors	authority	advisee	pupil	student	educatee	mentor	supervisor	boss	director
+/music/group_member/instruments_played	play	perform	play	study	master	maestro
+/education/educational_institution/parent_institution	parent	father	mother	subsidiary	unit	department	section	brother	member	owner	proprietor	purchase	buy	proprietorship	ownership
+/geography/river/mouth	mouth	flow	stream	course	run	feed	flow
+/sports/sports_team/location	place	home	move	relocation	move
+/baseball/baseball_team/division	division	class	squad	team	lead	star	principal	place	position	championship	title	win	lose
+/cvg/computer_videogame/publisher	magazine	book	publication	publish	release	issue	newspaper	publisher	release
+/tv/tv_program_creator/programs_created	farmer	artist	maker	creator	architect	producer	direct	produce	form	do	clear	evoke	assemble	bear	construct	arouse	bring	generate	compose	choreograph	cause	give	prepare	write	realize	create	make	institute	elicit	organize	raise	build	initiate	establish	invoke	start	formulate	devise	invent	excogitate	contrive	forge	create	develop	production	art	representation	product	creation	invention	writer	author	novelist	poet	author	compose	indite	pen	write
+/fictional_universe/fictional_character/children	kid	babe	baby	child	parent	father	mother	birth	bear	have	deliver	birth	son	boy	daughter	girl
+/book/newspaper/owner	owner	proprietor	purchase	buy	sell	possess	have	own	proprietorship	ownership
+/people/deceased_person/place_of_death	expiry	decease	death	perish	pass	decease	conk	exit	die	croak	go	choke	expire	perish	pass	decease	conk	exit	die	croak	go	choke	expire	killing	kill	murder	shoot	erase	kill
+/film/film/featured_film_locations	direct	produce	form	do	clear	evoke	assemble	bear	construct	arouse	bring	generate	compose	choreograph	cause	give	prepare	write	realize	create	make	institute	elicit	organize	raise	build	initiate	establish	invoke	start	set	production	location
+/geography/lake/basin_countries	basin	coast	shore	lake	lagoon	pond	seashore	coast	seacoast	margin	border	perimeter
+/transportation/bridge/body_of_water_spanned	cross	sweep	span	traverse
+/computer/computer_processor/manufacturers	make	brand	model	sell	make	construct	rebuild	erect	build	introduce	maker	manufacturer
+/aviation/aircraft_model/manufacturer	make	brand	model	sell	make	construct	rebuild	erect	build	introduce	maker	manufacturer
+/people/family/members	kinsfolk	sept	kinfolk	phratry	folk	family	brother	member	relative	cousin	relation	partner	heir	inheritor	heritor	kid	babe	baby	child	parent	father	mother	son	boy	daughter	girl	sibling	sib	brother	sister	sis
+/music/artist/label	label	sign	contract	sign
+/people/person/religion	head	leader	chief	politician	hero	employer	head	lead	brother	member	curate	pastor	parson	minister	rector	follower	religion	faith
+/organization/organization/founders	father	founder	beginner	establish	launch	found	institute	constitute	establish	appoint	plant	found
+/film/film/directed_by	direct	director	director
+/film/film/production_companies	production	volume	work	output	movie	production	film	book	product	studio	producer	produce
+/geography/mountain/mountain_range	chain	range
+/location/country/capital	capital
+/basketball/basketball_team/head_coach	handler	coach	manager
+/spaceflight/space_agency/astronauts	spaceman	astronaut	cosmonaut
+/metropolitan_transit/transit_system/area_served	carrier	run	operate	drive	ride	ride	pass	run	lead	extend	come	go	railway	railroad	train	transit	transportation
+/location/neighborhood/neighborhood_of	neighbourhood	place	neighborhood	vicinity	locality	section	neighborhood	locality	district	territory	development	dominion	community
+/royalty/monarch/royal_line	kinsfolk	sept	kinfolk	phratry	folk	family	brother	member	relative	cousin	relation	partner	heir	inheritor	heritor	king	monarch	king	sovereign	govern	rule	sovereignty	reign	reign
+/broadcast/broadcast/area_served	broadcast	send	beam	air	transmit	broadcast	program	programme	series	compass	reach	range	grasp	serve	service
+/geography/lake/cities	basin	coast	shore	lake	lagoon	pond	seashore	coast	seacoast	margin	border	perimeter
+/american_football/football_team/conference	squad	team	lead	star	principal	place	position	championship	title	win	lose
+/baseball/baseball_team/league	lead	star	principal	place	position	championship	title	win	lose
+/american_football/football_team/division	division	class	lead	star	principal	place	position	championship	title	win	lose
+/fictional_universe/fictional_character/character_created_by	character	farmer	artist	maker	creator	architect	producer	direct	produce	form	do	clear	evoke	assemble	bear	construct	arouse	bring	generate	compose	choreograph	cause	give	prepare	write	realize	create	make	institute	elicit	organize	raise	build	initiate	establish	invoke	start	formulate	devise	invent	excogitate	contrive	forge	create	develop	production	art	representation	product	creation	invention	writer	author	novelist	poet	author	compose	indite	pen	write
+/opera/opera/librettist	librettist	libretto	writer	author	novelist	poet	author	compose	indite	pen	write
+/film/film/cinematography	cameraman	cinematographer	cinematography	filming	shoot	snap	photograph	photography
+/government/us_president/vice_president	frailty	vice
+/cvg/computer_videogame/developer	program	programme	developer	develop	direct	produce	form	do	clear	evoke	assemble	bear	construct	arouse	bring	generate	compose	choreograph	cause	give	prepare	write	realize	create	make	institute	elicit	organize	raise	build	initiate	establish	invoke	start	design	architect	designer	design	project	contrive	plan
+/architecture/architect/structures_designed	design	architect	designer	design	project	contrive	plan	make	construct	rebuild	erect	build
+/aviation/airport/serves	place	home	direction	base	home	base	serve	service	mi	mile
+/meteorology/tropical_cyclone/affected_areas	hitting	striking	hit	strike	hit	waste	devastate	desolate	scourge	ravage	burn	wreck	ruin	destroy	break	backwash	wake	aftermath	rake	pound	thump	poke	damage	harm	impairment	damage	mar	break	wipeout	destruction	demolition	beat	batter	buffet	bat	slam	pound	slug	kick	hit	smash	catch
+/book/book/characters	character	cast	character	part	hero	persona	role
+/visual_art/visual_artist/artworks	design	create	paint	farmer	artist	maker	creator	architect	producer	paint	carver	sculpturer	sculptor	sculpt	sculpture
+/fictional_universe/fictional_universe/characters	character	cast	character	part	hero	persona	role	represent	play	act
+/law/court/legal_cases	cause	causa	case	suit	lawsuit	judgement	judgment	rule	find	adjudicate	judge	settle	resolve	decide	decision	conclusion	determination	trial	court	courtroom
+/location/us_county/county_seat
+/computer/software/developer	developer	develop	direct	produce	form	do	clear	evoke	assemble	bear	construct	arouse	bring	generate	compose	choreograph	cause	give	prepare	write	realize	create	make	institute	elicit	organize	raise	build	initiate	establish	invoke	start	design	architect	designer	design	project	contrive	plan
+/film/film/music	score	piece	melody	music	section	tune	soundtrack	song	vocal
+/automotive/model/make	make	brand	model	sell	make	construct	rebuild	erect	build	introduce	maker	manufacturer	department	division	branch
+/people/family/country	govern	rule	sovereignty	reign	reign	source	beginning	origin	root	rootage	native
+/music/artist/album	album	disk	record	disc	platter	record	tape	release	publish	release	issue	recording
+/geography/island/island_group	island	distance	part	region	outside	bottom	top	interior	side	atmosphere	county	air	hell
+/sports/sports_team/arena_stadium	bowl	arena	stadium	place	home	base	home	base
+/location/cn_province/capital	capital
+/influence/influence_node/influenced_by	force	influence	admire	envy	inspire	mentor	mentor
+/protected_sites/protected_site/governing_body	run	operate	conduct	direct	organize	care	deal	handle	administer	manage	guard	shield	protect	administrate	supervise	administer	resume	perpetuate	preserve	continue	sustain	uphold	persist	oversee	supervise	manage	superintend	maintain	conserve	preserve
+/transportation/road/major_cities	street	roadway	route	road	driveway	highway	direction
+/geography/lake/outflow	flow	stream	course	run	feed	flow
+/aviation/airline/hubs	hub
+/royalty/kingdom/rulers	king	monarch	king	sovereign	govern	rule	sovereignty	reign	reign	master	ruler	swayer	sovereign
+/location/us_state/capital	capital
+/business/business_operation/place_founded	establish	launch	found	institute	constitute	establish	appoint	plant	found	base	home	base
+/people/deceased_person/place_of_burial	entomb	bury	inter	inhume	tomb	grave	necropolis	graveyard	cemetery	mausoleum

@@ -1,0 +1,27 @@
+CONTENTS
+============
+
+This folder contains the experimental data for the EMNLP'13 paper 
+"Effectiveness and Efficiency of Open Relation Extraction".
+
+The folder structure is as follows:
+binary/			-- Data for the experiment with binary relations.
+	manual/		-- Ground truth was manually annotated.
+		dev/	-- Development sentences.
+		test/	-- Test sentences.
+	automatic/	-- Ground truth was automatically annotated.
+		dev/	-- Development sentences.
+		test/	-- Test sentences.
+nary/			-- Data for the experiment with n-ary relations. 
+				   Ground truth was manually annotated. Test sentences only.
+
+EVALUATION FILES & SCRIPTS
+==========================
+There is a README file for each experiment explaining explaining the format of the files and how to run the evaluation scripts.
+
+
+PEOPLE
+======
+Filipe Mesquita <mesquita@ualberta.ca>
+Jordan Schmidek <schmidek@ualberta.ca>
+Denilson Barbosa <denilson@ualberta.ca>

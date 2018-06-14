@@ -1,0 +1,1566 @@
+{
+    "datapoints": [
+        {
+            "probability": null,
+            "context": {
+                "middle": " laboring over the ",
+                "left": "An accompanying CD of light classic Italian music helps to inspire the ",
+                "right": " or to create a romantic atmosphere at dinner."
+            },
+            "text": "An accompanying CD of light classic Italian music helps to inspire the cook laboring over the stove or to create a romantic atmosphere at dinner.",
+            "prediction": null,
+            "target": {
+                "concept": "cook",
+                "text": "cook"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "stove",
+                "text": "stove"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of the cotters is to take careful aim with the ",
+                "left": "The key to successful ",
+                "right": "."
+            },
+            "text": "The key to successful removal of the cotters is to take careful aim with the hammer.",
+            "prediction": null,
+            "target": {
+                "concept": "removal",
+                "text": "removal"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "hammer",
+                "text": "hammer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " lifting some heavy ",
+                "left": "The site was encircled by a high fence and one could see a ",
+                "right": "."
+            },
+            "text": "The site was encircled by a high fence and one could see a crane lifting some heavy construction material.",
+            "prediction": null,
+            "target": {
+                "concept": "construction material",
+                "text": "construction material"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "crane",
+                "text": "crane"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " powered a gripping ",
+                "left": "With lyrical descriptions of landscape and terse, unpunctuated dialogue, a distinctive ",
+                "right": "."
+            },
+            "text": "With lyrical descriptions of landscape and terse, unpunctuated dialogue, a distinctive voice powered a gripping story.",
+            "prediction": null,
+            "target": {
+                "concept": "story",
+                "text": "story"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "voice",
+                "text": "voice"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " that during construction engulfed a ",
+                "left": "It was this moist ",
+                "right": " which remains under the stadium today."
+            },
+            "text": "It was this moist ground that during construction engulfed a crane which remains under the stadium today.",
+            "prediction": null,
+            "target": {
+                "concept": "ground",
+                "text": "ground"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "crane",
+                "text": "crane"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " that uses a ",
+                "left": "Public key encryption is a ",
+                "right": " of asymmetric keys for encryption and decryption."
+            },
+            "text": "Public key encryption is a technique that uses a pair of asymmetric keys for encryption and decryption.",
+            "prediction": null,
+            "target": {
+                "concept": "technique",
+                "text": "technique"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "pair",
+                "text": "pair"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " who last week spent CAD550 on a brand new Sony PlayStation 3 smashed it to bits with a ",
+                "left": "The crazy ",
+                "right": " right outside the store."
+            },
+            "text": "The crazy guys who last week spent CAD550 on a brand new Sony PlayStation 3 smashed it to bits with a sledgehammer right outside the store.",
+            "prediction": null,
+            "target": {
+                "concept": "guys",
+                "text": "guys"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "sledgehammer",
+                "text": "sledgehammer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " do this with a ",
+                "left": "Some ",
+                "right": ", while others use scissors."
+            },
+            "text": "Some pathologists do this with a scalpel, while others use scissors.",
+            "prediction": null,
+            "target": {
+                "concept": "pathologists",
+                "text": "pathologists"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "scalpel",
+                "text": "scalpel"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " in a ",
+                "left": "Alternatively, you can use a ",
+                "right": " or kiosk to make corrections."
+            },
+            "text": "Alternatively, you can use a computer in a public lab or kiosk to make corrections.",
+            "prediction": null,
+            "target": {
+                "concept": "public lab",
+                "text": "public lab"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "computer",
+                "text": "computer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " helps educate practitioner ",
+                "left": "The ",
+                "right": " through clinical meetings."
+            },
+            "text": "The organization helps educate practitioner dentists through clinical meetings.",
+            "prediction": null,
+            "target": {
+                "concept": "dentists",
+                "text": "dentists"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "organization",
+                "text": "organization"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " uses the ",
+                "left": "Anesthesia is not necessary since the ",
+                "right": " and sandpaper discs and polishing wheels to reshape the teeth."
+            },
+            "text": "Anesthesia is not necessary since the dentist uses the drill and sandpaper discs and polishing wheels to reshape the teeth.",
+            "prediction": null,
+            "target": {
+                "concept": "dentist",
+                "text": "dentist"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "drill",
+                "text": "drill"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " allows ",
+                "left": "The all-new revolutionary Knit Lite ",
+                "right": " to knit in dimly-lit places at any time of day or night."
+            },
+            "text": "The all-new revolutionary Knit Lite knitting needle allows knitters to knit in dimly-lit places at any time of day or night.",
+            "prediction": null,
+            "target": {
+                "concept": "knitters",
+                "text": "knitters"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "knitting needle",
+                "text": "knitting needle"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": ", confound the ",
+                "left": "Love the ",
+                "right": "."
+            },
+            "text": "Love the drill, confound the dentist.",
+            "prediction": null,
+            "target": {
+                "concept": "dentist",
+                "text": "dentist"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "drill",
+                "text": "drill"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " assists the ",
+                "left": "A ",
+                "right": " in finding their own answers for the problems before them by encouraging constructive communications, keeping the parties focused on settlement alternatives, offering information and suggestions as needed, and building the foundation for improved relations between the parties."
+            },
+            "text": "A mediator assists the parties in finding their own answers for the problems before them by encouraging constructive communications, keeping the parties focused on settlement alternatives, offering information and suggestions as needed, and building the foundation for improved relations between the parties.",
+            "prediction": null,
+            "target": {
+                "concept": "parties",
+                "text": "parties"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "mediator",
+                "text": "mediator"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " allows a ",
+                "left": "Because it's a strong, lint-free synthetic material with tiny absorbent fibers, ",
+                "right": " to hold sufficient water without dripping."
+            },
+            "text": "Because it's a strong, lint-free synthetic material with tiny absorbent fibers, microfiber allows a mop to hold sufficient water without dripping.",
+            "prediction": null,
+            "target": {
+                "concept": "microfiber",
+                "text": "microfiber"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "mop",
+                "text": "mop"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " sawed smoothly and accurately using ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The logs sawed smoothly and accurately using saw design.",
+            "prediction": null,
+            "target": {
+                "concept": "logs",
+                "text": "logs"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "saw design",
+                "text": "saw design"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " cut a large ",
+                "left": "The ",
+                "right": " in a huge concrete wall at the plant."
+            },
+            "text": "The saw cut a large hole in a huge concrete wall at the plant.",
+            "prediction": null,
+            "target": {
+                "concept": "hole",
+                "text": "hole"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "saw",
+                "text": "saw"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " keeps the ",
+                "left": "A ",
+                "right": " between 47 and 58 percent humidity."
+            },
+            "text": "A humidifier keeps the greenhouse between 47 and 58 percent humidity.",
+            "prediction": null,
+            "target": {
+                "concept": "greenhouse",
+                "text": "greenhouse"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "humidifier",
+                "text": "humidifier"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " makes contemporary sculpture with hot forged ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The artist makes contemporary sculpture with hot forged steel.",
+            "prediction": null,
+            "target": {
+                "concept": "artist",
+                "text": "artist"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "steel",
+                "text": "steel"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Choose samples and prepare them for viewing with the ",
+                "right": "."
+            },
+            "text": "Choose samples and prepare them for viewing with the electron microscope.",
+            "prediction": null,
+            "target": {
+                "concept": "microscope",
+                "text": "microscope"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "electron",
+                "text": "electron"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " over the ",
+                "left": "They often have a ",
+                "right": " to draw the waste water towards it."
+            },
+            "text": "They often have a pump over the drainage hole to draw the waste water towards it.",
+            "prediction": null,
+            "target": {
+                "concept": "drainage hole",
+                "text": "drainage hole"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "pump",
+                "text": "pump"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " also wielded enormous ",
+                "left": "The ",
+                "right": " in the dispensing of Rhode Island's share of expanding federal budgets of the 1950s and 1960s."
+            },
+            "text": "The senator also wielded enormous influence in the dispensing of Rhode Island's share of expanding federal budgets of the 1950s and 1960s.",
+            "prediction": null,
+            "target": {
+                "concept": "senator",
+                "text": "senator"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "influence",
+                "text": "influence"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " outside U.N. command crushed a rebellion with efficient ",
+                "left": "An independent British ",
+                "right": "."
+            },
+            "text": "An independent British force outside U.N. command crushed a rebellion with efficient gusto.",
+            "prediction": null,
+            "target": {
+                "concept": "force",
+                "text": "force"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "gusto",
+                "text": "gusto"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " without a ",
+                "left": "A ",
+                "right": " cannot write a sales brochure."
+            },
+            "text": "A typewriter without a typist cannot write a sales brochure.",
+            "prediction": null,
+            "target": {
+                "concept": "typist",
+                "text": "typist"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "typewriter",
+                "text": "typewriter"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " helps the ",
+                "left": "The ",
+                "right": " offer best-fit solutions to customers searching for cost-effective, enterprise-class SOA platforms."
+            },
+            "text": "The alliance helps the company offer best-fit solutions to customers searching for cost-effective, enterprise-class SOA platforms.",
+            "prediction": null,
+            "target": {
+                "concept": "company",
+                "text": "company"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "alliance",
+                "text": "alliance"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " played the game with a ",
+                "left": "The snooker ",
+                "right": " on his face."
+            },
+            "text": "The snooker player played the game with a smile on his face.",
+            "prediction": null,
+            "target": {
+                "concept": "player",
+                "text": "player"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "smile",
+                "text": "smile"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is just pulling an ",
+                "left": "To say that ",
+                "right": " is like saying golf is just swinging a club."
+            },
+            "text": "To say that rowing is just pulling an oar is like saying golf is just swinging a club.",
+            "prediction": null,
+            "target": {
+                "concept": "rowing",
+                "text": "rowing"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "oar",
+                "text": "oar"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " was made with the Loire Valley red wine ",
+                "left": "His favorite ",
+                "right": "."
+            },
+            "text": "His favorite wine was made with the Loire Valley red wine grape.",
+            "prediction": null,
+            "target": {
+                "concept": "wine",
+                "text": "wine"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "grape",
+                "text": "grape"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " has one ",
+                "left": "A ",
+                "right": " in sweep rowing, an oar in each hand in sculling."
+            },
+            "text": "A rower has one oar in sweep rowing, an oar in each hand in sculling.",
+            "prediction": null,
+            "target": {
+                "concept": "rower",
+                "text": "rower"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "oar",
+                "text": "oar"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " combines a ",
+                "left": "In simplest terms, a ",
+                "right": " and an electric motor to provide adequate power with minimal fuel usage and low emissions."
+            },
+            "text": "In simplest terms, a hybrid combines a gasoline engine and an electric motor to provide adequate power with minimal fuel usage and low emissions.",
+            "prediction": null,
+            "target": {
+                "concept": "hybrid",
+                "text": "hybrid"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "gasoline engine",
+                "text": "gasoline engine"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " require a ",
+                "left": "Conventional ",
+                "right": " to type individual letters one at a time."
+            },
+            "text": "Conventional typewriter keyboards require a typist to type individual letters one at a time.",
+            "prediction": null,
+            "target": {
+                "concept": "typist",
+                "text": "typist"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "typewriter keyboards",
+                "text": "typewriter keyboards"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " preaches with a ",
+                "left": "",
+                "right": "."
+            },
+            "text": "Hope preaches with a hammer.",
+            "prediction": null,
+            "target": {
+                "concept": "Hope",
+                "text": "Hope"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "hammer",
+                "text": "hammer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " belonging to the ",
+                "left": "But then one of them got hold of an ",
+                "right": "."
+            },
+            "text": "But then one of them got hold of an axe belonging to the carpenter.",
+            "prediction": null,
+            "target": {
+                "concept": "carpenter",
+                "text": "carpenter"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "axe",
+                "text": "axe"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " applied a one-time ",
+                "left": "The ",
+                "right": " to the graduation rates to remove the bias."
+            },
+            "text": "The department applied a one-time adjustment to the graduation rates to remove the bias.",
+            "prediction": null,
+            "target": {
+                "concept": "department",
+                "text": "department"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "adjustment",
+                "text": "adjustment"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "The newer lesser-known attraction that the kibbutz offers is a reconstructed ",
+                "right": " whose beginnings can be traced to the early 20th century in Jaffa."
+            },
+            "text": "The newer lesser-known attraction that the kibbutz offers is a reconstructed oil press whose beginnings can be traced to the early 20th century in Jaffa.",
+            "prediction": null,
+            "target": {
+                "concept": "press",
+                "text": "press"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "oil",
+                "text": "oil"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " in warm ",
+                "left": "We recommend rinsing your ",
+                "right": " immediately after each use."
+            },
+            "text": "We recommend rinsing your grater in warm water immediately after each use.",
+            "prediction": null,
+            "target": {
+                "concept": "water",
+                "text": "water"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "grater",
+                "text": "grater"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " helps the ",
+                "left": "A ",
+                "right": "."
+            },
+            "text": "A nurse helps the caregiver.",
+            "prediction": null,
+            "target": {
+                "concept": "caregiver",
+                "text": "caregiver"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "nurse",
+                "text": "nurse"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " uses the newest personal antenna ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The device uses the newest personal antenna technology.",
+            "prediction": null,
+            "target": {
+                "concept": "device",
+                "text": "device"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "technology",
+                "text": "technology"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " would invent the ",
+                "left": "It is almost unthinkable to suppose that a Scottish ",
+                "right": " and technique independently at that late moment in textile history."
+            },
+            "text": "It is almost unthinkable to suppose that a Scottish weaver would invent the loom and technique independently at that late moment in textile history.",
+            "prediction": null,
+            "target": {
+                "concept": "weaver",
+                "text": "weaver"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "loom",
+                "text": "loom"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is a long stick or rod used as a tool in the ",
+                "left": "A knitting needle or ",
+                "right": " of hand knitted fabric."
+            },
+            "text": "A knitting needle or knitting pin is a long stick or rod used as a tool in the manufacture of hand knitted fabric.",
+            "prediction": null,
+            "target": {
+                "concept": "knitting pin",
+                "text": "knitting pin"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "manufacture",
+                "text": "manufacture"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " operate a ram ",
+                "left": "Currently, the ",
+                "right": " that is counter-intuitive to use and leads to sub-optimal oil extraction from groundnuts."
+            },
+            "text": "Currently, the villagers operate a ram oil press that is counter-intuitive to use and leads to sub-optimal oil extraction from groundnuts.",
+            "prediction": null,
+            "target": {
+                "concept": "villagers",
+                "text": "villagers"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "oil press",
+                "text": "oil press"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is recovered in a generator and powers a turbine ",
+                "left": "",
+                "right": " which yields electricity."
+            },
+            "text": "Heat is recovered in a generator and powers a turbine generator which yields electricity.",
+            "prediction": null,
+            "target": {
+                "concept": "generator",
+                "text": "generator"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "Heat",
+                "text": "Heat"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " without a ",
+                "left": "He deserves to be put in a ",
+                "right": " for this one."
+            },
+            "text": "He deserves to be put in a canoe without a paddle for this one.",
+            "prediction": null,
+            "target": {
+                "concept": "paddle",
+                "text": "paddle"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "canoe",
+                "text": "canoe"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " uses a ",
+                "left": "A major government researcher once complained that his bosses used his scientific findings the way a ",
+                "right": ": for support rather than illumination."
+            },
+            "text": "A major government researcher once complained that his bosses used his scientific findings the way a drunk uses a lamppost: for support rather than illumination.",
+            "prediction": null,
+            "target": {
+                "concept": "drunk",
+                "text": "drunk"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "lamppost",
+                "text": "lamppost"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " are played with the ",
+                "left": "American ",
+                "right": "."
+            },
+            "text": "American sports are played with the hands.",
+            "prediction": null,
+            "target": {
+                "concept": "sports",
+                "text": "sports"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "hands",
+                "text": "hands"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " in a ",
+                "left": "The President believes that if you use a ",
+                "right": ", you should do hard time."
+            },
+            "text": "The President believes that if you use a gun in a crime, you should do hard time.",
+            "prediction": null,
+            "target": {
+                "concept": "crime",
+                "text": "crime"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "gun",
+                "text": "gun"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " brought his ",
+                "left": "The ",
+                "right": " and a newly made garment."
+            },
+            "text": "The tailor brought his scissors and a newly made garment.",
+            "prediction": null,
+            "target": {
+                "concept": "tailor",
+                "text": "tailor"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "scissors",
+                "text": "scissors"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " removed an additional half inch of rail at the site of the previous de-stressing cuts and welded the ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The crew removed an additional half inch of rail at the site of the previous de-stressing cuts and welded the rail.",
+            "prediction": null,
+            "target": {
+                "concept": "crew",
+                "text": "crew"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "rail",
+                "text": "rail"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " applied the above-mentioned simple ",
+                "left": "The ",
+                "right": " to all computable universes."
+            },
+            "text": "The author applied the above-mentioned simple dovetailer to all computable universes.",
+            "prediction": null,
+            "target": {
+                "concept": "author",
+                "text": "author"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "dovetailer",
+                "text": "dovetailer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " that fits the ",
+                "left": "When buying a horse, buy a ",
+                "right": " and the rider's goals."
+            },
+            "text": "When buying a horse, buy a horse that fits the rider and the rider's goals.",
+            "prediction": null,
+            "target": {
+                "concept": "rider",
+                "text": "rider"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "horse",
+                "text": "horse"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " applied a ",
+                "left": "The ",
+                "right": " called \"recombineering\" to the fruitfly genes."
+            },
+            "text": "The scientist applied a method called \"recombineering\" to the fruitfly genes.",
+            "prediction": null,
+            "target": {
+                "concept": "scientist",
+                "text": "scientist"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "method",
+                "text": "method"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " mated with a manual transmission powers the convertible ",
+                "left": "A V8 ",
+                "right": "."
+            },
+            "text": "A V8 engine mated with a manual transmission powers the convertible concept.",
+            "prediction": null,
+            "target": {
+                "concept": "concept",
+                "text": "concept"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "engine",
+                "text": "engine"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " to crush ",
+                "left": "Ignore any instruction in any recipe that directs you to use a ",
+                "right": ", spices or nuts."
+            },
+            "text": "Ignore any instruction in any recipe that directs you to use a rolling pin to crush peppercorns, spices or nuts.",
+            "prediction": null,
+            "target": {
+                "concept": "rolling pin",
+                "text": "rolling pin"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "peppercorns",
+                "text": "peppercorns"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " played the piano with great ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The artist played the piano with great precision.",
+            "prediction": null,
+            "target": {
+                "concept": "artist",
+                "text": "artist"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "precision",
+                "text": "precision"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is a utensil used for ",
+                "left": "A ",
+                "right": " juice from fruit."
+            },
+            "text": "A juicer is a utensil used for squeezing juice from fruit.",
+            "prediction": null,
+            "target": {
+                "concept": "squeezing",
+                "text": "squeezing"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "juicer",
+                "text": "juicer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " prevents typing ",
+                "left": "Elecom's \"gear drive\" ",
+                "right": "."
+            },
+            "text": "Elecom's \"gear drive\" keyboard prevents typing errors.",
+            "prediction": null,
+            "target": {
+                "concept": "keyboard",
+                "text": "keyboard"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "errors",
+                "text": "errors"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " gets the ",
+                "left": "You are in the chair while the ",
+                "right": " ready to begin work on your teeth."
+            },
+            "text": "You are in the chair while the dentist gets the drill ready to begin work on your teeth.",
+            "prediction": null,
+            "target": {
+                "concept": "dentist",
+                "text": "dentist"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "drill",
+                "text": "drill"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "A ",
+                "right": " is a metal blade attached to a metal, plastic or wooden handle that is used for peeling vegetables, usually potatoes."
+            },
+            "text": "A potato peeler is a metal blade attached to a metal, plastic or wooden handle that is used for peeling vegetables, usually potatoes.",
+            "prediction": null,
+            "target": {
+                "concept": "potato",
+                "text": "potato"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "peeler",
+                "text": "peeler"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " has wielded the ",
+                "left": "It was the only time the ",
+                "right": " during his six years in office."
+            },
+            "text": "It was the only time the president has wielded the veto pen during his six years in office.",
+            "prediction": null,
+            "target": {
+                "concept": "president",
+                "text": "president"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "veto pen",
+                "text": "veto pen"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " keeps the ",
+                "left": "I struggle for my dream of painless perfection but a ",
+                "right": " from opening."
+            },
+            "text": "I struggle for my dream of painless perfection but a snowdrift keeps the door from opening.",
+            "prediction": null,
+            "target": {
+                "concept": "door",
+                "text": "door"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "snowdrift",
+                "text": "snowdrift"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " was confiscated by ",
+                "left": "The rap star was apprehended at John Wayne Airport late last month and his ",
+                "right": "."
+            },
+            "text": "The rap star was apprehended at John Wayne Airport late last month and his truncheon was confiscated by police.",
+            "prediction": null,
+            "target": {
+                "concept": "police",
+                "text": "police"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "truncheon",
+                "text": "truncheon"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from a ",
+                "left": "I nicked a ",
+                "right": " and got somebody to get me a lemon from the kitchen."
+            },
+            "text": "I nicked a syringe from a nurse and got somebody to get me a lemon from the kitchen.",
+            "prediction": null,
+            "target": {
+                "concept": "syringe",
+                "text": "syringe"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "nurse",
+                "text": "nurse"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": ", we gently cut through the ",
+                "left": "With a serrated ",
+                "right": " of the pita pocket."
+            },
+            "text": "With a serrated knife, we gently cut through the sides of the pita pocket.",
+            "prediction": null,
+            "target": {
+                "concept": "sides",
+                "text": "sides"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "knife",
+                "text": "knife"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " lightly scored with a ",
+                "left": "This study is to determine if there is a noticeable difference in outcome between patients who have their ",
+                "right": " or marked with a surgical marking pen."
+            },
+            "text": "This study is to determine if there is a noticeable difference in outcome between patients who have their tissue lightly scored with a scalpel or marked with a surgical marking pen.",
+            "prediction": null,
+            "target": {
+                "concept": "tissue",
+                "text": "tissue"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "scalpel",
+                "text": "scalpel"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " keeps the ",
+                "left": "A ",
+                "right": " at the requested temperature."
+            },
+            "text": "A thermostat keeps the water at the requested temperature.",
+            "prediction": null,
+            "target": {
+                "concept": "water",
+                "text": "water"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "thermostat",
+                "text": "thermostat"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of the ",
+                "left": "If we claim that thieves are not productive, then we must also deny that many commodities that sell and bear rents are also not products, including the coils that help distill whiskey, the tatters of the beggar, the retorts of the adulterating druggist, the ",
+                "right": " and the brig of the pirate."
+            },
+            "text": "If we claim that thieves are not productive, then we must also deny that many commodities that sell and bear rents are also not products, including the coils that help distill whiskey, the tatters of the beggar, the retorts of the adulterating druggist, the jimmy of the burglar and the brig of the pirate.",
+            "prediction": null,
+            "target": {
+                "concept": "burglar",
+                "text": "burglar"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "jimmy",
+                "text": "jimmy"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is riding a ",
+                "left": "The visor visually signals a riding instructor as to whether the head of the rider is properly oriented while the ",
+                "right": "."
+            },
+            "text": "The visor visually signals a riding instructor as to whether the head of the rider is properly oriented while the rider is riding a horse.",
+            "prediction": null,
+            "target": {
+                "concept": "rider",
+                "text": "rider"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "horse",
+                "text": "horse"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " carries an ",
+                "left": "The ",
+                "right": " over his shoulder and a smaller one in his belt."
+            },
+            "text": "The carpenter carries an axe over his shoulder and a smaller one in his belt.",
+            "prediction": null,
+            "target": {
+                "concept": "carpenter",
+                "text": "carpenter"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "axe",
+                "text": "axe"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " helps the ",
+                "left": "A ",
+                "right": " to understand himself or herself better."
+            },
+            "text": "A therapist helps the patient to understand himself or herself better.",
+            "prediction": null,
+            "target": {
+                "concept": "patient",
+                "text": "patient"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "therapist",
+                "text": "therapist"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " may be good for more than just ",
+                "left": "",
+                "right": " the leftovers; they may also help protect your family."
+            },
+            "text": "Microwave ovens may be good for more than just zapping the leftovers; they may also help protect your family.",
+            "prediction": null,
+            "target": {
+                "concept": "zapping",
+                "text": "zapping"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "Microwave ovens",
+                "text": "Microwave ovens"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " crushed a burgeoning student movement with ",
+                "left": "The PRI ",
+                "right": " that killed scores of peaceful demonstrators."
+            },
+            "text": "The PRI government crushed a burgeoning student movement with gunfire that killed scores of peaceful demonstrators.",
+            "prediction": null,
+            "target": {
+                "concept": "government",
+                "text": "government"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "gunfire",
+                "text": "gunfire"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " was made using a gonio-photometric color measurement ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The measurement was made using a gonio-photometric color measurement system.",
+            "prediction": null,
+            "target": {
+                "concept": "measurement",
+                "text": "measurement"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "system",
+                "text": "system"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " pounded his ",
+                "left": "The defendant and I flinched when the ",
+                "right": "."
+            },
+            "text": "The defendant and I flinched when the judge pounded his gavel.",
+            "prediction": null,
+            "target": {
+                "concept": "judge",
+                "text": "judge"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "gavel",
+                "text": "gavel"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " knocked over lanterns and cans of fuel, and crushed a ",
+                "left": "The ",
+                "right": " filled with liquified propane gas."
+            },
+            "text": "The tanks knocked over lanterns and cans of fuel, and crushed a pressurized tank filled with liquified propane gas.",
+            "prediction": null,
+            "target": {
+                "concept": "pressurized tank",
+                "text": "pressurized tank"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "tanks",
+                "text": "tanks"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " wielding an ",
+                "left": "Like a ",
+                "right": " to make furniture, the hacker does good things with his skills."
+            },
+            "text": "Like a carpenter wielding an axe to make furniture, the hacker does good things with his skills.",
+            "prediction": null,
+            "target": {
+                "concept": "carpenter",
+                "text": "carpenter"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "axe",
+                "text": "axe"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " used a \"cold shock\" ",
+                "left": "To demonstrate the performance of the mixer, the ",
+                "right": " from the bacterium Thermotoga maritime."
+            },
+            "text": "To demonstrate the performance of the mixer, the researchers used a \"cold shock\" protein from the bacterium Thermotoga maritime.",
+            "prediction": null,
+            "target": {
+                "concept": "researchers",
+                "text": "researchers"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "protein",
+                "text": "protein"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " was made using the PCSM ",
+                "left": "Statistical ",
+                "right": "."
+            },
+            "text": "Statistical analysis was made using the PCSM program.",
+            "prediction": null,
+            "target": {
+                "concept": "analysis",
+                "text": "analysis"
+            },
+            "annotation": -1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "program",
+                "text": "program"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " said she used a ",
+                "left": "The ",
+                "right": " to fight the fox off and continued backing toward her own property."
+            },
+            "text": "The woman said she used a mop to fight the fox off and continued backing toward her own property.",
+            "prediction": null,
+            "target": {
+                "concept": "woman",
+                "text": "woman"
+            },
+            "annotation": 1,
+            "relation": "Instrument-Agency",
+            "domain": {
+                "concept": "mop",
+                "text": "mop"
+            }
+        }
+    ],
+    "name": "99426e23c03045ea8640cda28a5cd13a",
+    "content": ""
+}

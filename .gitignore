@@ -1,7 +1,6 @@
 .vscode/*
 *.egg-info/*
 **__pycache__/*
-**/Datasets/*
 *.pyc
 .cache/*
 *.pdf

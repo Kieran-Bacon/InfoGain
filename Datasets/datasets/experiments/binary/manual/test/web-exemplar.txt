@@ -1,0 +1,501 @@
+Entity1	Relation	Entity2	Annotated Sentence
+Google	assimilates	YouTube	[[[NONE Google]]] {{{assimilates}}} [[[NONE YouTube]]] !
+google	bought	youtube	---> finally [[[NONE google]]] {{{bought}}} <--- [[[NONE youtube]]]
+Google	bought	YouTube	[[[NONE Google]]] ---> actually {{{bought}}} <--- [[[NONE YouTube]]] .
+Google	---	YouTube	[[[NONE Google]]] ---> Closes [[[NONE YouTube]]] {{{Acquisition}}} <---
+Adobe	---	Macromedia	never even saw this coming , but ---> apparently <--- [[[NONE Adobe]]] www.msacromedia.com ---> is about to {{{buy}}} <--- [[[NONE Macromedia]]] .
+Google	purchased	Youtube	The story was first seen at Techcrunch , the picked up by the Wall Street Journal and has since been the subject of much talk , posts and thoughts over the past few days and finally it has been confirmed that [[[NONE Google]]] ---> have {{{purchased}}} <--- [[[NONE Youtube]]] for $ 1.65 billion in an official statement .
+Google	confirms aquisition	YouTube	[[[NONE Google]]] ---> confirms [[[NONE YouTube]]] {{{aquisition}}} <--- - BBC News
+Novartis	---	Eon Labs	[[[NONE Novartis]]] {{{acquired}}} [[[NONE Eon Labs]]] and Hexal to create the world 's leading manufacturer of generic drugs .
+Novartis	---	Eon	[[[NONE Novartis]]] ---> {{{buys}}} generic drugmakers <--- [[[NONE Eon]]] , Hexal
+Google	---	YouTube	[[[NONE Google]]] ---> announced Tuesday that it {{{bought}}} <--- [[[NONE YouTube]]] for $ 1.65 billion .
+Adobe	announced acquisition	Macromedia	[[[NONE Adobe]]] ---> has announced the {{{acquisition}}} of <--- [[[NONE Macromedia]]] .
+Adobe	acquisition	Macromedia	July 11 , 2005 __ __ __ ( Nasdaq : ADBE ) and __ __ __ ( Nasdaq : MACR ) today announced that they have received a Request for Additional Information and Documentary Materials ( a second request ) from the Department of Justice ( DOJ ) in connection with [[[NONE Adobe]]] ---> 's pending {{{acquisition}}} of <--- [[[NONE Macromedia]]] .
+Google	---	YouTube	Official - [[[NONE Google]]] {{{Acquire}}} [[[NONE YouTube]]] For $ 1.65 Billion
+Adobe Systems	---	Macromedia	Another example of a statutory merger is software maker [[[NONE Adobe Systems]]] ---> {{{acquisition}}} of <--- [[[NONE Macromedia]]] ( another software company ) .
+Novartis	---	Eon Labs	BASEL , Switzerland ( AP ) Swiss giant [[[NONE Novartis]]] ---> says it will {{{buy}}} generic drugmakers <--- [[[NONE Eon Labs]]] of the United States and Hexal of Germany for more than $ 8 billion in cash .
+Google	---	YouTube	This week in the news we talk about [[[NONE Google]]] ---> actually does {{{buy}}} <--- [[[NONE YouTube]]] !
+Google	acquiring	Youtube	The __ founders talk about [[[NONE Google]]] {{{acquiring}}} [[[NONE Youtube]]]
+Google	buy	YouTube	Why ---> did [[[NONE Google]]] {{{buy}}} <--- [[[NONE YouTube]]] ?
+Adobe	Buy	Macromedia	Why ---> Did [[[NONE Adobe]]] {{{Buy}}} <--- [[[NONE Macromedia]]] ?
+Google	got	YouTube	And ---> now that [[[NONE Google]]] 's {{{got}}} <--- [[[NONE YouTube]]] , they re gonna work that same magic on your independent short , hitting the guy in the head with a shovel [ plays video of just that ] .
+Novartis	---	Eon Labs	[[[NONE Novartis]]] ---> completes {{{acquisition}}} of 98 % of <--- [[[NONE Eon Labs]]] , substantially strengthening the leading position of its Sandoz generics unit ( Basel , July 21 , 2005 )
+Google	---	YouTube	But who knows , with [[[NONE Google]]] ---> 's " {{{owning}}} " of [[[NONE YouTube]]] now <--- ...they are now in the " media " department with that deal...so who knows if they will move on to music stuff next : P
+Google	snaps	YouTube	[[[NONE Google]]] ---> {{{snaps}}} up <--- [[[NONE YouTube]]] for $ 1.65B
+Google	buys	Youtube	In October 2006 , [[[NONE Google]]] {{{buys}}} [[[NONE Youtube]]] for $ 1.65 billion .
+Google	---	YouTube	[[[NONE Google]]] ---> reportedly in talks to {{{buy}}} <--- [[[NONE YouTube]]] - Oct. 6 , 2006
+Viacom	---	DreamWorks	On January 31 , 2006 , [[[NONE Viacom]]] ---> completed its {{{acquisition}}} of <--- [[[NONE DreamWorks]]] LLC ( __ ) , a producer of live - action motion pictures , television programming and home entertainment products .
+Google	---	YouTube	---> Another [[[NONE Google]]] {{{Acquisition}}} <--- : [[[NONE YouTube]]]
+Adobe	---	Macromedia	__ - [[[NONE Adobe]]] ---> to {{{acquire}}} <--- [[[NONE Macromedia]]]
+Google	---	YouTube	Oct. 10 : [[[NONE Google]]] ---> {{{buys}}} the online video sharing site <--- [[[NONE YouTube]]] for $ 1.65 billion in a deal expected to dramatically improve __ 's video traffic .
+Google	---	Youtube	[[[NONE Google]]] ---> has {{{acquired}}} <--- [[[NONE Youtube]]] , an online video sharing service , for US $ 1.65B in __ stock .
+Adobe	---	Macromedia	[[[NONE Adobe]]] ---> To {{{Purchase}}} <--- [[[NONE Macromedia]]]
+Viacom	---	Dreamworks	Last year Paramount , the [[[NONE Viacom]]] - owned studio , bought [[[NONE Dreamworks]]] , the studio behind Shrek , for $ 774m and $ 840m in debt .
+Google	---	YouTube	Hmm , interesting question , what 's in store for GMT ---> now that [[[NONE Google]]] announced {{{buying}}} <--- [[[NONE YouTube]]] .
+Google	---	YouTube	In a $ 1.65 billion stock - for - stock transaction , search engine [[[NONE Google]]] , ---> will {{{purchase}}} <--- [[[NONE YouTube]]] , the consumer video media company .
+Novartis	buys	Eon Labs	[[[NONE Novartis]]] {{{buys}}} Hexal , [[[NONE Eon Labs]]] - Sify.com
+Google	---	YouTube	In a move that has surprised a few people , [[[NONE Google]]] ---> announced today that it would {{{acquire}}} <--- [[[NONE YouTube]]] , the fast growing online video sharing site founded by Chad Hurley and Steve Chen , ending months of speculation that You Tube was bound to fail and would be soon a just a vague memory .
+Adobe	---	Macromedia	[[[NONE Adobe]]] , [[[NONE Macromedia]]] and their directors and executive officers may be deemed to be participants in the solicitation of proxies from the stockholders of __ and __ in connection with the merger transaction .
+Adobe	---	Macromedia	On April 18 , 2005 , [[[NONE Adobe]]] ---> announced a definitive agreement to {{{acquire}}} <--- [[[NONE Macromedia]]] in an all - stock transaction .
+Google	---	YouTube	Here is the video of the two __ founders talking about the [[[NONE Google]]] acquisition in their [[[NONE YouTube]]] way !
+Adobe	acquisition	Macromedia	August 24 , 2005 __ __ __ ( Nasdaq : ADBE ) and __ __ __ ( Nasdaq : MACR ) announced that the stockholders of each company have voted in favor of [[[NONE Adobe]]] ---> 's proposed {{{acquisition}}} of <--- [[[NONE Macromedia]]] at their respective special stockholder meetings held today .
+Adobe Systems	acquire	Macromedia	[[[NONE Adobe Systems]]] ---> to {{{acquire}}} <--- [[[NONE Macromedia]]]
+Novartis	---	Eon	Update 2 : [[[NONE Novartis]]] ---> {{{Buys}}} Drugmakers <--- Hexal and [[[NONE Eon]]]
+Google	---	YouTube	[[[NONE Google]]] ---> Closing in on Deal to {{{Buy}}} <--- [[[NONE YouTube]]]
+Adobe	acquisition	Macromedia	__ __ __ ( Nasdaq : ADBE ) and __ __ __ ( Nasdaq : MACR ) announced that the stockholders of each company have voted in favor of [[[NONE Adobe]]] ---> 's proposed {{{acquisition}}} of <--- [[[NONE Macromedia]]] at their respective special stockholder meetings held today .
+Google	deal	YouTube	In case you ' re interested in that sort of thing , the WSJ has a summary of analyst comments on the [[[NONE Google]]] ---> {{{deal}}} for <--- [[[NONE YouTube]]] .
+google	---	YouTube	I got a media call about [[[NONE google]]] ---> {{{buying}}} [[[NONE YouTube]]] today <--- .
+Adobe	bought	Macromedia	[[[NONE Adobe]]] {{{bought}}} [[[NONE Macromedia]]] for the Flash Platform and they are going to invest to make it great .
+Novartis	acquiring control	Eon Labs	In the US , the world's largest generics market , [[[NONE Novartis]]] ---> is {{{acquiring}}} control of <--- [[[NONE Eon Labs]]] , one of the fastest - growing generic pharmaceutical companies .
+Adobe	---	Macromedia	Streamingmedia.com : [[[NONE Adobe]]] ---> Completes [[[NONE Macromedia]]] {{{Acquisition}}} <---
+Google	eats	YouTube	[[[NONE Google]]] {{{eats}}} [[[NONE YouTube]]]
+Viacom	---	DreamWorks	[[[NONE Viacom]]] ---> nearing deal to {{{acquire}}} <--- [[[NONE DreamWorks]]]
+Adobe	takeover takeover takeover	Macromedia	[[[NONE Adobe]]] ---> 's [[[NONE Macromedia]]] {{{takeover}}} <--- clears final hurdle
+Google	---	YouTube	[[[NONE Google]]] ---> closes [[[NONE YouTube]]] {{{acquisition}}} <--- - General News - www.pcauthority.com.au
+Adobe	acquired	Macromedia!	[[[NONE Adobe]]] {{{acquired}}} [[[NONE Macromedia!]]] - sephiroth.it - flash &amp;amp; php
+Google	---	YouTube	[[[NONE Google]]] ---> is going to {{{buy}}} <--- [[[NONE YouTube]]] for more money than I can imagine I am picturing a stack of fivers that stands about as tall as Paul Daniels , which is roughly twenty five quid .
+Google	acquired	YouTube	Everybody knows by now that [[[NONE Google]]] ---> has just {{{acquired}}} <--- [[[NONE YouTube]]] ( Globe and Mail ) , adding the major play in online video clips to its arsenal of services where content meets advertising .
+Google	do deal	YouTube	I ' m not sure that [[[NONE Google]]] ---> will do the {{{deal}}} with <--- [[[NONE YouTube]]] ; perhaps it will be Yahoo that will try to level the ad revenue playing field .
+Google	paid	YouTube	RR : Guess ---> how much [[[NONE Google]]] {{{paid}}} for <--- [[[NONE YouTube]]] .
+Google	Acquire	YouTube	[[[NONE Google]]] ---> To {{{Acquire}}} <--- [[[NONE YouTube]]] for $ 1.65 Billion in Stock at Total Lost in space Says :
+Viacom	---	DreamWorks Pictures	The increased output comes a year after [[[NONE Viacom]]] {{{acquired}}} [[[NONE DreamWorks Pictures]]] ( and , as a result , its __ TV arm ) .
+google	---	youtube	Tags : statistics [[[NONE google]]] {{{buys}}} [[[NONE youtube]]] __ buy __ care __ + buys
+Google	acquire	YouTube	Interestingly , ShoeMoney announced that [[[NONE Google]]] ---> would {{{acquire}}} <--- [[[NONE YouTube]]] on Friday , October 6th .
+Novartis	---	Eon Labs , Inc.	[[[NONE Novartis]]] ---> Completes Tender {{{Offer}}} For <--- [[[NONE Eon Labs , Inc.]]] and Purchase of Majority Stake
+Adobe Systems	---	Macromedia	- Bloomberg - [[[NONE Adobe Systems]]] ---> to {{{Acquire}}} <--- [[[NONE Macromedia]]] for $ 3.4 Billion
+Google	swallowing	YouTube	Amid all the hubbub over [[[NONE Google]]] ---> 's {{{swallowing}}} of <--- [[[NONE YouTube]]] , we ve heard both considered commentary and over - the - top pontification about whether it's a good deal or a bad deal , for the newly - engorged company and for all those users in TV land .
+Google	---	Youtube	[[[NONE Google]]] {{{aquires}}} [[[NONE Youtube]]] = $ 1.65Billion
+Google	acquired	YouTube	[[[NONE Google]]] ---> has officially {{{acquired}}} <--- [[[NONE YouTube]]] for a reported $ 1.65 bil .
+Google	bought	YouTube	Mega - search engine company [[[NONE Google]]]--->  {{{bought}}} the profitless <--- [[[NONE YouTube]]] for $ 1.65 million yesterday and this silly thank you video from Chad Hurley and Steve Chen shows the two __ twentysomething founders giddy to be billionaires .
+Google	---	YouTube	[[[NONE Google]]] ---> looking to {{{buy}}} <--- [[[NONE YouTube]]] for $ 1.6B ?
+Google	---	Youtube	[[[NONE Google]]] ---> has {{{acquired}}} social media company <--- , [[[NONE Youtube]]] for $ 1.65 billion in a stock - for - stock transaction as announcedby __ __ on October 9 , 2006 .
+Google	---	YouTube	[ ] In the days leading up to and in the hours immediately following [[[NONE Google]]] ---> 's $ 1.65 billion {{{buyout}}} of <--- [[[NONE YouTube]]] , I noticed that an extrodinary number of visitors were coming to this site through Yahoo searches .
+Google	---	YouTube	The War Is Over : [[[NONE Google]]] Wins , [[[NONE YouTube]]] Gets Bought Soft32.com News
+Google	---	YouTube	Search engine giant [[[NONE Google]]] ---> has {{{bought}}} video - sharing website <--- [[[NONE YouTube]]] in a controversial 883million deal .
+Google	announced acquisition	YouTube	[[[NONE Google]]] ---> on Monday announced the {{{acquisition}}} of <--- [[[NONE YouTube]]] for US $ 1.65 billion in stock .
+Google	Buys	YouTube!!	[[[NONE Google]]] {{{Buys}}} [[[NONE YouTube!!]]] !
+Adobe	---	Macromedia	[[[NONE Adobe]]] ---> 's {{{Acquisition}}} Of <--- [[[NONE Macromedia]]] Expected To Close On December 3 , 2005
+Adobe	Buys	Macromedia	[[[NONE Adobe]]] {{{Buys}}} [[[NONE Macromedia]]]
+Novartis	acquisition	Eon	Under the terms of a proposed consent order with the Commission , __ is required to divest all the assets necessary to manufacture and market generic desipramine hydrochloride tablets , orphenadrine citrate extended release ( " ER " ) tablets , and rifampin oral capsules in the United States to Amide within 10 days of [[[NONE Novartis]]] ---> 's {{{acquisition}}} of <--- [[[NONE Eon]]] .
+Adobe Systems Inc.	---	Macromedia Inc.	Stock holders of [[[NONE Adobe Systems Inc.]]] and [[[NONE Macromedia Inc.]]] on Wednesday voted in favor of plan for __ to acquire __ in an all - stock deal expected to close later this year , the companies said in a joint statement .
+Viacom	---	DreamWorks	Sumner Redstone , Chairman of the Board and CEO of [[[NONE Viacom]]] , said , &amp;amp; ldquoThe acquisition of [[[NONE DreamWorks]]] is an enormous step forward in our ongoing work to unlock the full potential of __ &amp;amp; rsquos brands and businesses .
+Google	---	YouTube	Where does [[[NONE Google]]] ---> 's $ 1.65 billion [[[NONE YouTube]]] {{{acquisition}}} <--- leave Microsoft ?
+Google	deal deal deal	YouTube	What [[[NONE Google]]] ---> 's [[[NONE YouTube]]] {{{deal}}} <--- means for Microsoft
+GOOGLE	BUYS	YOUTUBE	[[[NONE GOOGLE]]] {{{BUYS}}} [[[NONE YOUTUBE]]]
+Adobe	---	Macromedia	San Jose , Calif. - based [[[NONE Adobe]]] ---> announced in April the plans to {{{acquire}}} <--- [[[NONE Macromedia]]] , which makes the Flash animation software used to display graphics on Web sites .
+Viacom	---	Dreamworks SKG	I was thinking about overpaying after reading an article in this morning &amp;amp; rsquos deadtree edition of the Wall Street Journal on the [[[NONE Viacom]]] --->{{{buyout}}} of <--- [[[NONE Dreamworks SKG]]] .
+Viacom	---	DreamWorks SKG	- [[[NONE Viacom]]] 's Paramount Pictures agreed to buy [[[NONE DreamWorks SKG]]] for $ 1.6 billion in cash and debt , wresting the movie studio away from NBC Universal and securing the talents of Steven Spielberg .
+Google	---	YouTube	[[[NONE Google]]] ---> 's 1.65 Billion dollar {{{Purchase}}} of <--- [[[NONE YouTube]]] - High Risk investment ?
+Novartis	completes acquisition	Eon Labs	[[[NONE Novartis]]] ---> completes {{{acquisition}}} of 98 of <--- [[[NONE Eon Labs]]]
+Google	---	Youtube	[ ... ] More importantly though , between [[[NONE Google]]] {{{buying}}} [[[NONE Youtube]]] and their own video service , I think __ &amp;amp; #8217 ;'s thinking about the future of video .
+Adobe Systems	---	Macromedia	The Flash Player , developed and distributed by [[[NONE Adobe Systems]]] ( ---> who {{{bought}}} <--- [[[NONE Macromedia]]] ) , is a client application available in most dominant web browsers .
+Novartis AG	bought	Eon Labs	[[[NONE Novartis AG]]] {{{bought}}} [[[NONE Eon Labs]]] ( US ) and Hexal AG ( German ) in a deal worth $ 8.3 billion today both companies being generic drug makers .
+Adobe Systems	create powerful software programs create powerful software programs	Macromedia	The deal will allow [[[NONE Adobe Systems]]] and [[[NONE Macromedia]]] to create more powerful software programmes , enabling them to expand their reach into newer markets .
+Google	---	YouTube	CNN is reporting that [[[NONE Google]]] ---> has agreed to {{{buy}}} <--- [[[NONE YouTube]]] for $ 1.65 billion in stock ; not a bad price for a company started in February 2005 .
+Google	---	YouTube	In October , [[[NONE Google]]] ---> {{{acquired}}} video sharing site <--- [[[NONE YouTube]]] for $ US1.65 billion ( $ 2.21 billion ) .
+Google	Acquired	YouTube	[[[NONE Google]]] ---> Has {{{Acquired}}} <--- [[[NONE YouTube]]]
+Google	---	YouTube	[[[NONE Google]]] ---> May Be {{{Buying}}} <--- [[[NONE YouTube]]] for 1.6 Billion dollars
+Google	acquisition	YouTube	After all the speculation on the web recently about [[[NONE Google]]] ---> 's {{{acquisition}}} of <--- [[[NONE YouTube]]] , it has finally been confirmed .
+Adobe	acquisition	Macromedia	__ __ __ ( Nasdaq : ADBE ) and __ __ __ ( Nasdaq : MACR ) today announced they have either received or been notified they will receive all regulatory clearances necessary to complete [[[NONE Adobe]]] ---> 's pending {{{acquisition}}} of <--- [[[NONE Macromedia]]] .
+Google	acquires	YouTube	as speculated over the weekend , [[[NONE Google]]] ---> pulled the trigger and {{{acquires}}} <---  [[[NONE YouTube]]] for $ 1.65 billion...huge windfall for their 67 employees !
+Google	---	Youtube	The rumour has now been confirmed by [[[NONE Google]]] and ---> are to {{{acquire}}} <--- [[[NONE Youtube]]] for $ 1.65 Billion in Stock .
+Google	Acquires	YouTube!!	[[[NONE Google]]] {{{Acquires}}} [[[NONE YouTube!!]]] !
+Google	---	Youtube	We first heard about this when ---> the [[[NONE Google]]] - [[[NONE Youtube]]] {{{acquisition}}} news broke <--- , and wrote briefly about it here ( see last paragraph ) .
+Adobe Systems	---	Macromedia	The line of __ products is now controlled by its former rival , [[[NONE Adobe Systems]]] , ---> which {{{acquired}}} <--- [[[NONE Macromedia]]] on December 14 , 2005 .
+Google	announced acquisition deal	YouTube	The rumors turned out to be true , [[[NONE Google]]] ---> has officially announced the {{{acquisition}}} deal with <--- [[[NONE YouTube]]] , for $ 1.65 billion in stock .
+Google	---	YouTube	This democratization continues on [[[NONE Google]]] Video ( -- soon to swallow --- [[[NONE YouTube]]] whole and complete its domination ) , which offers a number of feature documentaries including one called The Net by German filmmaker Lutz Dammbeck .
+Novartis	---	Eon Labs	[[[NONE Novartis]]] ---> Completes {{{Acquisition}}} of 98 % of <--- [[[NONE Eon Labs]]]
+Novartis	buys	Eon	[[[NONE Novartis]]] {{{buys}}} Hexal , [[[NONE Eon]]] for 5.6 billion
+Google	acquisition	YouTube	The Data Warehousing blog speculates about what changes users might expect from [[[NONE Google]]] ---> 's {{{acquisition}}} of <--- [[[NONE YouTube]]] like more ads but the potential for more cool __ - esque features .
+Google	possible buyout	YouTube	According to Techcrunch , ---> a possible [[[NONE Google]]] {{{buyout}}} of <--- [[[NONE YouTube]]] is the rumor du jour .
+Google	bought	YouTube	RR : Did you know that [[[NONE Google]]] ---> just {{{bought}}} <--- [[[NONE YouTube]]] ?
+Viacom	bought	Dreamworks	[[[NONE Viacom]]] {{{bought}}} [[[NONE Dreamworks]]] in 2005 , who are Paramount's parent company .
+VIACOM	---	DREAMWORKS SKG	Entertainment giant [[[NONE VIACOM]]] ---> has {{{taken}}} over the [[[NONE DREAMWORKS SKG]]] studio <--- in a deal worth $ 1.6 billion ( 914 million ) .
+Viacom	---	DreamWorks SKG	Other high - profile M &amp;amp; A activity : No. 4 Verizon Communications bought MCI ; SBC Communications Corp. bought AT &amp;amp; T Corp. and renamed itself ( No. 5 ) AT &amp;amp; T Sprint Corp. and Nextel Communications merged to form No. 16 Sprint Nextel Corp. ; No. 19 __ became a repository of the cable and entertainment operations of the old [[[NONE Viacom]]] but  with newly acquired [[[NONE DreamWorks SKG]]] ; and No. 23 Federated Department Stores acquired May Department Stores .
+Adobe	acquisition	Macromedia	__ are well - known for delivering digital media content for the web , and [[[NONE Adobe]]] ---> 's {{{acquisition}}} of <--- [[[NONE Macromedia]]] may bring forth some exciting results .
+Google	---	YouTube	[[[NONE Google]]] ---> is in discussions to <--- {{{acquire}}} [[[NONE YouTube]]] for $ 1.6 billion , people involved in the talks said yesterday .
+Adobe	---	Macromedia	[[[NONE Adobe]]] announced late Thursday that it and [[[NONE Macromedia]]] have either received or been notified they will receive all regulatory clearances necessary to complete the acquisition , which will cost __ US $ 3.4 billion .
+Adobe Systems Inc.	announced acquisition	Macromedia Inc.	WSJ.com , Wired : [[[NONE Adobe Systems Inc.]]] ---> announced the {{{acquisition}}} of <--- [[[NONE Macromedia Inc.]]] for $ 3.4 billion in stock in a deal that will bring together the software of two companies with broad resources to distribute documents , video and other media to personal computers , cellphones and hand - held devices .
+Adobe	---	Macromedia	Re : [[[NONE Adobe]]] {{{Acquires}}} [[[NONE Macromedia]]] in $ 3.4 Billion Stock Deal
+Adobe	buy	Macromedia	[[[NONE Adobe]]] ---> to {{{buy}}} out <--- [[[NONE Macromedia]]]
+Viacom	---	Dreamworks SKG	[[[NONE Viacom]]] ---> has won the bid to {{{acquire}}} <--- [[[NONE Dreamworks SKG]]] , beating out NBC Universal .
+Google	---	YouTube	Adotas [[[NONE Google]]] - Eyed with Alarm : How the [[[NONE YouTube]]] Deal Has the Internet in Shackles
+Google	---	YouTube	[[[NONE Google]]] ---> confirmed that it will {{{acquire}}} <--- [[[NONE YouTube]]] , the leading , consumer video sharing site , for $ 1.65 billion in a stock - for - stock transaction .
+Google	buying	YouTube	Apparently the rumor that [[[NONE Google]]] ---> was {{{buying}}} <--- [[[NONE YouTube]]] was less of a rumor than someone on the inside letting it slip out to the entire world .
+Google	completes takeover	YouTube	- [[[NONE Google]]] ---> completes [[[NONE YouTube]]] {{{takeover}}} <---
+Google	---	YouTube	[[[NONE Google]]] {{{Pocketed}}} [[[NONE YouTube]]] for $ 1.65 Billion !
+Google	paid stunning price	YouTube	[[[NONE Google]]] ---> {{{paid}}} stunning [[[NONE YouTube]]] price <--- : Time Warner CEO , Reuters
+Novartis AG	acquire	Eon	On Monday , February 21 , 2005 , __ announced it had signed a definitive merger agreement pursuant to which [[[NONE Novartis AG]]] ---> will {{{acquire}}} <--- [[[NONE Eon]]] .
+Adobe	---	Macromedia	[[[NONE Adobe]]] ---> About to {{{Buy}}} <--- [[[NONE Macromedia]]] .
+Adobe Systems	---	Macromedia	TMO Reports - [[[NONE Adobe Systems]]] ---> Agrees to {{{Buy}}} <--- [[[NONE Macromedia]]] for $ 3.4 Billion
+Adobe	---	Macromedia	Under terms of the deal , approved by the companies ' boards of directors , __ stockholders will receive 0.69 shares of [[[NONE Adobe]]] common stock for every share of their [[[NONE Macromedia]]] common stock .
+Google	---	YouTube	[[[NONE Google]]] ---> Interested in {{{Acquiring}}} <--- [[[NONE YouTube]]]
+Adobe Systems	acquiring	Macromedia	Anyway , in a friendly merger , subject to all the usual regulatory rules , [[[NONE Adobe Systems]]] ---> is {{{acquiring}}} <--- [[[NONE Macromedia]]] in an all - stock transaction valued at approximately $ 3.4 billion .
+Google	---	YouTube	[[[NONE Google]]] ---> Closing In on [[[NONE YouTube]]] {{{Acquisition}}} <--- ( 09 - Oct - 06 )
+Adobe	---	Macromedia	CXOtoday.com News Business [[[NONE Adobe]]] ---> 's {{{Buy}}} Out Of <--- [[[NONE Macromedia]]] May Redefine Design Industry
+Google	---	Youtube	Rumours galore this morning on the possability of [[[NONE Google]]] {{{aquiring}}} [[[NONE Youtube]]] at $ 1.6 Billion .
+Google	acquisition	YouTube	I thought most of what I had to say about [[[NONE Google]]] ---> 's brilliant {{{acquisition}}} of <--- [[[NONE YouTube]]] had already been said , so I was going to pass on writing about it .
+Novartis	---	Eon Labs	[[[NONE Novartis]]] ---> completes {{{acquisition}}} of approximately 98 % <--- [[[NONE Eon Labs]]] , substantially strengthening the leading position of its Sandoz generics unit
+Adobe Systems	---	Macromedia	[[[NONE Adobe Systems]]] ---> {{{adquiere}}} a su rival <--- [[[NONE Macromedia]]] @ WEB DEVELOPER's &amp;amp; DESIGNER's JOURNAL
+Novartis	---	Eon Labs	[[[NONE Novartis]]] ---> announces final results of [[[NONE Eon Labs]]] tender offer <---
+Novartis	Buy	Eon Labs	[[[NONE Novartis]]] ---> to {{{Buy}}} <--- [[[NONE Eon Labs]]] , Hexel
+Google	---	YouTube	[[[NONE Google]]] ---> has {{{acquired}}} the video sharing website <--- [[[NONE YouTube]]] for $ 1.65billion ( 883million ) in shares after a large amount of speculation over whether __ was talking about a deal with __ .
+Adobe	---	Macromedia	Chizen's [[[NONE Adobe]]] ---> Gets U.S. DOJ OK To {{{Buy}}} <--- [[[NONE Macromedia]]] - Forbes.com
+Adobe	acquisition	macromedia	Related Posts to [[[NONE Adobe]]] ---> 's proposed {{{acquisition}}} of <--- [[[NONE macromedia]]] clears U.S. department of justice review :
+Google	aquires	YouTube	[[[NONE Google]]] {{{aquires}}} [[[NONE YouTube]]]
+Google	---	YouTube	Today , [[[NONE Google]]] ---> has confirmed that it is {{{acquiring}}} <--- [[[NONE YouTube]]] , a consumer media organization where users can view and share original videos through an Internet experience .
+Adobe	---	Macromedia	__ agrees to be acquired by __ __ for $ 3.4 billion , or 0.69 [[[NONE Adobe]]] share per [[[NONE Macromedia]]] share .
+Adobe Systems	---	Macromedia	It doesn ' t take long to explain the rationale of the ---> proposed {{{merger}}} between  software makers <--- [[[NONE Adobe Systems]]] ( ADBE ) and [[[NONE Macromedia]]] ( MACR ) .
+Google	---	YouTube	[[[NONE Google]]] ---> Is Said to Set Sights on <--- [[[NONE YouTube]]] - New York Times
+Novartis AG	merge	Eon	[[[NONE Novartis AG]]] ---> would then {{{merge}}} <--- Hexal and [[[NONE Eon]]] into its Sandoz unit .
+Adobe Systems	---	Macromedia	[[[NONE Adobe Systems]]] ---> plans to {{{acquire}}} <--- [[[NONE Macromedia]]] for $ 3.4 billion in stock .
+Google	purchased	YouTube	In the largest acquisition in its corporate history , [[[NONE Google]]] ---> has {{{purchased}}} <--- [[[NONE YouTube]]] for $ 1.65 billion worth of stocks .
+Google	---	YouTube	[[[NONE Google]]] ---> shares rise on $ 1.65bn [[[NONE YouTube]]] {{{buy}}} <---
+Google	purchase	YouTube	For example , if I link to &amp;amp; nbsp ; this excellent performance by The Who , does [[[NONE Google]]]  ---> 's {{{purchase}}} of <---  [[[NONE YouTube]]] make &amp;amp; nbsp ; it more or less likely that this link will still exist a year from now ?
+Viacom	---	DreamWorks	As the effectiveness of the Paramount Agreements and [[[NONE Viacom]]] --->  's {{{acquisition}}} of <--- [[[NONE DreamWorks]]] Studios were each conditioned upon the other's occurrence , and as we and __ Studios were effectively under common control at the time of __ Studios ' acquisition by __ , we have recorded the $ 75 million signing bonus from Paramount , which is approximately $ 49 million on an after tax basis , as an increase to Additional - Paid - in - Capital .
+Adobe	acquired	Macromedia	[[[NONE Adobe]]] {{{acquired}}} [[[NONE Macromedia]]] !
+Viacom	---	DreamWorks	---> The {{{sale}}} to <--- [[[NONE Viacom]]]  marks the end of an independent [[[NONE DreamWorks]]] , founded 11 years ago by Jeffrey Katzenberg , Spielberg and Geffen .
+Viacom	won bid	DreamWorks	Then , again , some things never change , which is why the new [[[NONE Viacom]]] ---> quickly renewed and won its {{{bid}}} for <--- [[[NONE DreamWorks]]] , which analysts speculate could one day also encompass publicly traded __ Animation .
+Google Inc.	snapping	YouTube Inc.	 [[[NONE Google Inc.]]] ---> is {{{snapping}}} up <--- [[[NONE YouTube Inc.]]] for $ 1.65 billion in a deal that catapults the Internet search leader to a starring role in the online video revolution .
+Viacom	purchase	DreamWorks	The following analysis about [[[NONE Viacom]]] ---> 's {{{purchase}}} of <--- [[[NONE DreamWorks]]] in Levine Breaking News seems to be cribbed from Newsweek's coverage :
+Google	---	Youtube	I won t argue that it doesn t make sense for [[[NONE Google]]] ---> to {{{purchase}}} <--- [[[NONE Youtube]]] in many ways , but what about from a __ users perspective ?
+Google	bought	YouTube	[[[NONE Google]]] ---> has {{{bought}}} <--- [[[NONE YouTube]]] for $ 1.65 - billion in stock .
+Google	---	YouTube	[ ] The Federal Trade Commission has approved [[[NONE Google]]] ---> 's {{{aquisition}}} of <--- [[[NONE YouTube]]] .
+Google	---	Youtube	Modojo Community General Tech [[[NONE Google]]] {{{purchases}}} [[[NONE Youtube]]]
+Google	Buys	YouTube..	Staunton News : [[[NONE Google]]] {{{Buys}}} [[[NONE YouTube..]]] .
+Google	---	Youtube	Full Version : [[[NONE Google]]] {{{Buys}}} [[[NONE Youtube]]]
+Viacom	---	DreamWorks	[[[NONE Viacom]]] 's Paramount Reaches Deal To Buy [[[NONE DreamWorks]]] for $ 1.6 Billion
+Google	acquisition acquisition	YouTube	Chad and Steve announce the [[[NONE Google]]] ---> {{{acquisition}}} of <--- [[[NONE YouTube]]] .
+Novartis	Buy	Eon Labs	[[[NONE Novartis]]] ---> To {{{Buy}}} <--- Hexal , [[[NONE Eon Labs]]] For $ 8.3 Billion
+Google	Buys	YouTube!!!	Topic : [[[NONE Google]]] {{{Buys}}} [[[NONE YouTube!!!]]] ( Read 39 times )
+Adobe	---	Macromedia	The New York Times published on december 12 an article called  [[[NONE Adobe]]] ---> 's {{{Deal}}} for <--- [[[NONE Macromedia]]] May Help It Fend Off Microsof " were they say that __ got the control of __ 's crown jewel : Flash .
+Novartis	---	Eon Labs	Furthermore , [[[NONE Novartis]]] ---> plans to also {{{purchase}}} <--- [[[NONE Eon Labs]]] ' one third of active stock on the New York Stock Exchange ( NYSE ) for around $ 1 billion .
+Google	---	YouTube	Everyone Has One Blog Archive &amp;amp; uarr [[[NONE Google]]] ---> makes a smart move {{{buying}}} <--- [[[NONE YouTube]]]
+Google	---	Youtube	( refer to my previous post about [[[NONE Google]]] ---> 's {{{acquisition}}} of <--- [[[NONE Youtube]]] here. ) So , it basically allows users to upload and share their videos. < p
+Google	buy	Youtube	[[[NONE Google]]] ---> to {{{buy}}} <--- [[[NONE Youtube]]] for 1.6 billion
+Novartis	---	Eon Labs	---> The  {{{purchase}}} by [[[NONE Novartis]]] of the 67.7 percent stake in <--- [[[NONE Eon Labs]]] held by Santo Holding ( Deutschland ) GmbH , __ __ ' majority shareholder , will be completed shortly following the expiration of the tender offer .
+Adobe	---	Macromedia	August 2005 [[[NONE Adobe]]] and [[[NONE Macromedia]]] ---> Stockholders Approve {{{Acquisition}}} <---
+Google	---	Youtube	[[[NONE Google]]] ---> announced yesterday that they have {{{bought}}} <--- [[[NONE Youtube]]] for $ 165 billion dollars in stock .
+Adobe	---	Macromedia	- ABC News - [[[NONE Adobe]]] ---> in $ 3.4 Bln {{{Deal}}} for <--- [[[NONE Macromedia]]]
+Novartis	completes tender offer	Eon Labs , Inc.	[[[NONE Novartis]]] ---> completes tender {{{offer}}} for <--- [[[NONE Eon Labs , Inc.]]] and purchase of majority stake
+Adobe Systems	joining joining	Macromedia Inc.	[[[NONE Adobe Systems]]] and [[[NONE Macromedia Inc.]]] ---> are {{{{joining}}} this year to make a new company <--- , called __ __ .
+Viacom	---	DreamWorks	14 December - LAWFUEL - The Law News Network - Shearman &amp;amp; Sterling is advising [[[NONE Viacom]]] and Paramount Pictures ---> on the {{{acquisition}}} of <--- [[[NONE DreamWorks]]] LLC .
+Adobe	Acquire	Macromedia	The entry is titled [[[NONE Adobe]]] ---> To {{{Acquire}}} <--- [[[NONE Macromedia]]] , and is filed under : Web , Tech &amp;amp; Design .
+Google	acquires	YouTube	Ola's thoughts : [[[NONE Google]]] {{{acquires}}} [[[NONE YouTube]]]
+Google	ate	YouTube	[[[NONE Google]]] ---> just {{{ate}}} <--- [[[NONE YouTube]]] .
+Google	acquire	YouTube	[[[NONE Google]]] ---> will {{{acquire}}} <--- [[[NONE YouTube]]] for a total of $ 1.65 BILLION in stock .
+Novartis	---	Eon Labs	[[[NONE Novartis]]] ---> receives FTC clearance for [[[NONE Eon Labs]]] {{{purchase}}} <--- - MarketWatch
+Google	---	YouTube	[[[NONE Google]]] {{{Nabs}}} [[[NONE YouTube]]] For $ 1.65bn
+Adobe	buy	Macromedia	[[[NONE Adobe]]] ---> to {{{buy}}} <--- [[[NONE Macromedia]]] for $ 3.4 billion wwwk.macromedia.com
+Novartis	acquire	Eon Labs	[[[NONE Novartis]]] ---> to {{{acquire}}} <--- Hexal AG and [[[NONE Eon Labs]]]
+Viacom	expects net purchase price	DreamWorks	After the conversion of certain commercial agreements from debt to advances , [[[NONE Viacom]]] ---> expects a net {{{purchase}}} price for <--- [[[NONE DreamWorks]]] of about $ 600 million .
+Google	---	YouTube Inc.	[[[NONE Google]]] ---> is reportedly in talks to {{{acquire}}} <--- [[[NONE YouTube Inc.]]] for $ 1.6 billion , The Wall Street Journal's online edition reported this afternoon .
+Google	---	YouTube	[[[NONE Google]]] ---> Completes [[[NONE YouTube]]] {{{Deal}}} <--- , Price Is $ 1.65 Billion
+Novartis	acquire	Eon Labs	Why ---> did [[[NONE Novartis]]] {{{acquire}}} [[[NONE Eon Labs]]] <--- and integrate it with Sandoz ?
+Novartis	acquire sole control	Eon Labs	However , by the acquisition of the 67.5 % shareholding , [[[NONE Novartis]]] ---> will also {{{acquire}}} sole control over <--- [[[NONE Eon Labs]]] .
+Google	---	YouTube	[[[NONE Google]]] {{{buys}}} [[[NONE YouTube]]] Flash application with Users for 1.65 Billion .
+Google	bought	YouTube	Speaking at the recent ad : tech conference , Ms Reider said that [[[NONE Google]]] ---> had {{{bought}}} <--- [[[NONE YouTube]]] at just the right time , Ad Age reports .
+Adobe	---	Macromedia	In September , the merger received nearly unanimous approval from both [[[NONE Adobe]]] 's and [[[NONE Macromedia]]] 's shareholders .
+Google	announced buying	YouTube	When [[[NONE Google]]] ---> announced the {{{buying}}} of <--- [[[NONE YouTube]]] for 1.65 billions , some people began searching the keyword utube and ending on www.utube.com
+Google	---	YouTube	UPDATE : [[[NONE Google]]] ---> Announces {{{Acquisition}}} of <--- [[[NONE YouTube]]] .
+Viacom	Buys	DreamWorks	[[[NONE Viacom]]] {{{Buys}}} [[[NONE DreamWorks]]]
+Google	deal deal	YouTube	Really interesting post about the shady dealings behind ---> the [[[NONE Google]]] + [[[NONE YouTube]]] {{{deal}}} <--- .
+Google	---	YouTube	BREAKING : [[[NONE Google]]] ---> To {{{Buy}}} <--- [[[NONE YouTube]]] For $ 1.65 Billion
+Viacom	---	Dreamworks	[[[NONE Viacom]]] {{{Gets}}} [[[NONE Dreamworks]]] __ has bought __ __ Studio .
+Viacom	completed acquisition	DreamWorks SKG	Around that same time , [[[NONE Viacom]]] ---> completed its {{{acquisition}}} of <--- [[[NONE DreamWorks SKG]]] , so CBS Paramount Television will now distribute __ ' library of films ( such as Shrek and Gladiator ) and TV series ( such as Spin City , which Paramount TV had already syndicated since 2000 , and Father of the Pride ) .
+Viacom	---	DreamWorks	Sumner Redstone , Chairman of the Board and CEO of [[[NONE Viacom]]] , ---> said , " The {{{acquisition}}} of <--- [[[NONE DreamWorks]]] is an enormous step forward in our ongoing work to unlock the full potential of __ 's brands and businesses. "
+Viacom	---	DreamWorks	Paramount Pictures , a subsidiary of [[[NONE Viacom]]] , ---> is {{{acquiring}}} <--- [[[NONE DreamWorks]]] in a $ 1.6 billion transaction , which includes $ 774 million in cash ; the remainder of the purchase price is the assumption of debt and certain other obligations .
+Novartis	buy	Eon Labs	[[[NONE Novartis]]] ---> will {{{buy}}} <--- [[[NONE Eon Labs]]] and Hexal
+Google	purchase purchase	YouTube	Will the [[[NONE Google]]] ---> {{{purchase}}} of <--- [[[NONE YouTube]]] make __ partner MySpace upset ?
+Adobe	---	Macromedia	In a huge deal just announced , [[[NONE Adobe]]] ---> has agreed to {{{acquire}}} <--- [[[NONE Macromedia]]] in an all - stock transaction valued at $ 3.4 billion .
+Viacom	---	Dreamworks	[[[NONE Viacom]]] ' {{{buying}}} [[[NONE Dreamworks]]] '
+Adobe	---	Macromedia	Publish : Corel CEO Sees Opportunities in [[[NONE Adobe]]] - [[[NONE Macromedia]]] {{{Merger}}}
+Google	bought	Youtube!	[[[NONE Google]]] {{{bought}}} [[[NONE Youtube!]]] ?
+Google	---	YouTube	LISTEN [[[NONE Google]]] {{{Weds}}} [[[NONE YouTube]]] - KYW's Ian Bush and KYW Tech Reporter Bob Bicknell discuss the $ 1.65 billion stock deal that makes __ part of __ .
+Viacom	---	DreamWorks	Shearman &amp;amp; Sterling Advises [[[NONE Viacom]]] on [[[NONE DreamWorks]]] Acquisition
+Google	acquisition	YouTube	[ ... ] Commentators around the world are still trying to make sense of [[[NONE Google]]] ---> 's $ 1.7 billion {{{acquisition}}} of <--- [[[NONE YouTube]]] : is it the end of a free - wheeling era or the beginning of a Golden Information Age ?
+Google	---	YouTube	[[[NONE Google]]] ---> finalises  [[[NONE YouTube]]] {{{buy}}} <--- with share issue
+Viacom	announced acquisition	DreamWorks SKG	When [[[NONE Viacom]]] ---> announced its {{{acquisition}}} of <--- [[[NONE DreamWorks SKG]]] , __ stated it
+Google Inc.	---	YouTube Inc.	[[[NONE Google Inc.]]] ---> {{{snapped}}} up <--- [[[NONE YouTube Inc.]]] for US $ 1.65 billion yesterday in a deal that catapults the Internet search leader to a leading role in the online video revolution .
+Adobe	Acquire	Macromedia	[[[NONE Adobe]]] ---> to {{{Acquire}}} <--- [[[NONE Macromedia]]] - Industry News
+Google	bought	Youtube	Last week the internet Giant [[[NONE Google]]] {{{bought}}} [[[NONE Youtube]]] for 1.65 billion Dollars .
+Google	Snatches	YouTube	[[[NONE Google]]] ( GOOG : NASDAQ ) ---> {{{Snatches}}} Up <--- [[[NONE YouTube]]]
+Google	---	YouTube	[[[NONE Google]]] ---> is {{{buying}}} video - sharing website <--- [[[NONE YouTube]]] for $ 1.65bn ( 883m ) in shares after a weekend of speculation that a deal was in the offing .
+Adobe	bought	Macromedia	[[[NONE Adobe]]] ---> has just {{{bought}}} <--- [[[NONE Macromedia]]] for $ 3.4 Billion !
+Google	acquiring	YouTube	So , it's finally official that [[[NONE Google]]] ---> is {{{acquiring}}} <--- [[[NONE YouTube]]] .
+Adobe Systems Incorporated	acquired	Macromedia , Inc	Recently , [[[NONE Adobe Systems Incorporated]]] {{{acquired}}} [[[NONE Macromedia , Inc]]] .
+Google	---	YouTube	[ ] BusinessWeek has an article where Microsoft's CEO Steve Ballmer speaks out about , among other things , the recent [[[NONE Google]]] - [[[NONE YouTube]]] {{{acquisition}}} .
+Viacom	---	DreamWorks	 ---> Earlier this month , [[[NONE Viacom]]] ( Research )  agreed to {{{buy}}} <--- [[[NONE DreamWorks]]] Animation's privately held sibling __ __ and as part of that deal , the publicly traded studio will get $ 75 million in cash to pay down debt .
+Adobe	---	Macromedia	EMediaLive.com : [[[NONE Adobe]]] ---> 's Proposed {{{Acquisition}}} of <--- [[[NONE Macromedia]]] Clears U.S. Department of Justice Review
+Adobe Systems Incorporated	acquisition	Macromedia , Inc.	With the conclusion of [[[NONE Adobe Systems Incorporated]]] ---> 's {{{acquisition}}} of <--- [[[NONE Macromedia , Inc.]]] , many __ software applications such as Dreamweaver , Flash and Studio are available at discounted rates through the University's existing AJCU __ software agreement .
+Google	bought	Youtube	The announcement is expected this afternoon or evening that [[[NONE Google]]] ---> 's {{{bought}}} <--- [[[NONE Youtube]]] for 1.6 billion .
+Adobe Systems	---	Macromedia Inc.	 ---> Yesterday [[[NONE Adobe Systems]]] announced it {{{acquired}}} <--- software maker [[[NONE Macromedia Inc.]]] in a stock deal worth a reported $ 3.4 billion .
+Google	---	Youtube	[ ... ] Gizmodo did a pretty good job of coming up with a name of the merger between [[[NONE Google]]] Video and [[[NONE Youtube]]] .
+Novartis	---	Eon	The Commission therefore has concluded that , unremedied , ---> the [[[NONE Novartis]]] - [[[NONE Eon]]] {{{deal}}} <--- would be likely to result in higher prices and other anticompetitive effects in each of these generic markets .
+Adobe	---	Macromedia	Flash move by [[[NONE Adobe]]] ---> to {{{buy}}} up <--- [[[NONE Macromedia]]] .
+Google	---	YouTube	[[[NONE Google]]] ---> makes video play with [[[NONE YouTube]]] {{{buy}}} <--- ( October 9 , 2006 )
+Adobe Systems	---	Macromedia	[[[NONE Adobe Systems]]] ---> ' proposed {{{buyout}}} of  <--- [[[NONE Macromedia]]] is expected to close Saturday , December 3 , both companies said Thursday night .
+Adobe	---	Macromedia	NEWS : [[[NONE Adobe]]] ---> 's Proposed {{{Acquisition}}} of <--- [[[NONE Macromedia]]] Clears U.S. Department of Justice
+Google	---	YouTube	After roomers spilled around the web last week about [[[NONE Google]]] ---> offering $ 1.65 Billion to {{{buy}}} <--- [[[NONE YouTube]]] , this offer had been confirmed and __ has accepted .
+Novartis	---	Eon Labs	[[[NONE Novartis]]] ---> completes {{{acquisition}}} of 98 % <--- [[[NONE Eon Labs]]]
+Google	owning	Youtube	something happened and it didnt go through , so now they are trying again with [[[NONE Google]]]  ---> now {{{owning}}} <--- [[[NONE Youtube]]] .
+Viacom Inc	---	DreamWorks	Under the deal , announced in December , the [[[NONE Viacom Inc]]] unit Paramount would acquire [[[NONE DreamWorks]]] studios for the sum that would include cash and the purchase of __ ' debt .
+Viacom	acquired	Dreamworks	NOTE : [[[NONE Viacom]]] {{{acquired}}} [[[NONE Dreamworks]]] in early 2006 , selling off __ ' past films to finance the purchase .
+Novartis	Buy	Eon Labs	[[[NONE Novartis]]] ---> to {{{Buy}}} <--- Hexal and [[[NONE Eon Labs]]]
+Adobe	---	Macromedia	The Redmond company unveiled its new collection of professional graphic design and animation tools Wednesday , moving into the longtime domain of __ __ and the company [[[NONE Adobe]]] ---> is {{{acquiring}}} <--- , [[[NONE Macromedia]]] .
+Google	---	YouTube	[[[NONE Google]]] ---> forced to {{{buy}}} <--- [[[NONE YouTube]]] .
+Google	acquiring	YouTube	The worst possible outcome for them ( as Internet companies ) would be [[[NONE Google]]] {{{acquiring}}} [[[NONE YouTube]]] .
+Adobe	buys	Macromedia	Skittish [[[NONE Adobe]]] {{{buys}}} [[[NONE Macromedia]]] - MarketWatch
+Adobe	---	Macromedia	__ shareholders will receive 1.38 shares of [[[NONE Adobe]]] common stock for each share of [[[NONE Macromedia]]] common stock they own at the closing of the acquisition , the companies said .
+Google , Inc.	Buys	YouTube	GOOG - [[[NONE Google , Inc.]]] {{{Buys}}} [[[NONE YouTube]]] !
+Viacom	---	DreamWorks	Under the deal , announced in December , the [[[NONE Viacom]]] Incorporated unit Paramount would acquire [[[NONE DreamWorks]]] studios for the sum that would include cash and the purchase of __ ' debt .
+Andre Agassi	---	Las Vegas	In 1994 he {{{established}}} the [[[NONE Andre Agassi]]] Foundation to help at - risk youth in his hometown , [[[NONE Las Vegas]]] , Nevada .
+George Gershwin	born	New York	Birthday - Composer [[[NONE George Gershwin]]] ( 1898 - 1937 ) ---> was {{{born}}} in <--- Brooklyn , [[[NONE New York]]] .
+Andre - Agassi	---	Las Vegas	__ , [[[NONE Andre - Agassi]]] , Andre tennis {{{Birthplace}}} : [[[NONE Las Vegas]]] , Nev .
+Franz Kafka	born	Prague	[[[NONE Franz Kafka]]] ---> was {{{born}}} at <--- [[[NONE Prague]]] , Bohemia on this day in 1883 .
+Andre Agassi	---	Las Vegas	He started and helps fund the [[[NONE Andre Agassi]]] College Preparatory Academy for underprivileged kids in his home town of [[[NONE Las Vegas]]] , Nevada .
+Franz Kafka	---	Prague	Born in 1883 , [[[NONE Franz Kafka]]] came from a German - speaking Jewish family in [[[NONE Prague]]] , Czechoslovakia .
+Agassi	---	Las Vegas	Andre Kirk [[[NONE Agassi]]] ---> was {{{born}}} <--- on April 29 1970 ---> in <--- [[[NONE Las Vegas]]] , Nevada and turned pro in 1986 .
+Agassi	hometown	Las Vegas	The partnership includes the creation of new 24 Hour Fitness __ Super - Sport Clubs the first of which debuted in [[[NONE Agassi]]] ---> 's [[[NONE Las Vegas]]] {{{hometown}}} <---
+Franz Kafka	---	Prague	[[[NONE Franz Kafka]]] ---> was {{{born}}} in <--- 1883 in [[[NONE Prague]]] , now in the Czech Republic but then part of Austria .
+Chaplin	born	London	Charles Spencer [[[NONE Chaplin]]] ---> was {{{born}}} <--- on 16 April 1889 ---> in <--- [[[NONE London]]] and died on 25 December 1977 in Corsier sur Vevey in Switzerland .
+Agassi	born	Las Vegas	Andre Kirk [[[NONE Agassi]]]--->  was {{{born}}} <--- on April 29th 1970 ---> in <--- [[[NONE Las Vegas]]] , Nevada .
+Franz Kafka	born	Prague	[[[NONE Franz Kafka]]] ( 1883 - 1924 ) ---> was {{{born}}} in <--- [[[NONE Prague]]] , Czechoslovakia to a Jewish
+Franz Kafka	---	Prague	No one expressed this tragic intuition more powerfully than [[[NONE Franz Kafka]]] , a German Jewish writer ---> {{{born}}} in <--- [[[NONE Prague]]] in 1883 when the city was still part of the Austrian Empire .
+Andre Agassi	born	Las Vegas	[[[NONE Andre Agassi]]] ( 1970 - ) Champion tennis player ; ---> {{{born}}} in <--- [[[NONE Las Vegas]]] .
+Agassi	born	Las Vegas	[[[NONE Agassi]]] , an ethnic Armenian , ---> was {{{born}}} and raised in <--- [[[NONE Las Vegas]]] , and lives there when not on tour .
+Franz Kafka	---	Prague	It's the birthday of the novelist and short - story writer [[[NONE Franz Kafka]]] , ( books by this author ) , ---> {{{born}}} in <--- [[[NONE Prague]]] ( 1883 ) .
+Andre Agassi	---	Las Vegas	[[[NONE Andre Agassi]]] ---> was {{{born}}} <--- on the 29th of April 1970 ---> in <--- [[[NONE Las Vegas]]] , Nevada .
+Andre Agassi	born born	Las Vegas	[[[NONE Andre Agassi]]] ---> was {{{born}}} <--- April 29 , 1970 , [[[NONE Las Vegas]]] , Nevada .
+Chaplin	---	London	__ __ , actually Charles Spencer [[[NONE Chaplin]]] , ---> was {{{born}}} in <--- [[[NONE London]]] , England , on April 16th 1889 .
+Chaplin	---	London	---> {{{Born}}} <--- Charles Spencer [[[NONE Chaplin]]] , ---> in <--- [[[NONE London]]] , in 1989 , he came to America and became the most successful silent film era comedian .
+Chaplin	---	London	Sir Charles Spencer [[[NONE Chaplin]]] Jr ---> was {{{born}}} <--- on April 16 , 1889 ---> in <--- [[[NONE London]]] and died on Christmas Day , December 25 , 1977 in Switzerland in his sleep at age 88 .
+Franz Kafka	---	Prague	- [[[NONE Franz Kafka]]] - ( 1883 - 1924 ) - ---> {{{born}}} in <--- [[[NONE Prague]]] , then part of the Austro - Hungarian empire .
+Andre Agassi	---	Las Vegas	[[[NONE Andre Agassi]]] ---> did a similar thing in his {{{hometown}}} of <--- [[[NONE Las Vegas]]] a few years ago .
+Andre Agassi	---	Las Vegas	The last stand for tennis great [[[NONE Andre Agassi]]] gets underway on opening night when the36 - year - old [[[NONE Las Vegas]]] {{{native}}} takes on Andrei Pavel of Romania on Center Court .
+Charlie Chaplin	---	London	[[[NONE Charlie Chaplin]]] ---> was {{{born}}} <--- on April 15 , 1889 , ---> in <--- [[[NONE London]]] , England to Charles __ , Sr. , and Hannah Hill ( Lynn , Kenneth , pg.376 ) .
+Agassi	---	Las Vegas	For years , [[[NONE Agassi]]] has raised money for underprivileged youth in ---> his {{{hometown}}} of <--- [[[NONE Las Vegas]]] , and founded a school built around his strong belief system .
+Agassi	---	Las Vegas	Andre Kirk [[[NONE Agassi]]] ( ---> {{{born}}} <--- April 29 1970 , ---> in <--- [[[NONE Las Vegas]]] , Nevada ) is a former World No. 1 professional tennis player from the United States .
+Franz Kafka	born	Prague	[[[NONE Franz Kafka]]] ---> was {{{born}}} <--- on July 3 , 1883 , ---> in <--- [[[NONE Prague]]] .
+George Gershwin	---	New York	It's the birthday of [[[NONE George Gershwin]]] , {{{born}}} Jacob Gershowitz in Brooklyn , [[[NONE New York]]] ( 1898 ) .
+Agassi	---	Las Vegas	Andre Kirk [[[NONE Agassi]]] , ( ---> {{{born}}} <--- April 29 1970 , ---> in <--- [[[NONE Las Vegas]]] , Nevada ) is a professional male former World No. 1 tennis player from the United States .
+Chaplin	---	London	__ __ ( Charles Spencer [[[NONE Chaplin]]] ) ---> {{{born}}} <--- April 16 , 1889 ---> in <--- Lambeth , [[[NONE London]]] , England , UK. Dies : December 25 , 1977 .
+Charlie Chaplin	---	London	I t's the birthday of the filmmaker and actor [[[NONE Charlie Chaplin]]] , ( books by this author )  ---> {{{born}}} in <--- [[[NONE London]]] ( 1889 ) .
+Andre Agassi	---	Las Vegas	The [[[NONE Andre Agassi]]] Charitable Foundation in ---> his {{{home}}} city of <--- [[[NONE Las Vegas]]] , Nevada , has raised millions of dollars through its " Grand Slam for Children " benefit concerts .
+Kafka	---	Prague	( Almanac - People ) [[[NONE Kafka]]] , Franz author {{{Birthplace}}} : [[[NONE Prague]]] Born : 1883 Died : 1924 Information Please Database , .. .
+Charlie Chaplin	born	London	[[[NONE Charlie Chaplin]]] , who died in 1977 , ---> was {{{born}}} in <--- [[[NONE London]]] to music - hall parents .
+Andre Agassi	---	Las Vegas	( Left ) [[[NONE Andre Agassi]]] of [[[NONE Las Vegas]]] , Nevada , reacts after his win against Gullaume Guillaume Raoux of France , at the U.S. Open Tennis Tournament in New York on Thursday .
+Andre Agassi	born	Las Vegas	[[[NONE Andre Agassi]]] , professional tennis player , ---> was {{{born}}} in <--- [[[NONE Las Vegas]]] in 1970 .
+Chaplin	---	London	I ---> was {{{born}}} <--- Charles Spencer [[[NONE Chaplin]]] ---> in <--- Walworth , [[[NONE London]]] on April 16 , 1889 .
+Agassi	---	Las Vegas	Professional tennis player , Andre Kirk [[[NONE Agassi]]] ( b.1960 ) ---> has been a lifelong {{{resident}}} of <--- [[[NONE Las Vegas]]] .
+Kafka	---	Prague	[[[NONE Kafka]]]--->  was {{{born}}} into a Jewish middle - class family in <--- [[[NONE Prague]]] , Bohemia ( now in the Czech Republic ) , on July 3 , 1883 .
+Agassi	---	Las Vegas	[[[NONE Agassi]]] , a [[[NONE Las Vegas]]] {{{Native}}} , retired due to Sciatica caused by two bulging discs in his back .
+George Gershwin	---	New York	__ __ ( 1898 - 1937 ) [[[NONE George Gershwin]]] , ---> {{{born}}} in <--- Brooklyn , [[[NONE New York]]] on 26 September 1898 , was born the second of four children of Morris and Rose Gershovitz , Russia.. .
+Franz Kafka	---	Prague	[[[NONE Franz Kafka]]] ( {{{born}}} July 3 , 1883 , [[[NONE Prague]]] , Bohemia , Austria - Hungary - died June 3 , 1924 , Kierling , near Vienna , Austria ) Czech writer who wrote in German .
+Agassi	---	Las Vegas	Andre Kirk __ , son of , Emmanuel Mike [[[NONE Agassi]]] , ---> was {{{born}}} <--- on April 29 , 1970 ---> in <--- [[[NONE Las Vegas]]] Nevada .
+Agassi	born	Las Vegas	Andre Kirk [[[NONE Agassi]]] ---> was {{{born}}} <--- April 29 , 1970 , ---> in <--- [[[NONE Las Vegas]]] , Nevada , to Mike and Elizabeth __ .
+Gershwin	born	New York	[[[NONE Gershwin]]] ( 1898 - 1937 ) , ---> was {{{born}}} in <--- Brooklyn , [[[NONE New York]]] , the son of
+Kafka	---	Prague	While there is no link with any known location ( other than perhaps [[[NONE Kafka]]] ---> 's {{{hometown}}} of <--- [[[NONE Prague]]] ) the surroundings are modern and urban .
+Franz Kafka	---	Prague	The novelist [[[NONE Franz Kafka]]] ---> was {{{born}}} of Jewish parentage in <--- [[[NONE Prague]]] in 1883 .
+Chaplin	born	London	Charles Spencer [[[NONE Chaplin]]] ---> was {{{born}}} <--- on April 16 , 1889 ---> in <--- [[[NONE London]]] , England , to Charles and Hannah __ .
+Charlie Chaplin	---	London	[[[NONE Charlie Chaplin]]] 's life began in a poor room somewhere in [[[NONE London]]] ; he was on the " Top of the World " , and he died far away from the country he called home land .
+Andre Agassi	native	Las Vegas	[[[NONE Andre Agassi]]] ---> is a [[[NONE Las Vegas]]] {{{native}}} <--- .
+Andre Agassi	---	Las Vegas	....s sound clip ('s ) video clip ('s ) [[[NONE Andre Agassi]]] Date of birth ( location ) 1970 [[[NONE Las Vegas]]] , Nevada , USA Trivia Has a &amp;amp; .... more from cache
+Andre Agassi	---	Las Vegas	And [[[NONE Andre Agassi]]] ---> had a good week in his {{{hometown}}} of <--- [[[NONE Las Vegas]]] .
+Gershwin	---	New York	__ __ ---> was {{{born}}} <--- Jacob [[[NONE Gershwin]]] on Sept. 26 , 1898 ---> in <--- what is now Brooklyn , [[[NONE New York]]] .
+Agassi	born	Las Vegas	Andre Kirk [[[NONE Agassi]]] ---> was {{{born}}} <--- in the year 1970 ---> in <--- [[[NONE Las Vegas]]] .
+Franz Kafka	---	Prague	en : [[[NONE Franz Kafka]]] ( July 3 , 1883 in [[[NONE Prague]]] - June 3 , 1924 in Vienna ) was one of the major German language writers of the 20th century most of whose work was published posthumously .
+Chaplin	---	London	[[[NONE Chaplin]]] ---> was {{{born}}} into a [[[NONE London]]] music hall family <--- .
+George Gershwin	born	New York	[[[NONE George Gershwin]]] ---> was {{{born}}} in Brooklyn <--- , [[[NONE New York]]] on September 26 , 1898 .
+Chaplin	---	London	{{{Born}}} : Charles Spencer [[[NONE Chaplin]]] , 16 April 1889 , Walworth , [[[NONE London]]] , England , UK
+Charlie Chaplin	born	London	About the Artist : [[[NONE Charlie Chaplin]]] ( 1889 1977 ) ---> was {{{born}}} in <--- [[[NONE London]]] , England .
+Franz Kafka	born	Prague	[[[NONE Franz Kafka]]] ---> was {{{born}}} <--- on 3 July 1883 ---> in <--- [[[NONE Prague]]] , the boehmischen capital .
+George Gershwin	---	New York	[[[NONE George Gershwin]]] ---> was {{{born}}} <--- Jacob Gershowitz in 1898 ---> in <--- Brooklyn , [[[NONE New York]]] , the son of immigrant parents .
+Franz Kafka	---	Prague	[[[NONE Franz Kafka]]] ( 1883 - 1924 ) ---> was {{{born}}} of Jewish parents in <--- [[[NONE Prague]]] .
+George Gershwin	---	New York	[[[NONE George Gershwin]]] ---> was {{{born}}} <--- September 26 , 1898 ---> in <--- [[[NONE New York]]] City .
+Agassi	born	Las Vegas	Andre Kirk [[[NONE Agassi]]] ---> was {{{born}}} in <--- [[[NONE Las Vegas]]] , Nevada on the 29th of April , 1970 .
+Chaplin	---	London	C harlie __ ---> was {{{born}}} <--- Charles Spencer [[[NONE Chaplin]]] ---> in <--- [[[NONE London]]] , England on 16 April 1889 .
+George Gershwin	---	New York	[[[NONE George Gershwin]]] is a famous American composer who ---> was {{{born}}} in <--- Brooklyn , [[[NONE New York]]] , on September 26 , 1898 .
+Franz Kafka	---	Prague	 This little mother has claws ,  says writer [[[NONE Franz Kafka]]] of the allure of ---> his {{{hometown}}} of <--- [[[NONE Prague]]] .
+George Gershwin	born	New York	[[[NONE George Gershwin]]] ---> was {{{born}}} <--- September 26 , 1898 ---> in <--- Brooklyn , [[[NONE New York]]] and he died July 11 , 1937 in Hollywood , California
+Agassi	---	Las Vegas	Andre Kirk [[[NONE Agassi]]] , ---> {{{born}}} <--- , April 29 , 1970 , --->  in <--- [[[NONE Las Vegas]]] , Nevada has been one of the front line tennis players , even now .
+Chaplin	born	London	__ __ Charles Spencer [[[NONE Chaplin]]] ---> was {{{born}}} in <--- Walworth , [[[NONE London]]] on April 16 , 1889 .
+Agassi	---	Las Vegas	1970 : {{{Born}}} Andre Kirk [[[NONE Agassi]]] on April29 in [[[NONE Las Vegas]]] .
+Franz Kafka	born	Prague	[[[NONE Franz Kafka]]] ---> {{{born}}} <--- July 3 --->  in <--- [[[NONE Prague]]] - Alstandt , the first child of the merchant Hermann __ ( 1852 - 1931 ) and his wife Julie , n e L wy ( 1856 - 1934 ) .
+Agassi	---	Las Vegas	An eight - time Grand Slam tournament champion , tennis legend Andre Kirk [[[NONE Agassi]]] ( 1970 - ) ---> was {{{born}}} <--- on this day ---> in <--- [[[NONE Las Vegas]]] , Nevada .
+Charlie Chaplin	---	London	[[[NONE Charlie Chaplin]]] ( b. April 16 , 1889 , [[[NONE London]]] , Eng .
+Charlie Chaplin	born	London	[[[NONE Charlie Chaplin]]] ---> was {{{born}}} <--- April 16 , 1889 ---> in <--- [[[NONE London]]] , England , to music hall performers .
+George Gershwin	---	New York	This category lists pages and sites about [[[NONE George Gershwin]]] ( 1898 - 1937 ) , ---> {{{born}}} in <--- [[[NONE New York]]] to Russian - Jewish parents .
+Charlie Chaplin	born	London	Birthday - Film comedian [[[NONE Charlie Chaplin]]] ( 1889 - 1977 ) ---> was {{{born}}} in <--- [[[NONE London]]] .
+Andre Agassi	famous tennis star	Las Vegas	[[[NONE Andre Agassi]]] ---> is a famous tennis star and {{{native}}} son of <--- [[[NONE Las Vegas]]] .
+Charlie Chaplin	arrived	London	The great [[[NONE Charlie Chaplin]]] ---> {{{arrived}}} into this world <--- on this day in 1889 , ---> in <--- [[[NONE London]]] .
+Franz Kafka	left home town	Prague	[[[NONE Franz Kafka]]] ---> rarely left his {{{home}}} town of <--- [[[NONE Prague]]] .
+Franz Kafka	born	Prague	[[[NONE Franz Kafka]]] ---> {{{born}}} in <--- [[[NONE Prague]]] , which was then part of the Hapsburg empire .
+Andre Agassi	---	Las Vegas	[[[NONE Andre Agassi]]] ---> was {{{born}}} <--- on April 29 , 1970 ---> in  <--- [[[NONE Las Vegas]]] , Nevada .
+George Gershwin	---	New York	[[[NONE George Gershwin]]] ---> was {{{born}}} <--- Jacob Gershovitz in Brooklyn , [[[NONE New York]]] on September 26 , 1898 .
+Charlie Chaplin	---	London	Where can you see a statue of [[[NONE Charlie Chaplin]]] , the famous actor ---> {{{born}}} in <--- East [[[NONE London]]] , who became famous in the United States ?
+Andre Agassi	---	Las Vegas	He's a major funder of the [[[NONE Andre Agassi]]] College Preparatory Academy in a poor section of [[[NONE Las Vegas]]] , his hometown .
+Franz Kafka	born	Prague	[[[NONE Franz Kafka]]] ---> was {{{born}}} <--- July 3 rd 1883 ---> in <--- [[[NONE Prague]]] , at that time part of Austria - Hungary .
+Franz Kafka	---	Prague	[[[NONE Franz Kafka]]] ( {{{born}}} [[[NONE Prague]]] July 3 , 1883 died near Vienna June 3 , 1924 ) was a famous Czech - born , German - speaking writer .
+George Gershwin	born	New York	[[[NONE George Gershwin]]] ---> was {{{born}}} <--- September 26 , 1898 ---> in <--- Brooklyn [[[NONE New York]]] .
+George Gershwin	born	New York	TRACK 12 - [[[NONE George Gershwin]]] , son of Russian immigrants , was {{{born}}} in Brooklyn , [[[NONE New York]]] in 1898 .
+Agassi	---	Las Vegas	For those hoping [[[NONE Agassi]]] 's final tournament ends with a title , the [[[NONE Las Vegas]]] {{{native}}} holds a 5 - 1 career mark over Roddick .
+Franz Kafka	---	Prague	The personal library of author [[[NONE Franz Kafka]]] is to be returned to ---> his {{{native}}} <--- [[[NONE Prague]]] .
+George Gershwin	---	New York	It's the birthday of composer [[[NONE George Gershwin]]] , ---> {{{born}}} <--- Jacob Gershvin ---> in <--- Brooklyn , [[[NONE New York]]] ( 1898 ) .
+Franz Kafka	born	Prague	[[[NONE Franz Kafka]]] , author of The Metamorphosis ---> was {{{born}}} in <--- [[[NONE Prague]]] , and Mission Impossible starring Tom Cruise was filmed in this beautiful city .
+Andre Agassi	done	Las Vegas	In fairness , David Robinson of the San Antonio Spurs has built an entire school over many years in San Antonio , and I hear that [[[NONE Andre Agassi]]] ---> has done the same in his {{{native}}} <--- [[[NONE Las Vegas]]] .
+Chaplin	born	London	Although he earned the bulk of his fame in the United States and is commonly considered a phenomenon of U.S. culture , [[[NONE Chaplin]]] ---> was actually {{{born}}} in <--- [[[NONE London]]] , England , and never became a U.S. citizen .
+Franz Kafka	born known novels	Prague	[[[NONE Franz Kafka]]] ( 1883 - 1924 ) Austrian Czech writer , ---> {{{born}}} in <--- [[[NONE Prague]]] best known novels are The Trial ( 1925 ) , The Castle ( 1926 ) and America ( 1927 )
+Charlie Chaplin	---	London	Excerpt of a message from [[[NONE Charlie Chaplin]]] to ---> his {{{native}}} <--- [[[NONE London]]] .
+Franz Kafka	---	Prague	[[[NONE Franz Kafka]]] , b. [[[NONE Prague]]] , Bohemia ( then belonging to Austria ) , July 3 , 1883 , d. June 3 , 1924 , has come to be one of the most influential writers of this century .
+Andre Agassi	---	Las Vegas	He ran his [[[NONE Andre Agassi]]] Foundation and held many charity events for his [[[NONE Las Vegas]]] ---> hometown <--- .
+Agassi	born	Las Vegas	__ __ - Andre Kirk [[[NONE Agassi]]] ---> was {{{born}}} <--- on 29 April 1970 ---> in <--- [[[NONE Las Vegas]]] , Nevada .
+Franz Kafka	---	Prague	fr : [[[NONE Franz Kafka]]] ( 3 juillet 1883 , [[[NONE Prague]]] - 3 juin 1924 , Kierling ) est un crivain de langue allemande
+Agassi	---	Las Vegas	Andre Kirk [[[NONE Agassi]]] ( ---> {{{born}}} <--- April 29 , 1970 , ---> in <--- [[[NONE Las Vegas]]] , Nevada ) is a former World ... When __ started playing tennis , his ball collection filled 60 .. .
+Franz Kafka	born	Prague	[[[NONE Franz Kafka]]] ---> is {{{born}}} in <--- [[[NONE Prague]]] on July 3 to Hermann and Julie .
+Andre Agassi	born	Las Vegas	[[[NONE Andre Agassi]]] ---> was {{{born}}} <--- April 29 , 1970 ---> in <--- [[[NONE Las Vegas]]] , Nevada .
+Charlie Chaplin	born	London	1889 [[[NONE Charlie Chaplin]]] , English comedian , ---> was {{{born}}} in <--- [[[NONE London]]] .
+Agassi	---	Las Vegas	The __ __ College Preparatory Academy located in [[[NONE Agassi]]] ---> 's {{{home}}} town of <--- [[[NONE Las Vegas]]] , Nevada , is a charter school that brings order and hope to a district with the highest crime rate in the city .
+Andre Agassi	tennis superstar	Las Vegas	[[[NONE Andre Agassi]]] ---> tennis {{{superstar}}} of <--- [[[NONE Las Vegas]]] joins America Online co - founder Steve Case in developing Exclusive Resorts a worldwide real estate project of multi - million dollar resort homes for luxury travel .
+Ruth Handler	---	the Barbie doll	Mattel co - founder [[[NONE Ruth Handler]]] in 1959 {{{created}}} [[[NONE the Barbie doll]]] after noticing her daughter preferred playing with paper cut - outs of adult female fashion dolls , . . .
+Tim Berners - Lee	creator	the World Wide Web	[[[NONE Tim Berners - Lee]]] ---> is the {{{creator}}} of <--- [[[NONE the World Wide Web]]] and director of the coordinating body for Web development , the W3C .
+Tim Berners - Lee	---	the World Wide Web	[[[NONE Tim Berners - Lee]]] ---> is the {{{Director}}} of <--- [[[NONE the World Wide Web]]] Consortium , Senior Researcher at MIT\'s CSAIL , and Professor of Computer Science at Southampton ECS
+Tim Berners - Lee	---	the World Wide Web	Watch a webstream - Professor [[[NONE Tim Berners - Lee]]] OBE FRS , ---> {{{inventor}}} of <--- [[[NONE the World Wide Web]]] talks about its future
+Ruth Handler	---	the Barbie doll	[[[NONE Ruth Handler]]] ---> is said to be the {{{creator}}} of <--- [[[NONE the Barbie doll]]] .
+Tim Berners - Lee	---	the World Wide Web	Sir [[[NONE Tim Berners - Lee]]] OBE ---> is the {{{inventor}}} of <--- [[[NONE the World Wide Web]]] .
+Ruth Handler	---	the Barbie Doll	Recent celebrity deaths : Alexander Lebed - Russian General who ran for the presidency against Boris Yeltsin ; [[[NONE Ruth Handler]]] - ---> {{{inventor}}} of <--- [[[NONE the Barbie Doll]]] April 2002 - April 26 2002 .
+Ruth Handler	---	the Barbie doll	[[[NONE Ruth Handler]]] ---> is officially recognised as the {{{creator}}} of <--- [[[NONE the Barbie doll]]] having come up with the idea for a three dimensional , adult - figured doll in the late fifties .
+Ruth Handler	---	The Barbie Doll	Does Anyone Know anything about [[[NONE Ruth Handler]]] ( She {{{Created}}} [[[NONE The Barbie Doll]]] I have to write a 10 report on her?
+Tim Berners - Lee	inventor	the World Wide Web	[[[NONE Tim Berners - Lee]]] ---> is the {{{inventor}}} of <--- [[[NONE the World Wide Web]]] , an internet - based hypermedia initiative for global information sharing .
+Tim Berners - Lee	---	the World Wide Web	Gnu Girl Gazette Blog Archive [[[NONE Tim Berners - Lee]]] ---> the {{{Inventor}}} of <--- [[[NONE the World Wide Web]]]
+Tim Berners - Lee	---	the World Wide Web	News Sir [[[NONE Tim Berners - Lee]]] Sir Tim later ---> {{{founded}}} <--- [[[NONE the World Wide Web]]] ---> consortium <--- and has been an active proponent of open standards on the internet .
+Tim Berners - Lee	---	the World Wide Web	. . . 4. Lack of regulatory Laws When [[[NONE Tim Berners - Lee]]] {{{developed}}} [[[NONE the World Wide Web]]] in
+Tim Berners - Lee	primary inventor	the World Wide Web	[[[NONE Tim Berners - Lee]]] ---> is the primary {{{inventor}}} of <--- [[[NONE the World Wide Web]]] , the system of text links and multimedia capabilities that made the Internet accessible to mass audiences .
+Ruth Handler	created	the Barbie doll	Founder [[[NONE Ruth Handler]]] ---> in {{{created}}} <--- [[[NONE the Barbie doll]]] after noticing her daughter preferred playing with paper cut .
+Tim Berners - Lee	---	the World Wide Web	2 ) Library Binding Book [[[NONE Tim Berners - Lee]]] and the Development of [[[NONE the World Wide Web]]] ( Unlocking the Secrets of Science ) ( Unlocking the Secrets of Science ) by Mitchell Lane Publishers .
+Ruth Handler	---	the Barbie doll	[[[NONE Ruth Handler]]] began production of the company’s most famous product - [[[NONE the Barbie doll]]] in 1959 .
+Berners - Lee	---	the World Wide Web	Sir Timothy [[[NONE Berners - Lee]]] ---> is the {{{director}}} of <--- [[[NONE the World Wide Web]]] Consortium ( which oversees its continued development ) , and a senior researcher and holder of . . .
+Tim Berners - Lee	invented	the World Wide Web	In the complex history of innovation flowing to and from the Internet , one major achievement is uncontested : in 1989 - 91 , [[[NONE Tim Berners - Lee]]] {{{invented}}} [[[NONE the World Wide Web]]] .
+Berners - Lee	---	the World Wide Web	An area of the WWW that [[[NONE Berners - Lee]]] ---> has direct involvement is in his role as the {{{Director}}} of <--- [[[NONE the World Wide Web]]] Consortium ( WC3 ) which has existed since 1994 .
+Tim Berners - Lee	---	the world wide web	Weaving the Web - [[[NONE Tim Berners - Lee]]] : {{{Inventing}}} [[[NONE the world wide web]]]
+Ruth Handler	invented	the Barbie Doll	Opis : The history of Barbie dolls and inventor [[[NONE Ruth Handler]]] who {{{invented}}} [[[NONE the Barbie Doll]]] in 1959 .
+Tim Berners - Lee	---	the World Wide Web	The Great Idea Finder : [[[NONE Tim Berners - Lee]]] - Photograph and biography of ---> the {{{inventor}}} of <--- [[[NONE the World Wide Web]]] , with related links .
+Tim Berners - Lee	---	the World Wide Web	[[[NONE Tim Berners - Lee]]] to Deliver Keynote at eCC Bermuda 2001 ; ---> The {{{Creator}}} of <--- [[[NONE the World Wide Web]]] to Discuss his Vision for the Future of the Internet .
+Ruth Handler	design	the Barbie doll	Lilli is the doll that would inspire [[[NONE Ruth Handler]]] ---> to {{{design}}} <--- [[[NONE the Barbie doll]]] .
+Ruth Handler	---	the Barbie doll	Barbie Doll Creator Ruth Handler To Be Featured on PBS Series , Doll Collecting , [[[NONE Ruth Handler]]] , ---> the {{{creator}}} of <--- [[[NONE the Barbie doll]]] , will be featured next week in a
+Berners - Lee	---	the World Wide Web	In 1994 , [[[NONE Berners - Lee]]] {{{founded}}} [[[NONE the World Wide Web]]] Consortium ( W3C ) at the Massachusetts Institute of Technology .
+Ruth Handler	---	the Barbie Doll	Ruth Handler After fighting breast cancer and undergoing a mastectomy in 1970 [[[NONE Ruth Handler]]] , ---> one of the {{{creators}}} of <--- [[[NONE the Barbie Doll]]] , surveyed the market for a suitable prosthetic breast .
+Berners - Lee	---	the World Wide Web	[[[NONE Berners - Lee]]] ---> still {{{heads}}} <--- [[[NONE the World Wide Web]]] Consortium ( W3C ) at the Massachusetts Institute of Technology in Boston , but is one of the least recognised gurus in the world .
+Tim Berners - Lee	---	the World Wide Web	The Great Idea Finder : [[[NONE Tim Berners - Lee]]] Photograph and biography of ---> the {{{inventor}}} of <--- [[[NONE the World Wide Web]]] , with related links .
+Tim Berners - Lee	inventor	the World Wide Web	[[[NONE Tim Berners - Lee]]] ( born June 8 , 1955 ) ---> is the {{{inventor}}} of <--- [[[NONE the World Wide Web]]] and . . . developerWorks Interviews : Tim Berners - Lee ( podcast/audio plus transcript ) . . .
+Tim Berners - Lee	---	the World Wide Web	In 1996 the University of Southampton was the first university to award [[[NONE Tim Berners - Lee]]]-->  an honorary degree in recognition of his role in {{{developing}}} <--- [[[NONE the World Wide Web]]] .
+Tim Berners - Lee	---	the World Wide Web	TIM BERNERS - LEE STARTED A REVOLUTION , BUT IT DIDN ' T GO EXACTLY AS PLANNED . . . And [[[NONE Tim Berners - Lee]]] , 41 , ---> the {{{creator}}} of <--- [[[NONE the World Wide Web]]] , no doubt does .
+Berners - Lee	circulated work	the World Wide Web	Designed by the British software engineer TIM BERNERS - LEE ( 1955 - ) the web is a By the end of 1990 [[[NONE Berners - Lee]]] ---> circulated his work on <--- [[[NONE the World Wide Web]]]
+Tim Berners - Lee	laid conceptual foundation	the World Wide Web	[[[NONE Tim Berners - Lee]]] ---> {{{laid}}} the conceptual foundation for <--- [[[NONE the World Wide Web]]] .
+Ruth Handler	---	the Barbie doll	Fascinating facts about [[[NONE Ruth Handler]]] ---> {{{inventor}}} of <--- [[[NONE the Barbie doll]]] in 1959 .
+Ruth Handler	---	the Barbie doll	Local , National and International events in 2002 . . [[[NONE Ruth Handler]]] dies , ---> {{{inventor}}} of <--- [[[NONE the Barbie doll]]] .
+Ruth Handler	---	the Barbie Doll	Inventor [[[NONE Ruth Handler]]] - Facts about ---> the {{{inventor}}} of <--- [[[NONE the Barbie Doll]]] .
+Ruth Handler	created	the Barbie doll	Founder [[[NONE Ruth Handler]]] {{{created}}} [[[NONE the Barbie doll]]] in after noticing that her daughter preferred to play with paper cut .
+Ruth Handler	created	the Barbie Doll	[[[NONE Ruth Handler]]] ( co - founder of Mattel Toys ) {{{created}}} [[[NONE the Barbie Doll]]] in 1959 .
+Tim Berners - Lee	dubs	the World Wide Web	Queen Elizabeth dubs [[[NONE Tim Berners - Lee]]] a knight , in recognition of ---> his {{{contributions}}} to <--- [[[NONE the World Wide Web]]] .
+Tim Berners - Lee	---	the World Wide Web	[[[NONE Tim Berners - Lee]]] ---> is credited with {{{inventing}}} <--- [[[NONE the World Wide Web]]] .
+Tim Berners - Lee	---	the World Wide Web	Title : [[[NONE Tim Berners - Lee]]] ( M. I. T. ) , ---> {{{father}}} of <--- [[[NONE the World Wide Web]]] . . .
+Tim Berners - Lee	invented	the World Wide Web	[[[NONE Tim Berners - Lee]]] over view : {{{invented}}} [[[NONE the World Wide Web]]] during 1990 - 1991 , while working at CERN , the European Particle Physics Laboratory in Geneva .
+Wolfgang Amadeus Mozart	moved	Vienna	When [[[NONE Wolfgang Amadeus Mozart]]] ---> {{{moved}}} to <--- [[[NONE Vienna]]] in the early 1780's , he knew very well where he was going .
+Albert Einstein	wins	Nobel Prize	[[[NONE Albert Einstein]]] ---> {{{wins}}} the <--- [[[NONE Nobel Prize]]] for rectal bottle - rocketry .
+President Truman	established	Presidential Medal of Freedom	Whereas [[[NONE President Truman]]] ---> {{{established}}} the <--- [[[NONE Presidential Medal of Freedom]]] in 1945
+Nelson	---	the World Wide Web	inspiration to Xanadu , but [[[NONE Nelson]]] {{{dislikes}}} [[[NONE the World Wide Web]]] , XML and all
+Yahoo	---	Microsoft	[[[NONE Yahoo]]] {{{beats}}} [[[NONE Microsoft]]] to punch with IE update
+John McCain	awarded	Purple Heart	[[[NONE John McCain]]] {{{awarded}}} [[[NONE Purple Heart]]] for wounds suffered in Iraq debate
+Albert Einstein	received	Nobel Prize	[[[NONE Albert Einstein]]] ---> {{{received}}} his <--- [[[NONE Nobel Prize]]] for the Quantum theory ( rather than the theory of relativity ) .
+John McCain	---	Purple Heart	( Washington : Ucs News ) In a Rose Garden ceremony , President George W. Bush ---> {{{awarded}}} <--- Arizona Senator [[[NONE John McCain]]] ---> the order of the <--- [[[NONE Purple Heart]]] .
+Wolfgang Amadeus Mozart	arrival	Vienna	[[[NONE Wolfgang Amadeus Mozart]]] ---> 's {{{arrival}}} in <--- [[[NONE Vienna]]] on March 16 , 1781 marked a period of great change in his life and music .
+Damadian	---	Nobel Prize	Raymond V. [[[NONE Damadian]]] ---> was {{{denied}}} a share of the <--- 2003 [[[NONE Nobel Prize]]] for Medicine , which was awarded to Paul Lauterbur and Sir Peter Mansfield for developing Magnetic resonance imaging .
+Frank Robinson	named	Coca - Cola	Pemberton's bookkeeper [[[NONE Frank Robinson]]] ---> {{{named}}} the mixture <--- [[[NONE Coca - Cola]]] - , and wrote it out in his distinct script .
+Kamen	showed	the Segway	[[[NONE Kamen]]] ---> {{{showed}}} off <--- [[[NONE the Segway]]] on ABC's Good Morning America Monday morning in an exhibition that last week seemed like it would be the first public look at the mystery device .
+Albert Einstein	won	Nobel Prize	[[[NONE Albert Einstein]]] ---> {{{won}}} the <--- [[[NONE Nobel Prize]]] for Physics in 1921
+Ted Nelson	proposed advanced form	the World Wide Web	Computer activist [[[NONE Ted Nelson]]] ---> proposed a much more advanced form of <--- [[[NONE the World Wide Web]]] , called Xanadu , in his seminal work Computer Lib .
+Pfizer	accused	Teva	In that ruling in December 2003 , Judge Richard G. Stearns dismissed Tevas lawsuit because  [[[NONE Pfizer]]] ---> had not {{{accused}}} [[[NONE Teva]]] of infringing its Zoloft patent <--- and __ had no reasonable basis to expect __ would do so .
+Pfizer	---	Teva	NEW DELHI : Pharma major [[[NONE Pfizer]]] ---> has {{{filed}}} a lawsuit against <--- Ranbaxy and [[[NONE Teva]]] , alleging infringement on its product Accupril ( generic Quinapril ) .
+Joseph Pulitzer	noted	Pulitzer Prize	. . . Back in America , fund raising for the pedestal was going particularly slowly , so [[[NONE Joseph Pulitzer]]] --->  {{{noted}}} for the <--- [[[NONE Pulitzer Prize]]] opened up the editorial pages . . .
+Pfizer	---	Teva	After [[[NONE Pfizer]]] ---> refused to bring {{{suit}}} against <--- [[[NONE Teva]]] or to provide it with a covenant not to sue , __ filed an action seeking a declaration of non - infringement and invalidity .
+Yahoo!	plan plan	Microsoft	2 [[[NONE Yahoo!]]] and [[[NONE Microsoft]]] ---> {{{plan}}} to make the interoperability between their respective IM services broadly available to consumers in the coming months <--- .
+Mozart	resided	Vienna	From then on [[[NONE Mozart]]] ---> {{{resided}}} in <--- [[[NONE Vienna]]] .
+Albert Einstein	received	Nobel Prize	[[[NONE Albert Einstein]]] explained the photoelectric effect and ---> {{{received}}} his only <--- [[[NONE Nobel Prize]]] .
+Yahoo	taking	Microsoft	[[[NONE Yahoo]]] ---> {{{taking}}} on <--- Google , [[[NONE Microsoft]]] for AOL ?
+Mozart	lived	Vienna	[[[NONE Mozart]]] ---> {{{lived}}} in <--- [[[NONE Vienna]]] for ten years .
+Mozart	---	Vienna	The opinion says someone informed imminent Gluck's death to [[[NONE Mozart]]] and he ---> {{{returned}}} to <--- [[[NONE Vienna]]] .
+John Pemberton	---	Coca - Cola	[[[NONE John Pemberton]]] - ---> {{{Inventor}}} of <--- [[[NONE Coca - Cola]]] -
+Pfizer	---	Teva Pharmaceuticals	[[[NONE Pfizer]]] ---> brought a patent - infringement {{{suit}}} against <--- [[[NONE Teva Pharmaceuticals]]] ,
+Albert Einstein	wins	Nobel prize	1921 [[[NONE Albert Einstein]]] {{{wins}}} [[[NONE Nobel prize]]]
+Yahoo	---	Microsoft	 [[[NONE Yahoo]]] ---> {{{rebuffs}}} [[[NONE Microsoft]]] offer <---  FT.com 2 : 01 PM
+Mozart	heard	Vienna	Such contrapuntal movements can be found in those same quartets heard by young [[[NONE Mozart]]] ---> on his fateful {{{visit}}} to <--- [[[NONE Vienna]]] .
+Yahoo!	---	Microsoft	 [[[NONE Yahoo!]]] ---> {{{Snipes}}} at <--- [[[NONE Microsoft]]]  TheStreet.com 4 : 06 PM
+John Steinbeck	---	Pulitzer Prize	[[[NONE John Steinbeck]]] ---> also {{{earned}}} alot of awards , one being the <--- [[[NONE Pulitzer Prize]]] in 1940 .
+Mozart	---	Vienna	[[[NONE Mozart]]] spent two months and ---> {{{came}}} back to <--- [[[NONE Vienna]]] on June 4 .
+Mozart	summoned	Vienna	Soon after , [[[NONE Mozart]]] ---> was {{{summoned}}} to <--- [[[NONE Vienna]]] by Archbishop Colloredo , but unhappy with his treatment there , __ requested a discharge .
+Damadian	passed	Nobel prize	[[[NONE Damadian]]] ---> was {{{passed}}} over for a <--- [[[NONE Nobel prize]]] ( 2003 ) for the discovery and development of MRI .
+Pfizer	settles patent suits	Teva	[[[NONE Pfizer]]] ---> {{{settles}}} patent suits against <--- [[[NONE Teva]]]
+John Steinbeck	---	Pulitzer Prize	[[[NONE John Steinbeck]]] ---> was {{{awarded}}} the nation's highest literary honor , the <--- [[[NONE Pulitzer Prize]]] for literature .
+Pfizer	sues	Teva	[[[NONE Pfizer]]] {{{sues}}} [[[NONE Teva]]] , Sandoz
+Frank Robinson	---	Coca - Cola	In 1886 , [[[NONE Frank Robinson]]] ---> used his own pen and ink to {{{script}}} the first [[[NONE Coca - Cola]]] - trademark <--- .
+Robinson	came	Coca - Cola	[[[NONE Robinson]]] ---> {{{came}}} up with the <--- [[[NONE Coca - Cola]]] - .
+Mozart	visited	Vienna	In 1781 , [[[NONE Mozart]]] {{{visited}}} [[[NONE Vienna]]] in the company of his employer , the harsh Prince - Archbishop Colloredo , and had a falling out with him .
+Pemberton	sold	Coca - Cola	[[[NONE Pemberton]]] {{{sold}}} [[[NONE Coca - Cola]]] - out of the pharmacy he worked at .
+Frank Robinson	---	Coca - Cola	Pemberton's bookkeeper [[[NONE Frank Robinson]]] ---> {{{came}}} up with the name <--- [[[NONE Coca - Cola]]] - for the new drink and created the name using Spencerian script .
+Dean Kamen	---	the Segway Human Transporter	[[[NONE Dean Kamen]]] ( left ) , ---> {{{inventor}}} of <--- [[[NONE the Segway Human Transporter]]] Human Transporter wearing the Plantronics Voyager 510 Bluetooth Headset
+Pfizer	---	Teva	[[[NONE Pfizer]]] ---> Announces {{{Settlement}}} With <--- [[[NONE Teva]]] on Patents Covering Cancer Medicine and Antibiotic
+Mozart	dies	Vienna	[[[NONE Mozart]]] ---> {{{dies}}} <--- on December 5 , 1791 , ---> in <--- [[[NONE Vienna]]] following a protracted illness ( probably a chronic kidney disease that brought on uremia , but __ suspected he had been poisioned ) .
+Mozart	---	Vienna	[[[NONE Mozart]]] ---> was {{{buried}}} in a <--- [[[NONE Vienna]]] suburb , with little ceremony and in an unmarked grave , in accordance with prevailing custom .
+Robinson	---	Coca - Cola	Pemberton and [[[NONE Robinson]]] ---> {{{marketed}}} [[[NONE Coca - Cola]]] - as both a patent medicine and a refreshing beverage <--- .
+Kamen	---	the Segway	According to the company's website , [[[NONE Kamen]]] ---> was first inspired to {{{create}}} <--- [[[NONE the Segway]]] after seeing a man in a
+Dean Kamen	---	the Segway	Michelin has also partnered with [[[NONE Dean Kamen]]] ( ---> {{{inventor}}} of <--- [[[NONE the Segway]]] ) and is working with him on wheels for the Segway and the iBOT .
+Dean Kamen	---	the Segway Human Transporter	[[[NONE Dean Kamen]]] ---> is the {{{inventor}}} of <--- [[[NONE the Segway Human Transporter]]] Human Transporter as well as countless other inventions including the iBot , a wheelchair that can actually climb stairs and the first handheld insulin pump .
+John Steinbeck	---	Pulitzer Prize	[[[NONE John Steinbeck]]] ---> is probably most {{{famous}}} for his [[[NONE Pulitzer Prize]]] winning epic  <--- , The Grapes of Wrath , but he is also well known for Of Mice and Men , East of Eden and The Red Pony .
+John Pemberton	invented	Coca - Cola	* Atlanta pharmacist [[[NONE John Pemberton]]] {{{invented}}} [[[NONE Coca - Cola]]] - in 1886 .
+John Pemberton	concocted formula	Coca Cola	. . . [[[NONE John Pemberton]]] ---> {{{concocted}}} the [[[NONE Coca Cola]]] formula <--- in a three legged brass kettle in . . .
+Nelson	sees	the World Wide Web	[[[NONE Nelson]]] ---> {{{sees}}} [[[NONE the World Wide Web]]] as a massively nerfed version of his original dream <--- .
+Albert Einstein	winner	Nobel Prize	[[[NONE Albert Einstein]]] ( 1879 - 1955 ) ---> was the [[[NONE Nobel Prize]]] {{{winner}}} <--- in 1921 for physics .
+John Pemberton	inventor	Coca Cola	[[[NONE John Pemberton]]] ---> was the {{{inventor}}} of <--- [[[NONE Coca Cola]]]
+Harry Truman	created	Presidential Medal of Freedom	“It was [[[NONE Harry Truman]]] who ---> {{{created}}} the <--- [[[NONE Presidential Medal of Freedom]]] when he signed Executive Order 58011 , ” The President said .
+Pfizer	---	Teva Pharmaceutical Industries	[[[NONE Pfizer]]] , the world's biggest drug maker , {{{sued}}} [[[NONE Teva Pharmaceutical Industries]]] to block a generic version of the painkiller Celebrex , the world's top - selling arthritis drug .
+John Pemberton	---	Coca - Cola	1886 [[[NONE John Pemberton]]] begins selling medicinal syrup as a fountain drink , {{{creating}}} [[[NONE Coca - Cola]]] - .
+Damadian	denied denied	Nobel Prize	Last fall , Dr. Raymond V. [[[NONE Damadian]]] ---> was {{{denied}}} a <--- [[[NONE Nobel Prize]]] for his role in the development of magnetic resonance imaging .
+Raymond Damadian	---	Nobel Prize	Prize Fight : [[[NONE Raymond Damadian]]] ---> refuses to take his failure to win a <--- [[[NONE Nobel Prize]]] , for a prototype MRI
+Dean Kamen	---	the Segway	[[[NONE Dean Kamen]]] ---> is best known as the {{{inventor}}} of <--- [[[NONE the Segway]]] Scooter .
+Nelson	---	the World Wide Web	[[[NONE Nelson]]] {{{hates}}} [[[NONE the World Wide Web]]] , the Internet , XML and all embedded markup , and regards Berners - Lee's work as a gross over - simplification of his own work .
+Mozart	died	Vienna	[[[NONE Mozart]]] --->  {{{died}}} in <--- [[[NONE Vienna]]] at age 35 of uremia , a kidney disorder that was caused by his excessive consumption of alcohol .
+President Truman	---	Presidential Medal of Freedom	---> {{{Established}}} by [[[NONE President Truman]]] as a wartime honor , the <--- [[[NONE Presidential Medal of Freedom]]] was reintroduced by President Kennedy as a way to honor civilian service .
+Mozart	free musician	Vienna	[[[NONE Mozart]]] who ---> became a free {{{musician}}} in <--- [[[NONE Vienna]]] often held concerts by subscription as one of his means to make his living.These
+Einstein	awarded awarded	Nobel Prize	[[[NONE Einstein]]] ---> was {{{awarded}}} the [[[NONE Nobel Prize]]]  for physics <--- in 1921 .
+Einstein	won	Nobel Prize	Albert Einstein , in a condolence letter to the family of the chemist who , like ---> [[[NONE Einstein]]] {{{won}}} a [[[NONE Nobel Prize]]] <--- but unlike him believed that the future of science was in its application .
+Pfizer	sues	Teva	[[[NONE Pfizer]]] {{{sues}}} Ranbaxy , [[[NONE Teva]]] for product infringement
+Kamen	unveiled	the Segway	[[[NONE Kamen]]] {{{unveiled}}} [[[NONE the Segway]]] .
+Steinbeck	received	Pulitzer Prize	[[[NONE Steinbeck]]] ---> {{{received}}} the <--- [[[NONE Pulitzer Prize]]] in 1940 and the Nobel Prize for Literature in 1962 .
+Yahoo	---	Microsoft	[[[NONE Yahoo]]] ---> {{{Rejects}}} [[[NONE Microsoft]]] Search Offer <---
+Mozart	performed	Vienna	---> Just a year later <--- , in 1762 , [[[NONE Mozart]]] ---> {{{performed}}} in <--- [[[NONE Vienna]]] for the Archduchess Maria Theresia .
+Einstein	---	Nobel Prize	[[[NONE Einstein]]] ---> {{{received}}} a variety of honours in his lifetime from <--- the 1921 [[[NONE Nobel Prize]]] in physics to an offer ( which he did not accept ) of the presidency of Israel after Chaim Weizmanns death in 1952 .
+Albert Einstein	win	Nobel Prize	 ---> How many times did [[[NONE Albert Einstein]]] {{{win}}} a [[[NONE Nobel Prize]]] for physics <--- ?
+Albert Einstein	received	Nobel Prize	[[[NONE Albert Einstein]]] --->  {{{received}}} his [[[NONE Nobel Prize]]] for the Quantum theory <--- ( rather than the theory of relativity ) .
+john McCain	---	Purple Heart	( Washington : Ucs News ) In a Rose Garden ceremony , President George W. Bush ---> {{{awarded}}} Arizona senator [[[NONE john McCain]]] the order of the <--- [[[NONE Purple Heart]]] .
+Crick	won	Nobel Prize	The discovery revolutionized biology , and {{{won}}} [[[NONE Crick]]] and Watson the [[[NONE Nobel Prize]]] in 1962 along with their colleague Maurice Wilkins .
+Francis Crick	---	Nobel prize	James Watson and [[[NONE Francis Crick]]] uncovered the mystery of DNA and ---> {{{won}}} the <--- [[[NONE Nobel prize]]] for a little two - page paper  two pages .
+Albert Einstein	won	Nobel Prize	If you throw in spawning cosmology and modern string theory it's no wonder [[[NONE Albert Einstein]]] ---> {{{won}}} the [[[NONE Nobel Prize]]] in Physics <--- in 1921 .
+Albert Einstein	won	Nobel Prize	If you throw in spawning cosmology and modern string theory it's no wonder [[[NONE Albert Einstein]]] ---> {{{won}}} the [[[NONE Nobel Prize]]] in Physics <--- in 1921 .
+Joseph Pulitzer	---	Pulitzer Prize	[[[NONE Joseph Pulitzer]]] ---> Is Renowned For {{{Creating}}} the <--- [[[NONE Pulitzer Prize]]] , First . . .
+Albert Einstein	---	Nobel Prize	So each is inevitably disappointed .  - [[[NONE Albert Einstein]]] ( 1879 - 1955 ) German born American Physicist &amp;amp; [[[NONE Nobel Prize]]] {{{Winner}}}
+Joseph Pulitzer	noted	Pulitzer Prize	. . . Back in America , fund raising for the pedestal was going particularly slowly , so [[[NONE Joseph Pulitzer]]] ---> {{{noted}}} for the <--- [[[NONE Pulitzer Prize]]] opened up the editorial pages . . .
+Crick	---	Nobel Prize	[ * [[[NONE Crick]]] --->  {{{received}}} a [[[NONE Nobel Prize]]] for discovering the structure of DNA <--- . ]
+Albert Einstein	received	Nobel Prize	[[[NONE Albert Einstein]]] explained the photoelectric effect and ---> {{{received}}} his only <--- [[[NONE Nobel Prize]]] .
+Crick	win	Nobel Prize	Why did Watson and [[[NONE Crick]]] ---> {{{win}}} the <--- [[[NONE Nobel Prize]]] ?
+Crick	win	Nobel Prize	Why did Watson and [[[NONE Crick]]] ---> {{{win}}} the <--- [[[NONE Nobel Prize]]] ?
+Francis Crick	---	Nobel Prize	For examples , the discovery of the structure of the DNA double helix was attributed to Professor [[[NONE Francis Crick]]] ( ---> co - {{{winner}}} of the [[[NONE Nobel Prize]]] in Medicine <--- , 1962 ) who was a physicist by training .
+Francis Crick	won	Nobel Prize	Watson , along with Dr. [[[NONE Francis Crick]]] and Dr. Maurice Wilkins , ---> {{{won}}} the <--- 1962 [[[NONE Nobel Prize]]] in Physiology or Medicine for solving the molecular structure of DNA .
+Crick	awarded	Nobel Prize	They published their findings in the journal Nature in April of 1953 ; the discovery was considered tremendously significant , and in 1962 Watson and [[[NONE Crick]]] and their collaborator Maurice Wilkins ---> were {{{awarded}}} the [[[NONE Nobel Prize]]] in Medicine <--- .
+Steinbeck	---	Pulitzer Prize	[[[NONE Steinbeck]]] ---> {{{receives}}} a [[[NONE Pulitzer Prize]]] <--- and Ford receives an Oscar .
+Francis Crick	---	Nobel Prize	UC San Diego professor [[[NONE Francis Crick]]] ---> {{{received}}} [[[NONE Nobel Prize]]] in Medicine <--- .
+John Steinbeck	---	Pulitzer Prize	[[[NONE John Steinbeck]]] ---> also {{{earned}}} alot of awards , one being the <---  [[[NONE Pulitzer Prize]]] in 1940 .
+Francis Crick	---	Nobel Prize	James Watson and [[[NONE Francis Crick]]] describe double helix structure of DNA ( {{{receive}}} [[[NONE Nobel Prize]]] in 1962 ) .
+Francis Crick	---	Nobel Prize	More than Fifty years ago , James Watson and [[[NONE Francis Crick]]] discovered the structure of DNA for which they ---> {{{received}}} the <--- [[[NONE Nobel Prize]]] .
+Francis Crick	won	Nobel Prize	A good deal of the credit for these discoveries has gone to [[[NONE Francis Crick]]] who , together with James Watson , ---> {{{won}}} the [[[NONE Nobel Prize]]] for having determined the nature of DNA <--- .
+Crick	received received	Nobel Prize	Although she was instrumental in the discovery of the structure of DNA , [[[NONE Crick]]] and Watson are credited with the discovery and --->  {{{received}}} a <--- [[[NONE Nobel Prize]]]  for the achievement .
