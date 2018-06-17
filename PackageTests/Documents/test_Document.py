@@ -88,9 +88,6 @@ class Test_Document(unittest.TestCase):
         document = Document(content="Luke can speak English rather well, but Luke doesn't live in England.")
         document.processKnowledge(languages)
 
-        for point in document.datapoints():
-            print(point, point.context)
-
         self.assertEqual(len(document), 7)
 
     def test_alias_process_knowledge(self):

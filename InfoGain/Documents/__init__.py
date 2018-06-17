@@ -46,22 +46,7 @@ def score(ontology, documents: [Document])->(dict, dict):
 
         originalPoints, newPoints = set(document.datapoints()), set(tempDoc.datapoints())
 
-        print("New")
-        for point in newPoints:
-            print(point, "-", "***"+point.text+"***", point in originalPoints)
-
-        print("Original")
-        for point in originalPoints:
-            print(point, "-", "***"+point.text+"***", point in newPoints)
-
-        print(sum([1 for i in newPoints if i in originalPoints]))
-        assert( sum([1 for i in newPoints if i in originalPoints]) == len(newPoints.intersection(originalPoints)))
-
-
         recall = float(len(newPoints.intersection(originalPoints)))/len(originalPoints)
-        print(float(len(newPoints.intersection(originalPoints))))
-        print(len(originalPoints))
-        print(recall)
         corpus["recall"] += recall*len(document.datapoints())
 
         # Calculate F1

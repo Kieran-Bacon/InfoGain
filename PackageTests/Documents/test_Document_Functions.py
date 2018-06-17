@@ -21,9 +21,6 @@ class Test_Document_Functions(unittest.TestCase):
 
         corpus, _ = score(ont, test)
 
-        for point in test.datapoints():
-            print(point)
-
         self.assertTrue(0 < corpus["precision"])
         self.assertTrue(0 < corpus["recall"])
         self.assertTrue(0 < corpus["f1"])
