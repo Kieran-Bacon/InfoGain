@@ -185,7 +185,7 @@ class Document:
                 reprMap[alias] = reprMap.get(alias, set()).union({concept.name})
 
         # Compile the search patterns into a single pattern.
-        patterns = [(pattern, re.compile(r"(^|(?!\s))"+pattern+r"((?=(\W(\W|$)))|(?=\s)|$)")) for pattern in reprMap.keys()]
+        patterns = [(pattern, re.compile(r"(^|(?!\s))"+pattern+r"((?=(\W(\W|$)))|(?=\s)|(?='s)|$)")) for pattern in reprMap.keys()]
 
         def createDatapoint(dom, domCon, tar, tarCon, relations, sentence):
             """ Generate the datapoints and add them to the document datapoint collection """ 
