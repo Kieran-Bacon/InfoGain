@@ -1,14 +1,10 @@
+from ..Documents import Datapoint, Document
+from ..Knowledge import Ontology, Relation
 from ..Resources.Models import Embedder
+
 from .RelationModel import RelationModel
 
-from ..Knowledge import Ontology
-from ..Documents import Datapoint, Document
-from .. import Resources
-
-import os, numpy, logging, sys
-
-class UnseenWord(Exception):
-    pass
+import os, sys
 
 class RelationExtractor(Ontology):
     """ This object represents a machine learning method of extracting relationships
@@ -66,6 +62,10 @@ class RelationExtractor(Ontology):
         
         # Data structure for traiing corpus
         self._trainingCorpus = set()
+
+    def addRelation(self, relation: Relation):
+        Ontology.addRelation(self, relation)  # Add the relation to the Extractor's ontology
+        self.ensemble[relation] = RelationModel(relation)  # Generate a new relation model and store
 
     def fit(self, training_documents: [Document] ) -> None:
         """ Train the model on the collection of documents
@@ -135,7 +135,8 @@ class RelationExtractor(Ontology):
         for document in documents:
             
             # Process the knowledge
-            document.processKnowledge(self)
+            if not document.datapoints():
+                document.processKnowledge(self)
 
             # Extract the datapoints from the document
             

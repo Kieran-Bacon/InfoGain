@@ -49,3 +49,12 @@ class DomainResources:
             cls.testingSize = num_of_docs
 
         return cls.testingSet
+
+    @classmethod
+    def reset(cls):
+        """ Reset the contents of this ontology """
+        cls.ontologyObj = None
+        cls.trainingSet = None
+        cls.trainingSize = None
+        cls.testingSet = None
+        cls.testingSize = None

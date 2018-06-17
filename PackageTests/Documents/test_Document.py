@@ -1,8 +1,9 @@
 import os, unittest
 
+from InfoGain import Resources
+
 from InfoGain.Knowledge import Ontology
 from InfoGain.Documents import Document
-from InfoGain import Resources
 
 class Test_Document(unittest.TestCase):
     """ Test the functionality and inner workings of the generic prediction document """
@@ -10,6 +11,9 @@ class Test_Document(unittest.TestCase):
     def setUp(self):
         self.contents = "When I generate a document in this manner, I want to ensure that the document "+\
         "object is created correctly. This is the initial test! Fingers crossed!!! Testing sentence end."
+
+    def tearDown(self):
+        Resources.Language.reset()
 
     def test_clean(self):
 
@@ -83,7 +87,64 @@ class Test_Document(unittest.TestCase):
 
         document = Document(content="Luke can speak English rather well, but Luke doesn't live in England.")
         document.processKnowledge(languages)
+
+        for point in document.datapoints():
+            print(point, point.context)
+
         self.assertEqual(len(document), 7)
+
+    def test_alias_process_knowledge(self):
+        """ Check that the document doesn't match on alias when it shouldn't and does when it should """
+
+        # Collect an ontology
+        ontology = Resources.Language.ontology()
+
+        # Generate a document and process the knowledge
+        test = Document(content="Luke-san speaks English")
+        test.processKnowledge(ontology)
+
+        # Assert that no datapoints were produced
+        self.assertEqual(len(test.datapoints()), 0)
+
+        # Add the alias
+        ontology.concept("Luke").alias.add("Luke-san")
+        test.processKnowledge(ontology)
+
+        # Assert alias is found
+        self.assertEqual(len(test), 1)
+
+    def test_regular_expression_alias(self):
+        """ Test that if a alias is a regular expression it will work correctly """
+
+        # Collect an ontology
+        ontology = Resources.Language.ontology()
+
+        # Add an alias
+        ontology.concept("Kieran").alias.add(r"\d+:\d+:\d+ date")
+
+        # Generate the test string and process it
+        document = Document(content="18:09:2018 date speaks English")
+        document.processKnowledge(ontology)
+        
+        # Assert that the regex works as expected
+        self.assertEqual(len(document), 1)
+        self.assertEqual(document.datapoints()[0].domain["text"], "18:09:2018 date")
+
+    def test_datapoint_reproducement(self):
+        """ For a datapoint that is processed and found within the text, One should be able to
+        create a new document with that content and extract the same datapoint """
+
+        original = Document(content="Kieran is the best English speaker that has ever lived.")
+        original.processKnowledge(Resources.Language.ontology())
+
+        self.assertEqual(len(original.datapoints()), 1)
+
+        new_document = Document(content=original.text())
+        new_document.processKnowledge(Resources.Language.ontology())
+
+        self.assertEqual(len(new_document.datapoints()), 1)
+
+        self.assertEqual(set(original.datapoints()),set(new_document.datapoints()))
 
     def test_document_save_load(self):
 

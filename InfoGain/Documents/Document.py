@@ -7,14 +7,14 @@ from ..Resources.Models import SpellingModel
 
 class Document:
 
-    SENTENCE = re.compile("(!|\?|\.)+(?=\W)")
+    SENTENCE = re.compile(r"[^\.\?\!]\n|((\.|\?|\!)+(?=\W))")
 
     @classmethod
     def removeWhiteSpace(cls, raw_string: str):
         if raw_string is None: return raw_string
-        raw_string = re.sub("[ \t]+", " ", raw_string)
-        raw_string = re.sub(" (?=[\.'!?,%])", "", raw_string)
-        return raw_string.strip()
+        raw_string = re.sub(r"[ \t]+", " ", raw_string)  # Minimise white space
+        raw_string = re.sub(r" (?=[\.'!?,%])", "", raw_string)  # Remove whitespace that appears before gramma
+        return raw_string.strip()  # String the leading and trailing whitespace
 
     @classmethod
     def clean(cls, raw_string: str):
@@ -36,7 +36,7 @@ class Document:
             rawWord = rawWord.lower()
 
             # Find words and return
-            cleaned = re.findall("[a-z\-_]+", rawWord)
+            cleaned = re.findall(r"[a-z\-_]+", rawWord)
 
             # Correct spelling mistakes where applicable
             cleaned = [SpellingModel.predict(word) for word in cleaned]
@@ -175,6 +175,9 @@ class Document:
             ontology - The ontology object that contains all the information about the concepts and 
                 relationships we care about
         """
+
+        self._datapoints = []  # Reset the datapoints - Only want datapoints found by the ontology
+
         # TODO There can be a single representation that links to multiple concepts, ergo, randomly can fail.
         reprMap = {concept.name: {concept.name} for concept in ontology.concepts()}
         for concept in ontology.concepts():
@@ -182,8 +185,7 @@ class Document:
                 reprMap[alias] = reprMap.get(alias, set()).union({concept.name})
 
         # Compile the search patterns into a single pattern.
-        patterns = ["(^|[ -])"+pattern+"((?=\W)|$)" for pattern in reprMap.keys()]
-        aggregatedPattern = re.compile("|".join(patterns))
+        patterns = [(pattern, re.compile(r"(^|(?!\s))"+pattern+r"((?=(\W(\W|$)))|(?=\s)|$)")) for pattern in reprMap.keys()]
 
         def createDatapoint(dom, domCon, tar, tarCon, relations, sentence):
             """ Generate the datapoints and add them to the document datapoint collection """ 
@@ -209,26 +211,29 @@ class Document:
         for sentence in Document.split(self._content, Document.SENTENCE):
 
             # Look for instances within the sentence - ensuring that you only match with individual words.
-            instances = list(aggregatedPattern.finditer(sentence))
+            instances = []
+            for rep, pattern in patterns:
+                [instances.append((rep, match)) for match in list(pattern.finditer(sentence))]
+
+                #match = pattern.search(sentence)
+                #if match is not None: instances.append((rep, match))
 
             while instances:
                 # While there are instances to work on
 
-                inst = instances.pop()
+                inst_rep, inst_match = instances.pop()
 
-                for match in instances:
+                for rep, match in instances:
                     # Collect the concept names the representations relate too
-                    instConcepts, matchConcepts = reprMap[inst.group(0).strip(" -")], reprMap[match.group(0).strip(" -")]
+                    instConcepts, matchConcepts = reprMap[inst_rep], reprMap[rep]
 
                     for instConcept, matchConcept in itertools.product(instConcepts, matchConcepts):
                     
                         relations = ontology.findRelations(domain=instConcept, target=matchConcept)
-
-
-                        [self._datapoints.append(p) for p in createDatapoint(inst, instConcept, match, matchConcept, relations, sentence)]
+                        [self._datapoints.append(p) for p in createDatapoint(inst_match, instConcept, match, matchConcept, relations, sentence)]
 
                         relations = ontology.findRelations(domain=matchConcept, target=instConcept)
-                        [self._datapoints.append(p) for p in createDatapoint(match, matchConcept, inst, instConcept, relations, sentence)]
+                        [self._datapoints.append(p) for p in createDatapoint(match, matchConcept, inst_match, instConcept, relations, sentence)]
 
     def save(self, folder: str = "./", filename: str = None) -> None:
         """

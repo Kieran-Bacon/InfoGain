@@ -4,7 +4,29 @@ class IncompleteDatapoint(Exception): pass
 from .Document import Document
 from .Datapoint import Datapoint
 
-def score(ontology, documents: [Document]):
+def score(ontology, documents: [Document])->(dict, dict):
+    """ Calculate the precision, recall and F1 score for a collection of documents.
+    The datapoints within the document are used to perform the scoring. The precision is
+    calculated from the datapoints correctly returned in recall. A comparison is made between
+    the annotation of the datapoint and its prediction.
+    Recall is determined by processing the text of the datapoints using the ontology provided.
+    The F1 score is an equation of the two other scores.
+
+    Handles a single document or a collection
+
+    Params:
+        ontology (Ontology) - An ontology of concepts and relations to direct processing
+        documents ([Document]) - A collection of document objects to score.
+
+    Returns:
+        corpus scores (dict) - A dictionary where the keys are the metrics, and the 
+            value is the collection averages
+        document scores (dict) -  A dictionary where the keys are the documents, and 
+            the values are a dictionary of the metric values for that document
+    """
+
+    if not isinstance(documents, list):
+        documents = [documents]
 
     corpus = {"precision": 0, "recall": 0, "f1": 0}
     scores = {}
@@ -22,16 +44,27 @@ def score(ontology, documents: [Document]):
         tempDoc = Document(content=document.text())
         tempDoc.processKnowledge(ontology)
 
-        newData = set(tempDoc.datapoints())
-        allData = set(document.datapoints())
+        originalPoints, newPoints = set(document.datapoints()), set(tempDoc.datapoints())
 
-        assert(len(allData) == len(document.datapoints()))
+        print("New")
+        for point in newPoints:
+            print(point, "-", "***"+point.text+"***", point in originalPoints)
 
-        recall = len(newData.intersection(allData))/len(allData)
+        print("Original")
+        for point in originalPoints:
+            print(point, "-", "***"+point.text+"***", point in newPoints)
+
+        print(sum([1 for i in newPoints if i in originalPoints]))
+        assert( sum([1 for i in newPoints if i in originalPoints]) == len(newPoints.intersection(originalPoints)))
+
+
+        recall = float(len(newPoints.intersection(originalPoints)))/len(originalPoints)
+        print(float(len(newPoints.intersection(originalPoints))))
+        print(len(originalPoints))
+        print(recall)
         corpus["recall"] += recall*len(document.datapoints())
 
         # Calculate F1
-
         f1 = (2*(precision*recall))/(precision+recall) if precision+recall else 0
         corpus["f1"] += f1*len(document.datapoints())
 
@@ -45,8 +78,12 @@ def score(ontology, documents: [Document]):
 def annotate(ontology, documents: [Document]):
     """ Annotate some documents! """
 
+    if not isinstance(documents, list):
+        documents = [documents]
+
     def cmdread(msg: str, valid: list = None):
         """ Read input from the command line ensuring that the input is valid """
+        from builtins import input
 
         if valid:
             msg += " ("+",".join(valid)+")"

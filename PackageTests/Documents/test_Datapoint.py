@@ -7,8 +7,8 @@ class Test_Datapoint(unittest.TestCase):
     
     def setUp(self):
         self.embeddingModel = Embedder()
-        pass
 
+        
     def test_embedding_context(self):
 
         # Check that the datapoint will correctly indicate if the context has not been set
