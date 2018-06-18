@@ -86,3 +86,13 @@ class Concept:
         if self.permeable: concept["permeable"] = self.permeable
 
         return concept
+
+class Instance(Concept):
+    """ A geniune instance of a concept existing in the knowledge. An instance is of a particular concept. """
+    
+    def __init__(self, name: str, parent: Concept, properties={}):
+        self.name = name
+        self.parent = parent
+
+        # Combine the provided properties of the instance with the concept properties if applicable
+        self.properties = {**parent.properties, **properties} if isinstance(parent, Concept) else properties
