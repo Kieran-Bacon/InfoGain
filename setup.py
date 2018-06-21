@@ -1,6 +1,6 @@
 from setuptools import setup
 
-requires = ["gensim"]
+requires = ["sklearn", "matplotlib", "gensim"]
 
 setup(name='InfoGain',
       install_requires=requires,

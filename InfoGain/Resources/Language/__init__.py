@@ -1,4 +1,5 @@
 import os
+from types import ModuleType
 ROOT = os.path.dirname(os.path.realpath(__file__))
 
 from ...Knowledge import Ontology
@@ -30,8 +31,7 @@ class DomainResources:
         if cls.trainingSet is None or num_of_docs != cls.trainingSize:
 
             files = os.listdir(os.path.join(ROOT, "training"))
-            if num_of_docs: files = files[:num_of_docs]
-            
+            if num_of_docs: files = files[:num_of_docs]          
             cls.trainingSet = [Document(filepath=os.path.join(ROOT, "training", name)) for name in files]
             cls.trainingSize = num_of_docs
 

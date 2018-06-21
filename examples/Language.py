@@ -32,9 +32,6 @@ lives_in = Relation({person}, "lives_in", {country})
 for relation in [speaks, born_in, lives_in]:
     LanguageOntology.addRelation(relation)
 
-# Saving the ontology
-LanguageOntology.save(filename = "example language ontology.json")
-
 # Create a training document
 training_string = "Kieran has lived in England for a long time. Kieran can speak English rather well"
 trainingDocument = annotate(LanguageOntology, [Document(content = training_string)])
@@ -60,5 +57,3 @@ print("Prediction content:")
 print(prediction_string)
 
 [print(point) for point in testing.datapoints()]
-
-extractor.save()
