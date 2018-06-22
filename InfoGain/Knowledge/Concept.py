@@ -39,7 +39,7 @@ class Concept:
         if not self.__dict__: return 0
         return hash(self.name)
 
-    def clone(self) -> Concept:
+    def clone(self):
         """ Return an new partial concept with identical information but invalid concept connections
         
         Returns:
@@ -54,7 +54,7 @@ class Concept:
 
         return clone
 
-    def ancestors(self) -> {Concept}:
+    def ancestors(self):
         """ Return a collection of concepts, all of the concepts that can be linked via the parent
         link. All the ancestor concepts are returned.
         
@@ -64,7 +64,7 @@ class Concept:
 
         ancestors = self.parents.copy()  # Add the parents of this concept as the initial set
 
-        for parent in self.parents:  # Recusively collect the parents of the collected concepts
+        for parent in self.parents:  # Recursively collect the parents of the collected concepts
             if isinstance(parent, str):
                 ancestors.add(parent)
             else:
@@ -72,7 +72,7 @@ class Concept:
 
         return ancestors
 
-    def descendants(self) -> {Concept}:
+    def descendants(self):
         """ Return a collection of child concepts linked to the current concept
         
         Returns:
