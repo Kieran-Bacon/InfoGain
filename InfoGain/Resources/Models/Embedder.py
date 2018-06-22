@@ -40,7 +40,8 @@ class Embedder:
         words = sentence.split()
 
         def pf(index: int, alpha: float = 1, beta: float = 0) -> float:
-            """ Return the output of a monotonic function as to reduce traling word embeddings """
+            """ Return the output of a monotonic function as to include order information into
+            the word embeddings """
             # TODO: Change function to something meaningful with support from someone
             #return alpha*(math.e**index) + beta
             return 1

@@ -6,7 +6,7 @@ class SpellingModel:
 
     @classmethod
     def load(cls, filepath: str = None) -> None:
-        """ Initialise the singleton class if the class hasn't already been initialised 
+        """ Initialise the singleton class if the class hasn't already been initialized 
 
         Params:
             filepath (str) - path to a saved version of the spelling model
@@ -32,7 +32,7 @@ class SpellingModel:
                 from ... import Resources
 
                 def words(text):
-                    return re.findall("\w+", text.lower())
+                    return re.findall(r"\w+", text.lower())
 
                 cls.WORDS = Counter(words(open(Resources.DICTIONARY).read()))
 
