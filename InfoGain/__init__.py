@@ -1,5 +1,3 @@
-# Ontology design and interaction 
-
 from .Resources import *
 
 import logging
