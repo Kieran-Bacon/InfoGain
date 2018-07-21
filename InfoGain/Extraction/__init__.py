@@ -1,1 +1,2 @@
 from .RelationExtractor import RelationExtractor
+from .RelationModel import RelationModel
