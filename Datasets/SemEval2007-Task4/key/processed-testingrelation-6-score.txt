@@ -1,0 +1,1446 @@
+{
+    "datapoints": [
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Pretty much every \"classic five pocket design\" boasted a ",
+                "right": " in the front right scoop pocket."
+            },
+            "text": "Pretty much every \"classic five pocket design\" boasted a coin pocket in the front right scoop pocket.",
+            "prediction": null,
+            "target": {
+                "concept": "pocket",
+                "text": "pocket"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "coin",
+                "text": "coin"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "'s ",
+                "left": "The Women's Chorus of Dallas is one of the nation's finest ",
+                "right": "."
+            },
+            "text": "The Women's Chorus of Dallas is one of the nation's finest women's choruses.",
+            "prediction": null,
+            "target": {
+                "concept": "choruses",
+                "text": "choruses"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "women",
+                "text": "women"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is enriched with ",
+                "left": "Everything is possible and my ",
+                "right": "."
+            },
+            "text": "Everything is possible and my life is enriched with joy.",
+            "prediction": null,
+            "target": {
+                "concept": "life",
+                "text": "life"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "joy",
+                "text": "joy"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " in ",
+                "left": "Wide and luminous one-roomed flat gained in an ancient ",
+                "right": " in typical Tuscan style, ideal for braces or small families."
+            },
+            "text": "Wide and luminous one-roomed flat gained in an ancient house in stone in typical Tuscan style, ideal for braces or small families.",
+            "prediction": null,
+            "target": {
+                "concept": "house",
+                "text": "house"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "stone",
+                "text": "stone"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "'s ",
+                "left": "Schools collected about US$5 million to build a sustainable textbook fund by charging a rental fee to parents equivalent to 1/7 of the ",
+                "right": "."
+            },
+            "text": "Schools collected about US$5 million to build a sustainable textbook fund by charging a rental fee to parents equivalent to 1/7 of the book's price.",
+            "prediction": null,
+            "target": {
+                "concept": "book",
+                "text": "book"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "price",
+                "text": "price"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " full of ",
+                "left": "Today, the coast guard discovered a ",
+                "right": "."
+            },
+            "text": "Today, the coast guard discovered a boat full of migrants.",
+            "prediction": null,
+            "target": {
+                "concept": "boat",
+                "text": "boat"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "migrants",
+                "text": "migrants"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "You know the ",
+                "right": " from Norway, but not what ship."
+            },
+            "text": "You know the year of emigration from Norway, but not what ship.",
+            "prediction": null,
+            "target": {
+                "concept": "emigration",
+                "text": "emigration"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "year",
+                "text": "year"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "I've heard the ",
+                "right": " is making a recovery but isn't it a bit early to put my money."
+            },
+            "text": "I've heard the stock market is making a recovery but isn't it a bit early to put my money.",
+            "prediction": null,
+            "target": {
+                "concept": "market",
+                "text": "market"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "stock",
+                "text": "stock"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "Several recent media reports have included speculations about the ",
+                "right": " in H5N1 avian influenza viruses."
+            },
+            "text": "Several recent media reports have included speculations about the significance of mutations in H5N1 avian influenza viruses.",
+            "prediction": null,
+            "target": {
+                "concept": "mutations",
+                "text": "mutations"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "significance",
+                "text": "significance"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "'s ",
+                "left": "All Uplanders have a two-tone color scheme with faux metal accents that dramatically brightens the ",
+                "right": "."
+            },
+            "text": "All Uplanders have a two-tone color scheme with faux metal accents that dramatically brightens the cabin's atmosphere.",
+            "prediction": null,
+            "target": {
+                "concept": "cabin",
+                "text": "cabin"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "atmosphere",
+                "text": "atmosphere"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "According to the Top 100 Journals Reporting Macromolecular Structures, it ranks sixth in published ",
+                "right": " in the Protein Data Bank."
+            },
+            "text": "According to the Top 100 Journals Reporting Macromolecular Structures, it ranks sixth in published quantity of entries in the Protein Data Bank.",
+            "prediction": null,
+            "target": {
+                "concept": "entries",
+                "text": "entries"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "quantity",
+                "text": "quantity"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "'s ",
+                "left": "However, in the ",
+                "right": ", it is stated that the side airbags would only deploy when the car receives a side hit,\" Wu said."
+            },
+            "text": "However, in the car's handbook, it is stated that the side airbags would only deploy when the car receives a side hit,\" Wu said.",
+            "prediction": null,
+            "target": {
+                "concept": "handbook",
+                "text": "handbook"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "car",
+                "text": "car"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " never present in ",
+                "left": "Larger ",
+                "right": " become less abundant."
+            },
+            "text": "Larger species never present in major amount become less abundant.",
+            "prediction": null,
+            "target": {
+                "concept": "major amount",
+                "text": "major amount"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "species",
+                "text": "species"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " contains ",
+                "left": "The ",
+                "right": " to non-journal material and to journal articles."
+            },
+            "text": "The database contains annotated references to non-journal material and to journal articles.",
+            "prediction": null,
+            "target": {
+                "concept": "database",
+                "text": "database"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "annotated references",
+                "text": "annotated references"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Our villa was extremely clean, the only flaw being some stains on one side of the ",
+                "right": "."
+            },
+            "text": "Our villa was extremely clean, the only flaw being some stains on one side of the sofa cushions.",
+            "prediction": null,
+            "target": {
+                "concept": "sofa",
+                "text": "sofa"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "cushions",
+                "text": "cushions"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is enriched with ",
+                "left": "Each ",
+                "right": ", explanations, and etymological information."
+            },
+            "text": "Each entry is enriched with synonyms, explanations, and etymological information.",
+            "prediction": null,
+            "target": {
+                "concept": "entry",
+                "text": "entry"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "synonyms",
+                "text": "synonyms"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " packed to the ",
+                "left": "And I spent Thanksgiving in a ",
+                "right": ", with many of the congregation having to stand."
+            },
+            "text": "And I spent Thanksgiving in a church packed to the limit, with many of the congregation having to stand.",
+            "prediction": null,
+            "target": {
+                "concept": "church",
+                "text": "church"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "limit",
+                "text": "limit"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "Arizona police found 214 ",
+                "right": " in trunk of 62-year-old woman."
+            },
+            "text": "Arizona police found 214 pounds of marijuana in trunk of 62-year-old woman.",
+            "prediction": null,
+            "target": {
+                "concept": "marijuana",
+                "text": "marijuana"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "pounds",
+                "text": "pounds"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "The Clean Water Act requires that the ",
+                "right": " of each state be classified according to designated uses."
+            },
+            "text": "The Clean Water Act requires that the surface waters of each state be classified according to designated uses.",
+            "prediction": null,
+            "target": {
+                "concept": "waters",
+                "text": "waters"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "surface",
+                "text": "surface"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "Experimental vaccine blocks ",
+                "right": " in mice study."
+            },
+            "text": "Experimental vaccine blocks transmission of malaria in mice study.",
+            "prediction": null,
+            "target": {
+                "concept": "malaria",
+                "text": "malaria"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "transmission",
+                "text": "transmission"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "Iraqi forces kill ",
+                "right": " in Najaf."
+            },
+            "text": "Iraqi forces kill hundreds of gunmen in Najaf.",
+            "prediction": null,
+            "target": {
+                "concept": "gunmen",
+                "text": "gunmen"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "hundreds",
+                "text": "hundreds"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Blinds all closed for privacy, his black army boots scuffing the dirt coated ",
+                "right": "."
+            },
+            "text": "Blinds all closed for privacy, his black army boots scuffing the dirt coated linoleum floor.",
+            "prediction": null,
+            "target": {
+                "concept": "floor",
+                "text": "floor"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "linoleum",
+                "text": "linoleum"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "'s ",
+                "left": "The sliding doors provide 360 degree visibility for the ",
+                "right": "."
+            },
+            "text": "The sliding doors provide 360 degree visibility for the room's occupants.",
+            "prediction": null,
+            "target": {
+                "concept": "room",
+                "text": "room"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "occupants",
+                "text": "occupants"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "The ",
+                "right": " are the rarest of all and are on the verge of extinction."
+            },
+            "text": "The mountain gorillas are the rarest of all and are on the verge of extinction.",
+            "prediction": null,
+            "target": {
+                "concept": "gorillas",
+                "text": "gorillas"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "mountain",
+                "text": "mountain"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Then he planted his apple seeds in neat rows and built a ",
+                "right": " around the area."
+            },
+            "text": "Then he planted his apple seeds in neat rows and built a brush fence around the area.",
+            "prediction": null,
+            "target": {
+                "concept": "fence",
+                "text": "fence"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "brush",
+                "text": "brush"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "Official site with information for prospective and current students includes ",
+                "right": ", events, and research."
+            },
+            "text": "Official site with information for prospective and current students includes details of courses, events, and research.",
+            "prediction": null,
+            "target": {
+                "concept": "courses",
+                "text": "courses"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "details",
+                "text": "details"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "A supper of ",
+                "right": " and soup followed and at 6pm we resigned ourselves to another night of headaches and zero sleep."
+            },
+            "text": "A supper of chocolate bars and soup followed and at 6pm we resigned ourselves to another night of headaches and zero sleep.",
+            "prediction": null,
+            "target": {
+                "concept": "bars",
+                "text": "bars"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "chocolate",
+                "text": "chocolate"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of the ",
+                "left": "The two special ",
+                "right": " in the brain are called the falx and the tentorium."
+            },
+            "text": "The two special folds of the dura in the brain are called the falx and the tentorium.",
+            "prediction": null,
+            "target": {
+                "concept": "dura",
+                "text": "dura"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "folds",
+                "text": "folds"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "This page is a ",
+                "right": " in Italy."
+            },
+            "text": "This page is a directory of libraries in Italy.",
+            "prediction": null,
+            "target": {
+                "concept": "directory",
+                "text": "directory"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "libraries",
+                "text": "libraries"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "The ",
+                "right": " is February, 2, 2007."
+            },
+            "text": "The submission deadline is February, 2, 2007.",
+            "prediction": null,
+            "target": {
+                "concept": "deadline",
+                "text": "deadline"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "submission",
+                "text": "submission"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "This course will provide you with a broad and useful ",
+                "right": " and components."
+            },
+            "text": "This course will provide you with a broad and useful understanding of surfaces and components.",
+            "prediction": null,
+            "target": {
+                "concept": "surfaces",
+                "text": "surfaces"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "understanding",
+                "text": "understanding"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "The ",
+                "right": " is to ensure that education provided by institutions of higher education."
+            },
+            "text": "The goal of accreditation is to ensure that education provided by institutions of higher education.",
+            "prediction": null,
+            "target": {
+                "concept": "accreditation",
+                "text": "accreditation"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "goal",
+                "text": "goal"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " enriched with ",
+                "left": "Our Belle de Provence soaps are 100% pure vegetable ",
+                "right": " and sweet almond oil."
+            },
+            "text": "Our Belle de Provence soaps are 100% pure vegetable soaps enriched with shea butter and sweet almond oil.",
+            "prediction": null,
+            "target": {
+                "concept": "soaps",
+                "text": "soaps"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "shea butter",
+                "text": "shea butter"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is found in ",
+                "left": "",
+                "right": ", yellow vegetables and dark green vegetables and is converted to vitamin A in the body."
+            },
+            "text": "Beta-carotene is found in carrots, yellow vegetables and dark green vegetables and is converted to vitamin A in the body.",
+            "prediction": null,
+            "target": {
+                "concept": "carrots",
+                "text": "carrots"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "Beta-carotene",
+                "text": "Beta-carotene"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "Honors & Awards Faculty awards and national ",
+                "right": " included Nobel Prize winners."
+            },
+            "text": "Honors & Awards Faculty awards and national rankings of programs included Nobel Prize winners.",
+            "prediction": null,
+            "target": {
+                "concept": "programs",
+                "text": "programs"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "rankings",
+                "text": "rankings"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "But the ",
+                "right": " in the human realm remains controversial."
+            },
+            "text": "But the role of pheromones in the human realm remains controversial.",
+            "prediction": null,
+            "target": {
+                "concept": "pheromones",
+                "text": "pheromones"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "role",
+                "text": "role"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "At a public generalist university ",
+                "right": " offered include mathematics, sciences, humanities, medicine, law, and Christian theology."
+            },
+            "text": "At a public generalist university fields of study offered include mathematics, sciences, humanities, medicine, law, and Christian theology.",
+            "prediction": null,
+            "target": {
+                "concept": "study",
+                "text": "study"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "fields",
+                "text": "fields"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "This includes ",
+                "right": ", research, staff, and conferences."
+            },
+            "text": "This includes details of facilities, research, staff, and conferences.",
+            "prediction": null,
+            "target": {
+                "concept": "facilities",
+                "text": "facilities"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "details",
+                "text": "details"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is fortified with ",
+                "left": "",
+                "right": " (the synthetic form of naturally occurring folate), due to Food and Drug Administration (FDA) regulations that require enriched grain products to contain this essential vitamin."
+            },
+            "text": "Pasta is fortified with folic acid (the synthetic form of naturally occurring folate), due to Food and Drug Administration (FDA) regulations that require enriched grain products to contain this essential vitamin.",
+            "prediction": null,
+            "target": {
+                "concept": "Pasta",
+                "text": "Pasta"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "folic acid",
+                "text": "folic acid"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "Even if we are entirely despised in the ",
+                "right": ", let us rejoice that we are honoured in the sight of God."
+            },
+            "text": "Even if we are entirely despised in the eyes of men, let us rejoice that we are honoured in the sight of God.",
+            "prediction": null,
+            "target": {
+                "concept": "men",
+                "text": "men"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "eyes",
+                "text": "eyes"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "A special design of tank bottom plate and ",
+                "right": " mud guns makes mud flow out from sand cleaning door automatically so that operators needn't go down."
+            },
+            "text": "A special design of tank bottom plate and sea bottom mud guns makes mud flow out from sand cleaning door automatically so that operators needn't go down.",
+            "prediction": null,
+            "target": {
+                "concept": "bottom",
+                "text": "bottom"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "sea",
+                "text": "sea"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "We have in recent months witnessed what I can only describe as ",
+                "right": " from across the spectrum."
+            },
+            "text": "We have in recent months witnessed what I can only describe as assassinations of humanitarians from across the spectrum.",
+            "prediction": null,
+            "target": {
+                "concept": "humanitarians",
+                "text": "humanitarians"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "assassinations",
+                "text": "assassinations"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " comprises ",
+                "left": "The historical ",
+                "right": " and guidelines by which historians use primary sources and other evidence to research and then to write history."
+            },
+            "text": "The historical method comprises techniques and guidelines by which historians use primary sources and other evidence to research and then to write history.",
+            "prediction": null,
+            "target": {
+                "concept": "method",
+                "text": "method"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "techniques",
+                "text": "techniques"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " made with ",
+                "left": "And he will show a shark ",
+                "right": ", vegan mozzarella-style cheese, and Smart Deli Bologna on a whole wheat bun."
+            },
+            "text": "And he will show a shark sandwich made with mustard, vegan mozzarella-style cheese, and Smart Deli Bologna on a whole wheat bun.",
+            "prediction": null,
+            "target": {
+                "concept": "sandwich",
+                "text": "sandwich"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "mustard",
+                "text": "mustard"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " in the ",
+                "left": "One splendid sunshiny day, about an hour after noon, Irene, who was playing on the ",
+                "right": ", heard the distant blast of a bugle."
+            },
+            "text": "One splendid sunshiny day, about an hour after noon, Irene, who was playing on the lawn in the garden, heard the distant blast of a bugle.",
+            "prediction": null,
+            "target": {
+                "concept": "garden",
+                "text": "garden"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "lawn",
+                "text": "lawn"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "This year health care providers and local health departments have ample ",
+                "right": "."
+            },
+            "text": "This year health care providers and local health departments have ample supplies of vaccine.",
+            "prediction": null,
+            "target": {
+                "concept": "vaccine",
+                "text": "vaccine"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "supplies",
+                "text": "supplies"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of her ",
+                "left": "Gathering her courage, she walked to the open front door, the ",
+                "right": " along the rough wooden planks."
+            },
+            "text": "Gathering her courage, she walked to the open front door, the padding of her sandaled feet along the rough wooden planks.",
+            "prediction": null,
+            "target": {
+                "concept": "sandaled feet",
+                "text": "sandaled feet"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "padding",
+                "text": "padding"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "The specification includes the ",
+                "right": " from one node."
+            },
+            "text": "The specification includes the ordering of messages from one node.",
+            "prediction": null,
+            "target": {
+                "concept": "messages",
+                "text": "messages"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "ordering",
+                "text": "ordering"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "None of the ",
+                "right": " are affiliated with Kaplan or this website."
+            },
+            "text": "None of the trademark holders are affiliated with Kaplan or this website.",
+            "prediction": null,
+            "target": {
+                "concept": "holders",
+                "text": "holders"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "trademark",
+                "text": "trademark"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "The story these measurement techniques are all telling is that the ",
+                "right": " are shrinking more than they were 10 years ago,\" said Abdalati."
+            },
+            "text": "The story these measurement techniques are all telling is that the ice sheets are shrinking more than they were 10 years ago,\" said Abdalati.",
+            "prediction": null,
+            "target": {
+                "concept": "sheets",
+                "text": "sheets"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "ice",
+                "text": "ice"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "'s ",
+                "left": "This is the ",
+                "right": " to encourage more employers to open up childcare centres at the respective ministries and government departments."
+            },
+            "text": "This is the government's effort to encourage more employers to open up childcare centres at the respective ministries and government departments.",
+            "prediction": null,
+            "target": {
+                "concept": "effort",
+                "text": "effort"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "government",
+                "text": "government"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "This example of a uniform rod previews some common features about the process of finding the ",
+                "right": " of the continuous body."
+            },
+            "text": "This example of a uniform rod previews some common features about the process of finding the center of mass of the continuous body.",
+            "prediction": null,
+            "target": {
+                "concept": "mass",
+                "text": "mass"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "center",
+                "text": "center"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "It is monetary ",
+                "right": " from cocaine among mentally ill patients with cocaine dependence."
+            },
+            "text": "It is monetary reinforcement of abstinence from cocaine among mentally ill patients with cocaine dependence.",
+            "prediction": null,
+            "target": {
+                "concept": "abstinence",
+                "text": "abstinence"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "reinforcement",
+                "text": "reinforcement"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "The ",
+                "right": " are allowed."
+            },
+            "text": "The hat wearers are allowed.",
+            "prediction": null,
+            "target": {
+                "concept": "wearers",
+                "text": "wearers"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "hat",
+                "text": "hat"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " with ",
+                "left": "",
+                "right": " are supposed to get mad very easily, but Allie never did, and he had very red hair."
+            },
+            "text": "People with red hair are supposed to get mad very easily, but Allie never did, and he had very red hair.",
+            "prediction": null,
+            "target": {
+                "concept": "People",
+                "text": "People"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "red hair",
+                "text": "red hair"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "'s ",
+                "left": "There was another sign below that showing a ",
+                "right": " in silhouette, painted a bright yellow."
+            },
+            "text": "There was another sign below that showing a man's head in silhouette, painted a bright yellow.",
+            "prediction": null,
+            "target": {
+                "concept": "man",
+                "text": "man"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "head",
+                "text": "head"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "And the point was that since there is no Libertopia, there's no steady ",
+                "right": " from it to provoke people."
+            },
+            "text": "And the point was that since there is no Libertopia, there's no steady string of atrocities from it to provoke people.",
+            "prediction": null,
+            "target": {
+                "concept": "atrocities",
+                "text": "atrocities"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "string",
+                "text": "string"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " use ",
+                "left": "Our organic ",
+                "right": " (the other 5% is the yeast and salt, of which only \"all-natural\" is available)."
+            },
+            "text": "Our organic breads use organic ingredients (the other 5% is the yeast and salt, of which only \"all-natural\" is available).",
+            "prediction": null,
+            "target": {
+                "concept": "breads",
+                "text": "breads"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "organic ingredients",
+                "text": "organic ingredients"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "'s ",
+                "left": "These are just a few thoughts from a ",
+                "right": " in a time of war with all the talk of increasing troop levels."
+            },
+            "text": "These are just a few thoughts from a soldier's mom in a time of war with all the talk of increasing troop levels.",
+            "prediction": null,
+            "target": {
+                "concept": "soldier",
+                "text": "soldier"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "mom",
+                "text": "mom"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "The ",
+                "right": " are 16 lagomorph species in the genus Sylvilagus, found in the Americas."
+            },
+            "text": "The cottontail rabbits are 16 lagomorph species in the genus Sylvilagus, found in the Americas.",
+            "prediction": null,
+            "target": {
+                "concept": "rabbits",
+                "text": "rabbits"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "cottontail",
+                "text": "cottontail"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "Mithraism reached its ",
+                "right": " in the third century."
+            },
+            "text": "Mithraism reached its height of popularity in the third century.",
+            "prediction": null,
+            "target": {
+                "concept": "popularity",
+                "text": "popularity"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "height",
+                "text": "height"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "Ensure that you don't lose a ",
+                "right": " by nestling your shellfish in salt."
+            },
+            "text": "Ensure that you don't lose a drop of juice by nestling your shellfish in salt.",
+            "prediction": null,
+            "target": {
+                "concept": "juice",
+                "text": "juice"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "drop",
+                "text": "drop"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of the ",
+                "left": "How many have had to sit on both ",
+                "right": "?"
+            },
+            "text": "How many have had to sit on both sides of the table?",
+            "prediction": null,
+            "target": {
+                "concept": "table",
+                "text": "table"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "sides",
+                "text": "sides"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "As Rachel Mosteller wrote earlier today, the ",
+                "right": " can take over your home in the blink of an eye."
+            },
+            "text": "As Rachel Mosteller wrote earlier today, the abundance of toys can take over your home in the blink of an eye.",
+            "prediction": null,
+            "target": {
+                "concept": "toys",
+                "text": "toys"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "abundance",
+                "text": "abundance"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "The Cellar features a unique ",
+                "right": " from around the world."
+            },
+            "text": "The Cellar features a unique selection of wines from around the world.",
+            "prediction": null,
+            "target": {
+                "concept": "wines",
+                "text": "wines"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "selection",
+                "text": "selection"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "Fishes are more prone to predation from groups of predators because multiple predators can surround a ",
+                "right": " and prevent fishes from escaping."
+            },
+            "text": "Fishes are more prone to predation from groups of predators because multiple predators can surround a school of fish and prevent fishes from escaping.",
+            "prediction": null,
+            "target": {
+                "concept": "school",
+                "text": "school"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "fish",
+                "text": "fish"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "Standoff sensing performed in real time by exploiting the spectral ",
+                "right": "."
+            },
+            "text": "Standoff sensing performed in real time by exploiting the spectral properties of aerosols.",
+            "prediction": null,
+            "target": {
+                "concept": "aerosols",
+                "text": "aerosols"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "properties",
+                "text": "properties"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "The ",
+                "right": " in Antarctic deepens as suicide is ruled out."
+            },
+            "text": "The mystery of poisoning in Antarctic deepens as suicide is ruled out.",
+            "prediction": null,
+            "target": {
+                "concept": "poisoning",
+                "text": "poisoning"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "mystery",
+                "text": "mystery"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "The ",
+                "right": " looked nice, but it took the winner more than two hours to paint the matches and glue them together into a tiny box."
+            },
+            "text": "The box of matches looked nice, but it took the winner more than two hours to paint the matches and glue them together into a tiny box.",
+            "prediction": null,
+            "target": {
+                "concept": "box",
+                "text": "box"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "matches",
+                "text": "matches"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " into the ",
+                "left": "Bruto, the Diefenbachers' black and white American pit bull terrier, confronted the deputy as he stepped through the ",
+                "right": "."
+            },
+            "text": "Bruto, the Diefenbachers' black and white American pit bull terrier, confronted the deputy as he stepped through the door into the house.",
+            "prediction": null,
+            "target": {
+                "concept": "house",
+                "text": "house"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "door",
+                "text": "door"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " into the ",
+                "left": "She inserted the ",
+                "right": " and then stood back as the doorway opened and a light went all over rouge."
+            },
+            "text": "She inserted the key into the lock and then stood back as the doorway opened and a light went all over rouge.",
+            "prediction": null,
+            "target": {
+                "concept": "lock",
+                "text": "lock"
+            },
+            "annotation": -1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "key",
+                "text": "key"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "A single ",
+                "right": " in a bag for glass and tins means this young man now has a criminal record which will blight his entire life."
+            },
+            "text": "A single scrap of paper in a bag for glass and tins means this young man now has a criminal record which will blight his entire life.",
+            "prediction": null,
+            "target": {
+                "concept": "paper",
+                "text": "paper"
+            },
+            "annotation": 1,
+            "relation": "Part-Whole",
+            "domain": {
+                "concept": "scrap",
+                "text": "scrap"
+            }
+        }
+    ],
+    "name": "db57ab84cf654af5be47b628b1471855",
+    "content": ""
+}

@@ -1,0 +1,101 @@
+Entity1	Relation	Entity2	Annotated Sentence
+Philip Morris	---	General Motors and Proctor & Gamble
+Ralph Holzfaster	---	Ogallala
+Poland	---	Honecker
+Washington Post	---	Webster
+Mr. Farley	---	Cluett
+U.S.	---	Blue Arrow
+Alice	---	Mr. Fromstein
+Mr. Sim	---	Barry Wright
+UAL	---	UAL
+George L. Ball	---	Prudential Insurance Co.
+L.J. Hooker	---	Mr. Simpson
+L.J. Hooker International	---	Merrill Lynch Commercial Real Estate
+Hooker Corp.	---	Parisian
+John Neff	---	Michael Price
+Elaine Garzarelli	---	Shearson Lehman Hutton Inc.
+America West	---	San Antonio
+Boeing	---	Frank Shrontz
+Mr. Richardson	---	Atco
+Heitman Advisory Corp.	---	Heitman Financial Corp.
+First Boston Corp.	---	Petrolane Inc.
+EC	---	U.S.
+Lemon Cheer	introduced	Japan
+Andrew Jergens Co.	maker	Cincinnati
+Mr. Mosbacher	---	Mrs. Hills
+Sulka	---	U.S.
+Bush	---	Western Europe
+Francesco Cossiga	---	Olivetti
+Salomon	---	Hongkong & Shanghai Banking Corp
+Northview Corp.	---	Vagabonds Hotels
+Daniel Basse	analyst	AgResource Co.
+New York Mercantile Exchange	---	West Texas
+Robert Louis-Dreyfus	---	Saatchi
+Omnicom Group	---	BBDO
+Samsung	owns	Korea First Advertising Co.
+New York	---	Bonwit Teller and B. Altman & Co.
+Alan Kassan	analyst	Shearson Lehman Hutton
+UAW	---	Stephen P. Yokich
+Pontiac	---	UAW
+Viren Mehta	partner	Mehta & Isaly
+Pfizer Inc.	---	Upjohn Co.
+Indianapolis	declined	Lilly
+South Bronx	---	Tom Wolfe
+Travis	---	Travis
+Kenneth Olsen	---	Digital Equipment Corp.
+Edward A. Friedman	president	Helmsley Spear Inc
+Columbia Laboratories Inc.	---	COB
+Brennan	---	Marshall
+NCNB	---	Florida
+Meridian Bancorp Inc.	---	Hill Financial Savings Association
+Trans World Airlines Inc.	---	Drexel Burnham
+Sen. Christopher Dodd	---	State Department
+CNN	competition	Financial News Network Inc.
+Robert Stengel	president	Continental Cablevision Inc.
+Charles Haworth	lawyer	Sunbelt
+Sisulu	---	Nelson Mandela
+South Korea	---	Roh
+Miami Beach	---	Victor Posner
+Victor Posner	---	Arby 's Inc.
+John Mueller	economist	Bell Mueller Cannon
+American Stock Exchange	---	CenTrust
+Brian Wenham	---	British Broadcasting Corp
+Stamford	---	General Electric Co.
+GEC	---	Matra
+Ronald Watkins	---	Interhome Energy Inc
+Mr. Lichtblau	---	Interprovincial
+Russ Crabs	analyst	Soundview Financial Group
+Mr. Brown	---	Wyse
+Tom Manske	president	National Pocket Billiards Association
+Mr. Mason	---	Jackie
+Senate	---	Robert Dole
+Senate	---	House
+Senate	---	Sen. Mitchell
+Shearson Lehman Hutton Inc.	---	Ms. Garzarelli
+U.S.	---	Federal Reserve Board
+Mr. Pierce	---	HUD
+Robert King	president	Robinson-Humphrey Co.
+Jeremiah Mullins	chief	Dean Witter Reynolds
+Mr. Cecin	---	Piper Jaffray
+Neil Weisman	converted	Chilmark Capital Partners
+Bolar	---	N.Y.
+Sam Skinner	forced	Northwest Airlines
+Senate	---	George Mitchell
+Panetta	---	OMB
+West Virginia	---	Economic Development And Tourism Authority
+John Snyder	---	Los Angeles
+Leslie Quick Jr.	---	Quick & Reilly
+Compaq	---	Zenith
+Dynabook	---	Compaq
+Honeywell	---	IBM
+Seattle	---	Boeing
+Martinair Holland	based	Amsterdam
+Petrolane	---	U.S.
+Kao Corp.	---	U.S.
+Hugh Zurkuhlen	analyst	Salomon Bros
+Mrs. Hills	---	American Chamber of Commerce
+Syms Corp.	sale	Luxco Investments
+Olivetti	---	Cocom
+Mr. Bush	---	North Atlantic Treaty Organization
+Pentagon	---	Commerce Department
+Salomon Brothers International Ltd.	---	Salomon Inc.

@@ -1,7 +1,7 @@
 import os
 
-from .Language import DomainResources as Language 
-from .Medicine import DomainResources as Medicine
+from .Language import Language
+from .Medicine import Medicine
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
 TEXT_COLLECTIONS = [os.path.join(ROOT,"TextCollections", name) for name in os.listdir(os.path.join(ROOT,"TextCollections"))]

@@ -10,14 +10,26 @@ from ...Extraction import RelationExtractor
 from multiprocessing import Process, Queue
 
 def RETune(ont: Ontology, training: [Datapoint]):
+    """ Tune the relation extraction class over a range of various values and return the correct
+    parameters
 
+    Params:
+        ont (RelationExtractor/Ontology) - The ontology of information needed to form the base
+        training ([Datapoint]) - A collection of data points to be able to perform cross
+            validation
+
+    Returns:
+        scores - A data structure that holds all of the metric scores for the extractor against
+            the structures then against the alphas
+        structures - The network sizes and shapes
+        alphas - The neural network 
+    """
+
+    logging.getLogger().setLevel(logging.ERROR)  # Ensure that logging output is captured
+
+    # The structures to validate
     structures = [(3,1), (4,2), (6,3), (8,4), (12,6), (20,10), (50,20)]
     alphas = logspace(-16,1,20)
-
-    #structures = [(50,20)]
-    #alphas =[1.4384498882876659e-09]
-
-    logging.getLogger().setLevel(logging.ERROR)
 
     scores = []
     for layers in structures:

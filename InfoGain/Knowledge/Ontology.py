@@ -42,17 +42,27 @@ class Ontology:
                     domains = {self.concept(con) for con in conceptSet["domains"]}
                     targets = {self.concept(con) for con in conceptSet["targets"]}
 
-                    if None in domains.union(targets): raise MissingConcept("Relation '"+name+"' references unknown concept.")
+                    if None in domains.union(targets): raise MissingConcept("Relation '" + name + 
+                        "' references unknown concept.")
 
                     self.addRelation(Relation(domains, name, targets))
 
     def addConcept(self, concept: Concept) -> None:
         """ Add concept object to ontology, overwrite previous concept if present.
         Identifies the relation ships concepts parent objects are and becomes members to those
-        relations if applicable. """
+        relations if applicable. 
+        
+        Params:
+            concept (Concept) - The concept to add
+        """
 
-        def link_concepts(first, second):
-            """ Link the two concepts if applicable """
+        def link_concepts(first: Concept, second: Concept) -> None:
+            """ Link the two concepts if applicable 
+            
+            Params:
+                first (Concept) - Concept one 
+                second (Concept - Concept two
+            """
             if isinstance(second, str):
                 second = self.concept(second)
                 if not second:
@@ -83,34 +93,46 @@ class Ontology:
                 
         # Save concept
         self._concepts[concept.name] = concept
-        [instance.subscribe(concept) for relation in self._relations.values() for instance in relation]
+        [inst.subscribe(concept) for relation in self._relations.values() for inst in relation]
 
     def addRelation(self, relation: Relation) -> None:
-        """ Add a relation to the ontology store, ensuring to create a new slot if not previously seen """
-
+        """ Add a new relation object to the ontology, correctly link the relation concepts to the 
+        ontology.
+        
+        Params:
+            relation (Relation) - The relation object to add to the ontology
+        """
+ 
+        # Ensure the domain concepts are correctly linked with the relation
         for con in relation.domains:
             if isinstance(con, str):
                 con = self.concept(con)
                 if con is None:
-                    raise MissingConcept("Newly added relation '"+relation.name+"' references concepts not in ontology")
+                    raise MissingConcept("Newly added relation '" + relation.name + 
+                        "' references concepts not in ontology")
                 else:
                     relation.domains.remove(con)
                     relation.domains.add(con)
 
+        # Ensure the target concepts are correctly linked with the relation
         for con in relation.targets:
             if isinstance(con, str):
                 con = self.concept(con)
                 if con is None:
-                    raise MissingConcept("Newly added relation '"+relation.name+"' references concepts not in ontology")
+                    raise MissingConcept("Newly added relation '" + relation.name + 
+                        "' references concepts not in ontology")
                 else:
                     relation.targets.remove(con)
                     relation.targets.add(con)
 
+
+        # Add the relationship to the ontology store
         pairing = self._relations.get(relation.name, set())
         pairing.add(relation)
         self._relations[relation.name] = pairing
 
     def concept(self, conceptName: str) -> Concept:
+        """ Collect the ontology concept with the name given, or None """
         return self._concepts.get(conceptName, None)
 
     def concepts(self) -> [Concept]:
@@ -118,16 +140,30 @@ class Ontology:
         return list(self._concepts.values())
 
     def relation(self, relationName: str) -> Relation:
-
+        """ Collect the relation objects for name given, or None """
         collection = self._relations.get(relationName, None)
         return collection
 
     def relations(self, keys=False) -> [str]:
+        """ Return the ontology relations or the names of all the relations 
+        
+        Params:
+            keys (bool) - Toggle for the names of the relations or the relations themselves
+        
+        Returns:
+            [str] - A list of names of the relations or a list of relation objects
+        """
         if keys: return self._relations.keys()
         return list(self._relations.values())
 
-    def findRelations(self, domain: str, target: str):
-        """ Return a list of relations that could be formed between the domain and the target """
+    def findRelations(self, domain: str, target: str) -> [Relation]:
+        """ Return a list of relations that could be formed between the domain and the target 
+        objects. Yield the relations.
+        
+        Params:
+            domain (Concept) - A concept that needs to match with the domain of potential relations
+            target (Concept) - A concept that needs to match with the target of potential relations
+        """
         dom, tar = self.concept(domain), self.concept(target)
         if None in (dom, tar):
             raise Exception("Invalid concepts provided when looking for relations")
@@ -138,7 +174,11 @@ class Ontology:
                     yield relation
 
     def clone(self):
-        """ Create a new ontology object that is a deep copy of this ontology instance """
+        """ Create a new ontology object that is a deep copy of this ontology instance 
+        
+        Returns:
+            clone (Ontology) - A deep copy of this ontology object
+        """
 
         ontologyClone = Ontology(self.name)
 
@@ -155,7 +195,12 @@ class Ontology:
         return ontologyClone
 
     def save(self, folder: str = "./", filename: str = None) -> None:
-        """ Save the file to the current working directory or the filename provided """
+        """ Save the file to the current working directory or the filename provided
+        
+        Params:
+            folder (str) - The directory destination of the saved file
+            filename (str) - The name to be given to the saved file
+        """
 
         import os, uuid
 

@@ -4,48 +4,87 @@ ROOT = os.path.dirname(os.path.realpath(__file__))
 from ...Knowledge import Ontology
 from ...Documents import Document
 
-class DomainResources:
+class Medicine:
+    """ Class that holds and represents a domain of information and provides convenient functions to
+    be able to interact with that information. Acts as a single class """
 
-    ontologyObj = None
-    trainingSet = None
-    trainingSize = None
-    testingSet = None
-    testingSize = None
+    __ontologyObj = None
+    __trainingSet = None
+    __trainingSize = None
+    __testingSet = None
+    __testingSize = None
 
     @classmethod
-    def ontology(cls, get_path=False) -> Ontology:
+    def ontology(cls, get_path: bool=False) -> Ontology:
+        """ Load and return the language ontology, keep the ontology loaded for quick return if
+        promted again 
+        
+        Params:
+            get_path (str) - A toggle to inform where the path to the ontology should be returned
+        
+        Returns:
+            Ontology - the ontology object of the domain
+            str - The path, may be returned
+        """
 
-        if cls.ontologyObj is None:
+        if cls.__ontologyObj is None:
 
-            cls.ontologyObj = Ontology(filepath=os.path.join(ROOT, "ontology.json"))
-            return cls.ontologyObj
+            cls.__ontologyObj = Ontology(filepath=os.path.join(ROOT, "ontology.json"))
+            return cls.__ontologyObj
 
         if get_path:
-            return cls.ontologyObj, os.path.join(ROOT, "ontology.json")
-        return cls.ontologyObj
+            return cls.__ontologyObj, os.path.join(ROOT, "ontology.json")
+        return cls.__ontologyObj
 
     @classmethod
-    def training(cls, num_of_docs=None) -> Document:
+    def training(cls, num_of_docs: int=None) -> [Document]:
+        """ Load and store training documents for the domain
 
-        if cls.trainingSet is None or num_of_docs != cls.trainingSize:
+        Params:
+            num_of_documents (int) - The number of training documents to be returned
+        
+        Returns:
+            [Document] - A collection of training documents for this domain
+        """
+
+        if cls.__trainingSet is None or num_of_docs != cls.__trainingSize:
 
             files = os.listdir(os.path.join(ROOT, "training"))
-            if num_of_docs: files = files[:num_of_docs]
-            
-            cls.trainingSet = [Document(filepath=os.path.join(ROOT, "training", name)) for name in files]
-            cls.trainingSize = num_of_docs
+            if num_of_docs: files = files[:num_of_docs]          
+            cls.__trainingSet = [Document(filepath=os.path.join(ROOT, "training", name))
+                for name in files]
+            cls.__trainingSize = num_of_docs
 
-        return cls.trainingSet
+        return cls.__trainingSet
 
     @classmethod
-    def testing(cls, num_of_docs=None) -> Document:
+    def testing(cls, num_of_docs: int=None) -> Document:
+        """ Load and store un-annotated documents from the domain to act as documents to predict
+        on
 
-        if cls.testingSet is None or num_of_docs != cls.testingSize:
+        Params:
+            num_of_docs (int) - The number of documents to return from the collection
+        
+        Returns:
+            [Document] - The collection of documents to predict upon
+        """
+
+        if cls.__testingSet is None or num_of_docs != cls.__testingSize:
 
             files = os.listdir(os.path.join(ROOT, "testing"))
             if num_of_docs: files = files[:num_of_docs]
 
-            cls.testingSet = [Document(filepath=os.path.join(ROOT, "testing", name)) for name in files]
-            cls.testingSize = num_of_docs
+            cls.__testingSet = [Document(filepath=os.path.join(ROOT, "testing", name))
+                for name in files]
+            cls.__testingSize = num_of_docs
 
-        return cls.testingSet
+        return cls.__testingSet
+
+    @classmethod
+    def reset(cls):
+        """ Reset the contents of this ontology """
+        cls.__ontologyObj = None
+        cls.__trainingSet = None
+        cls.__trainingSize = None
+        cls.__testingSet = None
+        cls.__testingSize = None

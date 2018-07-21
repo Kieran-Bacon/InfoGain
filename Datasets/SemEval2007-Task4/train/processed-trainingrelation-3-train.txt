@@ -1,0 +1,2806 @@
+{
+    "datapoints": [
+        {
+            "probability": null,
+            "context": {
+                "middle": " was farmed for ",
+                "left": "The ",
+                "right": " and barley until 1796 when the owner mandated that oak and alder trees be planted."
+            },
+            "text": "The island was farmed for oats and barley until 1796 when the owner mandated that oak and alder trees be planted.",
+            "prediction": null,
+            "target": {
+                "concept": "island",
+                "text": "island"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "oats",
+                "text": "oats"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " are farmed for ",
+                "left": "In some Asian countries, including China, Malaysia and the Philippines, the ",
+                "right": "."
+            },
+            "text": "In some Asian countries, including China, Malaysia and the Philippines, the turtles are farmed for food.",
+            "prediction": null,
+            "target": {
+                "concept": "turtles",
+                "text": "turtles"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "food",
+                "text": "food"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " composed the ",
+                "left": "Surrounding each neuron there was a group of cells of the glial type (satellite cells), which together with the ",
+                "right": "."
+            },
+            "text": "Surrounding each neuron there was a group of cells of the glial type (satellite cells), which together with the collagen fibres composed the glial capsule.",
+            "prediction": null,
+            "target": {
+                "concept": "collagen fibres",
+                "text": "collagen fibres"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "glial capsule",
+                "text": "glial capsule"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " in the decoration provide a ",
+                "left": "The soft brown and beige ",
+                "right": "."
+            },
+            "text": "The soft brown and beige tones in the decoration provide a tranquil mood.",
+            "prediction": null,
+            "target": {
+                "concept": "tones",
+                "text": "tones"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "tranquil mood",
+                "text": "tranquil mood"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " prepares the ",
+                "left": "A White House ",
+                "right": " for a luncheon for the European Commission."
+            },
+            "text": "A White House usher prepares the blue room for a luncheon for the European Commission.",
+            "prediction": null,
+            "target": {
+                "concept": "usher",
+                "text": "usher"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "blue room",
+                "text": "blue room"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " created by the ",
+                "left": "Entering the ",
+                "right": ", Sephiroth would merge with all the energy of the planet, granting him god-like power over it."
+            },
+            "text": "Entering the fissure created by the meteor's impact, Sephiroth would merge with all the energy of the planet, granting him god-like power over it.",
+            "prediction": null,
+            "target": {
+                "concept": "meteor's impact",
+                "text": "meteor's impact"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "fissure",
+                "text": "fissure"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " made the ",
+                "left": "The ",
+                "right": " when he was a fourth grade student in Iowa City."
+            },
+            "text": "The artist made the picture when he was a fourth grade student in Iowa City.",
+            "prediction": null,
+            "target": {
+                "concept": "artist",
+                "text": "artist"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "picture",
+                "text": "picture"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " provide a ",
+                "left": "The glass dome from the beginning of the century is gorgeous, prices are reasonable, and the ",
+                "right": " worth watching."
+            },
+            "text": "The glass dome from the beginning of the century is gorgeous, prices are reasonable, and the waiters provide a show worth watching.",
+            "prediction": null,
+            "target": {
+                "concept": "waiters",
+                "text": "waiters"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "show",
+                "text": "show"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " collaboratively designed the credential, certificate, and degree ",
+                "left": "To that end the ",
+                "right": " to provide you with a sequence of coursework and field experiences that prepares you to not only act like teachers, counselors and administrators, but to think like them as well."
+            },
+            "text": "To that end the faculty collaboratively designed the credential, certificate, and degree programs to provide you with a sequence of coursework and field experiences that prepares you to not only act like teachers, counselors and administrators, but to think like them as well.",
+            "prediction": null,
+            "target": {
+                "concept": "faculty",
+                "text": "faculty"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "programs",
+                "text": "programs"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " cultivated the ",
+                "left": "With these axioms, the ",
+                "right": " of judgment, and those principles could be used in gauging the restrictions on freedom that were justified or unjustified, in any domain of the law."
+            },
+            "text": "With these axioms, the judges cultivated the principles of judgment, and those principles could be used in gauging the restrictions on freedom that were justified or unjustified, in any domain of the law.",
+            "prediction": null,
+            "target": {
+                "concept": "judges",
+                "text": "judges"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "principles",
+                "text": "principles"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " produces ",
+                "left": "The ",
+                "right": ", since there are two types of models, each with four different specifications and with two sample sizes involved."
+            },
+            "text": "The simulation study produces voluminous results, since there are two types of models, each with four different specifications and with two sample sizes involved.",
+            "prediction": null,
+            "target": {
+                "concept": "simulation study",
+                "text": "simulation study"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "voluminous results",
+                "text": "voluminous results"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " was farmed for ",
+                "left": "Not too long ago, the ",
+                "right": "; then, it was ditched for mosquito control."
+            },
+            "text": "Not too long ago, the grass was farmed for hay; then, it was ditched for mosquito control.",
+            "prediction": null,
+            "target": {
+                "concept": "grass",
+                "text": "grass"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "hay",
+                "text": "hay"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " comes from ",
+                "left": "If the ",
+                "right": ", then electricity from any source can be used to electrolyze the water."
+            },
+            "text": "If the hydrogen comes from water, then electricity from any source can be used to electrolyze the water.",
+            "prediction": null,
+            "target": {
+                "concept": "water",
+                "text": "water"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "hydrogen",
+                "text": "hydrogen"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Until last year, Afghanistan was known as an ",
+                "right": ", not a major heroin producer."
+            },
+            "text": "Until last year, Afghanistan was known as an opium exporter, not a major heroin producer.",
+            "prediction": null,
+            "target": {
+                "concept": "exporter",
+                "text": "exporter"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "opium",
+                "text": "opium"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "The decedent was a licensed commercial truck driver and had been employed by this ",
+                "right": " for five years."
+            },
+            "text": "The decedent was a licensed commercial truck driver and had been employed by this trucking company for five years.",
+            "prediction": null,
+            "target": {
+                "concept": "company",
+                "text": "company"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "trucking",
+                "text": "trucking"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "'s ",
+                "left": "Learn how cartographic evidence refutes the authenticity of the Vinland Map and from where the ",
+                "right": " might have drawn inspiration."
+            },
+            "text": "Learn how cartographic evidence refutes the authenticity of the Vinland Map and from where the map's maker might have drawn inspiration.",
+            "prediction": null,
+            "target": {
+                "concept": "maker",
+                "text": "maker"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "map",
+                "text": "map"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " made the surprising ",
+                "left": "The ",
+                "right": " that SMN will bind efficiently -- and carry out its functions -- if the proteins to which it needs to bind are first \"tagged\" by specific enzymes."
+            },
+            "text": "The scientists made the surprising observation that SMN will bind efficiently -- and carry out its functions -- if the proteins to which it needs to bind are first \"tagged\" by specific enzymes.",
+            "prediction": null,
+            "target": {
+                "concept": "scientists",
+                "text": "scientists"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "observation",
+                "text": "observation"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " are farmed for ",
+                "left": "It is set in a future in which the ",
+                "right": "."
+            },
+            "text": "It is set in a future in which the oceans are farmed for food.",
+            "prediction": null,
+            "target": {
+                "concept": "oceans",
+                "text": "oceans"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "food",
+                "text": "food"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " who made the ",
+                "left": "The ",
+                "right": " was arrested, charged, and had items confiscated from his home."
+            },
+            "text": "The boy who made the threat was arrested, charged, and had items confiscated from his home.",
+            "prediction": null,
+            "target": {
+                "concept": "boy",
+                "text": "boy"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "threat",
+                "text": "threat"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "'s ",
+                "left": "Contact the ",
+                "right": " for assistance with configuration and proper setup of your wired router."
+            },
+            "text": "Contact the router's manufacturer for assistance with configuration and proper setup of your wired router.",
+            "prediction": null,
+            "target": {
+                "concept": "manufacturer",
+                "text": "manufacturer"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "router",
+                "text": "router"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " has been biodynamically farmed for ",
+                "left": "It is set in the most beautiful surroundings and the ",
+                "right": "."
+            },
+            "text": "It is set in the most beautiful surroundings and the land has been biodynamically farmed for many years.",
+            "prediction": null,
+            "target": {
+                "concept": "land",
+                "text": "land"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "many years",
+                "text": "many years"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " cultivated the underground/indie rock ",
+                "left": "You're right that the ",
+                "right": " that would one day be called 'alternative music' that rooted deep into the culture."
+            },
+            "text": "You're right that the punk explosion cultivated the underground/indie rock scene that would one day be called 'alternative music' that rooted deep into the culture.",
+            "prediction": null,
+            "target": {
+                "concept": "punk explosion",
+                "text": "punk explosion"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "scene",
+                "text": "scene"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " made the ",
+                "left": "Beginning in 1966-67, the ",
+                "right": " nine consecutive seasons, the only NHL team of the period to accomplish that feat."
+            },
+            "text": "Beginning in 1966-67, the club made the playoffs nine consecutive seasons, the only NHL team of the period to accomplish that feat.",
+            "prediction": null,
+            "target": {
+                "concept": "club",
+                "text": "club"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "playoffs",
+                "text": "playoffs"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is produced by the ",
+                "left": "The ",
+                "right": " and is not for sale to private individuals or companies."
+            },
+            "text": "The vaccine is produced by the government and is not for sale to private individuals or companies.",
+            "prediction": null,
+            "target": {
+                "concept": "government",
+                "text": "government"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "vaccine",
+                "text": "vaccine"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " developed the ",
+                "left": "In almost all of the incidents, the ",
+                "right": " to harm the target before the attack."
+            },
+            "text": "In almost all of the incidents, the attacker developed the idea to harm the target before the attack.",
+            "prediction": null,
+            "target": {
+                "concept": "attacker",
+                "text": "attacker"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "idea",
+                "text": "idea"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " was farmed for ",
+                "left": "The ",
+                "right": " and a few other crops."
+            },
+            "text": "The land was farmed for olives and a few other crops.",
+            "prediction": null,
+            "target": {
+                "concept": "land",
+                "text": "land"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "olives",
+                "text": "olives"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " designed the home's ",
+                "left": "The ",
+                "right": " with an eye toward making a small house feel spacious."
+            },
+            "text": "The students designed the home's living areas with an eye toward making a small house feel spacious.",
+            "prediction": null,
+            "target": {
+                "concept": "students",
+                "text": "students"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "living areas",
+                "text": "living areas"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " makes the ",
+                "left": "The ",
+                "right": " from the main university campus in less than 5 minutes, while driving can take 15 minutes or longer."
+            },
+            "text": "The tram makes the trip from the main university campus in less than 5 minutes, while driving can take 15 minutes or longer.",
+            "prediction": null,
+            "target": {
+                "concept": "tram",
+                "text": "tram"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "trip",
+                "text": "trip"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Because the ice in the smoothie has to be crushed and blended with the other ingredients, a ",
+                "right": " is usually the appliance of choice."
+            },
+            "text": "Because the ice in the smoothie has to be crushed and blended with the other ingredients, a smoothie maker is usually the appliance of choice.",
+            "prediction": null,
+            "target": {
+                "concept": "maker",
+                "text": "maker"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "smoothie",
+                "text": "smoothie"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is produced by ",
+                "left": "We think the ",
+                "right": " rapidly falling into an accretion disk, which heats up to high temperatures."
+            },
+            "text": "We think the emission is produced by material rapidly falling into an accretion disk, which heats up to high temperatures.",
+            "prediction": null,
+            "target": {
+                "concept": "material",
+                "text": "material"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "emission",
+                "text": "emission"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "These are new sorts of sponsors for us, a shoe company and a ",
+                "right": "."
+            },
+            "text": "These are new sorts of sponsors for us, a shoe company and a furniture maker.",
+            "prediction": null,
+            "target": {
+                "concept": "maker",
+                "text": "maker"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "furniture",
+                "text": "furniture"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " who created the ",
+                "left": "And this means that researchers have lost a valuable lead in their hunt for the ",
+                "right": "."
+            },
+            "text": "And this means that researchers have lost a valuable lead in their hunt for the artists who created the figurines.",
+            "prediction": null,
+            "target": {
+                "concept": "artists",
+                "text": "artists"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "figurines",
+                "text": "figurines"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " comes from a ",
+                "left": "It is no justification that the ",
+                "right": "."
+            },
+            "text": "It is no justification that the defamation comes from a bishop.",
+            "prediction": null,
+            "target": {
+                "concept": "bishop",
+                "text": "bishop"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "defamation",
+                "text": "defamation"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " shall provide a ",
+                "left": "The ",
+                "right": " to the Chapter (or NEC)."
+            },
+            "text": "The monitor shall provide a quarterly report to the Chapter (or NEC).",
+            "prediction": null,
+            "target": {
+                "concept": "monitor",
+                "text": "monitor"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "quarterly report",
+                "text": "quarterly report"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " provide a consistent, reliable ",
+                "left": "The ",
+                "right": " that allows students who are falling behind an opportunity to reach proficiency."
+            },
+            "text": "The tutors provide a consistent, reliable intervention that allows students who are falling behind an opportunity to reach proficiency.",
+            "prediction": null,
+            "target": {
+                "concept": "tutors",
+                "text": "tutors"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "intervention",
+                "text": "intervention"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " produced by the ",
+                "left": "Another good example of the importance of hormonal balance in the body is the ",
+                "right": "."
+            },
+            "text": "Another good example of the importance of hormonal balance in the body is the growth hormone produced by the pituitary gland.",
+            "prediction": null,
+            "target": {
+                "concept": "pituitary gland",
+                "text": "pituitary gland"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "growth hormone",
+                "text": "growth hormone"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " who makes ",
+                "left": "The production assistant is basically the ",
+                "right": " and goes to the post office."
+            },
+            "text": "The production assistant is basically the guy who makes coffee and goes to the post office.",
+            "prediction": null,
+            "target": {
+                "concept": "guy",
+                "text": "guy"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "coffee",
+                "text": "coffee"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " has been farmed for ",
+                "left": "The entire site was actively farmed during the 2004 growing season and aerial photography indicates the ",
+                "right": "."
+            },
+            "text": "The entire site was actively farmed during the 2004 growing season and aerial photography indicates the site has been farmed for multiple years.",
+            "prediction": null,
+            "target": {
+                "concept": "site",
+                "text": "site"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "multiple years",
+                "text": "multiple years"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " begets the ",
+                "left": "He does not think the friends realize that the ",
+                "right": ", just as the coming war is the begetter of the Most Great Peace."
+            },
+            "text": "He does not think the friends realize that the crisis begets the triumph, just as the coming war is the begetter of the Most Great Peace.",
+            "prediction": null,
+            "target": {
+                "concept": "crisis",
+                "text": "crisis"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "triumph",
+                "text": "triumph"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " created by the ",
+                "left": "The Wal-Mart Supercenter plans to employ as many as 455 associates, including 180 planned new ",
+                "right": "."
+            },
+            "text": "The Wal-Mart Supercenter plans to employ as many as 455 associates, including 180 planned new jobs created by the relocation.",
+            "prediction": null,
+            "target": {
+                "concept": "relocation",
+                "text": "relocation"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "jobs",
+                "text": "jobs"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is produced by ",
+                "left": "Unlike most of the annual showers the ",
+                "right": " from unknown sources orbiting in a direct motion like the earth."
+            },
+            "text": "Unlike most of the annual showers the antihelion radiant is produced by debris from unknown sources orbiting in a direct motion like the earth.",
+            "prediction": null,
+            "target": {
+                "concept": "debris",
+                "text": "debris"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "antihelion radiant",
+                "text": "antihelion radiant"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " comes from a ",
+                "left": "Instead, he believes most of the ",
+                "right": "."
+            },
+            "text": "Instead, he believes most of the noise comes from a vocal minority.",
+            "prediction": null,
+            "target": {
+                "concept": "vocal minority",
+                "text": "vocal minority"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "noise",
+                "text": "noise"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "' fabricated by the ",
+                "left": "Also, very rarely, hypnotherapy leads to the development of '",
+                "right": "; these are called confabulations."
+            },
+            "text": "Also, very rarely, hypnotherapy leads to the development of 'false memories' fabricated by the unconscious mind; these are called confabulations.",
+            "prediction": null,
+            "target": {
+                "concept": "unconscious mind",
+                "text": "unconscious mind"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "false memories",
+                "text": "false memories"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " designed the ",
+                "left": "The ",
+                "right": " and size of the enlarged fiber ends so they don't experience the stresses that usually snap fibers and limit a short-fiber composite's performance."
+            },
+            "text": "The experimenters designed the shape and size of the enlarged fiber ends so they don't experience the stresses that usually snap fibers and limit a short-fiber composite's performance.",
+            "prediction": null,
+            "target": {
+                "concept": "experimenters",
+                "text": "experimenters"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "shape",
+                "text": "shape"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is procreated by the ",
+                "left": "The third ",
+                "right": ", which is responsible for 7 percent of the earthquakes."
+            },
+            "text": "The third zone is procreated by the mid-ocean ridge, which is responsible for 7 percent of the earthquakes.",
+            "prediction": null,
+            "target": {
+                "concept": "mid-ocean ridge",
+                "text": "mid-ocean ridge"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "zone",
+                "text": "zone"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " created by the machine's ",
+                "left": "Digital computers actually execute numerical instructions: bitstrings that contain information in the 'native' ",
+                "right": "."
+            },
+            "text": "Digital computers actually execute numerical instructions: bitstrings that contain information in the 'native' language created by the machine's designers.",
+            "prediction": null,
+            "target": {
+                "concept": "designers",
+                "text": "designers"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "language",
+                "text": "language"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " produced the ",
+                "left": "Then, in May, 2005, the ",
+                "right": ", as ordered by the District Court."
+            },
+            "text": "Then, in May, 2005, the government produced the factual return, as ordered by the District Court.",
+            "prediction": null,
+            "target": {
+                "concept": "government",
+                "text": "government"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "factual return",
+                "text": "factual return"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is derived from ",
+                "left": "",
+                "right": "."
+            },
+            "text": "Biodiesel is derived from vegetable oils.",
+            "prediction": null,
+            "target": {
+                "concept": "vegetable oils",
+                "text": "vegetable oils"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "Biodiesel",
+                "text": "Biodiesel"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " shall provide a ",
+                "left": "The ",
+                "right": ", mailed to the Executive Director of the Pacific Division."
+            },
+            "text": "The student shall provide a written request, mailed to the Executive Director of the Pacific Division.",
+            "prediction": null,
+            "target": {
+                "concept": "student",
+                "text": "student"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "written request",
+                "text": "written request"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Her employment at this ",
+                "right": " is considered the earliest recorded evidence of a company specifically hiring an industrial nurse."
+            },
+            "text": "Her employment at this mustard company is considered the earliest recorded evidence of a company specifically hiring an industrial nurse.",
+            "prediction": null,
+            "target": {
+                "concept": "company",
+                "text": "company"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "mustard",
+                "text": "mustard"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " produces ",
+                "left": "The ",
+                "right": ", which, when forced out the nozzle, produce thrust, moving the rocket in the other direction."
+            },
+            "text": "The burning fuel produces exhaust gases, which, when forced out the nozzle, produce thrust, moving the rocket in the other direction.",
+            "prediction": null,
+            "target": {
+                "concept": "burning fuel",
+                "text": "burning fuel"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "exhaust gases",
+                "text": "exhaust gases"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " created the ",
+                "left": "The ",
+                "right": " to intervene when children or their parents are subjected to unauthorized or unreasonable agency decisions."
+            },
+            "text": "The legislature created the ombudsman to intervene when children or their parents are subjected to unauthorized or unreasonable agency decisions.",
+            "prediction": null,
+            "target": {
+                "concept": "legislature",
+                "text": "legislature"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "ombudsman",
+                "text": "ombudsman"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " manufactures itself the necessary ",
+                "left": "To better follow the quality, the ",
+                "right": ", starting from the purchase of the yarn."
+            },
+            "text": "To better follow the quality, the company manufactures itself the necessary fabrics, starting from the purchase of the yarn.",
+            "prediction": null,
+            "target": {
+                "concept": "company",
+                "text": "company"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "fabrics",
+                "text": "fabrics"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "'s ",
+                "left": "So the inscription didn't name the ",
+                "right": ", or the artist who decorated it, or the year it was made."
+            },
+            "text": "So the inscription didn't name the pistol's maker, or the artist who decorated it, or the year it was made.",
+            "prediction": null,
+            "target": {
+                "concept": "maker",
+                "text": "maker"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "pistol",
+                "text": "pistol"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " created by the mold's ",
+                "left": "As the molten metal cools, it hardens and assumes the ",
+                "right": "."
+            },
+            "text": "As the molten metal cools, it hardens and assumes the shape created by the mold's cavity.",
+            "prediction": null,
+            "target": {
+                "concept": "cavity",
+                "text": "cavity"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "shape",
+                "text": "shape"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " emits a constant ",
+                "left": "The ",
+                "right": " to create a 'safe zone'."
+            },
+            "text": "The transmitter emits a constant radio signal to create a 'safe zone'.",
+            "prediction": null,
+            "target": {
+                "concept": "transmitter",
+                "text": "transmitter"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "radio signal",
+                "text": "radio signal"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is procreated by the ",
+                "left": "This teaches that the ",
+                "right": " and the soul and spirit are directly created by God and placed in the body."
+            },
+            "text": "This teaches that the body is procreated by the parents and the soul and spirit are directly created by God and placed in the body.",
+            "prediction": null,
+            "target": {
+                "concept": "parents",
+                "text": "parents"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "body",
+                "text": "body"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is fabricated by the ",
+                "left": "The ",
+                "right": ", the boron diffusion and the metal evaporation."
+            },
+            "text": "The micropump is fabricated by the anisotropic etching, the boron diffusion and the metal evaporation.",
+            "prediction": null,
+            "target": {
+                "concept": "anisotropic etching",
+                "text": "anisotropic etching"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "micropump",
+                "text": "micropump"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " makes the ",
+                "left": "The ",
+                "right": ", not the protocol."
+            },
+            "text": "The implementor makes the decision, not the protocol.",
+            "prediction": null,
+            "target": {
+                "concept": "implementor",
+                "text": "implementor"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "decision",
+                "text": "decision"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " who made the ",
+                "left": "Dr. Aimee Rose, a member of the ",
+                "right": ", predicts it will save many lives, both military and civilian."
+            },
+            "text": "Dr. Aimee Rose, a member of the team who made the discovery, predicts it will save many lives, both military and civilian.",
+            "prediction": null,
+            "target": {
+                "concept": "team",
+                "text": "team"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "discovery",
+                "text": "discovery"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " brought forth ",
+                "left": "The ",
+                "right": " of silver, and jewels of gold, and clothing, and gave them to Rebekah."
+            },
+            "text": "The servant brought forth jewels of silver, and jewels of gold, and clothing, and gave them to Rebekah.",
+            "prediction": null,
+            "target": {
+                "concept": "servant",
+                "text": "servant"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "jewels",
+                "text": "jewels"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " composed the ",
+                "left": "The ",
+                "right": " 420, representing the number of people still being held at the US prison in Cuba."
+            },
+            "text": "The demonstrators composed the figure 420, representing the number of people still being held at the US prison in Cuba.",
+            "prediction": null,
+            "target": {
+                "concept": "demonstrators",
+                "text": "demonstrators"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "figure",
+                "text": "figure"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " developed the ",
+                "left": "The ",
+                "right": " and consent forms with the participating sites and guided the implementation of the trial."
+            },
+            "text": "The steering committee developed the protocol and consent forms with the participating sites and guided the implementation of the trial.",
+            "prediction": null,
+            "target": {
+                "concept": "steering committee",
+                "text": "steering committee"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "protocol",
+                "text": "protocol"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " cultivated the ",
+                "left": "The ",
+                "right": " 'Heracleum Sphondylium' which is the parsnip a similar plant to carrots."
+            },
+            "text": "The ancients cultivated the species 'Heracleum Sphondylium' which is the parsnip a similar plant to carrots.",
+            "prediction": null,
+            "target": {
+                "concept": "ancients",
+                "text": "ancients"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "species",
+                "text": "species"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "If you are cleaning a ",
+                "right": " that hasn't been cleaned regularly, repeat this step again with a fresh vinegar and water mixture."
+            },
+            "text": "If you are cleaning a coffee maker that hasn't been cleaned regularly, repeat this step again with a fresh vinegar and water mixture.",
+            "prediction": null,
+            "target": {
+                "concept": "maker",
+                "text": "maker"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "coffee",
+                "text": "coffee"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " who originally made the ",
+                "left": "The ",
+                "right": " popular is listed for reference only."
+            },
+            "text": "The artist who originally made the song popular is listed for reference only.",
+            "prediction": null,
+            "target": {
+                "concept": "artist",
+                "text": "artist"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "song",
+                "text": "song"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "The satisfaction was complete - please find below a ",
+                "right": "."
+            },
+            "text": "The satisfaction was complete - please find below a statement from the producer.",
+            "prediction": null,
+            "target": {
+                "concept": "producer",
+                "text": "producer"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "statement",
+                "text": "statement"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "He was a ",
+                "right": " then, a leader in SDS, and a trouble maker he remains."
+            },
+            "text": "He was a trouble maker then, a leader in SDS, and a trouble maker he remains.",
+            "prediction": null,
+            "target": {
+                "concept": "maker",
+                "text": "maker"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "trouble",
+                "text": "trouble"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " and ",
+                "left": "In zen, there is a strong relationship between ",
+                "right": ", for the former begets the latter."
+            },
+            "text": "In zen, there is a strong relationship between work and food, for the former begets the latter.",
+            "prediction": null,
+            "target": {
+                "concept": "work",
+                "text": "work"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "food",
+                "text": "food"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "This ",
+                "right": " designs skateboards specifically for girls."
+            },
+            "text": "This skateboard company designs skateboards specifically for girls.",
+            "prediction": null,
+            "target": {
+                "concept": "company",
+                "text": "company"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "skateboard",
+                "text": "skateboard"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " produced the longest ",
+                "left": "The southern ",
+                "right": " of the outbreak (tornado #4)."
+            },
+            "text": "The southern supercell produced the longest tornado track of the outbreak (tornado #4).",
+            "prediction": null,
+            "target": {
+                "concept": "supercell",
+                "text": "supercell"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "tornado track",
+                "text": "tornado track"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " made the ",
+                "left": "The ",
+                "right": ", pushed a few more keys on her computer, and shuffled some papers around."
+            },
+            "text": "The lady made the photocopies, pushed a few more keys on her computer, and shuffled some papers around.",
+            "prediction": null,
+            "target": {
+                "concept": "lady",
+                "text": "lady"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "photocopies",
+                "text": "photocopies"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " makes the ",
+                "left": "The ",
+                "right": ", he winds it up, he sets it going, he is outside the process but he initiates the process, he sets the hands in motion."
+            },
+            "text": "The watchmaker makes the watch, he winds it up, he sets it going, he is outside the process but he initiates the process, he sets the hands in motion.",
+            "prediction": null,
+            "target": {
+                "concept": "watchmaker",
+                "text": "watchmaker"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "watch",
+                "text": "watch"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "In addition to his reputation as a ",
+                "right": " Lehmuskallio is also known as an artist."
+            },
+            "text": "In addition to his reputation as a film maker Lehmuskallio is also known as an artist.",
+            "prediction": null,
+            "target": {
+                "concept": "maker",
+                "text": "maker"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "film",
+                "text": "film"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " makes a ",
+                "left": "After the ",
+                "right": ", OraSure said it likely will formally apply to sell the test over-the-counter."
+            },
+            "text": "After the panel makes a recommendation, OraSure said it likely will formally apply to sell the test over-the-counter.",
+            "prediction": null,
+            "target": {
+                "concept": "panel",
+                "text": "panel"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "recommendation",
+                "text": "recommendation"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " produces the same ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The stereograph produces the same output.",
+            "prediction": null,
+            "target": {
+                "concept": "stereograph",
+                "text": "stereograph"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "output",
+                "text": "output"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "If one were to put frozen prawns in a ",
+                "right": ", one would obtain prawn crackers."
+            },
+            "text": "If one were to put frozen prawns in a popcorn maker, one would obtain prawn crackers.",
+            "prediction": null,
+            "target": {
+                "concept": "maker",
+                "text": "maker"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "popcorn",
+                "text": "popcorn"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Have you ever noticed the three numbers at the bottom of a ",
+                "right": "?"
+            },
+            "text": "Have you ever noticed the three numbers at the bottom of a fertilizer package?",
+            "prediction": null,
+            "target": {
+                "concept": "package",
+                "text": "package"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "fertilizer",
+                "text": "fertilizer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " makes a small ",
+                "left": "During this procedure, the ",
+                "right": " (\"fenestration\") in the baffle to help relieve the symptoms of the original heart disease."
+            },
+            "text": "During this procedure, the surgeon makes a small hole (\"fenestration\") in the baffle to help relieve the symptoms of the original heart disease.",
+            "prediction": null,
+            "target": {
+                "concept": "surgeon",
+                "text": "surgeon"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "hole",
+                "text": "hole"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " produced the predicted high ",
+                "left": "Preliminary experiments [Nature (1994) 368, 315] seemed to support this idea in that the ",
+                "right": "."
+            },
+            "text": "Preliminary experiments [Nature (1994) 368, 315] seemed to support this idea in that the quenches produced the predicted high vortex-densities.",
+            "prediction": null,
+            "target": {
+                "concept": "quenches",
+                "text": "quenches"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "vortex-densities",
+                "text": "vortex-densities"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of emission produces the ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The energy of emission produces the separation field.",
+            "prediction": null,
+            "target": {
+                "concept": "energy",
+                "text": "energy"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "separation field",
+                "text": "separation field"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " produced the ominous ",
+                "left": "On both of my systems, the ",
+                "right": " 'Missing operating system'."
+            },
+            "text": "On both of my systems, the reboot produced the ominous message 'Missing operating system'.",
+            "prediction": null,
+            "target": {
+                "concept": "reboot",
+                "text": "reboot"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "message",
+                "text": "message"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " grow ",
+                "left": "",
+                "right": "."
+            },
+            "text": "Trees grow seeds.",
+            "prediction": null,
+            "target": {
+                "concept": "Trees",
+                "text": "Trees"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "seeds",
+                "text": "seeds"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " was farmed for ",
+                "left": "The ",
+                "right": ", but segments of the forests were sold off and the chapel fell into disrepair."
+            },
+            "text": "The land was farmed for cattle, but segments of the forests were sold off and the chapel fell into disrepair.",
+            "prediction": null,
+            "target": {
+                "concept": "land",
+                "text": "land"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "cattle",
+                "text": "cattle"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is intensively farmed for ",
+                "left": "Today 75% of the ",
+                "right": ", soybeans, oats, and alfalfa with emphasis on dairy production."
+            },
+            "text": "Today 75% of the county is intensively farmed for corn, soybeans, oats, and alfalfa with emphasis on dairy production.",
+            "prediction": null,
+            "target": {
+                "concept": "county",
+                "text": "county"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "corn",
+                "text": "corn"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " produced the ",
+                "left": "The resulting ",
+                "right": " for periods of 100-200 ns."
+            },
+            "text": "The resulting shockwaves produced the metal-forming conditions for periods of 100-200 ns.",
+            "prediction": null,
+            "target": {
+                "concept": "shockwaves",
+                "text": "shockwaves"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "metal-forming conditions",
+                "text": "metal-forming conditions"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " makes a ",
+                "left": "The ",
+                "right": ", much like a roller coaster with steep climbs and descents, that simulates zero gravity conditions."
+            },
+            "text": "The plane makes a parabolic maneuver, much like a roller coaster with steep climbs and descents, that simulates zero gravity conditions.",
+            "prediction": null,
+            "target": {
+                "concept": "plane",
+                "text": "plane"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "parabolic maneuver",
+                "text": "parabolic maneuver"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " makes a ",
+                "left": "Like other spiders, the ",
+                "right": ", but not for snaring prey."
+            },
+            "text": "Like other spiders, the tarantula makes a silken web, but not for snaring prey.",
+            "prediction": null,
+            "target": {
+                "concept": "tarantula",
+                "text": "tarantula"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "silken web",
+                "text": "silken web"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": ", the world's most valuable incense, is produced by the ",
+                "left": "",
+                "right": ", found in tropical rainforests, and has been used for centuries as incense and in traditional medicine."
+            },
+            "text": "Agarwood, the world's most valuable incense, is produced by the aquilaria tree, found in tropical rainforests, and has been used for centuries as incense and in traditional medicine.",
+            "prediction": null,
+            "target": {
+                "concept": "aquilaria tree",
+                "text": "aquilaria tree"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "Agarwood",
+                "text": "Agarwood"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " produced the worst ",
+                "left": "The ",
+                "right": " since a Nov. 23 attack in the Shi'ite slum of Sadr City that killed more than 200 people."
+            },
+            "text": "The bombing produced the worst carnage since a Nov. 23 attack in the Shi'ite slum of Sadr City that killed more than 200 people.",
+            "prediction": null,
+            "target": {
+                "concept": "bombing",
+                "text": "bombing"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "carnage",
+                "text": "carnage"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " negligently designed the ",
+                "left": "The group is alleging the ",
+                "right": ", ultimately causing them to overheat and do damage their own motherboards."
+            },
+            "text": "The group is alleging the computer giant negligently designed the laptops, ultimately causing them to overheat and do damage their own motherboards.",
+            "prediction": null,
+            "target": {
+                "concept": "computer giant",
+                "text": "computer giant"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "laptops",
+                "text": "laptops"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is created by the ",
+                "left": "The PI ",
+                "right": "."
+            },
+            "text": "The PI login is created by the administrator.",
+            "prediction": null,
+            "target": {
+                "concept": "administrator",
+                "text": "administrator"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "login",
+                "text": "login"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " that mainly has been farmed for ",
+                "left": "Other non-native species used in aquaculture are brook trout (Salvelinus fontinalis) and lake trout (Salvelinus namaycush), ",
+                "right": "."
+            },
+            "text": "Other non-native species used in aquaculture are brook trout (Salvelinus fontinalis) and lake trout (Salvelinus namaycush), fishes that mainly has been farmed for stocking purposes.",
+            "prediction": null,
+            "target": {
+                "concept": "fishes",
+                "text": "fishes"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "stocking purposes",
+                "text": "stocking purposes"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " has farmed for this ",
+                "left": "The ",
+                "right": " for several years and doesn't want to lose the ground, but also does not want to pay the large increase in rent."
+            },
+            "text": "The tenant has farmed for this owner for several years and doesn't want to lose the ground, but also does not want to pay the large increase in rent.",
+            "prediction": null,
+            "target": {
+                "concept": "tenant",
+                "text": "tenant"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "owner",
+                "text": "owner"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is produced by 440 nuclear ",
+                "left": "The ",
+                "right": " in 31 countries."
+            },
+            "text": "The electricity is produced by 440 nuclear reactors in 31 countries.",
+            "prediction": null,
+            "target": {
+                "concept": "reactors",
+                "text": "reactors"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "electricity",
+                "text": "electricity"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is farmed for its ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The surrounding region is farmed for its fertility.",
+            "prediction": null,
+            "target": {
+                "concept": "surrounding region",
+                "text": "surrounding region"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "fertility",
+                "text": "fertility"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " produced the ",
+                "left": "The ",
+                "right": " on display in this exhibition gallery."
+            },
+            "text": "The photoheliograph produced the glass-plate photographs on display in this exhibition gallery.",
+            "prediction": null,
+            "target": {
+                "concept": "photoheliograph",
+                "text": "photoheliograph"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "glass-plate photographs",
+                "text": "glass-plate photographs"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " composed the ",
+                "left": "The ",
+                "right": " -- the cr\u00e9me de la cr\u00e9me."
+            },
+            "text": "The cabin passengers composed the elite -- the cr\u00e9me de la cr\u00e9me.",
+            "prediction": null,
+            "target": {
+                "concept": "cabin passengers",
+                "text": "cabin passengers"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "elite",
+                "text": "elite"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "In addition to serving as a ",
+                "right": ", ammonia can also be used directly as a fertilizer by forming a solution with irrigation water, without additional chemical processing."
+            },
+            "text": "In addition to serving as a fertilizer ingredient, ammonia can also be used directly as a fertilizer by forming a solution with irrigation water, without additional chemical processing.",
+            "prediction": null,
+            "target": {
+                "concept": "ingredient",
+                "text": "ingredient"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "fertilizer",
+                "text": "fertilizer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "I'm the ",
+                "right": ", and I had to come up with a way forward that precluded disaster."
+            },
+            "text": "I'm the decision maker, and I had to come up with a way forward that precluded disaster.",
+            "prediction": null,
+            "target": {
+                "concept": "maker",
+                "text": "maker"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "decision",
+                "text": "decision"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "This ",
+                "right": " is looking for a dynamic transcriptionist who can take detailed notes from a meeting and document the next day!"
+            },
+            "text": "This northshore company is looking for a dynamic transcriptionist who can take detailed notes from a meeting and document the next day!",
+            "prediction": null,
+            "target": {
+                "concept": "company",
+                "text": "company"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "northshore",
+                "text": "northshore"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "'s ",
+                "left": "I had told this ",
+                "right": " repeatedly that I was only interested in working in the Philadelphia area."
+            },
+            "text": "I had told this headhunter's company repeatedly that I was only interested in working in the Philadelphia area.",
+            "prediction": null,
+            "target": {
+                "concept": "company",
+                "text": "company"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "headhunter",
+                "text": "headhunter"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Showing a sample of a fertilizer package this ",
+                "right": " shows what to look for on their label."
+            },
+            "text": "Showing a sample of a fertilizer package this fertilizer company shows what to look for on their label.",
+            "prediction": null,
+            "target": {
+                "concept": "company",
+                "text": "company"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "fertilizer",
+                "text": "fertilizer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " created the Freeman-Walter-Abele ",
+                "left": "The ",
+                "right": " to determine whether an algorithm only represents an abstract idea."
+            },
+            "text": "The courts created the Freeman-Walter-Abele test to determine whether an algorithm only represents an abstract idea.",
+            "prediction": null,
+            "target": {
+                "concept": "courts",
+                "text": "courts"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "test",
+                "text": "test"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " makes a ",
+                "left": "PHY 319 is presently taught in three 50-minute lectures per week in which the ",
+                "right": "."
+            },
+            "text": "PHY 319 is presently taught in three 50-minute lectures per week in which the instructor makes a chalkboard presentation.",
+            "prediction": null,
+            "target": {
+                "concept": "instructor",
+                "text": "instructor"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "chalkboard presentation",
+                "text": "chalkboard presentation"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " comes from a volcano's ",
+                "left": "Most of the ",
+                "right": "."
+            },
+            "text": "Most of the steam comes from a volcano's magma.",
+            "prediction": null,
+            "target": {
+                "concept": "magma",
+                "text": "magma"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "steam",
+                "text": "steam"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " surrounding the lakes is extensively farmed for ",
+                "left": "The ",
+                "right": ", while elsewhere in the National Park the steppe is heavily grazed by domestic livestock."
+            },
+            "text": "The land surrounding the lakes is extensively farmed for wheat, while elsewhere in the National Park the steppe is heavily grazed by domestic livestock.",
+            "prediction": null,
+            "target": {
+                "concept": "land",
+                "text": "land"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "wheat",
+                "text": "wheat"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " created by the ",
+                "left": "Some people voluntarily get involved with politicisation, while others become victims of ",
+                "right": ",\" he said."
+            },
+            "text": "Some people voluntarily get involved with politicisation, while others become victims of circumstances created by the politicisation,\" he said.",
+            "prediction": null,
+            "target": {
+                "concept": "politicisation",
+                "text": "politicisation"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "circumstances",
+                "text": "circumstances"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " makes the ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The dose makes the poison.",
+            "prediction": null,
+            "target": {
+                "concept": "dose",
+                "text": "dose"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "poison",
+                "text": "poison"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "We conducted a usability test on the enterprise-wide navigation system for this ",
+                "right": "'s proposed intranet redesign."
+            },
+            "text": "We conducted a usability test on the enterprise-wide navigation system for this healthcare company's proposed intranet redesign.",
+            "prediction": null,
+            "target": {
+                "concept": "company",
+                "text": "company"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "healthcare",
+                "text": "healthcare"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " will provide a ",
+                "left": "The ",
+                "right": " in advance."
+            },
+            "text": "The insurer will provide a cash deposit in advance.",
+            "prediction": null,
+            "target": {
+                "concept": "insurer",
+                "text": "insurer"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "cash deposit",
+                "text": "cash deposit"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " comes from a ",
+                "left": "If the ",
+                "right": ", there's no law that requires them to provide a disclosure notice."
+            },
+            "text": "If the request comes from a private company, there's no law that requires them to provide a disclosure notice.",
+            "prediction": null,
+            "target": {
+                "concept": "private company",
+                "text": "private company"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "request",
+                "text": "request"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "We know this ",
+                "right": "."
+            },
+            "text": "We know this telecommunications company.",
+            "prediction": null,
+            "target": {
+                "concept": "company",
+                "text": "company"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "telecommunications",
+                "text": "telecommunications"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "I was trained as a ",
+                "right": ", over 20 years ago, and have built violins (baroque and classical), violas, cellos, viols da gamba, and viols d'amore."
+            },
+            "text": "I was trained as a violin maker, over 20 years ago, and have built violins (baroque and classical), violas, cellos, viols da gamba, and viols d'amore.",
+            "prediction": null,
+            "target": {
+                "concept": "maker",
+                "text": "maker"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "violin",
+                "text": "violin"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Yanbian is also blessed with agricultural riches and is a major ",
+                "right": "."
+            },
+            "text": "Yanbian is also blessed with agricultural riches and is a major tobacco producer.",
+            "prediction": null,
+            "target": {
+                "concept": "producer",
+                "text": "producer"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "tobacco",
+                "text": "tobacco"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " comes from a cadaveric ",
+                "left": "Patient survival one year after transplantation from a living-related donor is 95% and comparably high if the ",
+                "right": "."
+            },
+            "text": "Patient survival one year after transplantation from a living-related donor is 95% and comparably high if the organ comes from a cadaveric donor.",
+            "prediction": null,
+            "target": {
+                "concept": "donor",
+                "text": "donor"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "organ",
+                "text": "organ"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " which procreated the ",
+                "left": "However, I believe that this is an opportune moment to change the ",
+                "right": " of Sept. 11th."
+            },
+            "text": "However, I believe that this is an opportune moment to change the political structures which procreated the events of Sept. 11th.",
+            "prediction": null,
+            "target": {
+                "concept": "political structures",
+                "text": "political structures"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "events",
+                "text": "events"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " were farmed for their ",
+                "left": "Although the ",
+                "right": " from early times it was not until the 16th century that export of the goats was permitted."
+            },
+            "text": "Although the goats were farmed for their fibre from early times it was not until the 16th century that export of the goats was permitted.",
+            "prediction": null,
+            "target": {
+                "concept": "goats",
+                "text": "goats"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "fibre",
+                "text": "fibre"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " developed the ",
+                "left": "The ",
+                "right": " in accordance with the laws and regulations governing the FEHBP."
+            },
+            "text": "The plan developed the premium rates in accordance with the laws and regulations governing the FEHBP.",
+            "prediction": null,
+            "target": {
+                "concept": "plan",
+                "text": "plan"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "premium rates",
+                "text": "premium rates"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " prepares the ",
+                "left": "Then, while you relax, the ",
+                "right": " and serves it, restaurant-style."
+            },
+            "text": "Then, while you relax, the chef prepares the meal and serves it, restaurant-style.",
+            "prediction": null,
+            "target": {
+                "concept": "chef",
+                "text": "chef"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "meal",
+                "text": "meal"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " produces ",
+                "left": "Located near the equator in South America, the ",
+                "right": ", the source of all chocolate."
+            },
+            "text": "Located near the equator in South America, the cocoa tree produces cocoa beans, the source of all chocolate.",
+            "prediction": null,
+            "target": {
+                "concept": "cocoa tree",
+                "text": "cocoa tree"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "cocoa beans",
+                "text": "cocoa beans"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " makes a ",
+                "left": "Like normal 'Simon' games, it starts with a one digit sequence, and then increases indefinitely until the ",
+                "right": "."
+            },
+            "text": "Like normal 'Simon' games, it starts with a one digit sequence, and then increases indefinitely until the caller makes a mistake.",
+            "prediction": null,
+            "target": {
+                "concept": "caller",
+                "text": "caller"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "mistake",
+                "text": "mistake"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is derived from customer's ",
+                "left": "According to Staten, the company's ",
+                "right": "."
+            },
+            "text": "According to Staten, the company's storage strategy is derived from customer's needs.",
+            "prediction": null,
+            "target": {
+                "concept": "needs",
+                "text": "needs"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "storage strategy",
+                "text": "storage strategy"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " also makes a ",
+                "left": "The same ",
+                "right": " called Bambu which is made from organic chicory combined with figs, cereals and acorns to the original recope of the late Swiss nature doctor and founder of the company, Alfred Vogel."
+            },
+            "text": "The same company also makes a good coffee substitute called Bambu which is made from organic chicory combined with figs, cereals and acorns to the original recope of the late Swiss nature doctor and founder of the company, Alfred Vogel.",
+            "prediction": null,
+            "target": {
+                "concept": "company",
+                "text": "company"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "good coffee substitute",
+                "text": "good coffee substitute"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " begets the ",
+                "left": "The ",
+                "right": " we eat."
+            },
+            "text": "The rain begets the food we eat.",
+            "prediction": null,
+            "target": {
+                "concept": "rain",
+                "text": "rain"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "food",
+                "text": "food"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " produced by ",
+                "left": "Chinese liquor is a kind of ",
+                "right": " of grain."
+            },
+            "text": "Chinese liquor is a kind of wine produced by solidified fermentation of grain.",
+            "prediction": null,
+            "target": {
+                "concept": "solidified fermentation",
+                "text": "solidified fermentation"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "wine",
+                "text": "wine"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " made the ",
+                "left": "The ",
+                "right": " easy when it could have been a nightmare."
+            },
+            "text": "The tools made the job easy when it could have been a nightmare.",
+            "prediction": null,
+            "target": {
+                "concept": "tools",
+                "text": "tools"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "job",
+                "text": "job"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " produced the PUMP (Pittsburg urban mathematics program) ",
+                "left": "The ",
+                "right": ", which focuses on mathematical analyses of real-world situations, the use of computational tools, and on making algebra accessible to all students."
+            },
+            "text": "The collaboration produced the PUMP (Pittsburg urban mathematics program) curriculum, which focuses on mathematical analyses of real-world situations, the use of computational tools, and on making algebra accessible to all students.",
+            "prediction": null,
+            "target": {
+                "concept": "collaboration",
+                "text": "collaboration"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "curriculum",
+                "text": "curriculum"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " produces ",
+                "left": "Normally, the ",
+                "right": " (immature cells) that develop into mature blood cells."
+            },
+            "text": "Normally, the bone marrow produces stem cells (immature cells) that develop into mature blood cells.",
+            "prediction": null,
+            "target": {
+                "concept": "bone marrow",
+                "text": "bone marrow"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "stem cells",
+                "text": "stem cells"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Monica Mullikin ('00) is working for Willis of Minneapolis as a catastrophe risk analyst for this ",
+                "right": "."
+            },
+            "text": "Monica Mullikin ('00) is working for Willis of Minneapolis as a catastrophe risk analyst for this reinsurance company.",
+            "prediction": null,
+            "target": {
+                "concept": "company",
+                "text": "company"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "reinsurance",
+                "text": "reinsurance"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " was farmed for ",
+                "left": "Some of the ",
+                "right": " in the past, but it is now mostly native vegetation (with some emergent trees)."
+            },
+            "text": "Some of the land was farmed for coffee in the past, but it is now mostly native vegetation (with some emergent trees).",
+            "prediction": null,
+            "target": {
+                "concept": "land",
+                "text": "land"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "coffee",
+                "text": "coffee"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " carefully designed the 15 ",
+                "left": "The ",
+                "right": ", reflecting the suburban ideal of the late 1800s."
+            },
+            "text": "The architect carefully designed the 15 rowhouses, reflecting the suburban ideal of the late 1800s.",
+            "prediction": null,
+            "target": {
+                "concept": "architect",
+                "text": "architect"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "rowhouses",
+                "text": "rowhouses"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " begets the ",
+                "left": "'We think that the ",
+                "right": ", which helps produce risk factors for arteriosclerosis', he added."
+            },
+            "text": "'We think that the fat begets the insulin resistance, which helps produce risk factors for arteriosclerosis', he added.",
+            "prediction": null,
+            "target": {
+                "concept": "fat",
+                "text": "fat"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "insulin resistance",
+                "text": "insulin resistance"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " being farmed for ",
+                "left": "Apparantly you think two wrongs can make a right, but that doesn't help the starving people of Zimbabwe, who were previously not starving due to the ",
+                "right": " instead of used as political gifts."
+            },
+            "text": "Apparantly you think two wrongs can make a right, but that doesn't help the starving people of Zimbabwe, who were previously not starving due to the land being farmed for profit instead of used as political gifts.",
+            "prediction": null,
+            "target": {
+                "concept": "land",
+                "text": "land"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "profit",
+                "text": "profit"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "'s ",
+                "left": "It is also illegal for anyone other than the ",
+                "right": " to re-import a prescription drug that was originally manufactured in the United States."
+            },
+            "text": "It is also illegal for anyone other than the drug's manufacturer to re-import a prescription drug that was originally manufactured in the United States.",
+            "prediction": null,
+            "target": {
+                "concept": "manufacturer",
+                "text": "manufacturer"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "drug",
+                "text": "drug"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " cultivate ",
+                "left": "Virtually all hillside farmers grow maize during both seasons, and many of the ",
+                "right": ", rice, and other crops as well."
+            },
+            "text": "Virtually all hillside farmers grow maize during both seasons, and many of the farmers cultivate beans, rice, and other crops as well.",
+            "prediction": null,
+            "target": {
+                "concept": "farmers",
+                "text": "farmers"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "beans",
+                "text": "beans"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " emits ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The cathode emits electrons.",
+            "prediction": null,
+            "target": {
+                "concept": "cathode",
+                "text": "cathode"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "electrons",
+                "text": "electrons"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " that made the ",
+                "left": "The lower mark is the Vienna ",
+                "right": "."
+            },
+            "text": "The lower mark is the Vienna company that made the mug.",
+            "prediction": null,
+            "target": {
+                "concept": "company",
+                "text": "company"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "mug",
+                "text": "mug"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Peterson worked as a ",
+                "right": " before his arrest."
+            },
+            "text": "Peterson worked as a fertilizer salesman before his arrest.",
+            "prediction": null,
+            "target": {
+                "concept": "salesman",
+                "text": "salesman"
+            },
+            "annotation": -1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "fertilizer",
+                "text": "fertilizer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " made the formal ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The headmaster made the formal announcement.",
+            "prediction": null,
+            "target": {
+                "concept": "headmaster",
+                "text": "headmaster"
+            },
+            "annotation": 1,
+            "relation": "Product-Producer",
+            "domain": {
+                "concept": "announcement",
+                "text": "announcement"
+            }
+        }
+    ],
+    "name": "6d45975ef245488397f2d9b9197b3706",
+    "content": ""
+}
