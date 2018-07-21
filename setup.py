@@ -15,5 +15,7 @@ setup(name='InfoGain',
       author_email="Kieran.Bacon@outlook.com",
       url="https://github.com/Kieran-Bacon/InfoGain",
 
-      packages=find_packages()
+      packages=find_packages(),
+      package_data={"": ["*.txt", "*.json"]},
+      include_package_data=True
 )
