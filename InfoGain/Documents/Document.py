@@ -6,24 +6,50 @@ from .Datapoint import Datapoint
 from ..Resources.Models import SpellingModel
 
 class Document:
+    """ A document represents a textual source, a file, paper, etc. The document provides a method
+    to manipulate and extract information from the source and provides the method of processing
+    the information within and ontology to generate potential datapoints within the source.
+    
+    Params:
+        name (str) - The name of the document, used as the file name if saved
+        content (str) - The content of the document as a string
+        filepath (str) - The location of the document source, content of the location is
+            made to be the content of the document
+    """
 
     SENTENCE = re.compile(r"[^\.\?\!]\n|((\.|\?|\!)+(?=\W))")
 
     @classmethod
     def removeWhiteSpace(cls, raw_string: str):
-        if raw_string is None: return raw_string
+        """ Remove the excessive white space within a string 
+        
+        Params:
+            raw_string (str) - The raw string to be cleaned
+
+        Returns:
+            str - cleaned string
+        """
+        if raw_string is None: return raw_string  # Return invalid raw_string
         raw_string = re.sub(r"[ \t]+", " ", raw_string)  # Minimise white space
-        raw_string = re.sub(r" (?=[\.'!?,%])", "", raw_string)  # Remove whitespace that appears before gramma
+        raw_string = re.sub(r" (?=[\.'!?,%])", "", raw_string)  # Remove whitespace before gramma
         return raw_string.strip()  # String the leading and trailing whitespace
 
     @classmethod
-    def clean(cls, raw_string: str):
+    def clean(cls, raw_string: str) -> str:
+        """ Cleans a string of invalid and grammatical characters, expands words definitions,
+        corrects spelling. The function cleans and returns a string 
+        
+        Params:
+            raw_string (str) - The raw uncleaned string
+            
+        Returns:
+            cleaned (str) - The cleaned string
+        """
 
-        cleaned_string = []
-
+        cleaned_string = []  # The components of the sentence
         for rawWord in raw_string.split():
 
-            # Protect cant
+            # Resolve cant
             if rawWord == "can't": rawWord = "cant"
 
             # Expand words
@@ -62,27 +88,20 @@ class Document:
         if not isinstance(separators, list): separators = [separators]
 
         # Find all the places the text needs to be split
-        splitIndexes = [match.span()[1] for separator in separators for match in separator.finditer(text)]
+        splitIndexes = [match.span()[1] for separator in separators 
+            for match in separator.finditer(text)]
         splitIndexes = sorted(splitIndexes)
 
         if not splitIndexes: return [text]
 
         processed = [text[:splitIndexes[0]].strip()]
-        processed += [text[splitIndexes[i-1]:splitIndexes[i]].strip() for i in range(1,len(splitIndexes))]
+        processed += [text[splitIndexes[i-1]:splitIndexes[i]].strip()
+            for i in range(1,len(splitIndexes))]
         processed += [text[splitIndexes[-1]:].strip()]
 
         return processed
 
     def __init__(self, name: str = None, content: str = "", filepath: str = None):
-        """
-        Generate a document object that may derive from provided content or a file 
-        
-        Params:
-            name - The name of the document, used as the file name if saved
-            content - The content of the document as a string
-            filepath - The location of the document source, content of the location is
-                made to be the content of the document
-        """
 
         # Save name or generate an id randomly
         self.name = name if name else uuid.uuid4().hex
@@ -104,36 +123,63 @@ class Document:
             content = json.loads(self._content)
             self.name = content.get("name", self.name)
             self._content = content.get("content", self._content)
-            self._datapoints = self._datapoints + [Datapoint(data) for data in content.get("datapoints",[])]
+            self._datapoints = self._datapoints + [Datapoint(data)
+                for data in content.get("datapoints",[])]
         except:
             pass
 
-    def __len__(self):
+    def __len__(self) -> int:
         """ Return the assumed length of the document, the number of datapoints, if none give, the 
-        length of the content """
+        length of the content 
+        
+        Returns:
+            int - The length of the document. Either the size of the document of the number of data
+                points
+        """
         if self._datapoints: return len(self._datapoints)
         return len(self._content)
 
-    def concepts(self) -> {str:str}:
-        if self._concepts is None:
-            self._concepts = {}
+    def concepts(self) -> {str:[str]}:
+        """ Return the concepts that appeared within the document's data points. Intended to
+        demonstrate the text representations of the concepts within the ontology. Generate when
+        asked.
 
-            for point in self._datapoints:
-                self._concepts[point.domain["concept"]] = self._concepts.get(point.domain["concept"], []) + [point.domain["text"]]
-                self._concepts[point.target["concept"]] = self._concepts.get(point.target["concept"], []) + [point.target["text"]]
+        Returns:
+            {str: [str]} (dict) - A mapping of concepts to aliases
+        """
+        if self._concepts is None:
+            self._concepts = {} 
+
+            for p in self._datapoints:
+                self._concepts[p.domain["concept"]] = self._concepts.get(p.domain["concept"], []) + [p.domain["text"]]
+                self._concepts[p.target["concept"]] = self._concepts.get(p.target["concept"], []) + [p.target["text"]]
 
         return self._concepts
 
     def text(self) -> str:
-        """ Return the content of the document """
+        """ Return the entire content of the document, but, doesn't construct the content from data
+        points. Only provides content that was provides from source.
+        
+        Returns:
+            str - A string of the contents of the document
+        """
         return self._content
  
     def sentences(self, cleaned: bool = False) -> [str]:
-        """ Split the content of the document into sentences, and return the collection of 
-        sentences. """
+        """ Breaks the contents of the source down into sentences. A toggle to clean the sentences 
+        as they were being returned. If the document doesn't have any source content, then the 
+        sentences are generated from the data points held by the document.
+        
+        Params:
+            cleaned (bool) - A toggle to clean the contents
+            
+        Returns:
+            sentences ([str]) - A list of strings, each string is a sentence
+        """
         if self._content:
             if cleaned:
-                return [Document.clean(sen) for sen in Document.split(self._content, Document.SENTENCE)]
+                return [Document.clean(sen)
+                    for sen in Document.split(self._content, Document.SENTENCE)]
             return Document.split(self._content, Document.SENTENCE)
         
         if self._datapoints:
@@ -142,10 +188,20 @@ class Document:
             return [point.text for point in self._datapoints]
 
     def words(self, cleaned: bool = False) -> [[str]]:
-        """ Split the content of the document into sentences and then into words. """
+        """ Break down the contents of the source down into collections of words. The collections 
+        are of the sentences in the source. Uses the sentences function, and splits the sentences in
+        place.
+        
+        Params:
+            cleaned (bool) - A toggle to clean the words
+        
+        Returns:
+            words ([[str]]) - A list of sentences, each sentence is a list of words
+        """
         if self._content:
             if cleaned:
-                return [Document.clean(sen).split() for sen in Document.split(self._content, Document.SENTENCE)]
+                return [Document.clean(sen).split()
+                    for sen in Document.split(self._content, Document.SENTENCE)]
             return [sen.split() for sen in Document.split(self._content, Document.SENTENCE)]
             
         if self._datapoints:
@@ -178,19 +234,30 @@ class Document:
 
         self._datapoints = []  # Reset the datapoints - Only want datapoints found by the ontology
 
-        # TODO There can be a single representation that links to multiple concepts, ergo, randomly can fail.
+        # TODO As concepts can have multiple aliases - Some sort of resolve needs to be implemented
         reprMap = {concept.name: {concept.name} for concept in ontology.concepts()}
         for concept in ontology.concepts():
             for alias in concept.alias:
                 reprMap[alias] = reprMap.get(alias, set()).union({concept.name})
 
         # Compile the search patterns into a single pattern.
-        patterns = [(pattern, re.compile(r"(^|(?!\s))"+pattern+r"((?=(\W(\W|$)))|(?=\s)|(?='s)|$)")) for pattern in reprMap.keys()]
+        patterns = [(pattern, re.compile(r"(^|(?!\s))"+pattern+r"((?=(\W(\W|$)))|(?=\s)|(?='s)|$)"))
+            for pattern in reprMap.keys()]
 
         def createDatapoint(dom, domCon, tar, tarCon, relations, sentence):
-            """ Generate the datapoints and add them to the document datapoint collection """ 
+            """ Generate the datapoints and add them to the document datapoint collection 
+            
+            Params:
+                dom (re.Match) - The domain match object
+                domCon (Concept) - The domain concept the match represents
+                tar (re.Match) - The target match object
+                tarCon (Concept) - The target match object
+                relations ([Relation]) - All relations that can be formed between the domain and 
+                    target
+                sentence (str) - The sentence that this information originated from
+            """ 
 
-            p1, p2 = (dom.span(), tar.span()) if dom.span()[0] < tar.span()[0] else (tar.span(), dom.span())
+            p1, p2 = sorted((dom.span(), tar.span()))  # Sort the spans of the elements
 
             for relation in relations:
                 # Construct the datapoint
@@ -213,31 +280,32 @@ class Document:
             # Look for instances within the sentence - ensuring that you only match with individual words.
             instances = []
             for rep, pattern in patterns:
+                # Find the matches
                 [instances.append((rep, match)) for match in list(pattern.finditer(sentence))]
-
-                #match = pattern.search(sentence)
-                #if match is not None: instances.append((rep, match))
 
             while instances:
                 # While there are instances to work on
-
                 inst_rep, inst_match = instances.pop()
 
                 for rep, match in instances:
-                    # Collect the concept names the representations relate too
+                    # Collect the concept names the representations relates too
                     instConcepts, matchConcepts = reprMap[inst_rep], reprMap[rep]
 
+                    # For each combination of elements within the sentence
                     for instConcept, matchConcept in itertools.product(instConcepts, matchConcepts):
                     
+                        # Create the datapoints for the document
                         relations = ontology.findRelations(domain=instConcept, target=matchConcept)
-                        [self._datapoints.append(p) for p in createDatapoint(inst_match, instConcept, match, matchConcept, relations, sentence)]
+                        [self._datapoints.append(p) for p in createDatapoint(inst_match,
+                            instConcept, match, matchConcept, relations, sentence)]
+
 
                         relations = ontology.findRelations(domain=matchConcept, target=instConcept)
-                        [self._datapoints.append(p) for p in createDatapoint(match, matchConcept, inst_match, instConcept, relations, sentence)]
+                        [self._datapoints.append(p) for p in createDatapoint(match,
+                            matchConcept, inst_match, instConcept, relations, sentence)]
 
     def save(self, folder: str = "./", filename: str = None) -> None:
-        """
-        Save the training file and it's datapoints, checks to see if the location is a file or a 
+        """ Save the training file and it's datapoints, checks to see if the location is a file or a 
         directory. If directory, the file will be saved as the name of the document currently
         set.
 

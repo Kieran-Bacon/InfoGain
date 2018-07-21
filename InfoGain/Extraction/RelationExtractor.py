@@ -10,10 +10,30 @@ class RelationExtractor(Ontology):
     """ This object represents a machine learning method of extracting relationships
     from provided corpora. The object maintains a collection of classifiers
     which in turn provide evidence for various relationships. The class provides 
-    a collection of useful methods for interacting with the model. """
+    a collection of useful methods for interacting with the model.
+    
+    Params:
+        name (str) - The name given to extractor
+        filepath (str) - The path to an ontology file to load the extractor from
+        ontology (Ontology) - An ontology object to be used to form the bases of the extraction
+        word_embedding_model (Word2Vec) - An embedding model to be used other generating a new one
+        min_count (int) - The minimum number of times a word needs to appear to be able to generate
+            an embedding for.
+        workers (int) - The number of threads/processors for the object
+        alpha (float) - The alpha parameter to the Neural Network
+        Hidden Layers (int,) - The network structure of the Neural Network classifiers
+    """
 
     @classmethod
     def load(cls, filepath: str):
+        """ Load a pickled relation extractor file 
+        
+        Params:
+            filepath (str) - path to the pickled file
+        
+        Returns:
+            RelationExtractor - A loaded pickled Relation Extractor object
+        """
         import pickle
         with open(filepath, "rb") as handler:
             return pickle.load(handler)
@@ -27,15 +47,6 @@ class RelationExtractor(Ontology):
         workers: int = 4,
         alpha: float = None,
         hidden_layers: (int) = (50,20)):
-        """ Initialising the pool of relation classifiers and defining the method of learning
-        that will take place.
-
-        Params:
-            ont - The ontology that defines the relationships of interest that can
-                show up inside the text
-            k - The number of words taken as context from either side of the 
-                relation entities
-        """
 
         if filepath:
             # Call ontology constructor
@@ -64,8 +75,14 @@ class RelationExtractor(Ontology):
         self._trainingCorpus = set()
 
     def addRelation(self, relation: Relation):
+        """ Add a new Relation to the extractor, overload the ontology's add relation. Adds to the 
+        ensemble with a new relation model represent it 
+
+        Params:
+            relation (Relation) - The relation model to be added to the extractor
+        """
         Ontology.addRelation(self, relation)  # Add the relation to the Extractor's ontology
-        self.ensemble[relation.name] = RelationModel(relation)  # Generate a new relation model and store
+        self.ensemble[relation.name] = RelationModel(relation)  # Generate a new relation model
 
     def fit(self, training_documents: [Document] ) -> None:
         """ Train the model on the collection of documents
@@ -84,7 +101,8 @@ class RelationExtractor(Ontology):
             self._trainingCorpus.add(document)
 
             # Extract text representations and save them to the ontology
-            [self.concept(name).alias.add(text) for name, textRepr in document.concepts().items() for text in textRepr]
+            [self.concept(name).alias.add(text) for name, textRepr in document.concepts().items() 
+                for text in textRepr]
 
         # Collect sentences from training documents - Train word embedder on sentences
         sentences = []
@@ -101,19 +119,17 @@ class RelationExtractor(Ontology):
                 # Store the embedded point
                 modelData[point.relation].append(point)
 
-        self._trainModels(modelData)
+        for i, (model, data) in enumerate(modelData.items()):
 
-    def _trainModels(self, model_datapoints: {str:[Datapoint]}) -> None:
-
-        for i, (model, data) in enumerate(model_datapoints.items()):
-
-            perc = i/(len(model_datapoints))
-            sys.stdout.write("\rTraining Extractor |" + "#"*int(perc*25) + "-"*(25-int(perc*25)) + "| ( {}/{} ) training...".format(i, len(model_datapoints)))
+            perc = i/(len(modelData))
+            sys.stdout.write("\rTraining Extractor |" + "#"*int(perc*25) + "-"*(25-int(perc*25)) + 
+                "| ( {}/{} ) training...".format(i, len(modelData)))
             sys.stdout.flush()
 
             self.ensemble[model].fit(data)
 
-        sys.stdout.write("\rTraining Extractor |" + "#"*25 + "| ( {}/{} ) training... Complete\n".format(len(model_datapoints), len(model_datapoints)))
+        sys.stdout.write("\rTraining Extractor |" + "#"*25 + 
+            "| ( {}/{} ) training... Complete\n".format(len(modelData), len(modelData)))
         sys.stdout.flush()
         
     def predict(self, documents: [Document]) -> [Document]:

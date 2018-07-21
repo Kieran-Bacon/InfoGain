@@ -43,7 +43,7 @@ class Relation:
         return domain in self.domains and target in self.targets
 
     def subscribe( self, concept: Concept) -> None:
-        """ Intellegently links concept with domain or target based on 
+        """ Intelligently links concept with domain or target based on 
         relative linkage """
 
         if concept.permeable: return # Ensure concept is meant to be viewable
