@@ -6,7 +6,7 @@ requires = ["sklearn", "matplotlib", "gensim"]
 
 setup(name='InfoGain',
       install_requires=requires,
-      version="1.0.0",
+      version="1.0.1",
       description="Information Extraction and Generation",
       long_description=README,
       long_description_content_type="text/markdown",
