@@ -1,3 +1,0 @@
-- Introduce !self stuff for the relation definition
-- Expand the Resources information
-- Improve speeds of the extraction where ever possible
