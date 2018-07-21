@@ -1,0 +1,54 @@
+OVERVIEW
+========
+
+We use three datasets for this experiment. WEB is a commonly used dataset, developed for the TextRunner experiments. These sentences are often incomplete and grammatically unsound, representing the challenges of dealing with web text. NYTIMES represents the other end of the spectrum with formal, well written new stories from the New York Times Corpus. PENN contains sentences from the Penn Treebank recently used in an evaluation of a RE method based on tree kernels (Xu et. al.).
+
+We annotate each sentence manually as follows. We identify exactly two entities and a trigger for the relation between them, if one exists. In addition, we specify a window of tokens allowed to be in a relation, including modifiers of the trigger and preposition connecting the trigger to the arguments. For each sentence annotated with two entities, a system must extract a string representing the relation between them. 
+
+Our evaluation method deems an extraction as correct if it contains the trigger and allowed tokens only.
+
+RUNNING THE SCRIPT
+==================
+
+Syntax: perl binary-manual-evaluation.pl ground-truth system-output
+
+
+FILE FORMAT - GROUND TRUTH
+==========================
+
+The ground truth files contain 5 fields separated by tab. A header is required.
+
+ - Entity1:             The first entity
+
+ - Relation:            The relation name. Three dashes ("---") denote no relation.
+                        (For manual annotations, this is usually just the relation trigger.)
+
+ - Entity2:             The second entity
+
+ - Relational Word:     The trigger for the relation. Three dashes ("---") denote no relation.
+
+ - Annotated Sentence:  The sentence annotated with the entity pair, the trigger and allowed tokens.
+                        Entities are enclosed in triple square brackets, triggers are enclosed in
+                        triple curly brackets and the allowed tokens are enclosed in arrows 
+                        ("--->" and "<---").
+                    
+                        
+FILE FORMAT - SYSTEM OUTPUT
+===========================
+
+The system output files are only required to contain 3 fields. A header is required.
+
+ - Entity1:             The first entity
+
+ - Relation:            The extracted relation. Systems must output three dashes ("---") to denote 
+                        no relation.
+
+ - Entity2:             The second entity
+
+In our system output files, we included a 4th field containing the annotated sentence from 
+the ground truth. This field is used for manual analysis only and is not used by the evaluation 
+script.
+
+The entity pair in each line of the system output must match the entity pair in its respective line
+of the ground truth. The evaluation script will raise an error if this condition is not met.
+

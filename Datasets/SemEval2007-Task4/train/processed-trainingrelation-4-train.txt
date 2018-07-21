@@ -1,0 +1,2806 @@
+{
+    "datapoints": [
+        {
+            "probability": null,
+            "context": {
+                "middle": " is from the ",
+                "left": "The ",
+                "right": " who provided your care during your hospital stay or the physician who read and interpreted your test results."
+            },
+            "text": "The physician bill is from the physician who provided your care during your hospital stay or the physician who read and interpreted your test results.",
+            "prediction": null,
+            "target": {
+                "concept": "physician bill",
+                "text": "physician bill"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "physician",
+                "text": "physician"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " takes up ",
+                "left": "How can you prove that a ",
+                "right": "?"
+            },
+            "text": "How can you prove that a gas takes up space?",
+            "prediction": null,
+            "target": {
+                "concept": "gas",
+                "text": "gas"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "space",
+                "text": "space"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from a ",
+                "left": "Data managers and vendors learned the value of sharing and reusing ",
+                "right": " decades ago."
+            },
+            "text": "Data managers and vendors learned the value of sharing and reusing resources from a common repository decades ago.",
+            "prediction": null,
+            "target": {
+                "concept": "resources",
+                "text": "resources"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "common repository",
+                "text": "common repository"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "She said that he described the meeting with her as an exception, since 'he does not normally have meetings directly with ",
+                "right": ".'"
+            },
+            "text": "She said that he described the meeting with her as an exception, since 'he does not normally have meetings directly with engineers from the regions.'",
+            "prediction": null,
+            "target": {
+                "concept": "engineers",
+                "text": "engineers"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "regions",
+                "text": "regions"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is distilled from ",
+                "left": "",
+                "right": " and used to alleviate stomach upsets."
+            },
+            "text": "Cinnamon oil is distilled from bark chips and used to alleviate stomach upsets.",
+            "prediction": null,
+            "target": {
+                "concept": "Cinnamon oil",
+                "text": "Cinnamon oil"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "bark chips",
+                "text": "bark chips"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "The ",
+                "right": " (yes or no) to fine-grained authorization betrays a shift in mindset: from a defensible perimeter to a qualifier that identifies who can access what room."
+            },
+            "text": "The move from binary access (yes or no) to fine-grained authorization betrays a shift in mindset: from a defensible perimeter to a qualifier that identifies who can access what room.",
+            "prediction": null,
+            "target": {
+                "concept": "move",
+                "text": "move"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "binary access",
+                "text": "binary access"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " providing the ",
+                "left": "The ",
+                "right": " could be the culprit and would be providing a fabricated alibi."
+            },
+            "text": "The person providing the alibi could be the culprit and would be providing a fabricated alibi.",
+            "prediction": null,
+            "target": {
+                "concept": "alibi",
+                "text": "alibi"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "person",
+                "text": "person"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from a ",
+                "left": "Over the top of the hill was a ",
+                "right": " that has never really ended."
+            },
+            "text": "Over the top of the hill was a fairly-decent refugee camp from a war that has never really ended.",
+            "prediction": null,
+            "target": {
+                "concept": "fairly-decent refugee camp",
+                "text": "fairly-decent refugee camp"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "war",
+                "text": "war"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "An opening is present in the diaphragm (the muscle that separates the ",
+                "right": ")."
+            },
+            "text": "An opening is present in the diaphragm (the muscle that separates the chest cavity from the abdominal cavity).",
+            "prediction": null,
+            "target": {
+                "concept": "chest cavity",
+                "text": "chest cavity"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "abdominal cavity",
+                "text": "abdominal cavity"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is sent by a ",
+                "left": "For projects submitted at national level, the ",
+                "right": " legally established in his/her country of residence."
+            },
+            "text": "For projects submitted at national level, the volunteer is sent by a sending organization legally established in his/her country of residence.",
+            "prediction": null,
+            "target": {
+                "concept": "sending organization",
+                "text": "sending organization"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "volunteer",
+                "text": "volunteer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is from the ",
+                "left": "You move the direction the ",
+                "right": "."
+            },
+            "text": "You move the direction the mouse is from the crosshair.",
+            "prediction": null,
+            "target": {
+                "concept": "mouse",
+                "text": "mouse"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "crosshair",
+                "text": "crosshair"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is from the ",
+                "left": "If the ",
+                "right": ", the bibliographic number should be provided in the text and enclosed with brackets."
+            },
+            "text": "If the cited document is from the informative bibliography, the bibliographic number should be provided in the text and enclosed with brackets.",
+            "prediction": null,
+            "target": {
+                "concept": "cited document",
+                "text": "cited document"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "informative bibliography",
+                "text": "informative bibliography"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "When Josh visits the Tatums, Josh meets his blonde haired twin cousin and two beautiful ",
+                "right": "."
+            },
+            "text": "When Josh visits the Tatums, Josh meets his blonde haired twin cousin and two beautiful country cousins.",
+            "prediction": null,
+            "target": {
+                "concept": "cousins",
+                "text": "cousins"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "country",
+                "text": "country"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " are being addressed from a ",
+                "left": "The ",
+                "right": " rather than ICT solutions that could answer them."
+            },
+            "text": "The challenges are being addressed from a manufacturing standpoint rather than ICT solutions that could answer them.",
+            "prediction": null,
+            "target": {
+                "concept": "challenges",
+                "text": "challenges"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "manufacturing standpoint",
+                "text": "manufacturing standpoint"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "It's unfortunate you didn't try a ",
+                "right": "."
+            },
+            "text": "It's unfortunate you didn't try a potato vodka.",
+            "prediction": null,
+            "target": {
+                "concept": "vodka",
+                "text": "vodka"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "potato",
+                "text": "potato"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " are generated randomly from a ",
+                "left": "The ",
+                "right": " of questions developed for each module."
+            },
+            "text": "The tests are generated randomly from a bank of questions developed for each module.",
+            "prediction": null,
+            "target": {
+                "concept": "tests",
+                "text": "tests"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "bank",
+                "text": "bank"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " generates ",
+                "left": "The ",
+                "right": " rather than only probable primes and is nevertheless faster than the known algorithms based on pseudo-primality."
+            },
+            "text": "The algorithm generates provable primes rather than only probable primes and is nevertheless faster than the known algorithms based on pseudo-primality.",
+            "prediction": null,
+            "target": {
+                "concept": "provable primes",
+                "text": "provable primes"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "algorithm",
+                "text": "algorithm"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " takes off ",
+                "left": "Suddenly a ",
+                "right": ", and dresses her in clothes, which fit her more closely."
+            },
+            "text": "Suddenly a nurse takes off her familiar loose-fitting clothes, and dresses her in clothes, which fit her more closely.",
+            "prediction": null,
+            "target": {
+                "concept": "her familiar loose-fitting clothes",
+                "text": "her familiar loose-fitting clothes"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "nurse",
+                "text": "nurse"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " generates ",
+                "left": "The guarantees so painfully obtained by formal verification of the source program are useless if the ",
+                "right": "."
+            },
+            "text": "The guarantees so painfully obtained by formal verification of the source program are useless if the compiler generates wrong code.",
+            "prediction": null,
+            "target": {
+                "concept": "wrong code",
+                "text": "wrong code"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "compiler",
+                "text": "compiler"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " are from a ",
+                "left": "Not sure what brand of model it came from but the ",
+                "right": " my buddy had."
+            },
+            "text": "Not sure what brand of model it came from but the wings are from a trashed plane my buddy had.",
+            "prediction": null,
+            "target": {
+                "concept": "wings",
+                "text": "wings"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "trashed plane",
+                "text": "trashed plane"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " writes a ",
+                "left": "After successful completion of the comprehensives, the ",
+                "right": "."
+            },
+            "text": "After successful completion of the comprehensives, the candidate writes a dissertation proposal.",
+            "prediction": null,
+            "target": {
+                "concept": "dissertation proposal",
+                "text": "dissertation proposal"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "candidate",
+                "text": "candidate"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " gives a ",
+                "left": "The ",
+                "right": " of Nori's argument in the case of a self-product of a curve."
+            },
+            "text": "The construction gives a refinement of Nori's argument in the case of a self-product of a curve.",
+            "prediction": null,
+            "target": {
+                "concept": "refinement",
+                "text": "refinement"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "construction",
+                "text": "construction"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "It often becomes necessary to delete ",
+                "right": " during the course of monitoring system performance."
+            },
+            "text": "It often becomes necessary to delete objects from the chart during the course of monitoring system performance.",
+            "prediction": null,
+            "target": {
+                "concept": "objects",
+                "text": "objects"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "chart",
+                "text": "chart"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " radiated from a ",
+                "left": "First, the ",
+                "right": " simulating a two-dimensional monopole is calculated using an unstructured mesh."
+            },
+            "text": "First, the sound radiated from a surface simulating a two-dimensional monopole is calculated using an unstructured mesh.",
+            "prediction": null,
+            "target": {
+                "concept": "sound",
+                "text": "sound"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "surface",
+                "text": "surface"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "The date for final payment is shown on the ",
+                "right": "."
+            },
+            "text": "The date for final payment is shown on the confirmation invoice.",
+            "prediction": null,
+            "target": {
+                "concept": "invoice",
+                "text": "invoice"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "confirmation",
+                "text": "confirmation"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is from the ",
+                "left": "The ",
+                "right": ", not alcohol."
+            },
+            "text": "The taste is from the ginseng, not alcohol.",
+            "prediction": null,
+            "target": {
+                "concept": "taste",
+                "text": "taste"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "ginseng",
+                "text": "ginseng"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "Find the ",
+                "right": "."
+            },
+            "text": "Find the infinitive from the participle.",
+            "prediction": null,
+            "target": {
+                "concept": "infinitive",
+                "text": "infinitive"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "participle",
+                "text": "participle"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Most ",
+                "right": " comes from countries with warm climates, such as Brazil, Pakistan, India, China and Australia."
+            },
+            "text": "Most cane sugar comes from countries with warm climates, such as Brazil, Pakistan, India, China and Australia.",
+            "prediction": null,
+            "target": {
+                "concept": "sugar",
+                "text": "sugar"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "cane",
+                "text": "cane"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from a ",
+                "left": "The following are ",
+                "right": "."
+            },
+            "text": "The following are verbatim excerpts from a lengthy article.",
+            "prediction": null,
+            "target": {
+                "concept": "verbatim excerpts",
+                "text": "verbatim excerpts"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "lengthy article",
+                "text": "lengthy article"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " radiated to ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The systolic murmur radiated to both carotid arteries.",
+            "prediction": null,
+            "target": {
+                "concept": "systolic murmur",
+                "text": "systolic murmur"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "both carotid arteries",
+                "text": "both carotid arteries"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " retrieved from the ",
+                "left": "From the diagrams of DaVinci to Hooke's microscopic bestiary, the beaks of Darwin's finches, Rosalind Franklin's x-rays or the ",
+                "right": ", visualization of research has a long and literally illustrious history."
+            },
+            "text": "From the diagrams of DaVinci to Hooke's microscopic bestiary, the beaks of Darwin's finches, Rosalind Franklin's x-rays or the latest photographic marvels retrieved from the remotest galactic outback, visualization of research has a long and literally illustrious history.",
+            "prediction": null,
+            "target": {
+                "concept": "latest photographic marvels",
+                "text": "latest photographic marvels"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "remotest galactic outback",
+                "text": "remotest galactic outback"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is made from ",
+                "left": "A pop-up roll cage and active headrests aim to protect occupants during a rollover, and the ",
+                "right": " and aluminum."
+            },
+            "text": "A pop-up roll cage and active headrests aim to protect occupants during a rollover, and the floorboard is made from bamboo and aluminum.",
+            "prediction": null,
+            "target": {
+                "concept": "floorboard",
+                "text": "floorboard"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "bamboo",
+                "text": "bamboo"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "These early Bristol recordings laid the groundwork for much of the ",
+                "right": " that followed."
+            },
+            "text": "These early Bristol recordings laid the groundwork for much of the country music that followed.",
+            "prediction": null,
+            "target": {
+                "concept": "music",
+                "text": "music"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "country",
+                "text": "country"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " deviate from the ",
+                "left": "The curricular requirements for an engineering degree can be satisfied in four years of study by completing 14 to 18 credits of work each semester, but many ",
+                "right": " presented in a later section of this bulletin."
+            },
+            "text": "The curricular requirements for an engineering degree can be satisfied in four years of study by completing 14 to 18 credits of work each semester, but many students deviate from the ideal curricula presented in a later section of this bulletin.",
+            "prediction": null,
+            "target": {
+                "concept": "students",
+                "text": "students"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "ideal curricula",
+                "text": "ideal curricula"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " on the run from a ",
+                "left": "He was a ",
+                "right": " at war."
+            },
+            "text": "He was a young refugee on the run from a nation at war.",
+            "prediction": null,
+            "target": {
+                "concept": "young refugee",
+                "text": "young refugee"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "nation",
+                "text": "nation"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "They are taking the ",
+                "right": "."
+            },
+            "text": "They are taking the brains from babies.",
+            "prediction": null,
+            "target": {
+                "concept": "brains",
+                "text": "brains"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "babies",
+                "text": "babies"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " manufactured the ",
+                "left": "Eventually the ",
+                "right": "."
+            },
+            "text": "Eventually the company manufactured the machines.",
+            "prediction": null,
+            "target": {
+                "concept": "machines",
+                "text": "machines"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "company",
+                "text": "company"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "By the early '90s, Indian entrepreneurs bought a majority of the properties and flourished with the new ",
+                "right": "."
+            },
+            "text": "By the early '90s, Indian entrepreneurs bought a majority of the properties and flourished with the new immigrants from the subcontinent.",
+            "prediction": null,
+            "target": {
+                "concept": "subcontinent",
+                "text": "subcontinent"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "immigrants",
+                "text": "immigrants"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "The mesopause separates the ",
+                "right": "."
+            },
+            "text": "The mesopause separates the mesosphere from the thermosphere.",
+            "prediction": null,
+            "target": {
+                "concept": "mesosphere",
+                "text": "mesosphere"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "thermosphere",
+                "text": "thermosphere"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " radiated with ",
+                "left": "Beauty had scarcely uttered these words when the ",
+                "right": "."
+            },
+            "text": "Beauty had scarcely uttered these words when the castle radiated with light.",
+            "prediction": null,
+            "target": {
+                "concept": "light",
+                "text": "light"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "castle",
+                "text": "castle"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Effective ",
+                "right": " requires hands-on involvement with the crop."
+            },
+            "text": "Effective canola production requires hands-on involvement with the crop.",
+            "prediction": null,
+            "target": {
+                "concept": "production",
+                "text": "production"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "canola",
+                "text": "canola"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from a ",
+                "left": "Download all the ",
+                "right": " with a single click!"
+            },
+            "text": "Download all the images from a website with a single click!",
+            "prediction": null,
+            "target": {
+                "concept": "images",
+                "text": "images"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "website",
+                "text": "website"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " compiled from a ",
+                "left": "The ",
+                "right": " are illustrated by the following hypothetical method in Collection."
+            },
+            "text": "The bytecodes compiled from a nonoptimized control structure are illustrated by the following hypothetical method in Collection.",
+            "prediction": null,
+            "target": {
+                "concept": "bytecodes",
+                "text": "bytecodes"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "nonoptimized control structure",
+                "text": "nonoptimized control structure"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Recruiting ",
+                "right": " is important to current and future workforce needs of the Computation Directorate as well as the Laboratory as a whole."
+            },
+            "text": "Recruiting talented computer scientists from underrepresented communities is important to current and future workforce needs of the Computation Directorate as well as the Laboratory as a whole.",
+            "prediction": null,
+            "target": {
+                "concept": "talented computer scientists",
+                "text": "talented computer scientists"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "underrepresented communities",
+                "text": "underrepresented communities"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "Select the ",
+                "right": ", add comments in the comment box, and select the Submit button."
+            },
+            "text": "Select the appropriate government agency from the pull-down list, add comments in the comment box, and select the Submit button.",
+            "prediction": null,
+            "target": {
+                "concept": "appropriate government agency",
+                "text": "appropriate government agency"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "pull-down list",
+                "text": "pull-down list"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is received from a ",
+                "left": "The ",
+                "right": " wanting to get their money out of the country."
+            },
+            "text": "The email is received from a wealthy, dying person wanting to get their money out of the country.",
+            "prediction": null,
+            "target": {
+                "concept": "email",
+                "text": "email"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "wealthy, dying person",
+                "text": "wealthy, dying person"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " are from a ",
+                "left": "The ",
+                "right": ", Stephanie Eitel."
+            },
+            "text": "The backup vocals are from a rather talented female, Stephanie Eitel.",
+            "prediction": null,
+            "target": {
+                "concept": "backup vocals",
+                "text": "backup vocals"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "rather talented female",
+                "text": "rather talented female"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "With five of the six classes being a single credit hour and the sixth being three credit hours of capstone design, sophomores, juniors, and seniors work directly with medical doctors, nurses, graduate students, Ph.D.'s, and ",
+                "right": "."
+            },
+            "text": "With five of the six classes being a single credit hour and the sixth being three credit hours of capstone design, sophomores, juniors, and seniors work directly with medical doctors, nurses, graduate students, Ph.D.'s, and engineers from the medical industry.",
+            "prediction": null,
+            "target": {
+                "concept": "engineers",
+                "text": "engineers"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "medical industry",
+                "text": "medical industry"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Learning to change your vehicle's ",
+                "right": " can save you time and money."
+            },
+            "text": "Learning to change your vehicle's engine oil can save you time and money.",
+            "prediction": null,
+            "target": {
+                "concept": "oil",
+                "text": "oil"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "engine",
+                "text": "engine"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " in the background is from the ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The light in the background is from the sunrise.",
+            "prediction": null,
+            "target": {
+                "concept": "light",
+                "text": "light"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "sunrise",
+                "text": "sunrise"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is made from ",
+                "left": "The ",
+                "right": ", and the underpad was once automobile tires."
+            },
+            "text": "The basement carpeting is made from recycled plastic pop bottles, and the underpad was once automobile tires.",
+            "prediction": null,
+            "target": {
+                "concept": "basement carpeting",
+                "text": "basement carpeting"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "recycled plastic pop bottles",
+                "text": "recycled plastic pop bottles"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is distilled from ",
+                "left": "In Europe the ",
+                "right": "."
+            },
+            "text": "In Europe the fuel is distilled from canola oil.",
+            "prediction": null,
+            "target": {
+                "concept": "fuel",
+                "text": "fuel"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "canola oil",
+                "text": "canola oil"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " are being obtained from a ",
+                "left": "Include a note in the 'Comments' field of the purchase requisition stating that the ",
+                "right": "."
+            },
+            "text": "Include a note in the 'Comments' field of the purchase requisition stating that the services are being obtained from a nonresident alien.",
+            "prediction": null,
+            "target": {
+                "concept": "services",
+                "text": "services"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "nonresident alien",
+                "text": "nonresident alien"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from a ",
+                "left": "They understand the ",
+                "right": ", as well, since the extremists have tried to assassinate them."
+            },
+            "text": "They understand the stakes from a personal perspective, as well, since the extremists have tried to assassinate them.",
+            "prediction": null,
+            "target": {
+                "concept": "stakes",
+                "text": "stakes"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "personal perspective",
+                "text": "personal perspective"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of people jamming the hallways radiated ",
+                "left": "When deliberations began, the ",
+                "right": "."
+            },
+            "text": "When deliberations began, the crowd of people jamming the hallways radiated optimism.",
+            "prediction": null,
+            "target": {
+                "concept": "optimism",
+                "text": "optimism"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "crowd",
+                "text": "crowd"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "We're always looking for ",
+                "right": " and articles to highlight."
+            },
+            "text": "We're always looking for feedback from readers and articles to highlight.",
+            "prediction": null,
+            "target": {
+                "concept": "feedback",
+                "text": "feedback"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "readers",
+                "text": "readers"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from a ",
+                "left": "Is it really possible to build the ",
+                "right": "?"
+            },
+            "text": "Is it really possible to build the tree from a database?",
+            "prediction": null,
+            "target": {
+                "concept": "tree",
+                "text": "tree"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "database",
+                "text": "database"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Fruit juice has all the ",
+                "right": " and none of the fruit fiber, and only some of the fruit nutrients."
+            },
+            "text": "Fruit juice has all the fruit sugar and none of the fruit fiber, and only some of the fruit nutrients.",
+            "prediction": null,
+            "target": {
+                "concept": "sugar",
+                "text": "sugar"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "fruit",
+                "text": "fruit"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " emit ",
+                "left": "Does the ",
+                "right": "?"
+            },
+            "text": "Does the product emit radiation?",
+            "prediction": null,
+            "target": {
+                "concept": "radiation",
+                "text": "radiation"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "product",
+                "text": "product"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " providing the ",
+                "left": "A couple of spoonsful would have been mixed with water to create a sweet and tart drink, the fruit providing the flavor and color, the ",
+                "right": ", and the vinegar providing the tartness."
+            },
+            "text": "A couple of spoonsful would have been mixed with water to create a sweet and tart drink, the fruit providing the flavor and color, the sugar providing the sweetness, and the vinegar providing the tartness.",
+            "prediction": null,
+            "target": {
+                "concept": "sweetness",
+                "text": "sweetness"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "sugar",
+                "text": "sugar"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Now if the Bagger can just get some ",
+                "right": ", he'll be all set."
+            },
+            "text": "Now if the Bagger can just get some popcorn from room service, he'll be all set.",
+            "prediction": null,
+            "target": {
+                "concept": "popcorn",
+                "text": "popcorn"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "room service",
+                "text": "room service"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Orpheus falls in love with the ",
+                "right": " for no apparent reason save her name and beauty."
+            },
+            "text": "Orpheus falls in love with the country girl for no apparent reason save her name and beauty.",
+            "prediction": null,
+            "target": {
+                "concept": "girl",
+                "text": "girl"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "country",
+                "text": "country"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is sent by ",
+                "left": "If the ",
+                "right": ", the notice is not deemed received until 3 days after faxing it."
+            },
+            "text": "If the notice is sent by fax, the notice is not deemed received until 3 days after faxing it.",
+            "prediction": null,
+            "target": {
+                "concept": "fax",
+                "text": "fax"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "notice",
+                "text": "notice"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the Castlemania ",
+                "left": "This is the ",
+                "right": "."
+            },
+            "text": "This is the winning sand castle from the Castlemania contest.",
+            "prediction": null,
+            "target": {
+                "concept": "winning sand castle",
+                "text": "winning sand castle"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "contest",
+                "text": "contest"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " generates ",
+                "left": "The customers are happy and the ",
+                "right": " from the sales of his vehicles - everyone wins."
+            },
+            "text": "The customers are happy and the marketer generates more income from the sales of his vehicles - everyone wins.",
+            "prediction": null,
+            "target": {
+                "concept": "more income",
+                "text": "more income"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "marketer",
+                "text": "marketer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "To prevent ",
+                "right": " their peers what questions are in the quiz, the questions are randomly selected from a large, pre-prepared question bank."
+            },
+            "text": "To prevent students from informing their peers what questions are in the quiz, the questions are randomly selected from a large, pre-prepared question bank.",
+            "prediction": null,
+            "target": {
+                "concept": "students",
+                "text": "students"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "informing",
+                "text": "informing"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " were similarly derived from the ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The colours were similarly derived from the style-sheet.",
+            "prediction": null,
+            "target": {
+                "concept": "colours",
+                "text": "colours"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "style-sheet",
+                "text": "style-sheet"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is made from ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The outer shell is made from anodized aluminum.",
+            "prediction": null,
+            "target": {
+                "concept": "outer shell",
+                "text": "outer shell"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "anodized aluminum",
+                "text": "anodized aluminum"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "",
+                "right": " is obtained by extracting oil from sunflower seeds."
+            },
+            "text": "Sunflower oil is obtained by extracting oil from sunflower seeds.",
+            "prediction": null,
+            "target": {
+                "concept": "oil",
+                "text": "oil"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "Sunflower",
+                "text": "Sunflower"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is derived from a ",
+                "left": "The word ",
+                "right": " meaning worthless."
+            },
+            "text": "The word naughtiness is derived from a word meaning worthless.",
+            "prediction": null,
+            "target": {
+                "concept": "naughtiness",
+                "text": "naughtiness"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "word",
+                "text": "word"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "So you are not only sharing the speaker information, but you are also sharing the ",
+                "right": " quickly and easily."
+            },
+            "text": "So you are not only sharing the speaker information, but you are also sharing the audio from the event quickly and easily.",
+            "prediction": null,
+            "target": {
+                "concept": "audio",
+                "text": "audio"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "event",
+                "text": "event"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Lowering your ",
+                "right": " is the key to managing diabetes."
+            },
+            "text": "Lowering your blood sugar is the key to managing diabetes.",
+            "prediction": null,
+            "target": {
+                "concept": "sugar",
+                "text": "sugar"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "blood",
+                "text": "blood"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " extends from the ",
+                "left": "The 3 km long ",
+                "right": " of the Oro River in the west, to the cliffs of Point Caramonal to the southeast."
+            },
+            "text": "The 3 km long beach extends from the mouth of the Oro River in the west, to the cliffs of Point Caramonal to the southeast.",
+            "prediction": null,
+            "target": {
+                "concept": "beach",
+                "text": "beach"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "mouth",
+                "text": "mouth"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is distilled from a ",
+                "left": "On the other hand, ",
+                "right": ", which is then infused with juniper and a host of other botanicals."
+            },
+            "text": "On the other hand, gin is distilled from a neutral grain spirit, which is then infused with juniper and a host of other botanicals.",
+            "prediction": null,
+            "target": {
+                "concept": "gin",
+                "text": "gin"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "neutral grain spirit",
+                "text": "neutral grain spirit"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " learn from the Krakatau ",
+                "left": "What did the residents and ",
+                "right": "?"
+            },
+            "text": "What did the residents and scientists learn from the Krakatau explosion?",
+            "prediction": null,
+            "target": {
+                "concept": "scientists",
+                "text": "scientists"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "explosion",
+                "text": "explosion"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "'s ",
+                "left": "Where credit is granted, the ",
+                "right": " will be payable within 30 days."
+            },
+            "text": "Where credit is granted, the supplier's invoice will be payable within 30 days.",
+            "prediction": null,
+            "target": {
+                "concept": "invoice",
+                "text": "invoice"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "supplier",
+                "text": "supplier"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "'s ",
+                "left": "It seems quite clear, therefore, that the ",
+                "right": " of a lung condition is not substantiated by any of the reporting physicians of record."
+            },
+            "text": "It seems quite clear, therefore, that the claimant's allegation of a lung condition is not substantiated by any of the reporting physicians of record.",
+            "prediction": null,
+            "target": {
+                "concept": "allegation",
+                "text": "allegation"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "claimant",
+                "text": "claimant"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is received from the ",
+                "left": "Retailers should report the income from a coupon's face value and its related handling fee at the time the ",
+                "right": "."
+            },
+            "text": "Retailers should report the income from a coupon's face value and its related handling fee at the time the coupon is received from the customer.",
+            "prediction": null,
+            "target": {
+                "concept": "coupon",
+                "text": "coupon"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "customer",
+                "text": "customer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is mainly distilled from ",
+                "left": "Different from the curry source, ",
+                "right": "."
+            },
+            "text": "Different from the curry source, chicken bouillon is mainly distilled from chicken.",
+            "prediction": null,
+            "target": {
+                "concept": "chicken bouillon",
+                "text": "chicken bouillon"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "chicken",
+                "text": "chicken"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is received from a ",
+                "left": "When the ",
+                "right": ", you should verify that you have only been charged for goods or services that were ordered and received."
+            },
+            "text": "When the invoice is received from a vendor, you should verify that you have only been charged for goods or services that were ordered and received.",
+            "prediction": null,
+            "target": {
+                "concept": "invoice",
+                "text": "invoice"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "vendor",
+                "text": "vendor"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is distilled from ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The clear spirit is distilled from fresh grain.",
+            "prediction": null,
+            "target": {
+                "concept": "clear spirit",
+                "text": "clear spirit"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "fresh grain",
+                "text": "fresh grain"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is from the ",
+                "left": "I'm assuming that the ",
+                "right": "."
+            },
+            "text": "I'm assuming that the criticism is from the publisher side.",
+            "prediction": null,
+            "target": {
+                "concept": "criticism",
+                "text": "criticism"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "publisher side",
+                "text": "publisher side"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " manufactured the ",
+                "left": "The flavour and colour depend on the plants from which the ",
+                "right": "."
+            },
+            "text": "The flavour and colour depend on the plants from which the bees manufactured the nectar.",
+            "prediction": null,
+            "target": {
+                "concept": "nectar",
+                "text": "nectar"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "bees",
+                "text": "bees"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is received from a ",
+                "left": "This is assuming that the ",
+                "right": "."
+            },
+            "text": "This is assuming that the dividend is received from a treaty country.",
+            "prediction": null,
+            "target": {
+                "concept": "dividend",
+                "text": "dividend"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "treaty country",
+                "text": "treaty country"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from only one ",
+                "left": "I think people really do themselves a disservice when they get their ",
+                "right": "."
+            },
+            "text": "I think people really do themselves a disservice when they get their news from only one source.",
+            "prediction": null,
+            "target": {
+                "concept": "source",
+                "text": "source"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "news",
+                "text": "news"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "The ",
+                "right": " to democracy will take time, but it is worth every effort."
+            },
+            "text": "The transition from dictatorship to democracy will take time, but it is worth every effort.",
+            "prediction": null,
+            "target": {
+                "concept": "transition",
+                "text": "transition"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "dictatorship",
+                "text": "dictatorship"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is received from a ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The signal is received from a known direction.",
+            "prediction": null,
+            "target": {
+                "concept": "signal",
+                "text": "signal"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "known direction",
+                "text": "known direction"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "We want ideas to save our planet, to save the ",
+                "right": "."
+            },
+            "text": "We want ideas to save our planet, to save the planet from the imperialist threat.",
+            "prediction": null,
+            "target": {
+                "concept": "planet",
+                "text": "planet"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "imperialist threat",
+                "text": "imperialist threat"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "The commission merely implements the contracts, shielding the ",
+                "right": "."
+            },
+            "text": "The commission merely implements the contracts, shielding the major party candidates from public criticism.",
+            "prediction": null,
+            "target": {
+                "concept": "major party candidates",
+                "text": "major party candidates"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "public criticism",
+                "text": "public criticism"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is from the ",
+                "left": "The ",
+                "right": " not from me."
+            },
+            "text": "The above advertisement is from the server provider not from me.",
+            "prediction": null,
+            "target": {
+                "concept": "above advertisement",
+                "text": "above advertisement"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "server provider",
+                "text": "server provider"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the inside is from the ",
+                "left": "This ",
+                "right": " that spans Atherton Street."
+            },
+            "text": "This view from the inside is from the bridge that spans Atherton Street.",
+            "prediction": null,
+            "target": {
+                "concept": "view",
+                "text": "view"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "bridge",
+                "text": "bridge"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " writes a ",
+                "left": "The ",
+                "right": " explaining the reasons for assigning the name."
+            },
+            "text": "The discoverer writes a short citation explaining the reasons for assigning the name.",
+            "prediction": null,
+            "target": {
+                "concept": "short citation",
+                "text": "short citation"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "discoverer",
+                "text": "discoverer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is from the ",
+                "left": "The ",
+                "right": " to the fourth edition."
+            },
+            "text": "The quotation is from the preface to the fourth edition.",
+            "prediction": null,
+            "target": {
+                "concept": "quotation",
+                "text": "quotation"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "preface",
+                "text": "preface"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is derived from a podocarp/broadleaved ",
+                "left": "The ",
+                "right": ", which probably. covered both the alluvial flats and sides of the valley."
+            },
+            "text": "The pollen is derived from a podocarp/broadleaved forest, which probably. covered both the alluvial flats and sides of the valley.",
+            "prediction": null,
+            "target": {
+                "concept": "pollen",
+                "text": "pollen"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "forest",
+                "text": "forest"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from a ",
+                "left": "He went on to examine the ",
+                "right": "."
+            },
+            "text": "He went on to examine the theory from a risk assessment perspective.",
+            "prediction": null,
+            "target": {
+                "concept": "theory",
+                "text": "theory"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "risk assessment perspective",
+                "text": "risk assessment perspective"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "",
+                "right": " can be obtained in three different forms, either liquid, powder or in cubes."
+            },
+            "text": "Chicken bouillon can be obtained in three different forms, either liquid, powder or in cubes.",
+            "prediction": null,
+            "target": {
+                "concept": "bouillon",
+                "text": "bouillon"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "Chicken",
+                "text": "Chicken"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " selected from a ",
+                "left": "The Corel data set is relatively simple because the annotations are ",
+                "right": "."
+            },
+            "text": "The Corel data set is relatively simple because the annotations are nouns selected from a relatively small vocabulary.",
+            "prediction": null,
+            "target": {
+                "concept": "nouns",
+                "text": "nouns"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "relatively small vocabulary",
+                "text": "relatively small vocabulary"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "",
+                "right": " is available in many natural and whole food stores."
+            },
+            "text": "Almond butter is available in many natural and whole food stores.",
+            "prediction": null,
+            "target": {
+                "concept": "butter",
+                "text": "butter"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "Almond",
+                "text": "Almond"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "",
+                "right": " is a very rich, moisturizing treatment for the hair and skin, and it has some natural sunscreen properties."
+            },
+            "text": "Avocado butter is a very rich, moisturizing treatment for the hair and skin, and it has some natural sunscreen properties.",
+            "prediction": null,
+            "target": {
+                "concept": "butter",
+                "text": "butter"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "Avocado",
+                "text": "Avocado"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "She opened a fridge in the side of the door and got out a ",
+                "right": "."
+            },
+            "text": "She opened a fridge in the side of the door and got out a blueberry vodka.",
+            "prediction": null,
+            "target": {
+                "concept": "vodka",
+                "text": "vodka"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "blueberry",
+                "text": "blueberry"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is made from ",
+                "left": "The ",
+                "right": ", chiles, red beans, and many other spices."
+            },
+            "text": "The sauce is made from soybean flour, chiles, red beans, and many other spices.",
+            "prediction": null,
+            "target": {
+                "concept": "sauce",
+                "text": "sauce"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "soybean flour",
+                "text": "soybean flour"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "In contrast, clay-textured soils are more difficult to prepare a ",
+                "right": " because the clods can be too large when worked wet, and they tend to crust once worked to a fine seedbed."
+            },
+            "text": "In contrast, clay-textured soils are more difficult to prepare a canola seedbed because the clods can be too large when worked wet, and they tend to crust once worked to a fine seedbed.",
+            "prediction": null,
+            "target": {
+                "concept": "seedbed",
+                "text": "seedbed"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "canola",
+                "text": "canola"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is from the ",
+                "left": "The ",
+                "right": " of Sanzinsoo."
+            },
+            "text": "The following translation is from the website of Sanzinsoo.",
+            "prediction": null,
+            "target": {
+                "concept": "following translation",
+                "text": "following translation"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "website",
+                "text": "website"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "The remarkably comprehensive 32-page 2004 Memorandum of Understanding prohibited the ",
+                "right": " each other, limited rebuttals to a mere 30 seconds, barred direct follow-up questions and entirely prohibited surrebuttals."
+            },
+            "text": "The remarkably comprehensive 32-page 2004 Memorandum of Understanding prohibited the candidates from questioning each other, limited rebuttals to a mere 30 seconds, barred direct follow-up questions and entirely prohibited surrebuttals.",
+            "prediction": null,
+            "target": {
+                "concept": "candidates",
+                "text": "candidates"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "questioning",
+                "text": "questioning"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Combine strawberries and ",
+                "right": " and mix well."
+            },
+            "text": "Combine strawberries and powder sugar and mix well.",
+            "prediction": null,
+            "target": {
+                "concept": "powder",
+                "text": "powder"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "sugar",
+                "text": "sugar"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "A ",
+                "right": " level of .08 or higher will result in a DUI arrest."
+            },
+            "text": "A blood alcohol level of .08 or higher will result in a DUI arrest.",
+            "prediction": null,
+            "target": {
+                "concept": "alcohol",
+                "text": "alcohol"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "blood",
+                "text": "blood"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Short-term disability and long-term ",
+                "right": " are available at no cost to USTelecom employees."
+            },
+            "text": "Short-term disability and long-term disability benefits are available at no cost to USTelecom employees.",
+            "prediction": null,
+            "target": {
+                "concept": "benefits",
+                "text": "benefits"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "disability",
+                "text": "disability"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "",
+                "right": " is a versatile, neutral-tasting oil that is very low in saturated fat."
+            },
+            "text": "Canola oil is a versatile, neutral-tasting oil that is very low in saturated fat.",
+            "prediction": null,
+            "target": {
+                "concept": "oil",
+                "text": "oil"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "Canola",
+                "text": "Canola"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "In any case, we found no indications that ",
+                "right": " would harm patients."
+            },
+            "text": "In any case, we found no indications that fish oil would harm patients.",
+            "prediction": null,
+            "target": {
+                "concept": "oil",
+                "text": "oil"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "fish",
+                "text": "fish"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is retrieved from the ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The ball is retrieved from the hedge.",
+            "prediction": null,
+            "target": {
+                "concept": "ball",
+                "text": "ball"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "hedge",
+                "text": "hedge"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " are derived primarily from a ",
+                "left": "The ",
+                "right": " conducted for the Harvard School of Public Health and The Robert Wood Johnson Foundation by Louis Harris and Associates and its international affiliates between 10 June and 14 September 1994."
+            },
+            "text": "The data are derived primarily from a three-nation survey conducted for the Harvard School of Public Health and The Robert Wood Johnson Foundation by Louis Harris and Associates and its international affiliates between 10 June and 14 September 1994.",
+            "prediction": null,
+            "target": {
+                "concept": "data",
+                "text": "data"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "three-nation survey",
+                "text": "three-nation survey"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "The hotel is in the style of a ",
+                "right": " and only has 18 rooms."
+            },
+            "text": "The hotel is in the style of a country lodge and only has 18 rooms.",
+            "prediction": null,
+            "target": {
+                "concept": "lodge",
+                "text": "lodge"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "country",
+                "text": "country"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "We will reposition ourselves and our events to attract ",
+                "right": "."
+            },
+            "text": "We will reposition ourselves and our events to attract scientists from complementary disciplines.",
+            "prediction": null,
+            "target": {
+                "concept": "scientists",
+                "text": "scientists"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "complementary disciplines",
+                "text": "complementary disciplines"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is from the ",
+                "left": "The ",
+                "right": " 'Selling Counterfeit Products is Illegal'."
+            },
+            "text": "The image is from the poster 'Selling Counterfeit Products is Illegal'.",
+            "prediction": null,
+            "target": {
+                "concept": "image",
+                "text": "image"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "poster",
+                "text": "poster"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Tom plans to continue to live the ",
+                "right": " as he grows older."
+            },
+            "text": "Tom plans to continue to live the country life as he grows older.",
+            "prediction": null,
+            "target": {
+                "concept": "life",
+                "text": "life"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "country",
+                "text": "country"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is distilled from ",
+                "left": "The ",
+                "right": " and first-hand experience."
+            },
+            "text": "The following advice is distilled from builders and first-hand experience.",
+            "prediction": null,
+            "target": {
+                "concept": "following advice",
+                "text": "following advice"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "builders",
+                "text": "builders"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is from the Ginger Meggs ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The first quote is from the Ginger Meggs cartoon.",
+            "prediction": null,
+            "target": {
+                "concept": "first quote",
+                "text": "first quote"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "cartoon",
+                "text": "cartoon"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Unlike a ",
+                "right": " (at an even higher price), this one purchase ensures you will be up to date with all future releases of the electronic book."
+            },
+            "text": "Unlike a hard-copy book (at an even higher price), this one purchase ensures you will be up to date with all future releases of the electronic book.",
+            "prediction": null,
+            "target": {
+                "concept": "book",
+                "text": "book"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "hard-copy",
+                "text": "hard-copy"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " are from a ",
+                "left": "Assuming that the ",
+                "right": ", data augmentation is applied to Bayesian inference with missing data by repeating a series of imputation and posterior steps."
+            },
+            "text": "Assuming that the data are from a multivariate normal distribution, data augmentation is applied to Bayesian inference with missing data by repeating a series of imputation and posterior steps.",
+            "prediction": null,
+            "target": {
+                "concept": "data",
+                "text": "data"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "multivariate normal distribution",
+                "text": "multivariate normal distribution"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "This Appalachian region had been settled by ",
+                "right": "."
+            },
+            "text": "This Appalachian region had been settled by emigrants from the lowlands.",
+            "prediction": null,
+            "target": {
+                "concept": "emigrants",
+                "text": "emigrants"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "lowlands",
+                "text": "lowlands"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is from the ",
+                "left": "The ",
+                "right": " 'Forrest Gump'."
+            },
+            "text": "The video sequence is from the movie 'Forrest Gump'.",
+            "prediction": null,
+            "target": {
+                "concept": "video sequence",
+                "text": "video sequence"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "movie",
+                "text": "movie"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " generates the ",
+                "left": "The ",
+                "right": ", some of which will be incident on the receiver."
+            },
+            "text": "The transmitter generates the electromagnetic wave, some of which will be incident on the receiver.",
+            "prediction": null,
+            "target": {
+                "concept": "electromagnetic wave",
+                "text": "electromagnetic wave"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "transmitter",
+                "text": "transmitter"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is received from a ",
+                "left": "",
+                "right": ", who reviews work through conferences, reports, and results achieved."
+            },
+            "text": "Supervision is received from a golf supervisor, who reviews work through conferences, reports, and results achieved.",
+            "prediction": null,
+            "target": {
+                "concept": "Supervision",
+                "text": "Supervision"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "golf supervisor",
+                "text": "golf supervisor"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is from the ",
+                "left": "The more samples (and therefore means) from the population one takes, the better the ",
+                "right": "."
+            },
+            "text": "The more samples (and therefore means) from the population one takes, the better the population estimate is from the sampling distribution.",
+            "prediction": null,
+            "target": {
+                "concept": "population estimate",
+                "text": "population estimate"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "sampling distribution",
+                "text": "sampling distribution"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Any herb can be used in ",
+                "right": ", but it is best to use bold flavors."
+            },
+            "text": "Any herb can be used in herb butter, but it is best to use bold flavors.",
+            "prediction": null,
+            "target": {
+                "concept": "butter",
+                "text": "butter"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "herb",
+                "text": "herb"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " manufactured the ",
+                "left": "But neither of the ",
+                "right": ", he said."
+            },
+            "text": "But neither of the teens manufactured the fake device, he said.",
+            "prediction": null,
+            "target": {
+                "concept": "fake device",
+                "text": "fake device"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "teens",
+                "text": "teens"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "This surgical operation isolates most of the ",
+                "right": "."
+            },
+            "text": "This surgical operation isolates most of the right hemisphere from the left hemisphere.",
+            "prediction": null,
+            "target": {
+                "concept": "right hemisphere",
+                "text": "right hemisphere"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "left hemisphere",
+                "text": "left hemisphere"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Each year over 2300 ",
+                "right": ", industries and government labs perform research at the NSLS."
+            },
+            "text": "Each year over 2300 scientists from universities, industries and government labs perform research at the NSLS.",
+            "prediction": null,
+            "target": {
+                "concept": "scientists",
+                "text": "scientists"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "universities",
+                "text": "universities"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is from the ",
+                "left": "The rest of the points are awarded proportionally to the distance the ",
+                "right": "."
+            },
+            "text": "The rest of the points are awarded proportionally to the distance the ball is from the farthest traveling ball.",
+            "prediction": null,
+            "target": {
+                "concept": "ball",
+                "text": "ball"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "farthest traveling ball",
+                "text": "farthest traveling ball"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " are from a ",
+                "left": "The ",
+                "right": ", when closets were tiny and bathrooms were few, but the woodwork and stonework are inspiring."
+            },
+            "text": "The homes are from a simpler time, when closets were tiny and bathrooms were few, but the woodwork and stonework are inspiring.",
+            "prediction": null,
+            "target": {
+                "concept": "homes",
+                "text": "homes"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "simpler time",
+                "text": "simpler time"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " are from a ",
+                "left": "About 30 ducks were found dead in Klamath County in the past two days, and officials are investigating whether the ",
+                "right": "."
+            },
+            "text": "About 30 ducks were found dead in Klamath County in the past two days, and officials are investigating whether the deaths are from a cholera outbreak.",
+            "prediction": null,
+            "target": {
+                "concept": "deaths",
+                "text": "deaths"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "cholera outbreak",
+                "text": "cholera outbreak"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " radiated ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The man radiated jolliness.",
+            "prediction": null,
+            "target": {
+                "concept": "jolliness",
+                "text": "jolliness"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "man",
+                "text": "man"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " providing the flavor and ",
+                "left": "A couple of spoonsful would have been mixed with water to create a sweet and tart drink, the ",
+                "right": ", the sugar providing the sweetness, and the vinegar providing the tartness."
+            },
+            "text": "A couple of spoonsful would have been mixed with water to create a sweet and tart drink, the fruit providing the flavor and color, the sugar providing the sweetness, and the vinegar providing the tartness.",
+            "prediction": null,
+            "target": {
+                "concept": "color",
+                "text": "color"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "fruit",
+                "text": "fruit"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "Prepare some ",
+                "right": " and let it cool."
+            },
+            "text": "Prepare some beef bouillon and let it cool.",
+            "prediction": null,
+            "target": {
+                "concept": "bouillon",
+                "text": "bouillon"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "beef",
+                "text": "beef"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " emits ",
+                "left": "The ",
+                "right": " that is regulated close to your body temperature."
+            },
+            "text": "The dryer emits air that is regulated close to your body temperature.",
+            "prediction": null,
+            "target": {
+                "concept": "air",
+                "text": "air"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "dryer",
+                "text": "dryer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "Where's the ",
+                "right": "?"
+            },
+            "text": "Where's the outrage from the sexism crusaders?",
+            "prediction": null,
+            "target": {
+                "concept": "outrage",
+                "text": "outrage"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "sexism crusaders",
+                "text": "sexism crusaders"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "In America, generations of Portuguese ",
+                "right": ", Azores and Madeira have brought their often-simple but diverse and always tasty cuisine."
+            },
+            "text": "In America, generations of Portuguese immigrants from the mainland, Azores and Madeira have brought their often-simple but diverse and always tasty cuisine.",
+            "prediction": null,
+            "target": {
+                "concept": "mainland",
+                "text": "mainland"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "immigrants",
+                "text": "immigrants"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " makes the ",
+                "left": "The ",
+                "right": "."
+            },
+            "text": "The dose makes the poison.",
+            "prediction": null,
+            "target": {
+                "concept": "poison",
+                "text": "poison"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "dose",
+                "text": "dose"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": "'s ",
+                "left": "This is an overview of the viewer from a ",
+                "right": "."
+            },
+            "text": "This is an overview of the viewer from a developer's perspective.",
+            "prediction": null,
+            "target": {
+                "concept": "perspective",
+                "text": "perspective"
+            },
+            "annotation": -1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "developer",
+                "text": "developer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " presented here are mainly derived from a ",
+                "left": "The ",
+                "right": " designed by researchers at the Harvard School of Public Health."
+            },
+            "text": "The data presented here are mainly derived from a survey designed by researchers at the Harvard School of Public Health.",
+            "prediction": null,
+            "target": {
+                "concept": "data",
+                "text": "data"
+            },
+            "annotation": 1,
+            "relation": "Origin-Entity",
+            "domain": {
+                "concept": "survey",
+                "text": "survey"
+            }
+        }
+    ],
+    "name": "2e5af1bd01584278a7bc94236f4c9d86",
+    "content": ""
+}

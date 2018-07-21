@@ -1,0 +1,71 @@
+OVERVIEW
+========
+
+Our automatic annotator identifies pairs of entities and a trigger of the relation between them. 
+It does so by first trying to link all entities to Wikipedia (and consequently to Freebase, since 
+Freebase is linked to Wikipedia). Given two entities appearing within 10 tokens of each other in 
+a sentence, our annotator checks whether there is a relation connecting them in Freebase. If such 
+a relation exists, the annotator looks for a trigger in the sentence. A trigger must be a synonym 
+for the Freebase relation (according to WordNet) and its distance to the nearest entity cannot be 
+more than 5 tokens.
+
+We applied this method for the New York Times and were able to annotate over 60,000 sentences 
+with 13,000 distinct entity pairs. For our experiments, we randomly selected one sentence for 
+each entity pair and separated a thousand for development and 12,000 for test. 
+
+An extraction is deemed correct if it contains the trigger.
+
+RUNNING THE SCRIPT
+==================
+
+Syntax: perl binary-automatic-evaluation.pl ground-truth system-output
+
+
+FILE FORMAT - GROUND TRUTH
+==========================
+
+The ground truth files contain 5 fields separated by tab. A header is required.
+
+ - Entity1:				The first Freebase entity
+
+ - Relation:			The relation id from Freebase.
+
+ - Entity2:				The second Freebase entity
+
+ - Relational Word: 	The relation trigger, that is, a relation synonym found in the sentence.
+
+ - Annotated Sentence: 	The sentence annotated with the entity pair and the trigger.
+						Entities are enclosed in triple square brackets and triggers are enclosed 
+						in triple curly brackets.
+					
+						
+FILE FORMAT - SYSTEM OUTPUT
+===========================
+
+The system output files are only required to contain 3 fields. A header is required.
+
+ - Entity1:				The first entity
+
+ - Relation:			The extracted relation. Systems must output three dashes ("---") to denote 
+						no relation.
+
+ - Entity2:				The second entity
+
+In our system output files, we included a 4th field containing the annotated sentence from 
+the ground truth. This field is used for manual analysis only and is not used by the evaluation 
+script.
+
+The entity pair in each line of the system output must match the entity pair in its respective line
+of the ground truth. The evaluation script will raise an error if this condition is not met.
+
+
+REPRODUCING THIS EXPERIMENT
+===========================
+
+In order to reproduce this experiment with other corpora, we are sharing the Freebase relations we use
+and their respective synonyms (as extracted from WordNet). 
+
+This information can be found in the file: "relation_synonyms.txt". Each line in this file contains one
+Freebase relation and its synonyms. Fields are separated by tab. The first field corresponds to the 
+Freebase relation key and the following fields are synonyms.
+

@@ -40,7 +40,11 @@ class Concept:
         return hash(self.name)
 
     def clone(self):
-        """ Return an new partial concept with identical information but invalid concept connections """
+        """ Return an new partial concept with identical information but invalid concept connections
+        
+        Returns:
+            Clone (Concept) - A new partial concept
+        """
         clone = Concept(self.name,
             {p.name for p in self.parents},
             {c.name for c in self.children})
@@ -51,11 +55,16 @@ class Concept:
         return clone
 
     def ancestors(self):
-        """ Return a collection of parent concepts """
+        """ Return a collection of concepts, all of the concepts that can be linked via the parent
+        link. All the ancestor concepts are returned.
+        
+        Returns:
+            ancestors ({Concept}) - The collection
+        """
 
-        ancestors = self.parents.copy()
+        ancestors = self.parents.copy()  # Add the parents of this concept as the initial set
 
-        for parent in self.parents:
+        for parent in self.parents:  # Recursively collect the parents of the collected concepts
             if isinstance(parent, str):
                 ancestors.add(parent)
             else:
@@ -64,7 +73,11 @@ class Concept:
         return ancestors
 
     def descendants(self):
-        """ Return a collection of parent concepts """
+        """ Return a collection of child concepts linked to the current concept
+        
+        Returns:
+            descendants ({Concept}) - The collection of descendant concepts
+        """
 
         decendants = self.children.copy()
 
@@ -77,10 +90,15 @@ class Concept:
         return decendants
 
     def minimise(self) -> dict:
-        """ Return only the information the concept represents """
+        """ Return only the information the concept represents
+        
+        Returns:
+            dict - The minimised version of the concept, encapsulates all the information
+        """
 
         concept = {"name": self.name}
-        if self.parents: concept["parents"] = [parent if isinstance(parent, str) else parent.name for parent in self.parents]
+        if self.parents: concept["parents"] = [parent if isinstance(parent, str) else parent.name 
+            for parent in self.parents]
         if self.properties: concept["properties"] = self.properties
         if self.alias: concept["alias"] = list(self.alias)
         if self.permeable: concept["permeable"] = self.permeable

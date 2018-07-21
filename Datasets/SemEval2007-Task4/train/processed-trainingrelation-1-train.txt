@@ -1,0 +1,2806 @@
+{
+    "datapoints": [
+        {
+            "probability": null,
+            "context": {
+                "middle": " after ",
+                "left": "The period of ",
+                "right": " is often long and varied (mean months)."
+            },
+            "text": "The period of tumor shrinkage after radiation therapy is often long and varied (mean months).",
+            "prediction": null,
+            "target": {
+                "concept": "tumor shrinkage",
+                "text": "tumor shrinkage"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "radiation therapy",
+                "text": "radiation therapy"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from within ",
+                "left": "",
+                "right": ", loss of riparian vegetation, and reductions in water quality degrade and also limit the population."
+            },
+            "text": "Habitat degradation from within stream channels, loss of riparian vegetation, and reductions in water quality degrade and also limit the population.",
+            "prediction": null,
+            "target": {
+                "concept": "Habitat degradation",
+                "text": "Habitat degradation"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "stream channels",
+                "text": "stream channels"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Earplugs relieve the ",
+                "right": " with a cold allergy or sinus condition."
+            },
+            "text": "Earplugs relieve the discomfort from traveling with a cold allergy or sinus condition.",
+            "prediction": null,
+            "target": {
+                "concept": "discomfort",
+                "text": "discomfort"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "traveling",
+                "text": "traveling"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "We continue to see progress toward a world free of the ",
+                "right": "."
+            },
+            "text": "We continue to see progress toward a world free of the daily terror of antipersonnel land mines.",
+            "prediction": null,
+            "target": {
+                "concept": "daily terror",
+                "text": "daily terror"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "antipersonnel land mines",
+                "text": "antipersonnel land mines"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " starts off with two, cute ",
+                "left": "The Global Warming ",
+                "right": " about flowers blooming early and aardvarks moving North."
+            },
+            "text": "The Global Warming segment starts off with two, cute anecdotes about flowers blooming early and aardvarks moving North.",
+            "prediction": null,
+            "target": {
+                "concept": "segment",
+                "text": "segment"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "anecdotes",
+                "text": "anecdotes"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " over ",
+                "left": "The report links conditions in some of the worst affected localities and the likelihood that dire poverty \ufffd combined with despair and ",
+                "right": ", repressive policies, and governments' failure to address local needs \ufffd could lead to outbreaks of localised unrest with the potential to spread into a wider regional conflict."
+            },
+            "text": "The report links conditions in some of the worst affected localities and the likelihood that dire poverty \ufffd combined with despair and outrage over rampant corruption, repressive policies, and governments' failure to address local needs \ufffd could lead to outbreaks of localised unrest with the potential to spread into a wider regional conflict.",
+            "prediction": null,
+            "target": {
+                "concept": "outrage",
+                "text": "outrage"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "rampant corruption",
+                "text": "rampant corruption"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from various ",
+                "left": "Literary criticism is the study of literature by means of a microscopic knowledge of the language in which a book is written, of its ",
+                "right": ", of its stages of development and the factors influencing them, of its condition in the period of this particular composition, of the writer's idiosyncrasies of thought and style in his ripening periods, of the general history and literature of his race, and of the special characteristics of his age and of his contemporary writers."
+            },
+            "text": "Literary criticism is the study of literature by means of a microscopic knowledge of the language in which a book is written, of its growth from various roots, of its stages of development and the factors influencing them, of its condition in the period of this particular composition, of the writer's idiosyncrasies of thought and style in his ripening periods, of the general history and literature of his race, and of the special characteristics of his age and of his contemporary writers.",
+            "prediction": null,
+            "target": {
+                "concept": "growth",
+                "text": "growth"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "roots",
+                "text": "roots"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " following ",
+                "left": "",
+                "right": " has hit the West African savannahs, where there have been other bad droughts, notably the great one of 1972-74."
+            },
+            "text": "Famine following drought has hit the West African savannahs, where there have been other bad droughts, notably the great one of 1972-74.",
+            "prediction": null,
+            "target": {
+                "concept": "Famine",
+                "text": "Famine"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "drought",
+                "text": "drought"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from that powerful ",
+                "left": "People in Hawaii might be feeling ",
+                "right": " for weeks."
+            },
+            "text": "People in Hawaii might be feeling aftershocks from that powerful earthquake for weeks.",
+            "prediction": null,
+            "target": {
+                "concept": "aftershocks",
+                "text": "aftershocks"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "earthquake",
+                "text": "earthquake"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " by ",
+                "left": "One newly formed Iraqi battalion is on duty, with scheduled for ",
+                "right": " 2004."
+            },
+            "text": "One newly formed Iraqi battalion is on duty, with scheduled for activation by summer 2004.",
+            "prediction": null,
+            "target": {
+                "concept": "activation",
+                "text": "activation"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "summer",
+                "text": "summer"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is essential for ",
+                "left": "",
+                "right": " and cell division."
+            },
+            "text": "Zinc is essential for growth and cell division.",
+            "prediction": null,
+            "target": {
+                "concept": "growth",
+                "text": "growth"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "Zinc",
+                "text": "Zinc"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " starts with ",
+                "left": "The typical ",
+                "right": ", muscular pains, headache and general fatigue."
+            },
+            "text": "The typical flu infection starts with fever, muscular pains, headache and general fatigue.",
+            "prediction": null,
+            "target": {
+                "concept": "flu infection",
+                "text": "flu infection"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "fever",
+                "text": "fever"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Apartment residents in Delaware were awarded $million for health problems attributed to ",
+                "right": "."
+            },
+            "text": "Apartment residents in Delaware were awarded $million for health problems attributed to mold growth from unrepaired leaks.",
+            "prediction": null,
+            "target": {
+                "concept": "mold growth",
+                "text": "mold growth"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "unrepaired leaks",
+                "text": "unrepaired leaks"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "This industry and way of life, however, is in trouble as salmon decline due to ",
+                "right": ", clearcutting, and overgrazing along streams."
+            },
+            "text": "This industry and way of life, however, is in trouble as salmon decline due to habitat degradation from dams, clearcutting, and overgrazing along streams.",
+            "prediction": null,
+            "target": {
+                "concept": "habitat degradation",
+                "text": "habitat degradation"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "dams",
+                "text": "dams"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " after ",
+                "left": "It is widely known that significant reductions of these levels produce pastries with poor lift in the oven and with unacceptable ",
+                "right": "."
+            },
+            "text": "It is widely known that significant reductions of these levels produce pastries with poor lift in the oven and with unacceptable shrinkage after cooling.",
+            "prediction": null,
+            "target": {
+                "concept": "shrinkage",
+                "text": "shrinkage"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "cooling",
+                "text": "cooling"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " through ",
+                "left": "Teens will find a realistic model for improving self-esteem, confronting challenges head on and the possibilities of ",
+                "right": "."
+            },
+            "text": "Teens will find a realistic model for improving self-esteem, confronting challenges head on and the possibilities of achievement through perseverance.",
+            "prediction": null,
+            "target": {
+                "concept": "achievement",
+                "text": "achievement"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "perseverance",
+                "text": "perseverance"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " after ",
+                "left": "The age of first marriage does not predict ",
+                "right": "."
+            },
+            "text": "The age of first marriage does not predict happiness after marriage.",
+            "prediction": null,
+            "target": {
+                "concept": "happiness",
+                "text": "happiness"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "marriage",
+                "text": "marriage"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "It is simple and ideal when all you want to do is freshen up clothes or smooth out ",
+                "right": " that have been stored away."
+            },
+            "text": "It is simple and ideal when all you want to do is freshen up clothes or smooth out wrinkles from garments that have been stored away.",
+            "prediction": null,
+            "target": {
+                "concept": "wrinkles",
+                "text": "wrinkles"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "garments",
+                "text": "garments"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "As long as a surviving multiplexed copy of the controlfile exists, ",
+                "right": " of a controlfile is simple."
+            },
+            "text": "As long as a surviving multiplexed copy of the controlfile exists, recovery from loss of a controlfile is simple.",
+            "prediction": null,
+            "target": {
+                "concept": "recovery",
+                "text": "recovery"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "loss",
+                "text": "loss"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " following the ",
+                "left": "He predicts that the severe ",
+                "right": " would require a political and economic reorganization in the country."
+            },
+            "text": "He predicts that the severe famine following the good years would require a political and economic reorganization in the country.",
+            "prediction": null,
+            "target": {
+                "concept": "famine",
+                "text": "famine"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "good years",
+                "text": "good years"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " after the ",
+                "left": "The film also features documentary like segments about fishing and about the ",
+                "right": " of the volcano."
+            },
+            "text": "The film also features documentary like segments about fishing and about the evacuation after the eruption of the volcano.",
+            "prediction": null,
+            "target": {
+                "concept": "evacuation",
+                "text": "evacuation"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "eruption",
+                "text": "eruption"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "I believe that unless we take this issue seriously, the red squirrel is facing eventual ",
+                "right": " of Scotland."
+            },
+            "text": "I believe that unless we take this issue seriously, the red squirrel is facing eventual extinction from the woods of Scotland.",
+            "prediction": null,
+            "target": {
+                "concept": "extinction",
+                "text": "extinction"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "woods",
+                "text": "woods"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "There should be no ",
+                "right": " - except possibly from the cuts in the higher tax rates."
+            },
+            "text": "There should be no revenue increase from the tax cuts - except possibly from the cuts in the higher tax rates.",
+            "prediction": null,
+            "target": {
+                "concept": "revenue increase",
+                "text": "revenue increase"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "tax cuts",
+                "text": "tax cuts"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " in the ",
+                "left": "The following are very basic tips which may help you manage your ",
+                "right": "."
+            },
+            "text": "The following are very basic tips which may help you manage your anxiety in the exam.",
+            "prediction": null,
+            "target": {
+                "concept": "anxiety",
+                "text": "anxiety"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "exam",
+                "text": "exam"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " over ",
+                "left": "There exists a widespread ",
+                "right": " that emanates from the techniques used in the creation and usage of stem cells."
+            },
+            "text": "There exists a widespread controversy over stem cell research that emanates from the techniques used in the creation and usage of stem cells.",
+            "prediction": null,
+            "target": {
+                "concept": "controversy",
+                "text": "controversy"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "stem cell research",
+                "text": "stem cell research"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "The order reaches the office in minutes, allowing the order staff to start ",
+                "right": "."
+            },
+            "text": "The order reaches the office in minutes, allowing the order staff to start fulfillment from warehouse inventory.",
+            "prediction": null,
+            "target": {
+                "concept": "fulfillment",
+                "text": "fulfillment"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "warehouse inventory",
+                "text": "warehouse inventory"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " through ",
+                "left": "Aromatherapy can be used for ",
+                "right": " with sedatives like lavender and sweet marjoram."
+            },
+            "text": "Aromatherapy can be used for stress relief through massage with sedatives like lavender and sweet marjoram.",
+            "prediction": null,
+            "target": {
+                "concept": "stress relief",
+                "text": "stress relief"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "massage",
+                "text": "massage"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "The findings clearly show a high level of ",
+                "right": " using new cutting-edge retail technology that has led to higher sales."
+            },
+            "text": "The findings clearly show a high level of satisfaction from customers using new cutting-edge retail technology that has led to higher sales.",
+            "prediction": null,
+            "target": {
+                "concept": "satisfaction",
+                "text": "satisfaction"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "customers",
+                "text": "customers"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "The resulting ",
+                "right": " is an on-going matter that the town and the police continue to address, particularly in the summer months."
+            },
+            "text": "The resulting anti-social behaviour from alcohol consumption is an on-going matter that the town and the police continue to address, particularly in the summer months.",
+            "prediction": null,
+            "target": {
+                "concept": "anti-social behaviour",
+                "text": "anti-social behaviour"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "alcohol consumption",
+                "text": "alcohol consumption"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from an ",
+                "left": "Complementing the data from PARK, GeoFEST will model the evolution of stress and strain in a detailed simulation of the crust and mantle, potentially helping researchers predict the ",
+                "right": " or a series of quakes."
+            },
+            "text": "Complementing the data from PARK, GeoFEST will model the evolution of stress and strain in a detailed simulation of the crust and mantle, potentially helping researchers predict the deformation from an earthquake or a series of quakes.",
+            "prediction": null,
+            "target": {
+                "concept": "deformation",
+                "text": "deformation"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "earthquake",
+                "text": "earthquake"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "Any ",
+                "right": " to the shoulder of the brachial plexus would leave the arm useless."
+            },
+            "text": "Any injury from the neck to the shoulder of the brachial plexus would leave the arm useless.",
+            "prediction": null,
+            "target": {
+                "concept": "injury",
+                "text": "injury"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "neck",
+                "text": "neck"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " comes from ",
+                "left": "It is likely that the ",
+                "right": " originating from areas of the brain that are sensing the lack of oxygen."
+            },
+            "text": "It is likely that the nausea comes from abnormal sensations originating from areas of the brain that are sensing the lack of oxygen.",
+            "prediction": null,
+            "target": {
+                "concept": "nausea",
+                "text": "nausea"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "abnormal sensations",
+                "text": "abnormal sensations"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " out of ",
+                "left": "That seems to me like an ",
+                "right": " seeing that you don't even know what my characters name is."
+            },
+            "text": "That seems to me like an accusation out of ignorance seeing that you don't even know what my characters name is.",
+            "prediction": null,
+            "target": {
+                "concept": "accusation",
+                "text": "accusation"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "ignorance",
+                "text": "ignorance"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " started with ",
+                "left": "In summer 2000, an Adventist church in Polotsk, Vitebsk Region, was damaged by a ",
+                "right": "."
+            },
+            "text": "In summer 2000, an Adventist church in Polotsk, Vitebsk Region, was damaged by a fire started with flammable liquids.",
+            "prediction": null,
+            "target": {
+                "concept": "fire",
+                "text": "fire"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "flammable liquids",
+                "text": "flammable liquids"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " comes from profound ",
+                "left": "Genuine ",
+                "right": " on life and an absolute clarity of direction, living for a purpose."
+            },
+            "text": "Genuine joy comes from profound spiritual awareness on life and an absolute clarity of direction, living for a purpose.",
+            "prediction": null,
+            "target": {
+                "concept": "joy",
+                "text": "joy"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "spiritual awareness",
+                "text": "spiritual awareness"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is added for ",
+                "left": "",
+                "right": " to the reproductive system."
+            },
+            "text": "Ginkgo is added for increased circulation to the reproductive system.",
+            "prediction": null,
+            "target": {
+                "concept": "increased circulation",
+                "text": "increased circulation"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "Ginkgo",
+                "text": "Ginkgo"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "During discussion of the legislation concerns, were raised that the inclusion of ",
+                "right": " to the sun would place too heavy a burden on a number of smaller companies, especially building firms and small catering concerns, which may have a lot of outside workers."
+            },
+            "text": "During discussion of the legislation concerns, were raised that the inclusion of protection from exposure to the sun would place too heavy a burden on a number of smaller companies, especially building firms and small catering concerns, which may have a lot of outside workers.",
+            "prediction": null,
+            "target": {
+                "concept": "protection",
+                "text": "protection"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "exposure",
+                "text": "exposure"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "These characteristics are inconsistent with ",
+                "right": " of comparable distance and magnitude to those that dominate the hazard at Yucca Mountain."
+            },
+            "text": "These characteristics are inconsistent with observations from earthquakes of comparable distance and magnitude to those that dominate the hazard at Yucca Mountain.",
+            "prediction": null,
+            "target": {
+                "concept": "observations",
+                "text": "observations"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "earthquakes",
+                "text": "earthquakes"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from this ",
+                "left": "Eye ",
+                "right": " is exacerbated by low humidity."
+            },
+            "text": "Eye discomfort from this staring effect is exacerbated by low humidity.",
+            "prediction": null,
+            "target": {
+                "concept": "discomfort",
+                "text": "discomfort"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "staring effect",
+                "text": "staring effect"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " comes from ",
+                "left": "Jane Jacobs has argued that all ",
+                "right": ", that cities are the source of economic prosperity, and the role of rural areas inevitably becomes less important as development takes place."
+            },
+            "text": "Jane Jacobs has argued that all economic progress comes from urban places, that cities are the source of economic prosperity, and the role of rural areas inevitably becomes less important as development takes place.",
+            "prediction": null,
+            "target": {
+                "concept": "economic progress",
+                "text": "economic progress"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "urban places",
+                "text": "urban places"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "He derives great joy and ",
+                "right": "."
+            },
+            "text": "He derives great joy and happiness from cycling.",
+            "prediction": null,
+            "target": {
+                "concept": "happiness",
+                "text": "happiness"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "cycling",
+                "text": "cycling"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " in rain comes from ",
+                "left": "The ",
+                "right": " from coal-fired power plants and other industries."
+            },
+            "text": "The pollution in rain comes from mercury air pollution from coal-fired power plants and other industries.",
+            "prediction": null,
+            "target": {
+                "concept": "pollution",
+                "text": "pollution"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "mercury air pollution",
+                "text": "mercury air pollution"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "In order for handwashing to be effective, vigorous friction, ample ",
+                "right": ", and thorough rinsing are needed to remove the germs from the hands."
+            },
+            "text": "In order for handwashing to be effective, vigorous friction, ample lather from soap, and thorough rinsing are needed to remove the germs from the hands.",
+            "prediction": null,
+            "target": {
+                "concept": "lather",
+                "text": "lather"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "soap",
+                "text": "soap"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " by ",
+                "left": "Alabama has since enacted legislation, allowing ",
+                "right": " as an alternative choice to death in the electric chair."
+            },
+            "text": "Alabama has since enacted legislation, allowing death by lethal injection as an alternative choice to death in the electric chair.",
+            "prediction": null,
+            "target": {
+                "concept": "death",
+                "text": "death"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "lethal injection",
+                "text": "lethal injection"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " after ",
+                "left": "Gurra Krantz, skipper of the still leading yacht SEB reports some ",
+                "right": "."
+            },
+            "text": "Gurra Krantz, skipper of the still leading yacht SEB reports some frustration after yesterday's exhilarating rides.",
+            "prediction": null,
+            "target": {
+                "concept": "frustration",
+                "text": "frustration"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "yesterday's exhilarating rides",
+                "text": "yesterday's exhilarating rides"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " with ",
+                "left": "",
+                "right": " can have similar effects as driving under the influence."
+            },
+            "text": "Driving with sleep deprivation can have similar effects as driving under the influence.",
+            "prediction": null,
+            "target": {
+                "concept": "Driving",
+                "text": "Driving"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "sleep deprivation",
+                "text": "sleep deprivation"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Sudden ",
+                "right": " of petroleum distillates is well recognised in misuses of volatile substances."
+            },
+            "text": "Sudden death from inhalation of petroleum distillates is well recognised in misuses of volatile substances.",
+            "prediction": null,
+            "target": {
+                "concept": "death",
+                "text": "death"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "inhalation",
+                "text": "inhalation"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "The good friar was insistent on both celibacy and ",
+                "right": "."
+            },
+            "text": "The good friar was insistent on both celibacy and abstinence from laughter.",
+            "prediction": null,
+            "target": {
+                "concept": "abstinence",
+                "text": "abstinence"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "laughter",
+                "text": "laughter"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "Nausea is the sensation of unease and ",
+                "right": ", with the sufferers feeling that they may vomit."
+            },
+            "text": "Nausea is the sensation of unease and discomfort from the stomach, with the sufferers feeling that they may vomit.",
+            "prediction": null,
+            "target": {
+                "concept": "discomfort",
+                "text": "discomfort"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "stomach",
+                "text": "stomach"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "And because of a last minute ",
+                "right": " to bottom - what would be and should be a perfect season to this point is just another year."
+            },
+            "text": "And because of a last minute collapse from top to bottom - what would be and should be a perfect season to this point is just another year.",
+            "prediction": null,
+            "target": {
+                "concept": "collapse",
+                "text": "collapse"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "top",
+                "text": "top"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " in overall mortality with aggressive ",
+                "left": "The randomized hypertensive ABCD study demonstrated a decrease in myocardial infarction with ACE inhibitors and a ",
+                "right": "."
+            },
+            "text": "The randomized hypertensive ABCD study demonstrated a decrease in myocardial infarction with ACE inhibitors and a decrease in overall mortality with aggressive blood pressure control.",
+            "prediction": null,
+            "target": {
+                "concept": "decrease",
+                "text": "decrease"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "blood pressure control",
+                "text": "blood pressure control"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " by ",
+                "left": "It was also felt necessary at this time to draw up a similar document, dealing not with the prevention of ",
+                "right": ", but instead with the prevention of marine pollution by discharges of dangerous substances from land-based sources, watercourses or pipelines."
+            },
+            "text": "It was also felt necessary at this time to draw up a similar document, dealing not with the prevention of marine pollution by dumping, but instead with the prevention of marine pollution by discharges of dangerous substances from land-based sources, watercourses or pipelines.",
+            "prediction": null,
+            "target": {
+                "concept": "marine pollution",
+                "text": "marine pollution"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "dumping",
+                "text": "dumping"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " after ",
+                "left": "Delay and procrastination set you up for ",
+                "right": "."
+            },
+            "text": "Delay and procrastination set you up for frustration after frustration.",
+            "prediction": null,
+            "target": {
+                "concept": "frustration",
+                "text": "frustration"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "frustration",
+                "text": "frustration"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " starts with the ",
+                "left": "",
+                "right": " of the process performance, and the instigation of a robust process for reviewing further changes logically and quickly."
+            },
+            "text": "Continuous improvement starts with the measuring of the process performance, and the instigation of a robust process for reviewing further changes logically and quickly.",
+            "prediction": null,
+            "target": {
+                "concept": "Continuous improvement",
+                "text": "Continuous improvement"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "measuring",
+                "text": "measuring"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "The risks of this procedure include anesthesia complications (especially General), post-operative difficulty breathing, and ",
+                "right": "."
+            },
+            "text": "The risks of this procedure include anesthesia complications (especially General), post-operative difficulty breathing, and sore throat from intubation.",
+            "prediction": null,
+            "target": {
+                "concept": "sore throat",
+                "text": "sore throat"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "intubation",
+                "text": "intubation"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " and after any ",
+                "left": "During periods of wide ",
+                "right": " in insulin dose, the blood sugar must also be measured during the night."
+            },
+            "text": "During periods of wide blood sugar fluctuations and after any change in insulin dose, the blood sugar must also be measured during the night.",
+            "prediction": null,
+            "target": {
+                "concept": "blood sugar fluctuations",
+                "text": "blood sugar fluctuations"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "change",
+                "text": "change"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " by ",
+                "left": "Their chemical ",
+                "right": " (halogen, plasma, lasers, etc.) enhances their efficiency by reducing exposure time and number of appointments."
+            },
+            "text": "Their chemical activation by light (halogen, plasma, lasers, etc.) enhances their efficiency by reducing exposure time and number of appointments.",
+            "prediction": null,
+            "target": {
+                "concept": "activation",
+                "text": "activation"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "light",
+                "text": "light"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " comes from small ",
+                "left": "The ",
+                "right": " located between the pepper's outside skin and the white ribs inside."
+            },
+            "text": "The spiciness comes from small capsaicin glands located between the pepper's outside skin and the white ribs inside.",
+            "prediction": null,
+            "target": {
+                "concept": "spiciness",
+                "text": "spiciness"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "capsaicin glands",
+                "text": "capsaicin glands"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from 'Meredith's'",
+                "left": "You can see the ",
+                "right": " and you can even understand by looking the series that she is really about same age as 'Bailey'."
+            },
+            "text": "You can see the wrinkles from 'Meredith's'face and you can even understand by looking the series that she is really about same age as 'Bailey'.",
+            "prediction": null,
+            "target": {
+                "concept": "wrinkles",
+                "text": "wrinkles"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "face",
+                "text": "face"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " comes from ",
+                "left": "Someone once said that ",
+                "right": "."
+            },
+            "text": "Someone once said that progress comes from dissatisfaction.",
+            "prediction": null,
+            "target": {
+                "concept": "progress",
+                "text": "progress"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "dissatisfaction",
+                "text": "dissatisfaction"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " after Middlesbrough's ",
+                "left": "Ray Parlour shows his ",
+                "right": "."
+            },
+            "text": "Ray Parlour shows his frustration after Middlesbrough's defeat.",
+            "prediction": null,
+            "target": {
+                "concept": "frustration",
+                "text": "frustration"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "defeat",
+                "text": "defeat"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "If governments were once content to passively realize the ",
+                "right": ", the determination to be part of the knowledge-based economy has driven OECD countries to extract greater direct benefits from publicly funded research."
+            },
+            "text": "If governments were once content to passively realize the benefits from funding basic research, the determination to be part of the knowledge-based economy has driven OECD countries to extract greater direct benefits from publicly funded research.",
+            "prediction": null,
+            "target": {
+                "concept": "benefits",
+                "text": "benefits"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "funding basic research",
+                "text": "funding basic research"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " after its devastating ",
+                "left": "The troubled company is still feeling ",
+                "right": " of the pain medication Vioxx six months ago."
+            },
+            "text": "The troubled company is still feeling aftershocks after its devastating withdrawal of the pain medication Vioxx six months ago.",
+            "prediction": null,
+            "target": {
+                "concept": "aftershocks",
+                "text": "aftershocks"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "withdrawal",
+                "text": "withdrawal"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " over a ",
+                "left": "Two sides search for the naked truth in the ",
+                "right": " on display in a Florida shop."
+            },
+            "text": "Two sides search for the naked truth in the fight over a painting on display in a Florida shop.",
+            "prediction": null,
+            "target": {
+                "concept": "fight",
+                "text": "fight"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "painting",
+                "text": "painting"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "In the months leading up to trade negotiations, estimates of the ",
+                "right": " suddenly become newsworthy."
+            },
+            "text": "In the months leading up to trade negotiations, estimates of the economic gains from trade liberalization suddenly become newsworthy.",
+            "prediction": null,
+            "target": {
+                "concept": "economic gains",
+                "text": "economic gains"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "trade liberalization",
+                "text": "trade liberalization"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "The design of the shape of the can ends moreover has a marked effect on their ability to resist ",
+                "right": "."
+            },
+            "text": "The design of the shape of the can ends moreover has a marked effect on their ability to resist deformation from internal pressure.",
+            "prediction": null,
+            "target": {
+                "concept": "deformation",
+                "text": "deformation"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "internal pressure",
+                "text": "internal pressure"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "This understanding is consistent with behavioural studies that have failed to clearly distinguish between people with ",
+                "right": " and others."
+            },
+            "text": "This understanding is consistent with behavioural studies that have failed to clearly distinguish between people with drinking problems and others.",
+            "prediction": null,
+            "target": {
+                "concept": "problems",
+                "text": "problems"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "drinking",
+                "text": "drinking"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Myles and Simpson also identify ",
+                "right": " like lashing out verbally or physically or threatening the educators or other learners and withdrawing from others emotionally or physically."
+            },
+            "text": "Myles and Simpson also identify defensive behaviour from learners like lashing out verbally or physically or threatening the educators or other learners and withdrawing from others emotionally or physically.",
+            "prediction": null,
+            "target": {
+                "concept": "defensive behaviour",
+                "text": "defensive behaviour"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "learners",
+                "text": "learners"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " comes from a ",
+                "left": "In the most common form of such an attack, called ischemic stroke, the ",
+                "right": " that develops in one of the brain's blood vessels."
+            },
+            "text": "In the most common form of such an attack, called ischemic stroke, the blockage comes from a blood clot that develops in one of the brain's blood vessels.",
+            "prediction": null,
+            "target": {
+                "concept": "blockage",
+                "text": "blockage"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "blood clot",
+                "text": "blood clot"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " comes from ",
+                "left": "",
+                "right": ", transferring not just water but the solar energy that took it from the sea."
+            },
+            "text": "Rain comes from evaporated seawater, transferring not just water but the solar energy that took it from the sea.",
+            "prediction": null,
+            "target": {
+                "concept": "Rain",
+                "text": "Rain"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "evaporated seawater",
+                "text": "evaporated seawater"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "Women may experience ",
+                "right": " they first learn about the breast abnormality."
+            },
+            "text": "Women may experience anxiety from the time they first learn about the breast abnormality.",
+            "prediction": null,
+            "target": {
+                "concept": "anxiety",
+                "text": "anxiety"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "time",
+                "text": "time"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " started with an ",
+                "left": "Manila radio station DZMM quoted survivors as saying that the ",
+                "right": " in the cargo hold and spread across the ship within minutes."
+            },
+            "text": "Manila radio station DZMM quoted survivors as saying that the fire started with an explosion in the cargo hold and spread across the ship within minutes.",
+            "prediction": null,
+            "target": {
+                "concept": "fire",
+                "text": "fire"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "explosion",
+                "text": "explosion"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from this ",
+                "left": "Saunders felt a resurgence of the ",
+                "right": " when he'd regained consciousness in the minefield."
+            },
+            "text": "Saunders felt a resurgence of the panic from this morning when he'd regained consciousness in the minefield.",
+            "prediction": null,
+            "target": {
+                "concept": "panic",
+                "text": "panic"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "morning",
+                "text": "morning"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Thatch is caused by ",
+                "right": ", by allowing the grass to get too high before mowing, or by incorrect watering."
+            },
+            "text": "Thatch is caused by excessive growth from overfertilizing, by allowing the grass to get too high before mowing, or by incorrect watering.",
+            "prediction": null,
+            "target": {
+                "concept": "excessive growth",
+                "text": "excessive growth"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "overfertilizing",
+                "text": "overfertilizing"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " can give off enough ",
+                "left": "At normal room temperatures, ",
+                "right": " to form burnable mixtures with air."
+            },
+            "text": "At normal room temperatures, flammable liquids can give off enough vapour to form burnable mixtures with air.",
+            "prediction": null,
+            "target": {
+                "concept": "vapour",
+                "text": "vapour"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "flammable liquids",
+                "text": "flammable liquids"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " by the ",
+                "left": "Two years ago, President George W. Bush ordered the ",
+                "right": " of of a system capable of defending the United States against a missile attack by a terrorist group or an unfriendly rogue state such as North Korea."
+            },
+            "text": "Two years ago, President George W. Bush ordered the activation by the end of of a system capable of defending the United States against a missile attack by a terrorist group or an unfriendly rogue state such as North Korea.",
+            "prediction": null,
+            "target": {
+                "concept": "activation",
+                "text": "activation"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "end",
+                "text": "end"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " came from the ",
+                "left": "Most of the ",
+                "right": " of winning a nice prize, all for the sum of one dollar."
+            },
+            "text": "Most of the excitement came from the anticipation of winning a nice prize, all for the sum of one dollar.",
+            "prediction": null,
+            "target": {
+                "concept": "excitement",
+                "text": "excitement"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "anticipation",
+                "text": "anticipation"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " by ",
+                "left": "Anyone seeking ",
+                "right": " should first consult with a dermatologist, says Moore."
+            },
+            "text": "Anyone seeking hair reduction by laser treatment should first consult with a dermatologist, says Moore.",
+            "prediction": null,
+            "target": {
+                "concept": "hair reduction",
+                "text": "hair reduction"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "laser treatment",
+                "text": "laser treatment"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of the ",
+                "left": "The check given by Charles V to the advance of the Ottoman power along the African coast made him appear to the world as the liberator of the Christians and the ",
+                "right": ", and gave him such prestige that Francis felt obliged to get all the advantage possible out of his alliance."
+            },
+            "text": "The check given by Charles V to the advance of the Ottoman power along the African coast made him appear to the world as the liberator of the Christians and the terror of the infidels, and gave him such prestige that Francis felt obliged to get all the advantage possible out of his alliance.",
+            "prediction": null,
+            "target": {
+                "concept": "terror",
+                "text": "terror"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "infidels",
+                "text": "infidels"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " after high-ratio ",
+                "left": "Polystyrene with average molecular weight of 250,000-350,is particularly preferable because it is excellent in prevention of ",
+                "right": ", and in balance of strength and fusing property."
+            },
+            "text": "Polystyrene with average molecular weight of 250,000-350,is particularly preferable because it is excellent in prevention of shrinkage after high-ratio expansion, and in balance of strength and fusing property.",
+            "prediction": null,
+            "target": {
+                "concept": "shrinkage",
+                "text": "shrinkage"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "expansion",
+                "text": "expansion"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "Although Harry noticed it during exercise, the change that was identified was the difference in muscular ",
+                "right": " of his training program (riding five miles per day) to his current status two months later."
+            },
+            "text": "Although Harry noticed it during exercise, the change that was identified was the difference in muscular discomfort from the beginning of his training program (riding five miles per day) to his current status two months later.",
+            "prediction": null,
+            "target": {
+                "concept": "discomfort",
+                "text": "discomfort"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "beginning",
+                "text": "beginning"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is fantastic for ",
+                "left": "",
+                "right": ", which is great for cross-training with all the other programs we offer."
+            },
+            "text": "Yoga is fantastic for increased flexibility, which is great for cross-training with all the other programs we offer.",
+            "prediction": null,
+            "target": {
+                "concept": "increased flexibility",
+                "text": "increased flexibility"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "Yoga",
+                "text": "Yoga"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "There are three set changes and two intervals which help the ",
+                "right": ", but the entertainment is maintained despite the well expected ending."
+            },
+            "text": "There are three set changes and two intervals which help the recovery from laughter, but the entertainment is maintained despite the well expected ending.",
+            "prediction": null,
+            "target": {
+                "concept": "recovery",
+                "text": "recovery"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "laughter",
+                "text": "laughter"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Polar bears and hippos have joined the ranks of species threatened with ",
+                "right": ", unregulated hunting and other dangers created by humans."
+            },
+            "text": "Polar bears and hippos have joined the ranks of species threatened with extinction from climate change, unregulated hunting and other dangers created by humans.",
+            "prediction": null,
+            "target": {
+                "concept": "extinction",
+                "text": "extinction"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "climate change",
+                "text": "climate change"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " comes from ",
+                "left": "It is commonly accepted that ",
+                "right": ", debate, inference, logic and reasoning."
+            },
+            "text": "It is commonly accepted that progress comes from science, debate, inference, logic and reasoning.",
+            "prediction": null,
+            "target": {
+                "concept": "progress",
+                "text": "progress"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "science",
+                "text": "science"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " with ",
+                "left": "",
+                "right": " who listened to soft classical music at bedtime reported a percent improvement in their quality of sleep."
+            },
+            "text": "Adults with sleep deprivation who listened to soft classical music at bedtime reported a percent improvement in their quality of sleep.",
+            "prediction": null,
+            "target": {
+                "concept": "Adults",
+                "text": "Adults"
+            },
+            "annotation": -1,
+            "relation": "WordNet",
+            "domain": {
+                "concept": "sleep deprivation",
+                "text": "sleep deprivation"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "In fact, nobody received a ",
+                "right": " the whole weekend."
+            },
+            "text": "In fact, nobody received a drinking injury the whole weekend.",
+            "prediction": null,
+            "target": {
+                "concept": "injury",
+                "text": "injury"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "drinking",
+                "text": "drinking"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " after ",
+                "left": "",
+                "right": " is an effective local treatment, which is able to significantly increase local tumor control compared to radiation chemotherapy only."
+            },
+            "text": "Surgery after radiation chemotherapy is an effective local treatment, which is able to significantly increase local tumor control compared to radiation chemotherapy only.",
+            "prediction": null,
+            "target": {
+                "concept": "Surgery",
+                "text": "Surgery"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "radiation chemotherapy",
+                "text": "radiation chemotherapy"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " after normal ",
+                "left": "In the event of an ",
+                "right": ", the on-duty Security Officer and maintenance personnel will be responsible for the notification and evacuation of occupants of all buildings."
+            },
+            "text": "In the event of an evacuation after normal business hours, the on-duty Security Officer and maintenance personnel will be responsible for the notification and evacuation of occupants of all buildings.",
+            "prediction": null,
+            "target": {
+                "concept": "evacuation",
+                "text": "evacuation"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "business hours",
+                "text": "business hours"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Hand creams counteract ",
+                "right": " to wind, sun, and detergents."
+            },
+            "text": "Hand creams counteract dryness from exposure to wind, sun, and detergents.",
+            "prediction": null,
+            "target": {
+                "concept": "dryness",
+                "text": "dryness"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "exposure",
+                "text": "exposure"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from falling ",
+                "left": "In a departure from previous liftoffs, ground and aircraft cameras monitored Discovery for possible ",
+                "right": "."
+            },
+            "text": "In a departure from previous liftoffs, ground and aircraft cameras monitored Discovery for possible damage from falling debris.",
+            "prediction": null,
+            "target": {
+                "concept": "damage",
+                "text": "damage"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "debris",
+                "text": "debris"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " after Monday's ",
+                "left": "Craig expressed his ",
+                "right": "."
+            },
+            "text": "Craig expressed his frustration after Monday's meeting.",
+            "prediction": null,
+            "target": {
+                "concept": "frustration",
+                "text": "frustration"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "meeting",
+                "text": "meeting"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Companies face big ",
+                "right": " of key employees."
+            },
+            "text": "Companies face big risk from loss of key employees.",
+            "prediction": null,
+            "target": {
+                "concept": "risk",
+                "text": "risk"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "loss",
+                "text": "loss"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " following ",
+                "left": "Ancient pagan traditions used ",
+                "right": " as a way of revealing truth."
+            },
+            "text": "Ancient pagan traditions used famine following feast as a way of revealing truth.",
+            "prediction": null,
+            "target": {
+                "concept": "famine",
+                "text": "famine"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "feast",
+                "text": "feast"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of the ",
+                "left": "'The Incredible Shrinking Man' follows Matheson's novel and effectively captures the ",
+                "right": " as he shrinks to oblivion."
+            },
+            "text": "'The Incredible Shrinking Man' follows Matheson's novel and effectively captures the terror of the protagonist as he shrinks to oblivion.",
+            "prediction": null,
+            "target": {
+                "concept": "terror",
+                "text": "terror"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "protagonist",
+                "text": "protagonist"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from the ",
+                "left": "Clinton Portis, who missed last week's game against Dallas because of a ",
+                "right": ", rushed for yards on attempts to become the fifth-fastest player to reach the 6,000-yard mark in his career."
+            },
+            "text": "Clinton Portis, who missed last week's game against Dallas because of a shoulder injury from the preseason, rushed for yards on attempts to become the fifth-fastest player to reach the 6,000-yard mark in his career.",
+            "prediction": null,
+            "target": {
+                "concept": "shoulder injury",
+                "text": "shoulder injury"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "preseason",
+                "text": "preseason"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from your ",
+                "left": "This daily assault of inflammation in their digestive system, plus the ",
+                "right": " and an overworked immune system and excess weight can easily exceed the amount of inflammation your body can effectively handle."
+            },
+            "text": "This daily assault of inflammation in their digestive system, plus the inflammation from your joints and an overworked immune system and excess weight can easily exceed the amount of inflammation your body can effectively handle.",
+            "prediction": null,
+            "target": {
+                "concept": "inflammation",
+                "text": "inflammation"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "joints",
+                "text": "joints"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " after ",
+                "left": "However, some may be able to perform minutes of moderate-intensity exercise two to three hours after breakfast without a high risk of hypoglycemia, despite slightly ",
+                "right": "."
+            },
+            "text": "However, some may be able to perform minutes of moderate-intensity exercise two to three hours after breakfast without a high risk of hypoglycemia, despite slightly higher insulin levels after eating.",
+            "prediction": null,
+            "target": {
+                "concept": "higher insulin levels",
+                "text": "higher insulin levels"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "eating",
+                "text": "eating"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "The moisturizers' primary function is to keep skin moist, minimize ",
+                "right": ", smoothe and soften skin, and to deliver other ingredients, like sunscreen, that benefit the skin."
+            },
+            "text": "The moisturizers' primary function is to keep skin moist, minimize wrinkles from dryness, smoothe and soften skin, and to deliver other ingredients, like sunscreen, that benefit the skin.",
+            "prediction": null,
+            "target": {
+                "concept": "wrinkles",
+                "text": "wrinkles"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "dryness",
+                "text": "dryness"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "As a result of direct persecution, habitat loss and ",
+                "right": " until 1990s, brown bear population has decreased so much."
+            },
+            "text": "As a result of direct persecution, habitat loss and habitat degradation from 1950s until 1990s, brown bear population has decreased so much.",
+            "prediction": null,
+            "target": {
+                "concept": "habitat degradation",
+                "text": "habitat degradation"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "1950s",
+                "text": "1950s"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " through ",
+                "left": "",
+                "right": " is unlike the previous forms of inhibition in that it turns on more slowly and thus acts as delayed negative feedback."
+            },
+            "text": "Inhibition through synaptic depression is unlike the previous forms of inhibition in that it turns on more slowly and thus acts as delayed negative feedback.",
+            "prediction": null,
+            "target": {
+                "concept": "Inhibition",
+                "text": "Inhibition"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "synaptic depression",
+                "text": "synaptic depression"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "A city nightclub has had an ambitious expansion plan blocked over concerns about ",
+                "right": "."
+            },
+            "text": "A city nightclub has had an ambitious expansion plan blocked over concerns about unruly behaviour from drunken revellers.",
+            "prediction": null,
+            "target": {
+                "concept": "unruly behaviour",
+                "text": "unruly behaviour"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "drunken revellers",
+                "text": "drunken revellers"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "However, these animals are found in the intertidal zone, inside tide pools, where salinity can increase due to ",
+                "right": " to intense sunshine, or decrease from heavy rainfall or fresh water runoffs."
+            },
+            "text": "However, these animals are found in the intertidal zone, inside tide pools, where salinity can increase due to evaporation from exposure to intense sunshine, or decrease from heavy rainfall or fresh water runoffs.",
+            "prediction": null,
+            "target": {
+                "concept": "evaporation",
+                "text": "evaporation"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "exposure",
+                "text": "exposure"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "There were the years of constant fatigue and shortness of breath, the heart attack at age 11, the ",
+                "right": " on her high school graduation night."
+            },
+            "text": "There were the years of constant fatigue and shortness of breath, the heart attack at age 11, the collapse from exhaustion on her high school graduation night.",
+            "prediction": null,
+            "target": {
+                "concept": "collapse",
+                "text": "collapse"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "exhaustion",
+                "text": "exhaustion"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " after ",
+                "left": "",
+                "right": " increases future risk."
+            },
+            "text": "Depression after heart attack increases future risk.",
+            "prediction": null,
+            "target": {
+                "concept": "Depression",
+                "text": "Depression"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "heart attack",
+                "text": "heart attack"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of certain benefits from ",
+                "left": "Examples include the ",
+                "right": " and the exclusion of entire plans from certain funding requirements."
+            },
+            "text": "Examples include the exclusion of certain benefits from funding standards and the exclusion of entire plans from certain funding requirements.",
+            "prediction": null,
+            "target": {
+                "concept": "exclusion",
+                "text": "exclusion"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "funding standards",
+                "text": "funding standards"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "This program will be an effective step to mitigate ",
+                "right": " - but let us not forget this is a retroactive measure."
+            },
+            "text": "This program will be an effective step to mitigate damage from hurricanes - but let us not forget this is a retroactive measure.",
+            "prediction": null,
+            "target": {
+                "concept": "damage",
+                "text": "damage"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "hurricanes",
+                "text": "hurricanes"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " ",
+                "left": "I know another ",
+                "right": " happened in the Gallup area the other day, which is plagued by drinking and driving accidents."
+            },
+            "text": "I know another drinking accident happened in the Gallup area the other day, which is plagued by drinking and driving accidents.",
+            "prediction": null,
+            "target": {
+                "concept": "accident",
+                "text": "accident"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "drinking",
+                "text": "drinking"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " comes from ",
+                "left": "",
+                "right": " and breakthroughs by their very nature are unpredictable and surprising in their impact."
+            },
+            "text": "Scientific progress comes from breakthroughs and breakthroughs by their very nature are unpredictable and surprising in their impact.",
+            "prediction": null,
+            "target": {
+                "concept": "Scientific progress",
+                "text": "Scientific progress"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "breakthroughs",
+                "text": "breakthroughs"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Declines of great gray owls in California may be due to ",
+                "right": ", grazing, and development."
+            },
+            "text": "Declines of great gray owls in California may be due to habitat degradation from logging, grazing, and development.",
+            "prediction": null,
+            "target": {
+                "concept": "habitat degradation",
+                "text": "habitat degradation"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "logging",
+                "text": "logging"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from a brown ",
+                "left": "That year, summer students at the VLA made the first discovery of ",
+                "right": "."
+            },
+            "text": "That year, summer students at the VLA made the first discovery of radio emission from a brown dwarf.",
+            "prediction": null,
+            "target": {
+                "concept": "radio emission",
+                "text": "radio emission"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "dwarf",
+                "text": "dwarf"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Parents also experience ",
+                "right": " of the suffering of their child and worry about an uncertain outcome."
+            },
+            "text": "Parents also experience anxiety from fear of the suffering of their child and worry about an uncertain outcome.",
+            "prediction": null,
+            "target": {
+                "concept": "anxiety",
+                "text": "anxiety"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "fear",
+                "text": "fear"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Kids love watching the stages of ",
+                "right": " to cocoon to butterfly in this easy reliable kit."
+            },
+            "text": "Kids love watching the stages of growth from caterpillar to cocoon to butterfly in this easy reliable kit.",
+            "prediction": null,
+            "target": {
+                "concept": "growth",
+                "text": "growth"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "caterpillar",
+                "text": "caterpillar"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Grubs tend to cause significant ",
+                "right": " to spring by which time the larvae are becoming fully grown."
+            },
+            "text": "Grubs tend to cause significant damage from autumn to spring by which time the larvae are becoming fully grown.",
+            "prediction": null,
+            "target": {
+                "concept": "damage",
+                "text": "damage"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "autumn",
+                "text": "autumn"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " through ",
+                "left": "",
+                "right": " promotes important life skills."
+            },
+            "text": "Cooperation through physical activity promotes important life skills.",
+            "prediction": null,
+            "target": {
+                "concept": "Cooperation",
+                "text": "Cooperation"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "physical activity",
+                "text": "physical activity"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of ",
+                "left": "Villagers live in constant ",
+                "right": " which fills the nights throughout Chechnya."
+            },
+            "text": "Villagers live in constant terror of indiscriminate gunfire which fills the nights throughout Chechnya.",
+            "prediction": null,
+            "target": {
+                "concept": "terror",
+                "text": "terror"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "indiscriminate gunfire",
+                "text": "indiscriminate gunfire"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " over Manet's ",
+                "left": "From our point of view, the ",
+                "right": " seems hypocritical, if not utterly inexplicable."
+            },
+            "text": "From our point of view, the moral outrage over Manet's painting seems hypocritical, if not utterly inexplicable.",
+            "prediction": null,
+            "target": {
+                "concept": "moral outrage",
+                "text": "moral outrage"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "painting",
+                "text": "painting"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "This lamp can cause serious skin burn and ",
+                "right": " if outer envelope of the lamp is broken or punctured."
+            },
+            "text": "This lamp can cause serious skin burn and eye inflammation from shortwave ultraviolet radiation if outer envelope of the lamp is broken or punctured.",
+            "prediction": null,
+            "target": {
+                "concept": "eye inflammation",
+                "text": "eye inflammation"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "shortwave ultraviolet radiation",
+                "text": "shortwave ultraviolet radiation"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " after six ",
+                "left": "St John's wort was at least as effective as paroxetine in reducing severity of ",
+                "right": "."
+            },
+            "text": "St John's wort was at least as effective as paroxetine in reducing severity of depression after six weeks.",
+            "prediction": null,
+            "target": {
+                "concept": "depression",
+                "text": "depression"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "weeks",
+                "text": "weeks"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "A tear or a crease changes the character of the surface more drastically than a mere ",
+                "right": "."
+            },
+            "text": "A tear or a crease changes the character of the surface more drastically than a mere deformation from roundness.",
+            "prediction": null,
+            "target": {
+                "concept": "deformation",
+                "text": "deformation"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "roundness",
+                "text": "roundness"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " through ",
+                "left": "In this study we examined ",
+                "right": " and other interventions."
+            },
+            "text": "In this study we examined mood alterations through physical activity and other interventions.",
+            "prediction": null,
+            "target": {
+                "concept": "mood alterations",
+                "text": "mood alterations"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "physical activity",
+                "text": "physical activity"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " after ",
+                "left": "Anemia, fatigue or ",
+                "right": " may indicate that parasites are competing with the body for nutrients."
+            },
+            "text": "Anemia, fatigue or drowsiness after meals may indicate that parasites are competing with the body for nutrients.",
+            "prediction": null,
+            "target": {
+                "concept": "drowsiness",
+                "text": "drowsiness"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "meals",
+                "text": "meals"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "",
+                "right": " travel at different velocities through different media."
+            },
+            "text": "Waves from earthquakes travel at different velocities through different media.",
+            "prediction": null,
+            "target": {
+                "concept": "Waves",
+                "text": "Waves"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "earthquakes",
+                "text": "earthquakes"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " with ",
+                "left": "",
+                "right": " has been reported in a laboratory study of young, healthy volunteers."
+            },
+            "text": "Insulin resistance with sleep deprivation has been reported in a laboratory study of young, healthy volunteers.",
+            "prediction": null,
+            "target": {
+                "concept": "Insulin resistance",
+                "text": "Insulin resistance"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "sleep deprivation",
+                "text": "sleep deprivation"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " through ",
+                "left": "",
+                "right": " is a key component in the prevention and treatment of overweight and obesity."
+            },
+            "text": "Energy expenditure through physical activity is a key component in the prevention and treatment of overweight and obesity.",
+            "prediction": null,
+            "target": {
+                "concept": "Energy expenditure",
+                "text": "Energy expenditure"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "physical activity",
+                "text": "physical activity"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is for ",
+                "left": "You can do a simple experiment which shows how important ",
+                "right": " by planting a seed and putting it in a closet."
+            },
+            "text": "You can do a simple experiment which shows how important sun is for growth by planting a seed and putting it in a closet.",
+            "prediction": null,
+            "target": {
+                "concept": "growth",
+                "text": "growth"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "sun",
+                "text": "sun"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " of hydrogen peroxide is responsible for increased ",
+                "left": "In addition, scientists may have a number of potentially useful targets to prevent and treat this lethal tumour because of the findings that NOXmediated ",
+                "right": " and decreased death of cancer cells."
+            },
+            "text": "In addition, scientists may have a number of potentially useful targets to prevent and treat this lethal tumour because of the findings that NOXmediated overproduction of hydrogen peroxide is responsible for increased growth and decreased death of cancer cells.",
+            "prediction": null,
+            "target": {
+                "concept": "growth",
+                "text": "growth"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "overproduction",
+                "text": "overproduction"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " is for ",
+                "left": "The controlled environment ",
+                "right": " of experimental material only."
+            },
+            "text": "The controlled environment facility is for growth of experimental material only.",
+            "prediction": null,
+            "target": {
+                "concept": "growth",
+                "text": "growth"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "facility",
+                "text": "facility"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "This can be caused by hepatitis, alcoholic liver disease, ",
+                "right": ", fatty liver, liver tumors, or heart failure."
+            },
+            "text": "This can be caused by hepatitis, alcoholic liver disease, liver inflammation from medications, fatty liver, liver tumors, or heart failure.",
+            "prediction": null,
+            "target": {
+                "concept": "liver inflammation",
+                "text": "liver inflammation"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "medications",
+                "text": "medications"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "It has opened a sacred refuge for every lie and wrong; no wildest form of which could fail to find some precedent within these Hebrew histories, which tell the story of a people's upward ",
+                "right": "."
+            },
+            "text": "It has opened a sacred refuge for every lie and wrong; no wildest form of which could fail to find some precedent within these Hebrew histories, which tell the story of a people's upward growth from savagery.",
+            "prediction": null,
+            "target": {
+                "concept": "growth",
+                "text": "growth"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "savagery",
+                "text": "savagery"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " by the ",
+                "left": "Six glowing disks await ",
+                "right": " of desert wanderers."
+            },
+            "text": "Six glowing disks await activation by the footsteps of desert wanderers.",
+            "prediction": null,
+            "target": {
+                "concept": "activation",
+                "text": "activation"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "footsteps",
+                "text": "footsteps"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Tub drains clog up with hair and the ",
+                "right": " and must be cleaned out occasionally."
+            },
+            "text": "Tub drains clog up with hair and the grease from soap and must be cleaned out occasionally.",
+            "prediction": null,
+            "target": {
+                "concept": "grease",
+                "text": "grease"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "soap",
+                "text": "soap"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " in the wake of the ",
+                "left": "Thailand has been bracing itself for a ",
+                "right": ", especially in the tourist sector."
+            },
+            "text": "Thailand has been bracing itself for a downturn in the wake of the bombs, especially in the tourist sector.",
+            "prediction": null,
+            "target": {
+                "concept": "downturn",
+                "text": "downturn"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "bombs",
+                "text": "bombs"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " by ",
+                "left": "To the shock of international observers, the Libyan court found the medics guilty last year and sentenced them to ",
+                "right": "."
+            },
+            "text": "To the shock of international observers, the Libyan court found the medics guilty last year and sentenced them to death by firing squad.",
+            "prediction": null,
+            "target": {
+                "concept": "death",
+                "text": "death"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "firing squad",
+                "text": "firing squad"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "This prescription drug alleviates ",
+                "right": " and is also very handy for airplane rides and in case of broken-down subway cars or elevators."
+            },
+            "text": "This prescription drug alleviates panic from claustrophobia and is also very handy for airplane rides and in case of broken-down subway cars or elevators.",
+            "prediction": null,
+            "target": {
+                "concept": "panic",
+                "text": "panic"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "claustrophobia",
+                "text": "claustrophobia"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " after ",
+                "left": "Everybody in the region experienced the ",
+                "right": "."
+            },
+            "text": "Everybody in the region experienced the tremors after midnight.",
+            "prediction": null,
+            "target": {
+                "concept": "tremors",
+                "text": "tremors"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "midnight",
+                "text": "midnight"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "Deposits grew 20% with particularly good ",
+                "right": "."
+            },
+            "text": "Deposits grew 20% with particularly good growth from corporates.",
+            "prediction": null,
+            "target": {
+                "concept": "growth",
+                "text": "growth"
+            },
+            "annotation": -1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "corporates",
+                "text": "corporates"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " from ",
+                "left": "The studies revealed that ",
+                "right": ", inaccessibility to supplies or sinks, and insufficient time to wash hands between every patient care contact were the main reasons given by healthcare workers for lack of handwashing compliance."
+            },
+            "text": "The studies revealed that skin irritation from soaps, inaccessibility to supplies or sinks, and insufficient time to wash hands between every patient care contact were the main reasons given by healthcare workers for lack of handwashing compliance.",
+            "prediction": null,
+            "target": {
+                "concept": "skin irritation",
+                "text": "skin irritation"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "soaps",
+                "text": "soaps"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " starts with ",
+                "left": "",
+                "right": " of the binary."
+            },
+            "text": "Infection starts with manual execution of the binary.",
+            "prediction": null,
+            "target": {
+                "concept": "Infection",
+                "text": "Infection"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "manual execution",
+                "text": "manual execution"
+            }
+        },
+        {
+            "probability": null,
+            "context": {
+                "middle": " through ",
+                "left": "Anthony finds inspiration in a beautiful, enigmatic older woman who teaches him to follow his heart and find ",
+                "right": "."
+            },
+            "text": "Anthony finds inspiration in a beautiful, enigmatic older woman who teaches him to follow his heart and find happiness through swing dancing.",
+            "prediction": null,
+            "target": {
+                "concept": "happiness",
+                "text": "happiness"
+            },
+            "annotation": 1,
+            "relation": "Cause-Effect",
+            "domain": {
+                "concept": "swing dancing",
+                "text": "swing dancing"
+            }
+        }
+    ],
+    "name": "fb0c820e0f0b44e18ef6a1b1107757b6",
+    "content": ""
+}

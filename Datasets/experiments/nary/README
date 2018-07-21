@@ -1,0 +1,39 @@
+OVERVIEW
+========
+
+This experiment measures precision and recall over the extracted arguments. For each sentence, a system can extract a number of relations of the form r(a_1, a_2, ..., a_n), where r is the relation name and a_i is an argument. We only use the extracted relation whose name contains the annotated trigger, if it exists.
+
+A extracted argument is deemed a correct extraction if it is annotated in the sentence; otherwise, it is deemed incorrect.
+
+RUNNING THE SCRIPT
+==================
+
+Syntax: python nary-manual-evaluation.py ground-truth system-output
+
+
+FILE FORMAT - GROUND TRUTH
+==========================
+
+The ground truth file presents one sentence per line. Each sentence is annotated with a trigger and their arguments. Entities are enclosed in triple square brackets, triggers are enclosed in 						triple curly brackets. 
+
+Example:
+And [[[PER David Keh]]] has {{{transformed}}} [[[LOC Noodle Road]]] , 209 East 49th Street , into [[[PER Din Tai-Fone]]] of Taipei , a cafe serving northern Chinese noodles and dumplings .
+						
+FILE FORMAT - SYSTEM OUTPUT
+===========================
+
+The system output files are required to contain 2 fields: 
+
+- Relation:				The extracted relation. Systems must output three dashes ("---") to denote 
+						no relation.
+
+- Entities:				The list of entities involved in the relation.
+
+
+In our system output files, we included a third field containing the annotated sentence from 
+the ground truth. This field is used for manual analysis only and is not used by the evaluation 
+script.
+
+The extracted sentence in each line of the system output must match the sentence in its respective line
+of the ground truth.
+
