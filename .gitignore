@@ -18,3 +18,7 @@
 *.blg
 
 **/*Word2Vec*
+
+# Ignore pypi files
+dist
+build

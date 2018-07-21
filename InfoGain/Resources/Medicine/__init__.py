@@ -50,6 +50,8 @@ class Medicine:
         if cls.__trainingSet is None or num_of_docs != cls.__trainingSize:
 
             files = os.listdir(os.path.join(ROOT, "training"))
+            files.remove("__init__.py")  # Remove the package indicator from the list
+
             if num_of_docs: files = files[:num_of_docs]          
             cls.__trainingSet = [Document(filepath=os.path.join(ROOT, "training", name))
                 for name in files]
@@ -72,6 +74,8 @@ class Medicine:
         if cls.__testingSet is None or num_of_docs != cls.__testingSize:
 
             files = os.listdir(os.path.join(ROOT, "testing"))
+            files.remove("__init__.py")  # Remove the package indicator from the list
+            
             if num_of_docs: files = files[:num_of_docs]
 
             cls.__testingSet = [Document(filepath=os.path.join(ROOT, "testing", name))
