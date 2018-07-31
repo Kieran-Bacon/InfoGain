@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 with open("README.md", "r") as handler:
       README = handler.read()
-requires = ["sklearn", "matplotlib", "gensim"]
+requires = ["sklearn", "matplotlib", "gensim", "mock"]
 
 setup(name='InfoGain',
       install_requires=requires,

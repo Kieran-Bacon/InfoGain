@@ -1,0 +1,21 @@
+{
+    "Name": "ADE",
+    "Relations": {
+        "causes": {
+            "concepts": [
+                {
+                    "targets": [
+                        "Effect"
+                    ],
+                    "domains": [
+                        "Drug"
+                    ]
+                }
+            ]
+        }
+    },
+    "Concepts": {
+        "Effect": {},
+        "Drug": {}
+    }
+}

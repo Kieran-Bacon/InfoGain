@@ -1,3 +1,6 @@
+# Ignore example processed files
+examples/**/*.json
+
 .vscode/*
 *.egg-info/*
 **__pycache__/*
