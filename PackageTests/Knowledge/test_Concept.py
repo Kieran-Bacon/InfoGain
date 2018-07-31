@@ -1,7 +1,5 @@
 import unittest
 
-#from InfoGain import Concept
-
 from InfoGain.Knowledge import Concept
 
 class Test_Concept(unittest.TestCase):

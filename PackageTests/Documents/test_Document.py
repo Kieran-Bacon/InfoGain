@@ -12,9 +12,6 @@ class Test_Document(unittest.TestCase):
         self.contents = "When I generate a document in this manner, I want to ensure that the document "+\
         "object is created correctly. This is the initial test! Fingers crossed!!! Testing sentence end."
 
-    def tearDown(self):
-        Resources.Language.reset()
-
     def test_clean(self):
 
         sentenceMapping = {"Well this should work, I mean, I really hope that it does.":
@@ -28,7 +25,7 @@ class Test_Document(unittest.TestCase):
 
         self.assertEqual(Document.clean("Couldn't"), "could not")
 
-        wordMapping = {"Kieran's": "kieran", "un-holy": "unholy", "word_spagetti": "word_spagetti",
+        wordMapping = {"Kieran's": "kieran", "un-holy": "un holy", "word_spagetti": "word_spagetti",
                        "is": "is", "the": "the", "WORST": "worst", "Couldn't": "could not"}
 
         for dirty, clean in wordMapping.items():
@@ -77,7 +74,7 @@ class Test_Document(unittest.TestCase):
         language_content = "Luke has been living in England for about 10 years. When he first arrived he didn't know much"+\
         " English. Luke has been studying French, German and Spanish in a local community college."
 
-        languages = Resources.Language.ontology()
+        languages = Resources.Ontologies.Language.ontology()
         doc = Document(content=language_content)
 
         doc.processKnowledge(languages)
@@ -94,7 +91,7 @@ class Test_Document(unittest.TestCase):
         """ Check that the document doesn't match on alias when it shouldn't and does when it should """
 
         # Collect an ontology
-        ontology = Resources.Language.ontology()
+        ontology = Resources.Ontologies.Language.ontology()
 
         # Generate a document and process the knowledge
         test = Document(content="Luke-san speaks English")
@@ -114,7 +111,7 @@ class Test_Document(unittest.TestCase):
         """ Test that if a alias is a regular expression it will work correctly """
 
         # Collect an ontology
-        ontology = Resources.Language.ontology()
+        ontology = Resources.Ontologies.Language.ontology()
 
         # Add an alias
         ontology.concept("Kieran").alias.add(r"\d+:\d+:\d+ date")
@@ -132,12 +129,12 @@ class Test_Document(unittest.TestCase):
         create a new document with that content and extract the same datapoint """
 
         original = Document(content="Kieran is the best English speaker that has ever lived.")
-        original.processKnowledge(Resources.Language.ontology())
+        original.processKnowledge(Resources.Ontologies.Language.ontology())
 
         self.assertEqual(len(original.datapoints()), 1)
 
         new_document = Document(content=original.text())
-        new_document.processKnowledge(Resources.Language.ontology())
+        new_document.processKnowledge(Resources.Ontologies.Language.ontology())
 
         self.assertEqual(len(new_document.datapoints()), 1)
 
