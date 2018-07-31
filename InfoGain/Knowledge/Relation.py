@@ -80,4 +80,4 @@ class Relation:
         domains = [con.name for con in domains]
         targets = [con.name for con in targets]
 
-        return {"domains": domains, "name": self.name, "targets": targets}
+        return {"domains": domains, "name": self.name, "targets": targets, "differ": self.differ}

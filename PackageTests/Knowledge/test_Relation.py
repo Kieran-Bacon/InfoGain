@@ -58,6 +58,17 @@ class Test_Relation(unittest.TestCase):
             if a is b: self.assertFalse(differ_relation.between(a,b))
             else: self.assertTrue(differ_relation.between(a,b))
 
+    def test_differ_minimise(self):
+
+        con1, con2 = Concept("1"), Concept("2")
+
+        differ_relation = Relation({con1, con2}, "A", {con1, con2}, differ=True)
+
+        minimised = differ_relation.minimise()
+
+        self.assertTrue(minimised["differ"])
+
+
     def test_subscribe(self):
 
         # Test that a subscribed concept is currectly added to the shindig
