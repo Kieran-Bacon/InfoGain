@@ -53,8 +53,10 @@ extractor.fit(training)
 # Predict on the testing
 extractor.predict(testing)
 
-# Pring the predictions
+# Print the predictions
 print("Prediction content:")
 print(prediction_string)
 
+corpus, _ = score(extractor, testing)
+print("Testing score:", corpus)
 [print(point) for point in testing.datapoints()]

@@ -133,8 +133,7 @@ class Document:
             content = json.loads(self._content)
             self.name = content.get("name", self.name)
             self._content = content.get("content", self._content)
-            self._datapoints = self._datapoints + [Datapoint(data)
-                for data in content.get("datapoints",[])]
+            self._datapoints = [Datapoint(data) for data in content.get("datapoints",[])]
         except:
             pass
 
@@ -230,7 +229,9 @@ class Document:
         Returns:
             [Datapoint] - A structure holding the datapoints, structure depends on document type
         """
-        if data: self._datapoints = data
+        if data:
+            self._datapoints = data
+            self._content = " ".join([dp.text for dp in self._datapoints])
         return self._datapoints
 
     def processKnowledge(self, ontology: Ontology) -> None:

@@ -15,7 +15,7 @@ def buildOntology():
     # Add relation
     ADE.addRelation(Relation({"Drug"}, "causes", {"Effect"}))
 
-    ADE.save(folder="./ADE_Dataset")
+    ADE.save(folder="./ADE_Dataset", filename="ADE.json")
     return ADE
 
 def buildPositive(ADE):
@@ -127,7 +127,7 @@ if __name__ == "__main__":
     print("\t\tComplete.")
 
 
-    corpus, documents = score(ADE, testing)
+    corpus, documents = score(extractor, testing)
     print("Scores:")
     print(corpus)
     print(documents)
