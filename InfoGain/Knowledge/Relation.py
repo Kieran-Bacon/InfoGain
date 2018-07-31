@@ -10,11 +10,12 @@ class Relation:
         targets (set): A collection of concepts
     """
 
-    def __init__(self, domains: {Concept}, name: str, targets: {Concept}):
+    def __init__(self, domains: {Concept}, name: str, targets: {Concept}, differ: bool = False):
 
         self.name = name
         self.domains = domains.copy()
         self.targets = targets.copy()
+        self.differ = differ
 
         def addConcept(collection: set, con: Concept):
 
@@ -40,7 +41,10 @@ class Relation:
     def between(self, domain: Concept, target: Concept) -> bool:
         """ Verify if the relationship holds between two concepts """
         if domain.permeable or target.permeable: return False
-        return domain in self.domains and target in self.targets
+        if self.differ:
+            return domain in self.domains and target in self.targets and domain is not target
+        else:
+            return domain in self.domains and target in self.targets
 
     def subscribe( self, concept: Concept) -> None:
         """ Intelligently links concept with domain or target based on 
