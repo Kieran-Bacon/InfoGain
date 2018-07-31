@@ -45,7 +45,9 @@ class Ontology:
                     if None in domains.union(targets): raise MissingConcept("Relation '" + name + 
                         "' references unknown concept.")
 
-                    self.addRelation(Relation(domains, name, targets))
+                    self.addRelation(
+                        Relation(domains, name, targets, rawRelation.get("differ", False))
+                    )
 
     def addConcept(self, concept: Concept) -> None:
         """ Add concept object to ontology, overwrite previous concept if present.
