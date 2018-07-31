@@ -84,7 +84,7 @@ class RelationExtractor(Ontology):
         Ontology.addRelation(self, relation)  # Add the relation to the Extractor's ontology
         self.ensemble[relation.name] = RelationModel(relation)  # Generate a new relation model
 
-    def fit(self, training_documents: [Document] ) -> None:
+    def fit(self, training_documents: [Document]) -> None:
         """ Train the model on the collection of documents
         
         Params:
