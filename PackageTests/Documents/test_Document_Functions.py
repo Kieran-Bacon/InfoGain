@@ -1,6 +1,6 @@
 import unittest, mock, sys
 
-from InfoGain.Resources import Language
+from InfoGain.Resources.Ontologies import Language
 
 from InfoGain.Documents import Document, Datapoint, score, annotate
 from InfoGain.Extraction import RelationExtractor

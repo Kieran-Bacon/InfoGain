@@ -6,7 +6,7 @@ from InfoGain.Knowledge import Ontology, Concept, Relation
 from InfoGain.Documents import Document, Datapoint
 
 from InfoGain.Extraction import RelationExtractor
-from InfoGain.Resources import Language
+from InfoGain.Resources.Ontologies import Language
 
 from InfoGain import Resources
 

@@ -2,7 +2,8 @@ import unittest
 
 from InfoGain.Documents import Datapoint
 from InfoGain.Extraction import RelationModel
-from InfoGain.Resources import Language, Models
+from InfoGain.Resources import Models
+from InfoGain.Resources.Ontologies import Language
 
 class Test_Relation_Model(unittest.TestCase):
 

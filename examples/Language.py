@@ -2,7 +2,8 @@ from InfoGain.Knowledge import Ontology, Concept, Relation
 from InfoGain.Extraction import RelationExtractor
 from InfoGain.Documents import Document, annotate, score
 
-from InfoGain.Resources import Language
+#from InfoGain.Resources import Language
+from InfoGain.Resources.Ontologies import Language
 
 # Creating the language ontology
 LanguageOntology = Ontology("Languages")
@@ -50,10 +51,12 @@ extractor = RelationExtractor(ontology=LanguageOntology, min_count=1)
 extractor.fit(training)
 
 # Predict on the testing
-extractor.predict([testing])
+extractor.predict(testing)
 
-# Pring the predictions
+# Print the predictions
 print("Prediction content:")
 print(prediction_string)
 
+corpus, _ = score(extractor, testing)
+print("Testing score:", corpus)
 [print(point) for point in testing.datapoints()]

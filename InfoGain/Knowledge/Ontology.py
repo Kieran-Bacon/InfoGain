@@ -205,6 +205,7 @@ class Ontology:
         import os, uuid
 
         if filename is None and self.name is None: filename = uuid.uuid4().hex
+        if self.name and not filename: filename = self.name
             
         ontology = {
             "Name": self.name if self.name else filename,
@@ -229,5 +230,5 @@ class Ontology:
                 "concepts": concepts
             }
 
-        with open(os.path.join(folder, filename), "w") as handler:
+        with open(os.path.abspath(os.path.join(folder, filename)), "w") as handler:
             handler.write(json.dumps(ontology, indent=4))

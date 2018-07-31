@@ -1,7 +1,7 @@
 import unittest, os, json
 
 from InfoGain.Knowledge import Ontology, Concept, Relation
-from InfoGain.Resources import Language
+from InfoGain.Resources.Ontologies import Language
 
 
 class Test_Ontology_Creation(unittest.TestCase):
