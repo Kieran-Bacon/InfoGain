@@ -110,6 +110,19 @@
                     ]
                 }
             ]
+        },
+        "informs": {
+            "concepts": [
+                {
+                    "domains": [
+                        "Person"
+                    ],
+                    "targets": [
+                        "Person"
+                    ]
+                }
+            ],
+            "differ": true
         }
     }
 }

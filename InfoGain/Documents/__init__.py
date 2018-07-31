@@ -60,7 +60,7 @@ def score(ontology, documents: [Document])->(dict, dict):
 
     return corpus, scores
 
-def annotate(ontology, documents: [Document]):
+def annotate(ontology, documents: [Document], save: bool = False):
     """ Annotate some documents! """
 
     if not isinstance(documents, list):
@@ -83,7 +83,8 @@ def annotate(ontology, documents: [Document]):
     for document in documents:
 
         # Check to see if the document is to be saved
-        ans = cmdread("Save the generated training document?", ['Y','N'])
+        if save: ans = "Y"
+        else: ans = cmdread("Save the generated training document?", ['Y','N'])
         filename = cmdread("Filename: ") if ans == "Y" else None
 
         # Process the document according to the ontology

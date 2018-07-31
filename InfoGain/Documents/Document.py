@@ -231,7 +231,8 @@ class Document:
         """
         if data:
             self._datapoints = data
-            self._content = " ".join([dp.text for dp in self._datapoints])
+            self._content = " ".join([dp.text if dp.text[-1] == "." else dp.text + "."
+                for dp in self._datapoints])
         return self._datapoints
 
     def processKnowledge(self, ontology: Ontology) -> None:

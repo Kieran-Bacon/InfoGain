@@ -1,0 +1,246 @@
+{
+    "datapoints": [
+        {
+            "relation": "born_in",
+            "prediction": null,
+            "domain": {
+                "concept": "Luke",
+                "text": "Luke"
+            },
+            "text": "Luke has always wanted to live further a field, somewhere like France or Germany.",
+            "target": {
+                "concept": "France",
+                "text": "France"
+            },
+            "probability": null,
+            "context": {
+                "middle": "has always wanted to live further a field, somewhere like",
+                "right": "or Germany.",
+                "left": ""
+            },
+            "annotation": 0
+        },
+        {
+            "relation": "lives_in",
+            "prediction": null,
+            "domain": {
+                "concept": "Luke",
+                "text": "Luke"
+            },
+            "text": "Luke has always wanted to live further a field, somewhere like France or Germany.",
+            "target": {
+                "concept": "France",
+                "text": "France"
+            },
+            "probability": null,
+            "context": {
+                "middle": "has always wanted to live further a field, somewhere like",
+                "right": "or Germany.",
+                "left": ""
+            },
+            "annotation": 0
+        },
+        {
+            "relation": "born_in",
+            "prediction": null,
+            "domain": {
+                "concept": "Luke",
+                "text": "Luke"
+            },
+            "text": "Luke has always wanted to live further a field, somewhere like France or Germany.",
+            "target": {
+                "concept": "Germany",
+                "text": "Germany"
+            },
+            "probability": null,
+            "context": {
+                "middle": "has always wanted to live further a field, somewhere like France or",
+                "right": ".",
+                "left": ""
+            },
+            "annotation": 0
+        },
+        {
+            "relation": "lives_in",
+            "prediction": null,
+            "domain": {
+                "concept": "Luke",
+                "text": "Luke"
+            },
+            "text": "Luke has always wanted to live further a field, somewhere like France or Germany.",
+            "target": {
+                "concept": "Germany",
+                "text": "Germany"
+            },
+            "probability": null,
+            "context": {
+                "middle": "has always wanted to live further a field, somewhere like France or",
+                "right": ".",
+                "left": ""
+            },
+            "annotation": 0
+        },
+        {
+            "relation": "born_in",
+            "prediction": null,
+            "domain": {
+                "concept": "Luke",
+                "text": "Luke"
+            },
+            "text": "Luke was born in France, and lived there for a short while before moving to Spain.",
+            "target": {
+                "concept": "Spain",
+                "text": "Spain"
+            },
+            "probability": null,
+            "context": {
+                "middle": "was born in France, and lived there for a short while before moving to",
+                "right": ".",
+                "left": ""
+            },
+            "annotation": 0
+        },
+        {
+            "relation": "lives_in",
+            "prediction": null,
+            "domain": {
+                "concept": "Luke",
+                "text": "Luke"
+            },
+            "text": "Luke was born in France, and lived there for a short while before moving to Spain.",
+            "target": {
+                "concept": "Spain",
+                "text": "Spain"
+            },
+            "probability": null,
+            "context": {
+                "middle": "was born in France, and lived there for a short while before moving to",
+                "right": ".",
+                "left": ""
+            },
+            "annotation": 1
+        },
+        {
+            "relation": "born_in",
+            "prediction": null,
+            "domain": {
+                "concept": "Luke",
+                "text": "Luke"
+            },
+            "text": "Luke was born in France, and lived there for a short while before moving to Spain.",
+            "target": {
+                "concept": "France",
+                "text": "France"
+            },
+            "probability": null,
+            "context": {
+                "middle": "was born in",
+                "right": ", and lived there for a short while before moving to Spain.",
+                "left": ""
+            },
+            "annotation": 1
+        },
+        {
+            "relation": "lives_in",
+            "prediction": null,
+            "domain": {
+                "concept": "Luke",
+                "text": "Luke"
+            },
+            "text": "Luke was born in France, and lived there for a short while before moving to Spain.",
+            "target": {
+                "concept": "France",
+                "text": "France"
+            },
+            "probability": null,
+            "context": {
+                "middle": "was born in",
+                "right": ", and lived there for a short while before moving to Spain.",
+                "left": ""
+            },
+            "annotation": 0
+        },
+        {
+            "relation": "born_in",
+            "prediction": null,
+            "domain": {
+                "concept": "Kieran",
+                "text": "Kieran"
+            },
+            "text": "Kieran was born in England and hasn't ever lived anywhere else, though he has visited Germany.",
+            "target": {
+                "concept": "England",
+                "text": "England"
+            },
+            "probability": null,
+            "context": {
+                "middle": "was born in",
+                "right": "and hasn't ever lived anywhere else, though he has visited Germany.",
+                "left": ""
+            },
+            "annotation": 1
+        },
+        {
+            "relation": "lives_in",
+            "prediction": null,
+            "domain": {
+                "concept": "Kieran",
+                "text": "Kieran"
+            },
+            "text": "Kieran was born in England and hasn't ever lived anywhere else, though he has visited Germany.",
+            "target": {
+                "concept": "England",
+                "text": "England"
+            },
+            "probability": null,
+            "context": {
+                "middle": "was born in",
+                "right": "and hasn't ever lived anywhere else, though he has visited Germany.",
+                "left": ""
+            },
+            "annotation": 1
+        },
+        {
+            "relation": "born_in",
+            "prediction": null,
+            "domain": {
+                "concept": "Kieran",
+                "text": "Kieran"
+            },
+            "text": "Kieran was born in England and hasn't ever lived anywhere else, though he has visited Germany.",
+            "target": {
+                "concept": "Germany",
+                "text": "Germany"
+            },
+            "probability": null,
+            "context": {
+                "middle": "was born in England and hasn't ever lived anywhere else, though he has visited",
+                "right": ".",
+                "left": ""
+            },
+            "annotation": 0
+        },
+        {
+            "relation": "lives_in",
+            "prediction": null,
+            "domain": {
+                "concept": "Kieran",
+                "text": "Kieran"
+            },
+            "text": "Kieran was born in England and hasn't ever lived anywhere else, though he has visited Germany.",
+            "target": {
+                "concept": "Germany",
+                "text": "Germany"
+            },
+            "probability": null,
+            "context": {
+                "middle": "was born in England and hasn't ever lived anywhere else, though he has visited",
+                "right": ".",
+                "left": ""
+            },
+            "annotation": 0
+        }
+    ],
+    "content": "Luke has always wanted to live further a field, somewhere like France or Germany. Luke has always wanted to live further a field, somewhere like France or Germany. Luke has always wanted to live further a field, somewhere like France or Germany. Luke has always wanted to live further a field, somewhere like France or Germany. Luke was born in France, and lived there for a short while before moving to Spain. Luke was born in France, and lived there for a short while before moving to Spain. Luke was born in France, and lived there for a short while before moving to Spain. Luke was born in France, and lived there for a short while before moving to Spain. Kieran was born in England and hasn't ever lived anywhere else, though he has visited Germany. Kieran was born in England and hasn't ever lived anywhere else, though he has visited Germany. Kieran was born in England and hasn't ever lived anywhere else, though he has visited Germany. Kieran was born in England and hasn't ever lived anywhere else, though he has visited Germany.",
+    "name": "training1.json"
+}

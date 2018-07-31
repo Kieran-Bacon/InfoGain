@@ -10,7 +10,6 @@ class Test_Document_Functions(unittest.TestCase):
 
     def test_score_function(self):
 
-        ont = Language.ontology()
         training, test = Language.training()[:-1], Language.training()[-1]
 
         # Train
@@ -19,7 +18,7 @@ class Test_Document_Functions(unittest.TestCase):
 
         extractor.predict(test)
 
-        corpus, _ = score(ont, test)
+        corpus, _ = score(extractor, test)
 
         self.assertTrue(0 < corpus["precision"])
         self.assertTrue(0 < corpus["recall"])
