@@ -4,7 +4,7 @@ from InfoGain.Knowledge import Ontology, Concept, Relation
 from InfoGain.Documents import Document, Datapoint, score
 from InfoGain.Extraction import RelationExtractor
 
-import matplotlib.pyplot as plt
+DATA = os.path.abspath(os.path.join(os.path.dirname(__file__), "Dataset-SemEval2007"))
 
 def process_section(sentence):
 
@@ -57,7 +57,7 @@ def buildTraining():
 
     concepts, relations = set(), {}
 
-    with open("./SemEval2007/TrainingSet.txt", errors='replace') as handler:
+    with open(os.path.join(DATA, "TrainingSet.txt"), errors='replace') as handler:
 
         # Read content
         content = handler.read().split("\n\n")
@@ -86,7 +86,7 @@ def buildTraining():
 
     document = Document()
     document.datapoints(datapoints)
-    document.save(folder="./SemEval2007", filename="training.json")
+    document.save(folder=DATA, filename="training.json")
     
     ontology = Ontology()
 
@@ -98,7 +98,7 @@ def buildTraining():
         targets = [ontology.concept(con) for con in info["targets"]]
         ontology.addRelation(Relation(set(domains), name, set(targets)))
 
-    ontology.save(folder="./SemEval2007", filename="ontology.json")
+    ontology.save(folder=DATA, filename="ontology.json")
 
     return ontology, document
 
@@ -106,7 +106,7 @@ def buildTesting():
 
         datapoints = []
 
-        with open("./SemEval2007/TestingSet.txt", errors='replace') as handler:
+        with open(os.path.join(DATA, "TestingSet.txt"), errors='replace') as handler:
 
             # Read content
             content = handler.read().split("\n\n")
@@ -124,21 +124,21 @@ def buildTesting():
 
         document = Document()
         document.datapoints(datapoints)
-        document.save(folder="./SemEval2007", filename="testing.json")
+        document.save(folder=DATA, filename="testing.json")
         return document
 
 if __name__ == "__main__":
     print("Getting Ontology and training...")
-    if os.path.exists("./SemEval2007/training.json"):
-        ontology = Ontology(filepath="./SemEval2007/ontology.json")
-        training = Document(filepath="./SemEval2007/training.json")
+    if os.path.exists(os.path.join(DATA, "training.json")):
+        ontology = Ontology(filepath=os.path.join(DATA, "ontology.json"))
+        training = Document(filepath=os.path.join(DATA, "training.json"))
     else:
         ontology, training = buildTraining()
     print("\tComplete.")
 
     print("Getting testing set...")
-    if os.path.exists("./SemEval2007/testing.json"):
-        testing = Document(filepath="./SemEval2007/testing.json")
+    if os.path.exists(os.path.join(DATA, "testing.json")):
+        testing = Document(filepath=os.path.join(DATA, "testing.json"))
     else:
         testing = buildTesting()
     print("\tComplete.")
@@ -154,6 +154,5 @@ if __name__ == "__main__":
     extractor.predict(testing)
     print("\t\tComplete.")
 
-    corpus, _ = score(ontology, testing)
-
-    print(corpus)
+    # Pretty print the results
+    score(extractor, testing, pprint=True)

@@ -4,6 +4,8 @@ from InfoGain.Knowledge import Ontology, Concept, Relation
 from InfoGain.Documents import Document, Datapoint, score
 from InfoGain.Extraction import RelationExtractor
 
+DATA = os.path.abspath(os.path.join(os.path.dirname(__file__), "Dataset-ADE"))
+
 def buildOntology():
     # Generating ontology
     ADE = Ontology(name="ADE")
@@ -15,12 +17,12 @@ def buildOntology():
     # Add relation
     ADE.addRelation(Relation({"Drug"}, "causes", {"Effect"}))
 
-    ADE.save(folder="./ADE_Dataset", filename="ADE.json")
+    ADE.save(folder=DATA, filename="ADE.json")
     return ADE
 
 def buildPositive(ADE):
     # Open up positive instances
-    with open("./ADE_Dataset/DRUG-AE.rel", "r") as handler:
+    with open(os.path.join(DATA, "DRUG-AE.rel"), "r") as handler:
         content = handler.read().splitlines()
 
     domains, targets, points = set(), set(), []
@@ -55,17 +57,17 @@ def buildPositive(ADE):
 
     [ADE.concept("Drug").alias.add(r) for r in domains]
     [ADE.concept("Effect").alias.add(r) for r in targets]
-    ADE.save(folder="./ADE_Dataset")
+    ADE.save(folder=DATA)
 
     positiveDatapoints = Document()
     positiveDatapoints.datapoints(points)
-    positiveDatapoints.save(folder="./ADE_Dataset", filename="PositiveData.json")
+    positiveDatapoints.save(folder=DATA, filename="PositiveData.json")
 
     return positiveDatapoints
 
 def buildNegative(ADE):
     # Generate Negative set
-    with open("./ADE_Dataset/ADE-NEG.txt", "r") as handler:
+    with open(os.path.join(DATA, "ADE-NEG.txt"), "r") as handler:
         content = handler.read().splitlines()
 
     content = "\n".join([" ".join(line.split()[2:]).lower() for line in content])
@@ -76,27 +78,27 @@ def buildNegative(ADE):
     for point in negativeDatapoints.datapoints():
         point.annotation = -1
 
-    negativeDatapoints.save(folder="./ADE_Dataset", filename="NegativeData.json")
+    negativeDatapoints.save(folder=DATA, filename="NegativeData.json")
 
     return negativeDatapoints
 
 if __name__ == "__main__":
 
     print("Get ontology...")
-    if os.path.exists("./ADE_Dataset/ADEontology"):
-        ADE = Ontology(filepath="./ADE_Dataset/ADEontology")
+    if os.path.exists(os.path.join(DATA, "ADEontology")):
+        ADE = Ontology(filepath=os.path.join(DATA, "ADEontology"))
     else:
         ADE = buildOntology()
 
     print("Get positive set...")
-    if os.path.exists(os.path.abspath("./ADE_Dataset/PositiveData.json")):
-        positive = Document(filepath="./ADE_Dataset/PositiveData.json")
+    if os.path.exists(os.path.abspath(os.path.join(DATA, "PositiveData.json"))):
+        positive = Document(filepath=os.path.join(DATA, "PositiveData.json"))
     else:
         positive = buildPositive(ADE)
 
     print("Get negative set...")
-    if os.path.exists(os.path.abspath("./ADE_Dataset/NegativeData.json")):
-        negative = Document(filepath="./ADE_Dataset/NegativeData.json")
+    if os.path.exists(os.path.abspath(os.path.join(DATA, "NegativeData.json"))):
+        negative = Document(filepath=os.path.join(DATA, "NegativeData.json"))
     else:
         negative = buildNegative(ADE)
 
@@ -126,8 +128,5 @@ if __name__ == "__main__":
     extractor.predict(testing)
     print("\t\tComplete.")
 
-
-    corpus, documents = score(extractor, testing)
-    print("Scores:")
-    print(corpus)
-    print(documents)
+    # Pretty print the results  
+    score(extractor, testing, pprint=True)
