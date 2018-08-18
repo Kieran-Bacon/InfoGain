@@ -34,6 +34,8 @@ def score(ontology, documents: [Document], pprint: bool=False)->(dict, dict):
     total_datapoint_count = 0 
 
     for document in documents:
+        if not len(document.datapoints()): continue
+
         # Count all datapoints
         total_datapoint_count += len(document.datapoints())
 
@@ -56,11 +58,12 @@ def score(ontology, documents: [Document], pprint: bool=False)->(dict, dict):
 
         scores[document] = {"precision": precision, "recall": recall, "f1": f1}
 
+    if not total_datapoint_count: return corpus, scores # The documents provided don't have any datapoints
     for k, v in corpus.items():
         corpus[k] = v/total_datapoint_count
 
     if pprint:
-
+        print("\n")
         print("="*60, "\n| Extractor scores | Precision  |   Recall   |      F1     |\n", "="*60, sep="")
         print(" "*19, "| {:.8f} | {:.8f} |  {:.8f} |\n".format(corpus["precision"], corpus["recall"], corpus["f1"] ), " "*19, "="*41, sep="")
         print()
@@ -74,7 +77,7 @@ def score(ontology, documents: [Document], pprint: bool=False)->(dict, dict):
 
         pre, pos = calSize("Document name")
         print(" "*pre, "Document name", " "*pos, "| Precision  |   Recall   |     F1", sep="")
-        print("-"*(size + 40))
+        print("-"*(size + 39))
         for doc in documents:
 
             pre, pos = calSize(doc.name)
@@ -85,6 +88,8 @@ def score(ontology, documents: [Document], pprint: bool=False)->(dict, dict):
                 "| {:.8f} | {:.8f} | {:.8f}".format(scores[doc]["precision"], scores[doc]["recall"], scores[doc]["f1"]),
                 sep=""
             )
+
+        print("\n\n")
 
     return corpus, scores
 

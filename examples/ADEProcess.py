@@ -112,9 +112,12 @@ if __name__ == "__main__":
     Xtr = posData[:int(len(posData)/2)] + negData[:int(len(negData)/2)]
     Xte = posData[int(len(posData)/2):] + negData[int(len(negData)/2):]
 
-    training, testing = Document(), Document()
+    training, testing = Document(), []
     training.datapoints(Xtr)
-    testing.datapoints(Xte)
+    for i in range(0, len(Xte), int(len(Xte)/5)):
+        testingDocument = Document()
+        testingDocument.datapoints(Xte[i:i + int(len(Xte)/5)])
+        testing.append(testingDocument)
     print("\tComplete.")
 
     print("Running Extractor")
@@ -125,7 +128,7 @@ if __name__ == "__main__":
     print("\t\tComplete.")
 
     print("\t Running predict...")
-    extractor.predict(testing)
+    testing = extractor.predict(testing)
     print("\t\tComplete.")
 
     # Pretty print the results  

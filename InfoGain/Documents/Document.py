@@ -268,7 +268,7 @@ class Document:
                     target
                 sentence (str) - The sentence that this information originated from
             """ 
-
+            
             p1, p2 = sorted((dom.span(), tar.span()))  # Sort the spans of the elements
 
             for relation in relations:
@@ -287,7 +287,7 @@ class Document:
                 # return the datapoints
                 yield dp
 
-        for sentence in Document.split(self._content, Document.SENTENCE):
+        for sentence in self.sentences():
 
             # Look for instances within the sentence - ensuring that you only match with individual words.
             instances = []
@@ -310,7 +310,6 @@ class Document:
                         relations = ontology.findRelations(domain=instConcept, target=matchConcept)
                         [self._datapoints.append(p) for p in createDatapoint(inst_match,
                             instConcept, match, matchConcept, relations, sentence)]
-
 
                         relations = ontology.findRelations(domain=matchConcept, target=instConcept)
                         [self._datapoints.append(p) for p in createDatapoint(match,

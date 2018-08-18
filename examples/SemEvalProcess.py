@@ -151,7 +151,7 @@ if __name__ == "__main__":
     print("\t\tComplete.")
 
     print("\tPredicting with extractor...")
-    extractor.predict(testing)
+    testing = extractor.predict(testing)
     print("\t\tComplete.")
 
     # Pretty print the results
