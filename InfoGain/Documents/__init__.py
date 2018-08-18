@@ -4,7 +4,7 @@ class IncompleteDatapoint(Exception): pass
 from .Document import Document
 from .Datapoint import Datapoint
 
-def score(ontology, documents: [Document])->(dict, dict):
+def score(ontology, documents: [Document], pprint: bool=False)->(dict, dict):
     """ Calculate the precision, recall and F1 score for a collection of documents.
     The datapoints within the document are used to perform the scoring. The precision is
     calculated from the datapoints correctly returned in recall. A comparison is made between
@@ -17,6 +17,7 @@ def score(ontology, documents: [Document])->(dict, dict):
     Params:
         ontology (Ontology) - An ontology of concepts and relations to direct processing
         documents ([Document]) - A collection of document objects to score.
+        print (bool) - A toggle to allow the output to be printed nicely to the screen
 
     Returns:
         corpus scores (dict) - A dictionary where the keys are the metrics, and the 
@@ -33,6 +34,8 @@ def score(ontology, documents: [Document])->(dict, dict):
     total_datapoint_count = 0 
 
     for document in documents:
+        if not len(document.datapoints()): continue
+
         # Count all datapoints
         total_datapoint_count += len(document.datapoints())
 
@@ -55,8 +58,38 @@ def score(ontology, documents: [Document])->(dict, dict):
 
         scores[document] = {"precision": precision, "recall": recall, "f1": f1}
 
+    if not total_datapoint_count: return corpus, scores # The documents provided don't have any datapoints
     for k, v in corpus.items():
         corpus[k] = v/total_datapoint_count
+
+    if pprint:
+        print("\n")
+        print("="*60, "\n| Extractor scores | Precision  |   Recall   |      F1     |\n", "="*60, sep="")
+        print(" "*19, "| {:.8f} | {:.8f} |  {:.8f} |\n".format(corpus["precision"], corpus["recall"], corpus["f1"] ), " "*19, "="*41, sep="")
+        print()
+
+        size = max( [len("Document name")] + [len(doc.name) for doc in documents]) + 2
+
+        def calSize(word: str):
+            prebuffer = int( round( ((size - len(word))/2) ) )
+            postbuffer = (size - len(word)) - prebuffer
+            return prebuffer, postbuffer
+
+        pre, pos = calSize("Document name")
+        print(" "*pre, "Document name", " "*pos, "| Precision  |   Recall   |     F1", sep="")
+        print("-"*(size + 39))
+        for doc in documents:
+
+            pre, pos = calSize(doc.name)
+            print(
+                " "*pre,
+                doc.name,
+                " "*pos,
+                "| {:.8f} | {:.8f} | {:.8f}".format(scores[doc]["precision"], scores[doc]["recall"], scores[doc]["f1"]),
+                sep=""
+            )
+
+        print("\n\n")
 
     return corpus, scores
 

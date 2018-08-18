@@ -1,0 +1,1977 @@
+141 "The <e1>night hell</e1> fell from the <e2>sky</e2>."
+WordNet(e1) = "hell%1:15:01::", WordNet(e2) = "sky%1:17:00::", Origin-Entity(e2, e1) = "true", Query = "the * fell from the *"
+
+142 "The <e1>herbicide</e1> is derived from a <e2>natural antibiotic</e2>, which is produced by two strains of a soil bacterium."
+WordNet(e1) = "herbicide%1:27:00::", WordNet(e2) = "antibiotic%1:06:00::", Origin-Entity(e2, e1) = "true", Query = "the * is derived from *"
+
+143 "Seller shall add taxes as a separate line item on the <e1>seller</e1>'s <e2>invoice</e2>, if applicable."
+WordNet(e1) = "seller%1:18:00::", WordNet(e2) = "invoice%1:10:00::", Origin-Entity(e1, e2) = "false", Query = "the * invoice"
+Comment: Product-Producer
+
+144 "The <e1>funds</e1> collected from this <e2>endeavour</e2> will now be shared by victims of Hurricane Katrina, and earthquake victims in Pakistan."
+WordNet(e1) = "funds%1:21:00::", WordNet(e2) = "endeavour%1:04:01::", Origin-Entity(e2, e1) = "false", Query = "* from *"
+Comment: the endeavour generated the funds; neither location, nor material origin.
+
+145 "The <e1>art</e1> in the book is from the city of Tulsa's <e2>public collection</e2>, as well as other collections."
+WordNet(e1) = "art%1:10:00::", WordNet(e2) = "collection%1:14:00::", Origin-Entity(e2, e1) = "true", Query = "the * is from the *"
+Comment: "collection" as a location
+
+146 "The basement carpeting is made from recycled plastic pop bottles, and the <e1>underpad</e1> was once <e2>automobile tires</e2>."
+WordNet(e1) = "?", WordNet(e2) = "automobile_tire%1:06:00::", Origin-Entity(e2, e1) = "true", Query = "the * is made from *"
+
+147 "The <e1>big savings</e1> are coming from the <e2>hardware side</e2>."
+WordNet(e1) = "saving%1:04:00::", WordNet(e2) = "side%1:09:00::", Origin-Entity(e2, e1) = "false", Query = "the * is from the *"
+
+148 "Picking up the <e1>pace</e1> from <e2>last year</e2>, this summer ends with the second Transfan gathering this year in Israel."
+WordNet(e1) = "pace%1:28:00::", WordNet(e2) = "year%1:28:01::", Origin-Entity(e2, e1) = "false", Query = "the * from *"
+Comment: we accept location and material but not time origin
+
+149 "When they took the floor against a team favored to win the national championship, the <e1>patriots</e1> radiated <e2>carefree confidence</e2>."
+WordNet(e1) = "patriot%1:18:00::", WordNet(e2) = "confidence%1:09:00::", Origin-Entity(e2, e1) = "false", Query = "the * radiated *"
+
+150 "The <e1>more samples</e1> (and therefore means) from the <e2>population</e2> one takes, the better the population estimate is from the sampling distribution."
+WordNet(e1) = "sample%1:09:01::", WordNet(e2) = "population%1:09:00::", Origin-Entity(e2, e1) = "true", Query = "the * is from the *"
+
+151 "I have lost a <e1>library</e1> <e2>book</e2>, what should I do?"
+WordNet(e1) = "library%1:14:00::", WordNet(e2) = "book%1:10:00::", Origin-Entity(e1, e2) = "true", Query = "library book"
+
+152 "It amounts to $1.00/gal off the company's excise tax liability if the <e1>biodiesel</e1> is made from <e2>virgin oils</e2> or $0.50/gal off if made from recycled oils."
+WordNet(e1) = "?", WordNet(e2) = "oil%1:13:00::", Origin-Entity(e2, e1) = "true", Query = "the * is made from *"
+
+153 "The <e1>only change</e1> is from the <e2>energy company's end</e2>, where their section of the gas or electricity infrastructure is now supplying an extra home."
+WordNet(e1) = "change%1:11:00::", WordNet(e2) = "end%1:04:00::", Origin-Entity(e2, e1) = "false", Query = "the * is from the *"
+
+154 "<e1>Heating</e1> <e2>oil</e2> is a refined oil made from petroleum, used in furnaces to heat buildings."
+WordNet(e1) = "heating%1:06:00::", WordNet(e2) = "oil%1:27:01::", Origin-Entity(e1, e2) = "false", Query = "heating oil"
+
+155 "The <e1>taste</e1> is from the <e2>ginseng</e2>, not alcohol."
+WordNet(e1) = "taste%1:09:02::", WordNet(e2) = "ginseng%1:20:02::", Origin-Entity(e2, e1) = "true", Query = "the * is from the *"
+
+156 "<e1>Canola</e1> <e2>seed</e2> are small, and placement at a shallow depth is required."
+WordNet(e1) = "?", WordNet(e2) = "seed%1:20:00::", Origin-Entity(e1, e2) = "false", Query = "canola *"
+
+157 "The <e1>chart</e1> above is from the Productivity Commission's Overcoming Aboriginal Disadvantage 2005 <e2>Report</e2> and outlines the strategic areas which require action."
+WordNet(e1) = "chart%1:10:00::", WordNet(e2) = "report%1:10:03::", Origin-Entity(e2, e1) = "true", Query = "the * is from the *"
+
+158 "Remove the <e1>old sponge</e1> from a <e2>sponge brush</e2>."
+WordNet(e1) = "sponge%1:27:00::", WordNet(e2) = "brush%1:06:00::", Origin-Entity(e2, e1) = "false", Query = "the * from a *"
+
+159 "Their <e1>success</e1> comes from their <e2>ability</e2> to quickly answer a growing surge of mid-size customer demands - demands that *always* focus around ease of implementation and ease of administration/use."
+WordNet(e1) = "success%1:26:00::", WordNet(e2) = "ability%1:07:00::", Origin-Entity(e2, e1) = "false", Query = "the * from *"
+
+160 "She was said to look like Lauren Bacall in those days and dated a few of the <e1>engineers</e1> from the <e2>refinery</e2>."
+WordNet(e1) = "engineer%1:18:00::", WordNet(e2) = "refinery%1:06:00::", Origin-Entity(e2, e1) = "true", Query = "engineers from the *"
+
+161 "Once it was the middle of winter, and the <e1>snowflakes</e1> fell from the <e2>sky</e2> like feathers."
+WordNet(e1) = "snowflake%1:19:00::", WordNet(e2) = "sky%1:17:00::", Origin-Entity(e2, e1) = "true", Query = "the * fell from the *"
+
+162 "The <e1>leaves</e1> are from a <e2>vine maple</e2>."
+WordNet(e1) = "leaf%1:20:00::", WordNet(e2) = "maple%1:20:00::", Origin-Entity(e2, e1) = "false", Query = "the * are from a *"
+Comment: Part-Whole
+
+163 "The <e1>movie</e1> gives the <e2>inaccurate impression</e2> that the Apaches all surrendered."
+WordNet(e1) = "movie%1:10:00::", WordNet(e2) = "impression%1:09:00::", Origin-Entity(e1, e2) = "false", Query = "the * gives the *"
+
+164 "The <e1>scintillator material</e1> produces <e2>visible light</e2> when transversed by the particle's radiated energy."
+WordNet(e1) = "material%1:27:00::", WordNet(e2) = "visible_light%1:19:00::", Origin-Entity(e1, e2) = "false", Query = "the * radiated *"
+
+165 "The <e1>spammer</e1> writes a <e2>simple bot</e2> that goes to your site and hits the registration page."
+WordNet(e1) = "spammer%1:18:00::", WordNet(e2) = "?", Origin-Entity(e1, e2) = "false", Query = "the * writes a *"
+
+166 "Because winter has been mild in much of the country, <e1>oil</e1> <e2>prices</e2> have been low for the past few months."
+WordNet(e1) = "oil%1:27:01::", WordNet(e2) = "price%1:07:00::", Origin-Entity(e2, e1) = "false", Query = "oil prices"
+
+167 "The <e1>mustard</e1> is made from <e2>brown or black mustard seed</e2> and has a smooth, not-too-acidic flavor."
+WordNet(e1) = "mustard%1:13:00::", WordNet(e2) = "mustard_seed%1:13:00::", Origin-Entity(e2, e1) = "true", Query = "the * is made from *"
+
+168 "Please type the <e1>code</e1> from the <e2>image</e2> above."
+WordNet(e1) = "code%1:10:01::", WordNet(e2) = "image%1:06:00::", Origin-Entity(e2, e1) = "true", Query = "the * from *"
+
+169 "The sisters are <e1>teenage refugees</e1> from a <e2>violent home</e2>, living alone in a faded Victorian mansion where they survive by creating a closed world centered around each other and their new friends-a rowdy makeshift family of castoffs, dealers, and drama queens on the periphery of the burgeoning drug game, some looking for a way out, some looking for a way deeper in."
+WordNet(e1) = "refugee%1:18:00::", WordNet(e2) = "home%1:26:00::", Origin-Entity(e2, e1) = "true", Query = "the * are * * from a *"
+
+170 "Federal officials deny the <e1>torture</e1> <e2>allegations</e2>, but the judge ordered a competency exam and expects results next month."
+WordNet(e1) = "torture%1:04:00::", WordNet(e2) = "allegation%1:10:00::", Origin-Entity(e1, e2) = "false", Query = "the * allegations"
+Comment: Topic?
+
+171 "The <e1>data</e1> is received from a <e2>sensor</e2> in the shoe, with audible feedback provided through the earphones."
+WordNet(e1) = "data%1:14:00::", WordNet(e2) = "sensor%1:06:00::", Origin-Entity(e2, e1) = "false", Query = "the * is received from ? *"
+Comment: sensor generated the data; Product-Producer.
+
+172 "All the <e1>zones</e1> are centrally administered from a <e2>special, protected global zone</e2> which manages the Trusted Computing Base (TCB) known as the Trusted Path."
+WordNet(e1) = "zone%1:15:01::", WordNet(e2) = "zone%1:15:01::", Origin-Entity(e2, e1) = "false", Query = "the * are * * from a *"
+
+173 "This survey is an attempt to understand what people define as moderation and their perceptions about the <e1>health benefits</e1> of <e2>alcoholic beverages</e2>."
+WordNet(e1) = "benefit%1:07:00::", WordNet(e2) = "alcoholic_beverage%1:13:00::", Origin-Entity(e2, e1) = "false", Query = "* benefits"
+Comment: Cause-Effect possibly
+
+174 "Crude <e1>soybean</e1> <e2>oil</e2> meeting exchange-approved grades and standards-see exchange Rules and Regulations for exact specifications."
+WordNet(e1) = "soybean%1:13:00::", WordNet(e2) = "oil%1:13:00::", Origin-Entity(e1, e2) = "true", Query = "* oil"
+
+175 "A <e1>man</e1> from the <e2>first house</e2> seemed upset about the debris that landed on his roof."
+WordNet(e1) = "man%1:18:00::", WordNet(e2) = "house%1:06:00::", Origin-Entity(e2, e1) = "true", Query = "* from *"
+
+176 "My problem is that the <e1>advertisement</e1> gives the <e2>impression</e2> that women in rural Bangladesh have 6 children."
+WordNet(e1) = "advertisement%1:10:00::", WordNet(e2) = "impression%1:09:00::", Origin-Entity(e1, e2) = "false", Query = "the * gives the *"
+
+177 "The <e1>carpet</e1> is made from <e2>recycled materials</e2>."
+WordNet(e1) = "carpet%1:06:00::", WordNet(e2) = "material%1:27:00::", Origin-Entity(e2, e1) = "true", Query = "the * is made from *"
+
+178 "The <e1>shells</e1> are from a <e2>tiny mollusk</e2>, Nassarius kraussianus, that lived in a nearby estuary."
+WordNet(e1) = "shell%1:05:02::", WordNet(e2) = "mollusk%1:05:00::", Origin-Entity(e2, e1) = "false", Query = "the * are from a *"
+Comment: Part-Whole
+
+179 "Yet 14 <e1>members</e1> in the Lebanese parliament are from the Hezbollah <e2>party</e2>."
+WordNet(e1) = "member%1:18:00::", WordNet(e2) = "party%1:14:01::", Origin-Entity(e2, e1) = "false", Query = "the * * * from the *"
+Comment: Part-Whole
+
+180 "The fact is that unless the <e1>product</e1> or package contains 100 percent <e2>recycled materials</e2>, the label must tell you how much is recycled."
+WordNet(e1) = "product%1:06:01::", WordNet(e2) = "material%1:27:00::", Origin-Entity(e2, e1) = "true", Query = "the * is made from *"
+
+181 "Afterwards, stroll to a bar for a glass of 'medronho' - the <e1>national liquor</e1> made from a <e2>fleshy, red fruit</e2> grown in Portugal."
+WordNet(e1) = "liquor%1:13:00::", WordNet(e2) = "fruit%1:20:00::", Origin-Entity(e2, e1) = "true", Query = "the * made from a *"
+
+182 "Margarine is <e1>imitation</e1> <e2>butter</e2> without the superior flavor and pleasant mouthfeel."
+WordNet(e1) = "imitation%1:06:00::", WordNet(e2) = "butter%1:13:00::", Origin-Entity(e1, e2) = "false", Query = "imitation butter"
+
+183 "Heating oil is similar to <e1>diesel</e1> <e2>oil</e2>, and the process of refining it is very similar."
+WordNet(e1) = "diesel%1:06:00::", WordNet(e2) = "oil%1:27:01::", Origin-Entity(e1, e2) = "false", Query = "heating oil"
+
+184 "The <e1>streaks</e1> are from a <e2>passing truck</e2>."
+WordNet(e1) = "streak%1:07:00::", WordNet(e2) = "truck%1:06:00::", Origin-Entity(e2, e1) = "false", Query = "the * are from a *"
+Comment: Product-Producer
+
+185 "This is an <e1>overview</e1> of the <e2>viewer</e2> from a developer's perspective."
+WordNet(e1) = "overview%1:10:00::", WordNet(e2) = "viewer%1:06:00::", Origin-Entity(e2, e1) = "false", Query = "the * from a *"
+
+186 "The <e1>rings</e1> are preferably made from a <e2>copolymer polypropylene</e2>."
+WordNet(e1) = "ring%1:17:00::", WordNet(e2) = "polypropylene%1:27:00::", Origin-Entity(e2, e1) = "false", Query = "the * are * * from a *"
+Comment: Material; violates restriction (c)
+
+187 "<e1>Pomegranate</e1> <e2>juice</e2> is known to have anti-inflammatory effects and high levels of anti-oxidants, which are believed to protect the body from free-radical damage."
+WordNet(e1) = "pomegranate%1:13:00::", WordNet(e2) = "juice%1:13:00::", Origin-Entity(e1, e2) = "true", Query = "* juice"
+
+188 "Ride Metrorail and then pick up a car-just <e1>steps</e1> from the <e2>train</e2>-to run errands, shop or reach any other business or social event not easily accessible via transit."
+WordNet(e1) = "step%1:23:00::", WordNet(e2) = "train%1:06:00::", Origin-Entity(e2, e1) = "false", Query = "* from *"
+
+189 "If you are lucky enough, while your travel to Russia you can manage to buy vodka in a <e1>plastic</e1> <e2>bag</e2>."
+WordNet(e1) = "plastic%1:27:00::", WordNet(e2) = "bag%1:06:00::", Origin-Entity(e1, e2) = "false", Query = "a plastic bag"
+
+190 "Most public vanpool programs require that the commute trip has an origination or destination in the <e1>county</e1> providing the <e2>vanpool service</e2>."
+WordNet(e1) = "county%1:15:01::", WordNet(e2) = "service%1:04:08::", Origin-Entity(e1, e2) = "true", Query = "the * providing the *"
+
+191 "The <e1>concrete sidewalk</e1> radiated <e2>heat</e2> like a furnace, and there was no relief in the shade of a large crepe myrtle tree as they walked under it."
+WordNet(e1) = "sidewalk%1:06:00::", WordNet(e2) = "heat%1:19:00::", Origin-Entity(e1, e2) = "false", Query = "the * radiated *"
+Comment: Product-Producer
+
+192 "The <e1>vaccine</e1> is made from <e2>inactivated virus</e2>, so it's impossible to get the flu from the vaccine."
+WordNet(e1) = "vaccine%1:06:00::", WordNet(e2) = "virus%1:05:00::", Origin-Entity(e2, e1) = "true", Query = "the * is made from *"
+
+193 "Others think that the <e1>underwater ruins</e1> are from a <e2>different ancient monument</e2>, perhaps a temple that gradually sank beneath the waves."
+WordNet(e1) = "ruin%1:06:00::", WordNet(e2) = "monument%1:06:00::", Origin-Entity(e2, e1) = "false", Query = "the * are from a *"
+Comment: Part-Whole maybe
+
+194 "The <e1>dollar</e1> fell from <e2>six-week peaks</e2> against major European currencies."
+WordNet(e1) = "dollar%1:23:00::", WordNet(e2) = "peak%1:23:00::", Origin-Entity(e2, e1) = "true", Query = "the dollar fell from *"
+
+195 "If either of these errors continues to occur, check for <e1>updated drivers</e1> for the decoder from the <e2>decoder manufacturer</e2>."
+WordNet(e1) = "driver%1:10:00::", WordNet(e2) = "manufacturer%1:14:00::", Origin-Entity(e2, e1) = "false", Query = "the * from the *"
+
+196 "The voltage swing obtainable across the load is greater than the <e1>output voltage swing</e1> obtainable from the <e2>amplifier</e2> alone, thus the efficiency of the amplifier system and power handling capacity of the system are improved."
+WordNet(e1) = "swing%1:04:00::", WordNet(e2) = "amplifier%1:06:00::", Origin-Entity(e2, e1) = "false", Query = "the * * * from the *"
+Comment: Product-Producer
+
+197 "It supports the personal information and interaction environment thus liberating the <e1>person</e1> from <e2>tedious chores</e2> and enriching their life and interaction with others in social or business contexts - it 'enlarges the personal contribution'."
+WordNet(e1) = "person%1:03:00::", WordNet(e2) = "chore%1:04:00::", Origin-Entity(e2, e1) = "false", Query = "the * from *"
+
+198 "<e1>Hamburgers</e1> from the <e2>restaurant</e2> were recalled, preventing further illness."
+WordNet(e1) = "hamburger%1:13:01::", WordNet(e2) = "restaurant%1:06:00::", Origin-Entity(e2, e1) = "true", Query = "the * * * from the *"
+
+199 "He put on a gold pointed hat and read out <e1>jokes</e1> from the <e2>crackers</e2>."
+WordNet(e1) = "joke%1:10:00::", WordNet(e2) = "cracker%1:18:00::", Origin-Entity(e2, e1) = "false", Query = "jokes from the *"
+
+200 "Notice how much larger the <e1>text</e1> now is from the <e2>original size</e2>."
+WordNet(e1) = "text%1:10:00::", WordNet(e2) = "size%1:07:00::", Origin-Entity(e2, e1) = "false", Query = "the * is from the *"
+
+201 "Now you can get the <e1>latest information</e1> directly from the <e2>experts</e2>."
+WordNet(e1) = "information%1:10:00::", WordNet(e2) = "expert%1:18:00::", Origin-Entity(e2, e1) = "true", Query = "the * * * from the *"
+Comment: "experts" as a type of location
+
+202 "The scintillator material produces visible light when transversed by the <e1>particle</e1>'s radiated <e2>energy</e2>."
+WordNet(e1) = "particle%1:27:01::", WordNet(e2) = "energy%1:19:00::", Origin-Entity(e1, e2) = "false", Query = "the * radiated *"
+
+203 "Will non-UK <e1>students</e1> benefit from the <e2>bursary scheme</e2>?"
+WordNet(e1) = "student%1:18:00::", WordNet(e2) = "scheme%1:09:00::", Origin-Entity(e2, e1) = "false", Query = "students * from the *"
+
+204 "The <e1>intro music</e1> is from the <e2>song</e2> "Pisces Fish" from the album "Brainwashed" by George Harrison."
+WordNet(e1) = "music%1:09:01::", WordNet(e2) = "song%1:10:00::", Origin-Entity(e2, e1) = "true", Query = "the * is from the *"
+Comment: "song" as an abstract location
+
+205 "The <e1>country</e1> <e2>gentleman</e2>, lodging at the Hotel de Mayence, Rue Saint-Honore, near the Place Vendome, one morning received a visit from a confidential agent of the Ministry, who was an expert in 'winding up' business."
+WordNet(e1) = "country%1:15:01::", WordNet(e2) = "gentleman%1:18:00::", Origin-Entity(e1, e2) = "true", Query = "the country *"
+
+206 "The <e1>sun</e1> emits <e2>light</e2> or radiation at a large range of energies or frequencies."
+WordNet(e1) = "sun%1:17:00::", WordNet(e2) = "light%1:19:00::", Origin-Entity(e1, e2) = "false", Query = "the * emits *"
+Comment: Product-Producer
+
+207 "The <e1>following excerpt</e1> is from the <e2>self help psychology book</e2>, Be Your Own Therapist."
+WordNet(e1) = "excerpt%1:10:00::", WordNet(e2) = "book%1:10:00::", Origin-Entity(e2, e1) = "true", Query = "the * is from the *"
+
+208 "I heard that those <e1>refugees</e1> escaped from a <e2>civil war</e2> before."
+WordNet(e1) = "refugee%1:18:00::", WordNet(e2) = "civil_war%1:04:00::", Origin-Entity(e2, e1) = "true", Query = "refugee * from * war"
+
+209 "It was originally assumed that the ingredients responsible for drug interactions were the flavonoids that give <e1>grapefruit</e1> <e2>juice</e2> its bitter taste."
+WordNet(e1) = "grapefruit%1:13:00::", WordNet(e2) = "juice%1:13:00::", Origin-Entity(e1, e2) = "true", Query = "* juice"
+
+210 "Interspersed in the design are <e1>patterns</e1> derived from a variety of <e2>textiles</e2>."
+WordNet(e1) = "pattern%1:06:00::", WordNet(e2) = "textile%1:06:00::", Origin-Entity(e2, e1) = "true", Query = "the * are * * from a *"
+
+211 "Muscles, tendons, and ligaments surround the ankle providing the <e1>stability</e1> the <e2>ankle joint</e2> needs for walking and running."
+WordNet(e1) = "stability%1:07:00::", WordNet(e2) = "ankle_joint%1:08:00::", Origin-Entity(e1, e2) = "false", Query = "the * providing the *"
+
+212 "If you're an immigrant or <e1>refugee</e1> from any <e2>country</e2> then you might have had an experience with a botched translated name."
+WordNet(e1) = "refugee%1:18:00::", WordNet(e2) = "country%1:14:00::", Origin-Entity(e2, e1) = "true", Query = "refugee from * country"
+
+213 "The <e1>verses</e1> are from a <e2>pretty, sad ballad</e2>."
+WordNet(e1) = "verse%1:10:00::", WordNet(e2) = "ballad%1:10:00::", Origin-Entity(e2, e1) = "true", Query = "the * are from a *"
+
+214 "A cinquain is a <e1>special poem</e1> that is written with <e2>five lines</e2>."
+WordNet(e1) = "poem%1:10:00::", WordNet(e2) = "line%1:10:02::", Origin-Entity(e1, e2) = "false", Query = "a * that is written *"
+
+215 "The <e1>person</e1> fell from the <e2>tree</e2>."
+WordNet(e1) = "person%1:03:00::", WordNet(e2) = "tree%1:20:00::", Origin-Entity(e2, e1) = "true", Query = "the * fell from the *"
+
+216 "I think the greater <e1>danger</e1> is from the <e2>unelected justices</e2> than from the elected congress and the elected president."
+WordNet(e1) = "danger%1:26:00::", WordNet(e2) = "justice%1:18:00::", Origin-Entity(e2, e1) = "false", Query = "the * is from the *"
+Comment: Cause-Effect possibly
+
+217 "The <e1>developer</e1> duly writes a <e2>test case</e2>, makes the necessary code changes, ensures the test passes, checks the code in and considers the job finished!"
+WordNet(e1) = "developer%1:18:00::", WordNet(e2) = "test_case%1:04:00::", Origin-Entity(e2, e1) = "false", Query = "the * writes a *"
+
+218 "Line 10 requires providing the full legal name of the <e1>service provider</e1> providing the <e2>connection</e2>."
+WordNet(e1) = "provider%1:18:00::", WordNet(e2) = "connection%1:04:00::", Origin-Entity(e1, e2) = "false", Query = "the * providing the *"
+
+219 "<e1>The best vodka</e1> is distilled from <e2>rye</e2> and barley malt, but the cheaper corn and potatoes are commonly employed."
+WordNet(e1) = "vodka%1:13:00::", WordNet(e2) = "rye%1:20:02::", Origin-Entity(e2, e1) = "true", Query = "the * is distilled from *"
+
+220 "Part of you dies each year when the <e1>leaves</e1> fell from the <e2>trees</e2>."
+WordNet(e1) = "leaf%1:20:00::", WordNet(e2) = "tree%1:20:00::", Origin-Entity(e2, e1) = "true", Query = "the * fell from the *"
+
+221 "The <e1>call</e1> is from the American <e2>philanthropist</e2> who pulled together the exhibit for the Ambassador."
+WordNet(e1) = "call%1:10:01::", WordNet(e2) = "philanthropist%1:18:00::", Origin-Entity(e2, e1) = "false", Query = "the * is from the *"
+
+141 "You have been appointed as a <e1>reviewer</e1> for a <e2>thesis</e2> towards a Technical Licentiate degree at the Department of Materials Science and Engineering."
+WordNet(e1) = "reviewer%1:18:01::", WordNet(e2) = "thesis%1:10:01::", Theme-Tool(e2, e1) = "false", Query = "a * for a"
+Comment: violates (f): the e2 is an Agent; "reviewer/Agent reviews/Verb the thesis/Theme"
+
+142 "If the <e1>declarator</e1> is for an instance <e2>variable</e2> (that is, a field that is not static), then the variable initializer is evaluated."
+WordNet(e1) = "?", WordNet(e2) = "variable%1:10:00::", Theme-Tool(e2, e1) = "true", Query = "the * is for"
+Comment: somebody/Agent declares/Verb variable/Theme using declarator/Tool => true
+
+143 "They could get the <e1>addresses</e1> for the Web <e2>sites</e2> of the items, for another look."
+WordNet(e1) = "address%1:10:04::", WordNet(e2) = "site%1:10:00::", Theme-Tool(e2, e1) = "true", Query = "the * for the"
+Comment: somebody/Agent finds/Verb sites/Theme using addresses/Tool => true
+
+144 "The <e1>election</e1> for the <e2>board</e2> of trustees of the Wikimedia Foundation has closed."
+WordNet(e1) = "election%1:04:01::", WordNet(e2) = "board%1:14:00::", Theme-Tool(e2, e1) = "true", Query = "the * for the"
+Comment: somebody/Agent populates/Verb the board/Theme using elections/Tool => true
+
+145 "The <e1>empathy</e1> <e2>quotient</e2> is intended to measure how easily you pick up on other people's feelings and also how strongly you are affected by other people's feelings."
+WordNet(e1) = "empathy%1:12:00::", WordNet(e2) = "quotient%1:23:00::", Theme-Tool(e1, e2) = "true", Query = "the * * is"
+Comment: assuming "empathy quotient" means "quotient for measuring empathy"
+
+146 "We are on the <e1>lookout</e1> for a free or cheap English <e2>bulldog</e2>."
+WordNet(e1) = "lookout%1:04:00::", WordNet(e2) = "bulldog%1:05:00::", Theme-Tool(e2, e1) = "false", Query = "the * for a"
+Comment: "on the lookout" is an idiomatic expression, meaning "avidly seeking"; "lookout" violates (h) -- it is a process (of seeking)
+
+147 "A <e1>bath towel</e1> is used for drying one's <e2>body</e2> after bathing or showering."
+WordNet(e1) = "bath_towel%1:06:00::", WordNet(e2) = "body%1:08:00::", Theme-Tool(e2, e1) = "true", Query = "is used for"
+Comment: somebody/Agent dries/Verb body/Theme using towel/Tool => true
+
+148 "An important <e1>aspect</e1> of preparing your paper for publication by ACM Press is to provide the proper indexing and retrieval <e2>information</e2> from the ACM Computing Classification System."
+WordNet(e1) = "aspect%1:09:00::", WordNet(e2) = "information%1:14:00::", Theme-Tool(e2, e1) = "false", Query = "* is to *"
+Comment: somebody/Agent prepares/Verb publication/Theme using retrieval-information/Tool => true; somebody/Agent prepares/Verb information/Theme using aspect/Tool => false; violates (2); the sentence does not entail this relation
+
+149 "The section below illustrates the period of ineligibility for Federal Student Aid funds, depending on whether the <e1>conviction</e1> was for <e2>sale</e2> or possession."
+WordNet(e1) = "conviction%1:04:00::", WordNet(e2) = "sale%1:04:00::", Theme-Tool(e2, e1) = "false", Query = "* was for *"
+Comment: government/Agent punished/Verb student/Theme using conviction/Tool => true; somebody/Agent ?/Verb sale/Theme using conviction/Tool => false
+
+150 "The <e1>objective</e1> of this action is to support research <e2>infrastructures</e2>."
+WordNet(e1) = "objective%1:09:00::", WordNet(e2) = "infrastructure%1:06:01::", Theme-Tool(e2, e1) = "false", Query = "* is to *"
+Comment: violates (ii); "objective" is a psychological feature
+
+151 "The standard university assessment <e1>scale</e1> is used for all <e2>assessments</e2>."
+WordNet(e1) = "scale%1:24:03::", WordNet(e2) = "assessment%1:09:00::", Theme-Tool(e2, e1) = "true", Query = "is used for"
+Comment: somebody/Agent assesses/Verb assessments/Theme using scale/Tool => true
+
+152 "The <e1>warrant</e1> was for simple <e2>assault</e2>."
+WordNet(e1) = "warrant%1:10:00::", WordNet(e2) = "assault%1:04:01::", Theme-Tool(e2, e1) = "false", Query = "* was for *"
+Comment: somebody/Agent ???/Verb assault/Theme using warrant/Tool ??? => false ; no such verb
+
+153 "An essential <e1>aim</e1> of computing professionals is to minimize negative <e2>consequences</e2>."
+WordNet(e1) = "aim%1:09:00::", WordNet(e2) = "consequence%1:19:00::", Theme-Tool(e2, e1) = "false", Query = "* is to *"
+Comment: violates (ii); "aim" is a psychological feature
+
+154 "The <e1>aim</e1> was for <e2>completion</e2> so that they would be available to study the Sun during the peak of the solar cycle, which was expected in the year 2000."
+WordNet(e1) = "aim%1:09:00::", WordNet(e2) = "completion%1:04:00::", Theme-Tool(e2, e1) = "false", Query = "* was for *"
+Comment: violates (ii); "aim" is a psychological feature
+
+155 "The SalesVantage <e1>directory</e1> is for advertising, marketing & sales management <e2>services</e2> in your area."
+WordNet(e1) = "directory%1:10:00::", WordNet(e2) = "service%1:04:08::", Theme-Tool(e2, e1) = "true", Query = "the * is for"
+Comment: somebody/Agent provides/Verb services/Theme using directory/Tool => true
+
+156 "This can be a <e1>model</e1> for the health care <e2>industry</e2> nationwide."
+WordNet(e1) = "model%1:09:01::", WordNet(e2) = "industry%1:14:00::", Theme-Tool(e2, e1) = "false", Query = "a * for the"
+Comment: "model" violates (h)
+
+157 "Esther, a <e1>programmer</e1> for a new social networking <e2>site</e2> based on FOAF, has written an RDF crawler."
+WordNet(e1) = "programmer%1:18:00::", WordNet(e2) = "site%1:10:00::", Theme-Tool(e2, e1) = "false", Query = "a * for a"
+Comment: violates (g): "programmer/Agent builds/Verb site/Theme"
+
+158 "As of Flash8, the Flash <e1>video</e1> <e2>encoder</e2> is also standalone."
+WordNet(e1) = "video%1:10:02::", WordNet(e2) = "?", Theme-Tool(e1, e2) = "true", Query = "the * * is"
+Comment: something_or_somebody/Agent encodes/Verb video/Theme using encoder/Tool => true
+
+159 "His <e1>admonition</e1> was to never question the <e2>motive</e2> of an intellectual."
+WordNet(e1) = "admonition%1:10:01::", WordNet(e2) = "motive%1:03:00::", Theme-Tool(e2, e1) = "false", Query = "* was to *"
+Comment: "admonition" violates (h)
+
+160 "First, a general introduction sets the <e1>context</e1> for the <e2>project</e2>."
+WordNet(e1) = "context%1:26:00::", WordNet(e2) = "project%1:04:00::", Theme-Tool(e2, e1) = "true", Query = "the * for the"
+Comment: somebody/Agent limits/Verb the project/Theme using context/Tool => true
+
+161 "If the window is not repaired quickly, the <e1>tendency</e1> is for vandals to break a few more <e2>windows</e2>, over time."
+WordNet(e1) = "tendency%1:09:00::", WordNet(e2) = "window%1:06:04::", Theme-Tool(e2, e1) = "false", Query = "the * is for"
+Comment: violates (ii); "tendency" is a psychological feature
+
+162 "Under the Convention, it is also bribery whether money or some other type of advantage is offered, promised or given; whether the <e1>bribe</e1> was for the benefit of the foreign <e2>official</e2> or a third party."
+WordNet(e1) = "bribe%1:21:00::", WordNet(e2) = "official%1:18:01::", Theme-Tool(e2, e1) = "true", Query = "* was for *"
+Comment: "e1 is for V-ing e2": "bribe is for influencing the official"; somebody/Agent influences/Verb the official/Theme using a bribe/Tool => true
+
+163 "BIO already has a foundation upon which to build an <e1>infrastructure</e1> for the biological <e2>sciences</e2>."
+WordNet(e1) = "infrastructure%1:06:01::", WordNet(e2) = "science%1:09:00::", Theme-Tool(e2, e1) = "true", Query = "a * for the"
+Comment: somebody/Agent helps/Verb sciences/Theme using infrastructure/Tool => true
+
+164 "The <e1>termination</e1> was for <e2>reasons</e2> beyond his control."
+WordNet(e1) = "termination%1:04:00::", WordNet(e2) = "reason%1:10:00::", Theme-Tool(e2, e1) = "false", Query = "* was for *"
+Comment: somebody/Agent ???/Verb reasons/Theme using termination/Tool ??? => false ; no such verb
+
+165 "He presented a <e1>framework</e1> for measuring the social <e2>impact</e2> of Canadian documentaries."
+WordNet(e1) = "framework%1:06:00::", WordNet(e2) = "impact%1:19:00::", Theme-Tool(e2, e1) = "false", Query = "a * for * the"
+Comment: "framework" violates (h)
+
+166 "Huffman coding is a <e1>method</e1> for the <e2>construction</e2> of minimum-redundancy codes."
+WordNet(e1) = "method%1:09:00::", WordNet(e2) = "construction%1:04:00::", Theme-Tool(e2, e1) = "false", Query = "a * for the"
+Comment: "method" violates (h)
+
+167 "We consider muon-spin rotation as a <e1>tool</e1> for investigating the <e2>diffusion</e2> of positive muons in type-II superconductors."
+WordNet(e1) = "tool%1:04:00::", WordNet(e2) = "diffusion%1:22:00::", Theme-Tool(e2, e1) = "false", Query = "a * for * the"
+Comment: violates (e): "somebody/Agent investigates/Verb diffusion/Theme using muon-spin_rotation/Tool => true", therefore "somebody/Agent investigates/Verb diffusion/Theme using tool/Tool => false"
+
+168 "Eliminating those clouds is critical to the <e1>prospects</e1> for the machine's <e2>success</e2>."
+WordNet(e1) = "prospect%1:26:00::", WordNet(e2) = "success%1:11:00::", Theme-Tool(e2, e1) = "false", Query = "the * for the"
+Comment: violates (ii); "prospects" are a psychological feature
+
+169 "He needs a <e1>recipe</e1> for a <e2>milkshake</e2>."
+WordNet(e1) = "recipe%1:10:00::", WordNet(e2) = "milkshake%1:13:00::", Theme-Tool(e2, e1) = "true", Query = "a * for a"
+Comment: somebody/Agent makes/Verb milkshake/Theme using recipe/Tool => true
+
+170 "The <e1>software</e1> is used for managing <e2>websites</e2>."
+WordNet(e1) = "software%1:10:00::", WordNet(e2) = "website%1:10:00::", Theme-Tool(e2, e1) = "true", Query = "is used for"
+Comment: somebody/Agent manages/Verb websites/Theme using software/Tool => true
+
+171 "Of course, KATU also failed to mention that the <e1>petition</e1> was for <e2>artists</e2> and writers and ignored the presence of Ursula K. Le Guin entirely."
+WordNet(e1) = "petition%1:10:00::", WordNet(e2) = "artist%1:18:00::", Theme-Tool(e2, e1) = "false", Query = "* was for *"
+Comment: the artists (agents) signed the petition (tool) to influence (action) politicians (object); so we have Theme-Tool("politicians", "petition"); therefore Theme-Tool("artists", "petition") is false; violates (e) and (f); somebody/Agent ???/Verb artists/Theme using a petition/Tool ??? => false
+
+172 "The only <e1>charge</e1> to the subscriber is for programming <e2>selections</e2>."
+WordNet(e1) = "charge%1:21:02::", WordNet(e2) = "selection%1:09:00::", Theme-Tool(e2, e1) = "true", Query = "the * is for"
+Comment: somebody/Agent provides/Verb selections/Theme using a charge/Tool => true
+
+173 "Note that the <e1>user</e1> <e2>interface</e2> is quite different at LANL and NCSTRL."
+WordNet(e1) = "user%1:18:00::", WordNet(e2) = "interface%1:10:00::", Theme-Tool(e1, e2) = "false", Query = "the * * is"
+Comment: somebody/Agent builds/Verb interface/Theme using user/Tool ??? => false
+
+174 "These are the <e1>requirements</e1> for obtaining a <e2>deferral</e2> or exception to performance or repayment under an agreement."
+WordNet(e1) = "requirement%1:09:01::", WordNet(e2) = "deferral%1:04:01::", Theme-Tool(e2, e1) = "false", Query = "the * for * a"
+Comment: "requirements" violates restriction (i)
+
+175 "These recommendations will serve as the <e1>basis</e1> for a <e2>process</e2> of engagement with other countries."
+WordNet(e1) = "basis%1:09:00::", WordNet(e2) = "process%1:04:00::", Theme-Tool(e2, e1) = "false", Query = "the * for a"
+Comment: "basis" violates restriction (i)
+
+176 "He had a <e1>proposal</e1> for solving the caller ID <e2>problem</e2>."
+WordNet(e1) = "proposal%1:10:00::", WordNet(e2) = "problem%1:26:00::", Theme-Tool(e2, e1) = "false", Query = "a * for * the"
+Comment: "proposal" violates (h)
+
+177 "Rwandatel had no customer-service department and 12 employees whose sole <e1>job</e1> was to play on the company soccer <e2>team</e2>."
+WordNet(e1) = "job%1:04:00::", WordNet(e2) = "team%1:14:00::", Theme-Tool(e2, e1) = "true", Query = "* was to *"
+Comment: employees/Agent played-on/Verb team/Theme using job/Tool => true; giving the employees a job with the company was a tool for getting them to play on the team; their jobs should have been to do work for the company, but the true purpose of their jobs was to allow them to play on the team
+
+178 "He talked about a <e1>method</e1> for the <e2>transmission</e2> of IPv6 packets over ethernet networks."
+WordNet(e1) = "method%1:09:00::", WordNet(e2) = "transmission%1:10:00::", Theme-Tool(e2, e1) = "false", Query = "a * for the"
+Comment: "method" violates (h)
+
+179 "The <e1>process</e1> for submitting a feature <e2>request</e2> is very similar to bug requests."
+WordNet(e1) = "process%1:04:00::", WordNet(e2) = "request%1:10:01::", Theme-Tool(e2, e1) = "false", Query = "the * for * a"
+Comment: "process" violates (h)
+
+180 "Unfortunately, signing statements has become a <e1>substitute</e1> for a presidential <e2>veto</e2>."
+WordNet(e1) = "substitute%1:09:00::", WordNet(e2) = "veto%1:07:00::", Theme-Tool(e2, e1) = "true", Query = "a * for a"
+Comment: somebody/Agent replaces/Verb veto/Theme using substitute/Tool => true
+
+181 "Ace is no longer the <e1>place</e1> for the lowest <e2>prices</e2> or the biggest assortment of home improvement goods; the big boxes have it beaten in those categories."
+WordNet(e1) = "place%1:15:01::", WordNet(e2) = "price%1:07:00::", Theme-Tool(e2, e1) = "false", Query = "the * for the"
+Comment: violates (g), e1 is Agent: "place/Agent offers/Verb lowest_prices/Theme"
+
+182 "Our <e1>mission</e1> is to provide our site visitors with as much <e2>information</e2> as possible about animals that people keep as pets."
+WordNet(e1) = "mission%1:04:00::", WordNet(e2) = "information%1:14:00::", Theme-Tool(e2, e1) = "false", Query = "* is to *"
+Comment: "mission" violates (h)
+
+183 "Josh Earnest is a <e1>spokesman</e1> for the <e2>committee</e2>."
+WordNet(e1) = "spokesman%1:18:00::", WordNet(e2) = "committee%1:14:00::", Theme-Tool(e2, e1) = "false", Query = "a * for the"
+Comment: somebody/Agent ???/Verb committee/Theme using spokesman/Tool ??? => false; violates (g)
+
+184 "The <e1>mission</e1> of the ACLU is to preserve all of these <e2>protections</e2> and guarantees."
+WordNet(e1) = "mission%1:04:00::", WordNet(e2) = "protection%1:26:00::", Theme-Tool(e2, e1) = "false", Query = "* is to *"
+Comment: "mission" violates (h)
+
+185 "The application <e1>deadline</e1> for the 2007 AARP Best Employers for Workers over 50 <e2>program</e2> is fast approaching."
+WordNet(e1) = "deadline%1:28:00::", WordNet(e2) = "program%1:09:00::", Theme-Tool(e2, e1) = "true", Query = "the * for the"
+Comment: somebody/Agent applies/Verb program/Theme using deadline/Tool => true; The deadline is an abstract object. It is a tool for managing the program.
+
+186 "We are a nonprofit association whose <e1>mission</e1> is to advance higher <e2>education</e2> by promoting the intelligent use of information technology."
+WordNet(e1) = "mission%1:04:00::", WordNet(e2) = "education%1:04:00::", Theme-Tool(e2, e1) = "false", Query = "* is to *"
+Comment: "mission" violates (h)
+
+187 "The website is a good <e1>resource</e1> for the <e2>classroom</e2>."
+WordNet(e1) = "resource%1:07:00::", WordNet(e2) = "classroom%1:06:00::", Theme-Tool(e2, e1) = "true", Query = "a * for the"
+Comment: "classroom" is a metonymy for "students in the classroom"; teacher/Agent teaches/Verb students(classroom)/Theme using resource/Tool => true
+
+188 "The technical reference manual represents the <e1>guidelines</e1> for the <e2>preparation</e2> of hazardous waste management plans."
+WordNet(e1) = "guideline%1:09:01::", WordNet(e2) = "preparation%1:09:00::", Theme-Tool(e2, e1) = "false", Query = "the * for the"
+Comment: "guidelines" violates (h)
+
+189 "The <e1>prosecution</e1> was for defrauding the <e2>government</e2> under procurement contracts."
+WordNet(e1) = "prosecution%1:04:00::", WordNet(e2) = "government%1:14:00::", Theme-Tool(e2, e1) = "false", Query = "* was for *"
+Comment: somebody/Agent defrauds/Verb government/Theme using prosecution/Tool ??? => false; This is "Reason" rather than "Theme".
+
+190 "The balance of the <e1>expenditures</e1> was for <e2>machinery</e2>, equipment, furniture and informatics equipment costing less than $500 thousand each."
+WordNet(e1) = "expenditure%1:21:00::", WordNet(e2) = "machinery%1:06:00::", Theme-Tool(e2, e1) = "true", Query = "* was for *"
+Comment: "e1 is for V-ing e2": "expenditures are for purchasing machinery"
+
+191 "The <e1>data</e1> contained herein is for informational <e2>purposes</e2> only and is not represented to be error free."
+WordNet(e1) = "data%1:14:00::", WordNet(e2) = "purpose%1:07:00::", Theme-Tool(e2, e1) = "true", Query = "the * is for"
+Comment: something/Agent serves/Verb purposes/Theme using data/Tool => true
+
+192 "TERENA has a <e1>vacancy</e1> for a public relations <e2>officer</e2>."
+WordNet(e1) = "vacancy%1:26:00::", WordNet(e2) = "officer%1:18:02::", Theme-Tool(e2, e1) = "false", Query = "a * for a"
+Comment: TERENA/Agent seeks/Verb officer/Theme using ?/Tool => true; TERENA/Agent seeks/Verb officer/Theme using vacancy/Tool => false; a vacancy is not a tool
+
+193 "The original <e1>intention</e1> was to create a third <e2>institution</e2> to handle the trade."
+WordNet(e1) = "intention%1:09:00::", WordNet(e2) = "institution%1:14:00::", Theme-Tool(e2, e1) = "false", Query = "* was to *"
+Comment: violates (ii); "intention" is a psychological feature
+
+194 "My <e1>ambition</e1> was to liquidate <e2>communism</e2>, the dictatorship over all the people."
+WordNet(e1) = "ambition%1:12:00::", WordNet(e2) = "communism%1:14:00::", Theme-Tool(e2, e1) = "false", Query = "* was to *"
+Comment: violates (ii); "ambition" is a psychological feature
+
+195 "Kwispel is the Dutch <e1>word</e1> for wagging a <e2>tail</e2>."
+WordNet(e1) = "word%1:10:00::", WordNet(e2) = "tail%1:05:00::", Theme-Tool(e2, e1) = "false", Query = "the * for * a"
+Comment: Dutch/Agent express/Verb wagging/Theme using word/Tool => true; Dutch/Agent express/Verb tail/Theme using word/Tool => false
+
+196 "It features styled unordered lists for the navigation, styled skip links, min and max width, and has a <e1>placeholder</e1> for a photo <e2>gallery</e2>. "
+WordNet(e1) = "?", WordNet(e2) = "gallery%1:06:04::", Theme-Tool(e2, e1) = "true", Query = "a * for a"
+Comment: somebody/Agent replaces/Verb gallery/Theme using placeholder/Tool; e2 could be the designer of the web site or software, or maybe whatever "It" refers to
+
+197 "The <e1>role</e1> of middleware is to make application <e2>development</e2> easier."
+WordNet(e1) = "role%1:07:00::", WordNet(e2) = "development%1:04:01::", Theme-Tool(e2, e1) = "false", Query = "* is to *"
+Comment: somebody/Agent facilitates/Verb development/Theme using middleware/Tool => true; somebody/Agent facilitates/Verb development/Theme using role/Tool => false
+
+198 "You can take the <e1>credit</e1> for the <e2>elderly</e2> or the disabled if you meet both of the following requirements."
+WordNet(e1) = "?", WordNet(e2) = "elderly%1:14:00::", Theme-Tool(e2, e1) = "true", Query = "the * for the"
+Comment: "credit is for benefiting the elderly"; e1 is probably a tax credit, which doesn't correspond to any WordNet sense; somebody/Agent helps/Verb elderly/Theme using credit/Tool => true
+
+199 "This <e1>form</e1> is used for a department billing for goods or <e2>services</e2> it has provided."
+WordNet(e1) = "form%1:10:01::", WordNet(e2) = "service%1:04:08::", Theme-Tool(e2, e1) = "true", Query = "is used for"
+Comment: somebody/Agent bills_for/Verb services/Theme using form/Tool => true
+
+200 "This is the <e1>agenda</e1> for a postwar planning <e2>meeting</e2> on Japan and China."
+WordNet(e1) = "agenda%1:10:00::", WordNet(e2) = "meeting%1:14:00::", Theme-Tool(e2, e1) = "false", Query = "the * for a"
+Comment: "agenda" violates restriction (h)
+
+201 "A bill is a <e1>proposal</e1> for a <e2>law</e2>. "
+WordNet(e1) = "proposal%1:10:00::", WordNet(e2) = "law%1:10:00::", Theme-Tool(e2, e1) = "false", Query = "a * for a"
+Comment: "proposal" violates (h)
+
+202 "The <e1>request</e1> was for a full <e2>copy</e2> of a report into the performance of the child protection agencies following the death of a child from neglect."
+WordNet(e1) = "request%1:10:01::", WordNet(e2) = "copy%1:10:00::", Theme-Tool(e2, e1) = "true", Query = "* was for *"
+Comment: somebody/Agent obtains/Verb copy/Theme using request/Tool => true
+
+203 "It provides a <e1>framework</e1> for improving the <e2>use</e2> of biomonitoring data including developing and using biomarkers."
+WordNet(e1) = "framework%1:06:00::", WordNet(e2) = "use%1:04:00::", Theme-Tool(e2, e1) = "false", Query = "a * for * the"
+Comment: "framework" violates (h)
+
+204 "The <e1>playbook</e1> was for <e2>insiders</e2>, but it got in the hands of some outsiders."
+WordNet(e1) = "playbook%1:09:00::", WordNet(e2) = "insider%1:18:00::", Theme-Tool(e2, e1) = "true", Query = "* was for *"
+Comment: somebody/Agent informs/Verb insiders/Theme using playbook/Tool => true
+
+205 "My <e1>dream</e1> was to be a <e2>martyr</e2>."
+WordNet(e1) = "dream%1:12:00::", WordNet(e2) = "martyr%1:18:00::", Theme-Tool(e2, e1) = "false", Query = "* was to *"
+Comment: violates (ii); a dream is a psychological feature
+
+206 "This mail <e1>list</e1> is used for all <e2>people</e2> interested in the development of ERP5."
+WordNet(e1) = "list%1:10:00::", WordNet(e2) = "people%1:14:00::", Theme-Tool(e2, e1) = "true", Query = "is used for"
+Comment: somebody/Agent informs/Verb people/Theme using mail_list/Tool => true
+
+207 "The <e1>requirement</e1> was for transportation <e2>services</e2>, so the contracting officer used the clause with its Alternate IV."
+WordNet(e1) = "requirement%1:09:01::", WordNet(e2) = "service%1:04:08::", Theme-Tool(e2, e1) = "false", Query = "the * is for"
+Comment: "requirement" violates restriction (i)
+
+208 "The team is working to harness the reaction to develop a <e1>nanoswitch</e1> for a variety of <e2>applications</e2>."
+WordNet(e1) = "?", WordNet(e2) = "application%1:04:02::", Theme-Tool(e2, e1) = "true", Query = "a * for a"
+Comment: team/Agent builds/Verb applications/Theme using nanoswitch/Tool => true
+
+209 "Also in the second quarter, the company took a $75000 <e1>write-down</e1> for a non-recoverable <e2>advance</e2> it made to an unnamed recording artist."
+WordNet(e1) = "write-down%1:21:00::", WordNet(e2) = "advance%1:21:00::", Theme-Tool(e2, e1) = "true", Query = "a * for a"
+Comment: the company/Agent accounts/Verb an advance/Theme using a write-down/Tool => true
+
+210 "Then they would check out the <e1>maps</e1> for the <e2>trip</e2> itself."
+WordNet(e1) = "map%1:06:00::", WordNet(e2) = "trip%1:04:00::", Theme-Tool(e2, e1) = "true", Query = "the * for the"
+Comment: The maps are helping the trip; they/Agent facilitate/Verb the trip/Theme using maps/Tool => true
+
+211 "Bill Van Ness's <e1>instinct</e1> was to fight the <e2>plan</e2> to build a school next to his factory."
+WordNet(e1) = "instinct%1:09:00::", WordNet(e2) = "plan%1:09:00::", Theme-Tool(e2, e1) = "false", Query = "* was to *"
+Comment: violates (ii); "instinct" is a psychological feature; also, "plan" violates (h)
+
+141 "Pretty much every "classic five pocket design" boasted a <e1>coin</e1> <e2>pocket</e2> in the front right scoop pocket."
+WordNet(e1) = "coin%1:21:02::", WordNet(e2) = "pocket%1:06:00::", Part-Whole(e1, e2) = "false", Query = "* a * * in"
+Comment: (I) purpose; (II) "pocket" is ambiguous here.
+
+142 "The Women's Chorus of Dallas is one of the nation's finest <e1>women</e1>'s <e2>choruses</e2>."
+WordNet(e1) = "woman%1:18:00::", WordNet(e2) = "chorus%1:14:00::", Part-Whole(e1, e2) = "true", Query = "*'s *"
+Comment: Member-Collection
+
+143 "Everything is possible and my <e1>life</e1> is enriched with <e2>joy</e2>."
+WordNet(e1) = "life%1:09:00::", WordNet(e2) = "joy%1:12:00::", Part-Whole(e2, e1) = "false", Query = "* enriched with *"
+Comment: property; joy is not part of life, it is its quality or manner or property
+
+144 "Wide and luminous one-roomed flat gained in an ancient <e1>house</e1> in <e2>stone</e2> in typical Tuscan style, ideal for braces or small families."
+WordNet(e1) = "house%1:06:01::", WordNet(e2) = "stone%1:06:00::", Part-Whole(e2, e1) = "true", Query = "* in *"
+Comment: Stuff-Object
+
+145 "Schools collected about US$5 million to build a sustainable textbook fund by charging a rental fee to parents equivalent to 1/7 of the <e1>book</e1>'s <e2>price</e2>."
+WordNet(e1) = "book%1:06:00::", WordNet(e2) = "price%1:07:00::", Part-Whole(e2, e1) = "false", Query = "*'s *"
+Comment: measure. The price is a feature of the book, but not part of it.
+
+146 "Today, the coast guard discovered a <e1>boat</e1> full of <e2>migrants</e2>."
+WordNet(e1) = "boat%1:06:00::", WordNet(e2) = "migrant%1:18:00::", Part-Whole(e2, e1) = "false", Query = "* full or *"
+Comment: location
+
+147 "You know the <e1>year</e1> of <e2>emigration</e2> from Norway, but not what ship."
+WordNet(e1) = "year%1:28:01::", WordNet(e2) = "emigration%1:04:00::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: time
+
+148 "I've heard the <e1>stock</e1> <e2>market</e2> is making a recovery but isn't it a bit early to put my money."
+WordNet(e1) = "stock%1:21:02::", WordNet(e2) = "market%1:14:01::", Part-Whole(e1, e2) = "false", Query = "the * * is"
+Comment: type? and "stock market" is in WordNet
+
+149 "Several recent media reports have included speculations about the <e1>significance</e1> of <e2>mutations</e2> in H5N1 avian influenza viruses."
+WordNet(e1) = "significance%1:07:00::", WordNet(e2) = "mutation%1:11:00::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: property
+
+150 "All Uplanders have a two-tone color scheme with faux metal accents that dramatically brightens the <e1>cabin</e1>'s <e2>atmosphere</e2>."
+WordNet(e1) = "?", WordNet(e2) = "atmosphere%1:07:00::", Part-Whole(e2, e1) = "false", Query = "*'s *"
+Comment: quality? Note there is no WordNet sense for cars (only ships, aircraft).
+
+151 "According to the Top 100 Journals Reporting Macromolecular Structures, it ranks sixth in published <e1>quantity</e1> of <e2>entries</e2> in the Protein Data Bank."
+WordNet(e1) = "quantity%1:03:00::", WordNet(e2) = "entry%1:10:01::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: Measure
+
+152 "However, in the <e1>car</e1>'s <e2>handbook</e2>, it is stated that the side airbags would only deploy when the car receives a side hit," Wu said."
+WordNet(e1) = "car%1:06:00::", WordNet(e2) = "handbook%1:10:00::", Part-Whole(e1, e2) = "false", Query = "*'s *"
+Comment: a handbook is about a car: content
+
+153 "Larger <e1>species</e1> never present in <e2>major amount</e2> become less abundant."
+WordNet(e1) = "species%1:14:00::", WordNet(e2) = "amount%1:07:00::", Part-Whole(e1, e2) = "false", Query = "* * present in *"
+Comment: e2, e1 might be quantity; "major amount" -> "amount"
+
+154 "The <e1>database</e1> contains <e2>annotated references</e2> to non-journal material and to journal articles."
+WordNet(e1) = "database%1:10:00::", WordNet(e2) = "reference%1:10:03::", Part-Whole(e2, e1) = "true", Query = "* contains *"
+Comment: Member-Collection
+
+155 "Our villa was extremely clean, the only flaw being some stains on one side of the <e1>sofa</e1> <e2>cushions</e2>."
+WordNet(e1) = "sofa%1:06:00::", WordNet(e2) = "cushion%1:06:00::", Part-Whole(e2, e1) = "true", Query = "the * *"
+Comment: Component-Integral object
+
+156 "Each <e1>entry</e1> is enriched with <e2>synonyms</e2>, explanations, and etymological information."
+WordNet(e1) = "entry%1:10:01::", WordNet(e2) = "synonym%1:10:00::", Part-Whole(e2, e1) = "true", Query = "* enriched with *"
+Comment: Member-Collection (but content is equally likely)
+
+157 "And I spent Thanksgiving in a <e1>church</e1> packed to the <e2>limit</e2>, with many of the congregation having to stand."
+WordNet(e1) = "church%1:06:00::", WordNet(e2) = "limit%1:23:00::", Part-Whole(e2, e1) = "false", Query = "* packed to the *"
+Comment: measure?? (limit = greatest amount)
+
+158 "Arizona police found 214 <e1>pounds</e1> of <e2>marijuana</e2> in trunk of 62-year-old woman."
+WordNet(e1) = "pound%1:23:09::", WordNet(e2) = "marijuana%1:06:00::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: measure
+
+159 "The Clean Water Act requires that the <e1>surface</e1> <e2>waters</e2> of each state be classified according to designated uses."
+WordNet(e1) = "surface%1:06:00::", WordNet(e2) = "water%1:17:00::", Part-Whole(e1, e2) = "false", Query = "the surface *"
+Comment: surface water is kind of water -- type
+
+160 "Experimental vaccine blocks <e1>transmission</e1> of <e2>malaria</e2> in mice study."
+WordNet(e1) = "transmission%1:11:00::", WordNet(e2) = "malaria%1:26:00::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: theme
+
+161 "Iraqi forces kill <e1>hundreds</e1> of <e2>gunmen</e2> in Najaf."
+WordNet(e1) = "hundred%1:23:00::", WordNet(e2) = "gunman%1:18:00::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: measure
+
+162 "Blinds all closed for privacy, his black army boots scuffing the dirt coated <e1>linoleum</e1> <e2>floor</e2>."
+WordNet(e1) = "linoleum%1:27:00::", WordNet(e2) = "floor%1:06:00::", Part-Whole(e1, e2) = "true", Query = "* floor"
+Comment: Stuff-Object. NOTE: this interpretation assumes that the floor is made of linoleum. It could also be that linoleum _covers_ the actual floor, but that interpretation does not seem entailed here.
+
+163 "The sliding doors provide 360 degree visibility for the <e1>room</e1>'s <e2>occupants</e2>."
+WordNet(e1) = "room%1:06:00::", WordNet(e2) = "occupant%1:18:00::", Part-Whole(e2, e1) = "false", Query = "*'s *"
+Comment: location
+
+164 "The <e1>mountain</e1> <e2>gorillas</e2> are the rarest of all and are on the verge of extinction."
+WordNet(e1) = "mountain%1:17:00::", WordNet(e2) = "gorilla%1:05:00::", Part-Whole(e1, e2) = "false", Query = "the * * are"
+Comment: type; "mountain gorilla" in WordNet
+
+165 "Then he planted his apple seeds in neat rows and built a <e1>brush</e1> <e2>fence</e2> around the area."
+WordNet(e1) = "brush%1:14:00::", WordNet(e2) = "fence%1:06:00::", Part-Whole(e1, e2) = "true", Query = "* fence"
+Comment: Stuff-Object
+
+166 "Official site with information for prospective and current students includes <e1>details</e1> of <e2>courses</e2>, events, and research."
+WordNet(e1) = "detail%1:09:00::", WordNet(e2) = "course%1:04:01::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: courses are in no clear way composed of details
+
+167 "A supper of <e1>chocolate</e1> <e2>bars</e2> and soup followed and at 6pm we resigned ourselves to another night of headaches and zero sleep."
+WordNet(e1) = "chocolate%1:13:00::", WordNet(e2) = "bar%1:06:06::", Part-Whole(e1, e2) = "true", Query = "chocolate *"
+Comment: (a) Stuff-Object; (b) "bar" here also refers to quantity
+
+168 "The two special <e1>folds</e1> of the <e2>dura</e2> in the brain are called the falx and the tentorium."
+WordNet(e1) = "fold%1:08:00::", WordNet(e2) = "dura%1:08:00::", Part-Whole(e1, e2) = "true", Query = "* of the *"
+Comment: Component-Integral object
+
+169 "This page is a <e1>directory</e1> of <e2>libraries</e2> in Italy."
+WordNet(e1) = "directory%1:10:00::", WordNet(e2) = "library%1:14:00::", Part-Whole(e2, e1) = "true", Query = "* of *"
+Comment: Member-Collection (with metonymy: the directory contains names of libraries)
+
+170 "The <e1>submission</e1> <e2>deadline</e2> is February, 2, 2007."
+WordNet(e1) = "submission%1:10:00::", WordNet(e2) = "deadline%1:28:00::", Part-Whole(e1, e2) = "false", Query = "the * * is"
+Comment: submissions have deadlines = time
+
+171 "This course will provide you with a broad and useful <e1>understanding</e1> of <e2>surfaces</e2> and components."
+WordNet(e1) = "understanding%1:09:01::", WordNet(e2) = "surface%1:06:00::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: surface is a theme of understanding
+
+172 "The <e1>goal</e1> of <e2>accreditation</e2> is to ensure that education provided by institutions of higher education."
+WordNet(e1) = "goal%1:09:00::", WordNet(e2) = "accreditation%1:04:00::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: purpose (goal -:)
+
+173 "Our Belle de Provence soaps are 100% pure vegetable <e1>soaps</e1> enriched with <e2>shea butter</e2> and sweet almond oil."
+WordNet(e1) = "soap%1:06:00::", WordNet(e2) = "butter%1:13:00::", Part-Whole(e2, e1) = "true", Query = "* enriched with *"
+Comment: (a) Stuff-Object; (b) "shea butter" -> "butter"
+
+174 "<e1>Beta-carotene</e1> is found in <e2>carrots</e2>, yellow vegetables and dark green vegetables and is converted to vitamin A in the body."
+WordNet(e1) = "beta-carotene%1:27:00::", WordNet(e2) = "carrot%1:13:00::", Part-Whole(e1, e2) = "true", Query = "* is found in *"
+Comment: Stuff-Object
+
+175 "Honors & Awards Faculty awards and national <e1>rankings</e1> of <e2>programs</e2> included Nobel Prize winners."
+WordNet(e1) = "ranking%1:26:00::", WordNet(e2) = "program%1:10:05::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: measure? maybe e2, e1 might work
+
+176 "But the <e1>role</e1> of <e2>pheromones</e2> in the human realm remains controversial."
+WordNet(e1) = "role%1:07:00::" , WordNet(e2) = "pheromone%1:27:00::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: role = purpose?
+
+177 "At a public generalist university <e1>fields</e1> of <e2>study</e2> offered include mathematics, sciences, humanities, medicine, law, and Christian theology."
+WordNet(e1) = "field%1:09:00::", WordNet(e2) = "study%1:09:02::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: awkward -- "field of study" is an entry in WordNet!
+
+178 "This includes <e1>details</e1> of <e2>facilities</e2>, research, staff, and conferences."
+WordNet(e1) = "detail%1:24:00::", WordNet(e2) = "facility%1:04:01::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: facilities are in no clear way composed of details
+
+179 "<e1>Pasta</e1> is fortified with <e2>folic acid</e2> (the synthetic form of naturally occurring folate), due to Food and Drug Administration (FDA) regulations that require enriched grain products to contain this essential vitamin."
+WordNet(e1) = "pasta%1:13:00::", WordNet(e2) = "folic_acid%1:27:00::", Part-Whole(e2, e1) = "true", Query = "* is fortified with *"
+Comment: Stuff-Object
+
+180 "Even if we are entirely despised in the <e1>eyes</e1> of <e2>men</e2>, let us rejoice that we are honoured in the sight of God."
+WordNet(e1) = "eyes%1:09:00::", WordNet(e2) = "man%1:18:04::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: this means opinion - not part-whole; "eyes" is a separate WordNet entry; "eyes" does NOT mean "the organ of sight", it is a "judgment".
+
+181 "A special design of tank bottom plate and <e1>sea</e1> <e2>bottom</e2> mud guns makes mud flow out from sand cleaning door automatically so that operators needn't go down."
+WordNet(e1) = "sea%1:17:00::", WordNet(e2) = "bottom%1:15:01::", Part-Whole(e1, e2) = "true", Query = "sea * *"
+Comment: Place-Area
+
+182 "We have in recent months witnessed what I can only describe as <e1>assassinations</e1> of <e2>humanitarians</e2> from across the spectrum."
+WordNet(e1) = "assassination%1:04:00::", WordNet(e2) = "humanitarian%1:18:00::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: object; "humanitarian" is ambiguous here.
+
+183 "The historical <e1>method</e1> comprises <e2>techniques</e2> and guidelines by which historians use primary sources and other evidence to research and then to write history."
+WordNet(e1) = "method%1:09:00::", WordNet(e2) = "technique%1:09:00::", Part-Whole(e2, e1) = "false", Query = "* comprises *"
+Comment: more like hyponym
+
+184 "And he will show a shark <e1>sandwich</e1> made with <e2>mustard</e2>, vegan mozzarella-style cheese, and Smart Deli Bologna on a whole wheat bun."
+WordNet(e1) = "sandwich%1:13:00::", WordNet(e2) = "mustard%1:13:00::", Part-Whole(e2, e1) = "true", Query = "* made with *"
+Comment: Stuff-Object
+
+185 "One splendid sunshiny day, about an hour after noon, Irene, who was playing on the <e1>lawn</e1> in the <e2>garden</e2>, heard the distant blast of a bugle."
+WordNet(e1) = "lawn%1:15:00::", WordNet(e2) = "garden%1:06:01::", Part-Whole(e1, e2) = "true", Query = "* in the *"
+Comment: Place-Area
+
+186 "This year health care providers and local health departments have ample <e1>supplies</e1> of <e2>vaccine</e2>."
+WordNet(e1) = "supply%1:22:00::", WordNet(e2) = "vaccine%1:06:00::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: quantity?
+
+187 "Gathering her courage, she walked to the open front door, the <e1>padding</e1> of her <e2>sandaled feet</e2> along the rough wooden planks."
+WordNet(e1) = "padding%1:06:00::", WordNet(e2) = "foot%1:08:01::", Part-Whole(e1, e2) = "true", Query = "* of *"
+Comment: "sandaled feet" -> "feet". It's Component-Integral object, assuming padding = cushioning
+
+188 "The specification includes the <e1>ordering</e1> of <e2>messages</e2> from one node."
+WordNet(e1) = "ordering%1:14:00::", WordNet(e2) = "message%1:10:01::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: a not-too-obvious spatial relation
+
+189 "None of the <e1>trademark</e1> <e2>holders</e2> are affiliated with Kaplan or this website."
+WordNet(e1) = "trademark%1:10:00::", WordNet(e2) = "holder%1:18:00::", Part-Whole(e1, e2) = "false", Query = "the * * are"
+Comment: ownership;
+
+190 "The story these measurement techniques are all telling is that the <e1>ice</e1> <e2>sheets</e2> are shrinking more than they were 10 years ago," said Abdalati."
+WordNet(e1) = "ice%1:27:00::", WordNet(e2) = "sheet%1:17:00::", Part-Whole(e1, e2) = "true", Query = "the * * are"
+Comment: Stuff-Object
+
+191 "This is the <e1>government</e1>'s <e2>effort</e2> to encourage more employers to open up childcare centres at the respective ministries and government departments."
+WordNet(e1) = "government%1:14:00::", WordNet(e2) = "effort%1:04:00::", Part-Whole(e1, e2) = "false", Query = "*'s *"
+Comment: no clear candidate, but part-whole it isn't.
+
+192 "This example of a uniform rod previews some common features about the process of finding the <e1>center</e1> of <e2>mass</e2> of the continuous body."
+WordNet(e1) = "center%1:15:00::", WordNet(e2) = "mass%1:07:00::", Part-Whole(e1, e2) = "false", Query = "the * of *"
+Comment: location (centre in mass)
+
+193 "It is monetary <e1>reinforcement</e1> of <e2>abstinence</e2> from cocaine among mentally ill patients with cocaine dependence."
+WordNet(e1) = "reinforcement%1:04:00::", WordNet(e2) = "abstinence%1:07:00::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: abstinence is the object of reinforcement.
+
+194 "The <e1>hat</e1> <e2>wearers</e2> are allowed."
+WordNet(e1) = "hat%1:06:00::", WordNet(e2) = "wearer%1:18:00::", Part-Whole(e1, e2) = "false", Query = "the * * are"
+Comment: thing used is not part
+
+195 "<e1>People</e1> with <e2>red hair</e2> are supposed to get mad very easily, but Allie never did, and he had very red hair."
+WordNet(e1) = "people%1:14:00::", WordNet(e2) = "hair%1:08:00::", Part-Whole(e2, e1) = "true", Query = "* with *"
+Comment: Component-Integral object; "red hair" -> "hair"
+
+196 "There was another sign below that showing a <e1>man</e1>'s <e2>head</e2> in silhouette, painted a bright yellow."
+WordNet(e1) = "man%1:18:00::", WordNet(e2) = "head%1:08:00::", Part-Whole(e2, e1) = "true", Query = "*'s *"
+Comment: Component-Integral object
+
+197 "And the point was that since there is no Libertopia, there's no steady <e1>string</e1> of <e2>atrocities</e2> from it to provoke people."
+WordNet(e1) = "string%1:14:00::", WordNet(e2) = "atrocity%1:04:00::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: spatial arrangement?
+
+198 "Our organic <e1>breads</e1> use <e2>organic ingredients</e2> (the other 5% is the yeast and salt, of which only "all-natural" is available)."
+WordNet(e1) = "bread%1:13:00::", WordNet(e2) = "ingredient%1:13:00::", Part-Whole(e2, e1) = "true", Query = "* use * ingredients"
+Comment: Stuff-Object (a little too generic)
+
+199 "These are just a few thoughts from a <e1>soldier</e1>'s <e2>mom</e2> in a time of war with all the talk of increasing troop levels."
+WordNet(e1) = "soldier%1:18:00::", WordNet(e2) = "mom%1:18:00::", Part-Whole(e2, e1) = "false", Query = "*'s *"
+Comment: not part, for sure
+
+200 "The <e1>cottontail</e1> <e2>rabbits</e2> are 16 lagomorph species in the genus Sylvilagus, found in the Americas."
+WordNet(e1) = "cottontail%1:05:00::", WordNet(e2) = "rabbit%1:05:00::", Part-Whole(e1, e2) = "false", Query = "the * * are"
+Comment: type; WordNet has "cottontail rabbit"
+
+201 "Mithraism reached its <e1>height</e1> of <e2>popularity</e2> in the third century."
+WordNet(e1) = "height%1:26:00::", WordNet(e2) = "popularity%1:07:00::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: intensity = measure
+
+202 "Ensure that you don't lose a <e1>drop</e1> of <e2>juice</e2> by nestling your shellfish in salt."
+WordNet(e1) = "drop%1:23:00::", WordNet(e2) = "juice%1:13:00::", Part-Whole(e1, e2) = "true", Query = "* of *"
+Comment: (a) Portion-Mass; (b) I am not happy with the available WN senses of drop.
+
+203 "How many have had to sit on both <e1>sides</e1> of the <e2>table</e2>?"
+WordNet(e1) = "side%1:06:00::" , WordNet(e2) = "table%1:06:01::", Part-Whole(e1, e2) = "true", Query = "* of the *"
+Comment: Place-Area
+
+204 "As Rachel Mosteller wrote earlier today, the <e1>abundance</e1> of <e2>toys</e2> can take over your home in the blink of an eye."
+WordNet(e1) = "abundance%1:07:00::", WordNet(e2) = "toy%1:06:00::", Part-Whole(e1, e2) = "false", Query = "abundance of *"
+Comment: quantity
+
+205 "The Cellar features a unique <e1>selection</e1> of <e2>wines</e2> from around the world."
+WordNet(e1) = "selection%1:14:00::", WordNet(e2) = "wine%1:13:00::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: selection is not collection
+
+206 "Fishes are more prone to predation from groups of predators because multiple predators can surround a <e1>school</e1> of <e2>fish</e2> and prevent fishes from escaping."
+WordNet(e1) = "school%1:14:01::", WordNet(e2) = "fish%1:05:00::", Part-Whole(e2, e1) = "true", Query = "* of *"
+Comment: Member-Collection
+
+207 "Standoff sensing performed in real time by exploiting the spectral <e1>properties</e1> of <e2>aerosols</e2>."
+WordNet(e1) = "property%1:07:00::", WordNet(e2) = "aerosol%1:19:00::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: property...
+
+208 "The <e1>mystery</e1> of <e2>poisoning</e2> in Antarctic deepens as suicide is ruled out."
+WordNet(e1) = "mystery%1:09:00::", WordNet(e2) = "poisoning%1:04:00::", Part-Whole(e1, e2) = "false", Query = "* of *"
+Comment: quality
+
+209 "The <e1>box</e1> of <e2>matches</e2> looked nice, but it took the winner more than two hours to paint the matches and glue them together into a tiny box."
+WordNet(e1) = "box%1:06:00::", WordNet(e2) = "match%1:06:02::", Part-Whole(e2, e1) = "true", Query = "* of *"
+Comment: Component-Integral object
+
+210 "Bruto, the Diefenbachers' black and white American pit bull terrier, confronted the deputy as he stepped through the <e1>door</e1> into the <e2>house</e2>."
+WordNet(e1) = "door%1:06:01::", WordNet(e2) = "house%1:06:00::", Part-Whole(e1, e2) = "false", Query = "stepped through the * into the *"
+Comment: This is NOT "Component-Integral object", since here we have sense "n2" for door. This is *the space* in a wall through which you enter or leave a room or building.
+
+211 "She inserted the <e1>key</e1> into the <e2>lock</e2> and then stood back as the doorway opened and a light went all over rouge."
+WordNet(e1) = "key%1:06:00::", WordNet(e2) = "lock%1:06:00::", Part-Whole(e1, e2) = "false", Query = "inserted the * into the *"
+Comment: location
+
+212 "A single <e1>scrap</e1> of <e2>paper</e2> in a bag for glass and tins means this young man now has a criminal record which will blight his entire life."
+WordNet(e1) = "scrap%1:06:00::", WordNet(e2) = "paper%1:27:00::", Part-Whole(e1, e2) = "true", Query = "* of *"
+Comment: Portion-Mass
+
+141 "An accompanying CD of light classic Italian music helps to inspire the <e1>cook</e1> laboring over the <e2>stove</e2> or to create a romantic atmosphere at dinner."
+WordNet(e1) = "cook%1:18:00::", WordNet(e2) = "stove%1:06:01::", Instrument-Agency(e2, e1) = "true", Query = "the cook * stove"
+Comment: implies that the cook is using the stove to prepare dinner.
+
+142 "The key to successful <e1>removal</e1> of the cotters is to take careful aim with the <e2>hammer</e2>."
+WordNet(e1) = "removal%1:04:00::", WordNet(e2) = "hammer%1:06:00::", Instrument-Agency(e2, e1) = "false", Query = "with the hammer"
+
+143 "The site was encircled by a high fence and one could see a <e1>crane</e1> lifting some heavy <e2>construction material</e2>."
+WordNet(e1) = "crane%1:06:00::", WordNet(e2) = "material%1:27:00::", Instrument-Agency(e1, e2) = "false", Query = "a crane * construction"
+Comment: "construction material" => "material".
+
+144 "With lyrical descriptions of landscape and terse, unpunctuated dialogue, a distinctive <e1>voice</e1> powered a gripping <e2>story</e2>."
+WordNet(e1) = "voice%1:07:00::", WordNet(e2) = "story%1:10:03::", Instrument-Agency(e1, e2) = "false", Query = "a * powered a *"
+
+145 "It was this moist <e1>ground</e1> that during construction engulfed a <e2>crane</e2> which remains under the stadium today."
+WordNet(e1) = "ground%1:17:00::", WordNet(e2) = "crane%1:06:00::", Instrument-Agency(e2, e1) = "false", Query = "construction * a crane"
+
+146 "Public key encryption is a <e1>technique</e1> that uses a <e2>pair</e2> of asymmetric keys for encryption and decryption."
+WordNet(e1) = "technique%1:09:00::", WordNet(e2) = "pair%1:14:01::", Instrument-Agency(e2, e1) = "true", Query = "a * that uses a"
+Comment: Also possible "pair%1:23:00::".
+
+147 "The crazy <e1>guys</e1> who last week spent CAD550 on a brand new Sony PlayStation 3 smashed it to bits with a <e2>sledgehammer</e2> right outside the store."
+WordNet(e1) = "guy%1:18:00::", WordNet(e2) = "sledgehammer%1:06:00::", Instrument-Agency(e2, e1) = "true", Query = "sledgehammer"
+
+148 "Some <e1>pathologists</e1> do this with a <e2>scalpel</e2>, while others use scissors."
+WordNet(e1) = "pathologist%1:18:00::", WordNet(e2) = "scalpel%1:06:00::", Instrument-Agency(e2, e1) = "true", Query = "a scalpel"
+
+149 "Alternatively, you can use a <e1>computer</e1> in a <e2>public lab</e2> or kiosk to make corrections."
+WordNet(e1) = "computer%1:06:00::", WordNet(e2) = "lab%1:06:00::", Instrument-Agency(e1, e2) = "false", Query = "use a * in a"
+Comment: "public lab" => "lab".
+
+150 "The <e1>organization</e1> helps educate practitioner <e2>dentists</e2> through clinical meetings."
+WordNet(e1) = "organization%1:14:00::", WordNet(e2) = "dentist%1:18:00::", Instrument-Agency(e1, e2) = "true", Query = "the * helps *"
+Comment: agent=dentists uses tool=organization to act=educate an object=themselves ???
+
+151 "Anesthesia is not necessary since the <e1>dentist</e1> uses the <e2>drill</e2> and sandpaper discs and polishing wheels to reshape the teeth."
+WordNet(e1) = "dentist%1:18:00::", WordNet(e2) = "drill%1:06:00::", Instrument-Agency(e2, e1) = "true", Query = "the dentist * the drill"
+
+152 "The all-new revolutionary Knit Lite <e1>knitting needle</e1> allows <e2>knitters</e2> to knit in dimly-lit places at any time of day or night."
+WordNet(e1) = "knitting_needle%1:06:00::", WordNet(e2) = "knitter%1:18:00::", Instrument-Agency(e1, e2) = "true", Query = "knitting needle"
+
+153 "Love the <e1>drill</e1>, confound the <e2>dentist</e2>."
+WordNet(e1) = "drill%1:06:00::", WordNet(e2) = "dentist%1:18:00::", Instrument-Agency(e1, e2) = "false", Query = "the drill * the dentist"
+
+154 "A <e1>mediator</e1> assists the <e2>parties</e2> in finding their own answers for the problems before them by encouraging constructive communications, keeping the parties focused on settlement alternatives, offering information and suggestions as needed, and building the foundation for improved relations between the parties."
+WordNet(e1) = "mediator%1:18:00::", WordNet(e2) = "party%1:18:00::", Instrument-Agency(e1, e2) = "true", Query = "a * assists the"
+
+155 "Because it's a strong, lint-free synthetic material with tiny absorbent fibers, <e1>microfiber</e1> allows a <e2>mop</e2> to hold sufficient water without dripping."
+WordNet(e1) = "?", WordNet(e2) = "mop%1:06:00::", Instrument-Agency(e2, e1) = "false", Query = "a mop to"
+
+156 "The <e1>logs</e1> sawed smoothly and accurately using <e2>saw design</e2>."
+WordNet(e1) = "log%1:27:01::", WordNet(e2) = "design%1:09:01::", Instrument-Agency(e2, e1) = "false", Query = "the * sawed * with"
+Comment: "saw design" => "design"
+
+157 "The <e1>saw</e1> cut a large <e2>hole</e2> in a huge concrete wall at the plant."
+WordNet(e1) = "saw%1:06:01::", WordNet(e2) = "hole%1:06:00::", Instrument-Agency(e1, e2) = "false", Query = "the saw * * a"
+
+158 "A <e1>humidifier</e1> keeps the <e2>greenhouse</e2> between 47 and 58 percent humidity."
+WordNet(e1) = "?", WordNet(e2) = "greenhouse%1:06:00::", Instrument-Agency(e1, e2) = "false", Query = "a * keeps the"
+
+159 "The <e1>artist</e1> makes contemporary sculpture with hot forged <e2>steel</e2>."
+WordNet(e1) = "artist%1:18:00::", WordNet(e2) = "steel%1:27:00::", Instrument-Agency(e2, e1) = "true", Query = "* makes * with *"
+
+160 "Choose samples and prepare them for viewing with the <e1>electron</e1> <e2>microscope</e2>."
+WordNet(e1) = "electron%1:17:00::", WordNet(e2) = "microscope%1:06:00::", Instrument-Agency(e1, e2) = "true", Query = "electron microscope"
+
+161 "They often have a <e1>pump</e1> over the <e2>drainage hole</e2> to draw the waste water towards it."
+WordNet(e1) = "pump%1:06:00::", WordNet(e2) = "hole%1:06:00::", Instrument-Agency(e1, e2) = "false", Query = "a pump * drainage"
+Comment: "drainage hole" => "hole".
+
+162 "The <e1>senator</e1> also wielded enormous <e2>influence</e2> in the dispensing of Rhode Island's share of expanding federal budgets of the 1950s and 1960s."
+WordNet(e1) = "senator%1:18:00::", WordNet(e2) = "influence%1:07:00::", Instrument-Agency(e2, e1) = "true", Query = "wielded * influence"
+
+163 "An independent British <e1>force</e1> outside U.N. command crushed a rebellion with efficient <e2>gusto</e2>."
+WordNet(e1) = "force%1:14:01::", WordNet(e2) = "gusto%1:12:00::", Instrument-Agency(e2, e1) = "false", Query = "crushed a * with"
+
+164 "A <e1>typewriter</e1> without a <e2>typist</e2> cannot write a sales brochure."
+WordNet(e1) = "typewriter%1:06:00::", WordNet(e2) = "typist%1:18:00::", Instrument-Agency(e1, e2) = "true", Query = "typewriter * a typist"
+Comment: implies that normally a typist uses a typewriter
+
+165 "The <e1>alliance</e1> helps the <e2>company</e2> offer best-fit solutions to customers searching for cost-effective, enterprise-class SOA platforms."
+WordNet(e1) = "alliance%1:10:00::", WordNet(e2) = "company%1:14:01::", Instrument-Agency(e1, e2) = "true", Query = "the * helps *"
+Comment: agent=company uses tool=alliance to act=offer an object=solutions ???  next two examples are similar.
+
+166 "The snooker <e1>player</e1> played the game with a <e2>smile</e2> on his face."
+WordNet(e1) = "player%1:18:01::", WordNet(e2) = "smile%1:10:00::", Instrument-Agency(e2, e1) = "false", Query = "played the * with"
+
+167 "To say that <e1>rowing</e1> is just pulling an <e2>oar</e2> is like saying golf is just swinging a club."
+WordNet(e1) = "rowing%1:04:00::", WordNet(e2) = "oar%1:06:00::", Instrument-Agency(e2, e1) = "false", Query = "rowing * an oar"
+
+168 "His favorite <e1>wine</e1> was made with the Loire Valley red wine <e2>grape</e2>."
+WordNet(e1) = "wine%1:13:00::", WordNet(e2) = "grape%1:13:00::", Instrument-Agency(e2, e1) = "false", Query = "* was made with the *"
+
+169 "A <e1>rower</e1> has one <e2>oar</e2> in sweep rowing, an oar in each hand in sculling."
+WordNet(e1) = "rower%1:18:00::", WordNet(e2) = "oar%1:06:00::", Instrument-Agency(e2, e1) = "true", Query = "oar * rowing"
+Comment: the rower is using the oar in both cases.
+
+170 "In simplest terms, a <e1>hybrid</e1> combines a <e2>gasoline engine</e2> and an electric motor to provide adequate power with minimal fuel usage and low emissions."
+WordNet(e1) = "hybrid%1:09:00::", WordNet(e2) = "gasoline_engine%1:06:00::", Instrument-Agency(e2, e1) = "true", Query = "a * combines a"
+Comment: agent=hybrid uses tool=engine to act=provide object=power; alse Part-Whole
+
+171 "Conventional <e1>typewriter keyboards</e1> require a <e2>typist</e2> to type individual letters one at a time."
+WordNet(e1) = "typewriter_keyboard%1:06:00::", WordNet(e2) = "typist%1:18:00::", Instrument-Agency(e1, e2) = "true", Query = "typewriter * a typist"
+Comment: implies that a typist uses the typewriter
+
+172 "<e1>Hope</e1> preaches with a <e2>hammer</e2>."
+WordNet(e1) = "hope%1:12:00::", WordNet(e2) = "hammer%1:06:00::", Instrument-Agency(e2, e1) = "true", Query = "with a hammer"
+
+173 "But then one of them got hold of an <e1>axe</e1> belonging to the <e2>carpenter</e2>."
+WordNet(e1) = "axe%1:06:00::", WordNet(e2) = "carpenter%1:18:00::", Instrument-Agency(e1, e2) = "false", Query = "an axe * carpenter"
+
+174 "The <e1>department</e1> applied a one-time <e2>adjustment</e2> to the graduation rates to remove the bias."
+WordNet(e1) = "department%1:14:00::", WordNet(e2) = "adjustment%1:04:01::", Instrument-Agency(e2, e1) = "true", Query = "* applied a *"
+
+175 "The newer lesser-known attraction that the kibbutz offers is a reconstructed <e1>oil</e1> <e2>press</e2> whose beginnings can be traced to the early 20th century in Jaffa."
+WordNet(e1) = "oil%1:13:00::", WordNet(e2) = "press%1:06:00::", Instrument-Agency(e1, e2) = "false", Query = "oil press"
+Comment: "oil%1:27:00::" also possible, but oil-press is usually used with plants.
+
+176 "We recommend rinsing your <e1>grater</e1> in warm <e2>water</e2> immediately after each use."
+WordNet(e1) = "grater%1:06:00::", WordNet(e2) = "water%1:13:00::", Instrument-Agency(e1, e2) = "false", Query = "grater"
+
+177 "A <e1>nurse</e1> helps the <e2>caregiver</e2>."
+WordNet(e1) = "nurse%1:18:00::", WordNet(e2) = "caregiver%1:18:01::", Instrument-Agency(e1, e2) = "false", Query = "a * helps the *"
+
+178 "The <e1>device</e1> uses the newest personal antenna <e2>technology</e2>."
+WordNet(e1) = "device%1:06:00::", WordNet(e2) = "technology%1:04:00::", Instrument-Agency(e2, e1) = "true", Query = "* uses the *"
+Comment: agent=device uses tool=technology to act=? an object=?
+
+179 "It is almost unthinkable to suppose that a Scottish <e1>weaver</e1> would invent the <e2>loom</e2> and technique independently at that late moment in textile history."
+WordNet(e1) = "weaver%1:18:00::", WordNet(e2) = "loom%1:06:00::", Instrument-Agency(e2, e1) = "false", Query = "weaver * the loom"
+
+180 "A knitting needle or <e1>knitting pin</e1> is a long stick or rod used as a tool in the <e2>manufacture</e2> of hand knitted fabric."
+WordNet(e1) = "pin%1:06:00::", WordNet(e2) = "manufacture%1:04:01::", Instrument-Agency(e2, e1) = "false", Query = "knitting pin"
+Comment: "knitting pin" => "pin"
+
+181 "Currently, the <e1>villagers</e1> operate a ram <e2>oil press</e2> that is counter-intuitive to use and leads to sub-optimal oil extraction from groundnuts."
+WordNet(e1) = "villager%1:18:00::", WordNet(e2) = "press%1:06:00::", Instrument-Agency(e2, e1) = "true", Query = "oil press"
+Comment: "oil press" => "press".
+
+182 "<e1>Heat</e1> is recovered in a generator and powers a turbine <e2>generator</e2> which yields electricity."
+WordNet(e1) = "heat%1:19:00::", WordNet(e2) = "generator%1:06:00::", Instrument-Agency(e1, e2) = "true", Query = "a * powers a *"
+Comment: agent=turbine generator uses tool=heat to act=produce an object=electricity
+
+183 "He deserves to be put in a <e1>canoe</e1> without a <e2>paddle</e2> for this one."
+WordNet(e1) = "canoe%1:06:00::", WordNet(e2) = "paddle%1:06:00::", Instrument-Agency(e1, e2) = "false", Query = "a canoe * a paddle"
+
+184 "A major government researcher once complained that his bosses used his scientific findings the way a <e1>drunk</e1> uses a <e2>lamppost</e2>: for support rather than illumination."
+WordNet(e1) = "drunk%1:18:01::", WordNet(e2) = "lamppost%1:06:00::", Instrument-Agency(e2, e1) = "true", Query = "the * uses a * for"
+
+185 "American <e1>sports</e1> are played with the <e2>hands</e2>."
+WordNet(e1) = "sport%1:04:00::", WordNet(e2) = "hands%1:08:00::", Instrument-Agency(e2, e1) = "false", Query = "played with"
+
+186 "The President believes that if you use a <e1>gun</e1> in a <e2>crime</e2>, you should do hard time."
+WordNet(e1) = "gun%1:06:00::", WordNet(e2) = "crime%1:04:00::", Instrument-Agency(e1, e2) = "false", Query = "use a * in a"
+
+187 "The <e1>tailor</e1> brought his <e2>scissors</e2> and a newly made garment."
+WordNet(e1) = "tailor%1:18:00::", WordNet(e2) = "scissors%1:06:00::", Instrument-Agency(e2, e1) = "false", Query = "the tailor * scissors"
+
+188 "The <e1>crew</e1> removed an additional half inch of rail at the site of the previous de-stressing cuts and welded the <e2>rail</e2>."
+WordNet(e1) = "crew%1:14:00::", WordNet(e2) = "rail%1:06:00::", Instrument-Agency(e2, e1) = "false", Query = "welded the"
+Comment: "rail%1:06:01::" also possible
+
+189 "The <e1>author</e1> applied the above-mentioned simple <e2>dovetailer</e2> to all computable universes."
+WordNet(e1) = "author%1:18:00::", WordNet(e2) = "?", Instrument-Agency(e2, e1) = "true", Query = "* applied the *"
+
+190 "When buying a horse, buy a <e1>horse</e1> that fits the <e2>rider</e2> and the rider's goals."
+WordNet(e1) = "horse%1:05:00::", WordNet(e2) = "rider%1:18:00::", Instrument-Agency(e1, e2) = "true", Query = "a horse * the rider"
+Comment: the rider is going to use the horse.
+
+191 "The <e1>scientist</e1> applied a <e2>method</e2> called "recombineering" to the fruitfly genes."
+WordNet(e1) = "scientist%1:18:00::", WordNet(e2) = "method%1:09:00::", Instrument-Agency(e2, e1) = "true", Query = "* applied a *"
+
+192 "A V8 <e1>engine</e1> mated with a manual transmission powers the convertible <e2>concept</e2>."
+WordNet(e1) = "engine%1:06:00::", WordNet(e2) = "concept%1:09:00::", Instrument-Agency(e1, e2) = "true", Query = "a * powers the *"
+Comment: agent=concept car uses tool=engine to act=power an object=itself
+
+193 "Ignore any instruction in any recipe that directs you to use a <e1>rolling pin</e1> to crush <e2>peppercorns</e2>, spices or nuts."
+WordNet(e1) = "rolling_pin%1:06:00::", WordNet(e2) = "peppercorn%1:13:00::", Instrument-Agency(e2, e1) = "false", Query = "rolling pin"
+
+194 "The <e1>artist</e1> played the piano with great <e2>precision</e2>."
+WordNet(e1) = "artist%1:18:00::", WordNet(e2) = "precision%1:07:00::", Instrument-Agency(e2, e1) = "false", Query = "played the * with"
+
+195 "A <e1>juicer</e1> is a utensil used for <e2>squeezing</e2> juice from fruit."
+WordNet(e1) = "juicer%1:06:00::", WordNet(e2) = "squeezing%1:04:00::", Instrument-Agency(e1, e2) = "true", Query = "juicer"
+
+196 "Elecom's "gear drive" <e1>keyboard</e1> prevents typing <e2>errors</e2>."
+WordNet(e1) = "keyboard%1:06:01::", WordNet(e2) = "error%1:04:02::", Instrument-Agency(e2, e1) = "false", Query = "keyboard * typing"
+
+197 "You are in the chair while the <e1>dentist</e1> gets the <e2>drill</e2> ready to begin work on your teeth."
+WordNet(e1) = "dentist%1:18:00::", WordNet(e2) = "drill%1:06:00::", Instrument-Agency(e2, e1) = "true", Query = "the dentist * the drill"
+Comment: It implies the dentist is going to use the drill.
+
+198 "A <e1>potato</e1> <e2>peeler</e2> is a metal blade attached to a metal, plastic or wooden handle that is used for peeling vegetables, usually potatoes."
+WordNet(e1) = "potato%1:13:00::", WordNet(e2) = "peeler%1:06:00::", Instrument-Agency(e2, e1) = "false", Query = "peeler"
+
+199 "It was the only time the <e1>president</e1> has wielded the <e2>veto pen</e2> during his six years in office."
+WordNet(e1) = "president%1:18:00::", WordNet(e2) = "pen%1:06:00::", Instrument-Agency(e2, e1) = "true", Query = "wielded the"
+Comment: "veto pen" => "pen".
+
+200 "I struggle for my dream of painless perfection but a <e1>snowdrift</e1> keeps the <e2>door</e2> from opening."
+WordNet(e1) = "snowdrift%1:17:00::", WordNet(e2) = "door%1:06:00::", Instrument-Agency(e1, e2) = "false", Query = "a * keeps the"
+
+201 "The rap star was apprehended at John Wayne Airport late last month and his <e1>truncheon</e1> was confiscated by <e2>police</e2>."
+WordNet(e1) = "truncheon%1:06:00::", WordNet(e2) = "police%1:14:00::", Instrument-Agency(e1, e2) = "false", Query = "truncheon * police"
+
+202 "I nicked a <e1>syringe</e1> from a <e2>nurse</e2> and got somebody to get me a lemon from the kitchen."
+WordNet(e1) = "syringe%1:06:00::", WordNet(e2) = "nurse%1:18:00::", Instrument-Agency(e2, e1) = "false", Query = "syringe * a nurse"
+
+203 "With a serrated <e1>knife</e1>, we gently cut through the <e2>sides</e2> of the pita pocket."
+WordNet(e1) = "knife%1:06:00::", WordNet(e2) = "side%1:15:00::", Instrument-Agency(e1, e2) = "false", Query = "knife * cut"
+
+204 "This study is to determine if there is a noticeable difference in outcome between patients who have their <e1>tissue</e1> lightly scored with a <e2>scalpel</e2> or marked with a surgical marking pen."
+WordNet(e1) = "tissue%1:08:00::", WordNet(e2) = "scalpel%1:06:00::", Instrument-Agency(e2, e1) = "false", Query = "a scalpel"
+
+205 "A <e1>thermostat</e1> keeps the <e2>water</e2> at the requested temperature."
+WordNet(e1) = "thermostat%1:06:00::", WordNet(e2) = "water%1:27:00::", Instrument-Agency(e1, e2) = "false", Query = "a * keeps the"
+
+206 "If we claim that thieves are not productive, then we must also deny that many commodities that sell and bear rents are also not products, including the coils that help distill whiskey, the tatters of the beggar, the retorts of the adulterating druggist, the <e1>jimmy</e1> of the <e2>burglar</e2> and the brig of the pirate."
+WordNet(e1) = "jimmy%1:06:00::", WordNet(e2) = "burglar%1:18:00::", Instrument-Agency(e1, e2) = "true", Query = "jimmy * burglar"
+
+207 "The visor visually signals a riding instructor as to whether the head of the rider is properly oriented while the <e1>rider</e1> is riding a <e2>horse</e2>."
+WordNet(e1) = "rider%1:18:00::", WordNet(e2) = "horse%1:05:00::", Instrument-Agency(e2, e1) = "true", Query = "the rider * a horse"
+
+208 "The <e1>carpenter</e1> carries an <e2>axe</e2> over his shoulder and a smaller one in his belt."
+WordNet(e1) = "carpenter%1:18:00::", WordNet(e2) = "axe%1:06:00::", Instrument-Agency(e2, e1) = "false", Query = "carpenter * an axe"
+
+209 "A <e1>therapist</e1> helps the <e2>patient</e2> to understand himself or herself better."
+WordNet(e1) = "therapist%1:18:00::", WordNet(e2) = "patient%1:18:00::", Instrument-Agency(e1, e2) = "true", Query = "a * helps the"
+Comment: the patient uses the therapist to understand himself?
+
+210 "<e1>Microwave ovens</e1> may be good for more than just <e2>zapping</e2> the leftovers; they may also help protect your family."
+WordNet(e1) = "microwave_oven%1:06:00::", WordNet(e2) = "zap%2:30:00::", Instrument-Agency(e1, e2) = "true", Query = "microwave oven"
+Comment: zapping is the action, but we count that within "agency"
+
+211 "The PRI <e1>government</e1> crushed a burgeoning student movement with <e2>gunfire</e2> that killed scores of peaceful demonstrators."
+WordNet(e1) = "government%1:14:00::", WordNet(e2) = "gunfire%1:04:00::", Instrument-Agency(e2, e1) = "true", Query = "crushed a * with"
+
+212 "The <e1>measurement</e1> was made using a gonio-photometric color measurement <e2>system</e2>."
+WordNet(e1) = "measurement%1:04:00::", WordNet(e2) = "system%1:06:00::", Instrument-Agency(e2, e1) = "false", Query = "* was made using a *"
+
+213 "The defendant and I flinched when the <e1>judge</e1> pounded his <e2>gavel</e2>."
+WordNet(e1) = "judge%1:18:00::", WordNet(e2) = "gavel%1:06:00::", Instrument-Agency(e2, e1) = "true", Query = "the judge * gavel"
+Comment: implies that the judge is using the gavel.
+
+214 "The <e1>tanks</e1> knocked over lanterns and cans of fuel, and crushed a <e2>pressurized tank</e2> filled with liquified propane gas."
+WordNet(e1) = "tank%1:06:01::", WordNet(e2) = "tank%1:06:00::", Instrument-Agency(e1, e2) = "false", Query = "crushed a * with"
+Comment: "pressurized tank" => "tank". "tank%1:06:00::" also OK
+
+215 "Like a <e1>carpenter</e1> wielding an <e2>axe</e2> to make furniture, the hacker does good things with his skills."
+WordNet(e1) = "carpenter%1:18:00::", WordNet(e2) = "axe%1:06:00::", Instrument-Agency(e2, e1) = "true", Query = "carpenter * an axe"
+
+216 "To demonstrate the performance of the mixer, the <e1>researchers</e1> used a "cold shock" <e2>protein</e2> from the bacterium Thermotoga maritime."
+WordNet(e1) = "researcher%1:18:00::", WordNet(e2) = "protein%1:27:00::", Instrument-Agency(e2, e1) = "true", Query = "the * used a *"
+
+217 "Statistical <e1>analysis</e1> was made using the PCSM <e2>program</e2>."
+WordNet(e1) = "analysis%1:04:00::", WordNet(e2) = "program%1:10:02::", Instrument-Agency(e2, e1) = "false", Query = "* was made using the *"
+
+218 "The <e1>woman</e1> said she used a <e2>mop</e2> to fight the fox off and continued backing toward her own property."
+WordNet(e1) = "woman%1:18:00::", WordNet(e2) = "mop%1:06:00::", Instrument-Agency(e2, e1) = "true", Query = "a mop to"
+
+141 "The <e1>introduction</e1> of the gas stove, the electric mixer and the food processor made the <e2>process</e2> easier, faster and more reliable."
+WordNet(e1) = "introduction%1:04:02::", WordNet(e2) = "process%1:04:00::", Product-Producer(e2, e1) = "false", Query = "the * made the *"
+Comment: e2 is an activity; violates (iv)
+
+142 "And, of course, everyone wants to prove the truth of their beliefs through experience, but the <e1>belief</e1> begets the <e2>experience</e2>."
+WordNet(e1) = "belief%1:09:00::", WordNet(e2) = "experience%1:09:00::", Product-Producer(e2, e1) = "true", Query = "the * begets the *"
+Comment: the truth of this depends on whether you interpret "experience" as meaning the abstract content of the experience (in which case it's true) or the activity of experiencing (in which case it's false, because it violates (iv))
+
+143 "As for camera/lens info I could care less - the <e1>photographer</e1> made the <e2>picture</e2>, not the camera - although the film used is sometimes good to know."
+WordNet(e1) = "photographer%1:18:00::", WordNet(e2) = "picture%1:06:02::", Product-Producer(e2, e1) = "true", Query = "the * made the *"
+
+144 "These first person accounts humanize history as readers share the experiences of American prosecutors, security personnel, journalists, and even the <e1>architect</e1> who designed the <e2>courtroom</e2>."
+WordNet(e1) = "architect%1:18:00::", WordNet(e2) = "courtroom%1:06:00::", Product-Producer(e2, e1) = "false", Query = "the * designed the *"
+Comment: The actual courtroom was not the product of the architect, its design was.
+
+145 "We even heard from descendants of Gustav Schoenike who was the <e1>violin</e1> <e2>maker</e2>."
+WordNet(e1) = "violin%1:06:00::", WordNet(e2) = "maker%1:18:00::", Product-Producer(e1, e2) = "true", Query = "the * maker"
+
+146 "Outraged, upon his release and return to England, the <e1>artist</e1> produced the virulently anti-French <e2>painting</e2> based on his experience there."
+WordNet(e1) = "artist%1:18:00::", WordNet(e2) = "painting%1:06:00::", Product-Producer(e2, e1) = "true", Query = "the * produced the *"
+
+147 "But not every <e1>run</e1> of the experiment produced the <e2>desired state</e2> - a very large number of failed tries accompanied each successful creation."
+WordNet(e1) = "run%1:04:06::", WordNet(e2) = "state%1:03:00::", Product-Producer(e2, e1) = "false", Query = "the * produced the *"
+Comment: violates definition note (iv): e2 is an occurrence
+
+148 "The <e1>company</e1> developed the <e2>negatives</e2> and returned the camera with a fresh roll of film."
+WordNet(e1) = "company%1:14:01::", WordNet(e2) = "negative%1:06:00::", Product-Producer(e2, e1) = "true", Query = "the * developed the *"
+
+149 "Seventy-first <e1>regiment</e1> and the rest of the cavalry composed the <e2>reserve</e2>."
+WordNet(e1) = "regiment%1:14:00::", WordNet(e2) = "reserve%1:14:00::", Product-Producer(e2, e1) = "false", Query = "the * composed the *"
+Comment: Part-Whole
+
+150 "The Piedmont area of Italy is wine country and is noted for the merits of the <e1>wine</e1> produced by its <e2>vintners</e2>."
+WordNet(e1) = "wine%1:13:00::", WordNet(e2) = "vintner%1:18:00::", Product-Producer(e1, e2) = "true", Query = "wine produced by *"
+
+151 "<e1>People</e1> harvest the <e2>seeds</e2>, macerate them, and roll them into thick sticks of dry, hardened paste which can then be stored or exported from the region."
+WordNet(e1) = "people%1:14:00::", WordNet(e2) = "seed%1:20:00::", Product-Producer(e2, e1) = "false", Query = "harvest the *"
+Comment: The example violates restriction (a) - the seeds may come from wild plants.
+
+152 "Californian wine-growers, who rely heavily on the European market, worry that Europeans will reject <e1>wine</e1> produced from <e2>genetically modified grapevines</e2>."
+WordNet(e1) = "wine%1:13:00::", WordNet(e2) = "grapevine%1:20:00::", Product-Producer(e1, e2) = "false", Query = "wine produced from *"
+Comment: violates (iii), Origin-Entity
+
+153 "<e1>Insulin</e1> is a hormone naturally produced by the <e2>pancreas</e2>."
+WordNet(e1) = "insulin%1:08:00::", WordNet(e2) = "pancreas%1:08:00::", Product-Producer(e1, e2) = "true", Query = "produced by the *"
+
+154 "In chemical lasers the <e1>inversion</e1> is produced by a <e2>chemical reaction</e2>."
+WordNet(e1) = "inversion%1:04:00::", WordNet(e2) = "chemical_reaction%1:22:00::", Product-Producer(e1, e2) = "false", Query = "the * is produced by"
+Comment: in physics, a population inversion occurs when a system exists in state with more members in an excited state than in lower energy states; violates (iv), since it is a state
+
+155 "The pancreas is the <e1>organ</e1> of the body that produces <e2>insulin</e2>."
+WordNet(e1) = "organ%1:08:00::", WordNet(e2) = "insulin%1:08:00::", Product-Producer(e2, e1) = "true", Query = "the * * produces *"
+
+156 "If the <e1>programmer</e1> makes a <e2>mistake</e2> with respect to quoting, it will very likely appear as over-quoting instead of lurking as a security problem."
+WordNet(e1) = "programmer%1:18:00::", WordNet(e2) = "mistake%1:10:00::", Product-Producer(e2, e1) = "true", Query = "the * makes a *"
+
+157 "Using an e-prescription module in an electronic record system, the <e1>prescriber</e1> makes out a <e2>prescription</e2> and transfers it to the national e-prescription mailbox."
+WordNet(e1) = "?", WordNet(e2) = "prescription%1:10:01::", Product-Producer(e2, e1) = "true", Query = "the * makes a *"
+
+158 "However, the two <e1>brothers</e1> created the Glagolithic <e2>alphabet</e2>; it was their disciple Saint Climent who invented the simpler Cyrillic alphabet and named it in honor of his teacher."
+WordNet(e1) = "brother%1:18:01::", WordNet(e2) = "alphabet%1:10:00::", Product-Producer(e2, e1) = "true", Query = "the * created the *"
+Comment: the correct sense for brother here is "monk", even if the two were actually sibling brothers.
+
+159 "The <e1>sub-catchment</e1> is farmed primarily for <e2>beef sucklers</e2> with a single dairy enterprise and a single poultry unit so the land use is entirely grassland."
+WordNet(e1) = "?", WordNet(e2) = "?", Product-Producer(e2, e1) = "true", Query = "the * * farmed for *"
+
+160 "A <e1>bus</e1> <e2>company</e2> has pledged a week-long roadside survey after a group of workers complained about its Bradford to Morley service."
+WordNet(e1) = "bus%1:06:00::", WordNet(e2) = "company%1:14:01::", Product-Producer(e1, e2) = "false", Query = "a * company"
+Comment: the relation is Instrument-User(e1, e2)
+
+161 "The <e1>site</e1> is currently dry farmed for <e2>wheat</e2>."
+WordNet(e1) = "site%1:15:00::", WordNet(e2) = "wheat%1:13:00::", Product-Producer(e2, e1) = "true", Query = "the * * farmed for *"
+
+162 "Ultimately, your garden will do well with either of these soils as long as the <e1>soil</e1> comes from a <e2>reputable dealer</e2>."
+WordNet(e1) = "soil%1:17:00::", WordNet(e2) = "dealer%1:18:02::", Product-Producer(e1, e2) = "false", Query = "the * comes from a *"
+Comment: the dealer sells the goods, but does not necessarily produce them
+
+163 "The <e1>spring molt</e1> produces <e2>mottled brown feathers</e2>, making the female almost invisible as she sits on her nest."
+WordNet(e1) = "molt%1:22:00::", WordNet(e2) = "feather%1:05:00::", Product-Producer(e2, e1) = "true", Query = "the * * produces *"
+
+164 "I have to say the <e1>soy milk</e1> makes a <e2>great coffee creamer</e2> (and with whatever else you can cook it)."
+WordNet(e1) = "soymilk%1:13:00", WordNet(e2) = "?", Product-Producer(e2, e1) = "false", Query = "the * makes a *"
+Comment: the soy milk itself is a creamer; it does not create a creamer; the correct sense of "creamer" is not in WordNet
+
+165 "If the product makes it over that first hurdle, it is blessed with another 1.7 seconds while the <e1>shopper</e1> makes a <e2>purchasing decision</e2>."
+WordNet(e1) = "shopper%1:18:00::", WordNet(e2) = "decision%1:09:00::", Product-Producer(e2, e1) = "true", Query = "the * makes a *"
+
+166 "This is another false <e1>story</e1> fabricated by the <e2>sheriff</e2>."
+WordNet(e1) = "story%1:10:04::", WordNet(e2) = "sheriff%1:18:00::", Product-Producer(e1, e2) = "true", Query = "fabricated by the *"
+
+167 "Citing the <e1>conflict</e1> of interest created by the <e2>ethics charges</e2>, Nifong asked the state attorney general's office to take over the lacrosse case."
+WordNet(e1) = "conflict%1:26:00::", WordNet(e2) = "charge%1:10:04::", Product-Producer(e1, e2) = "false", Query = "created by the *"
+Comment: violates (iv); e1 is a state, Cause-Effect
+
+168 "The <e1>institution</e1> shall provide a <e2>deposit</e2>, as set in the Commission dues and fees schedule, towards the fee when it submits its appeal document."
+WordNet(e1) = "institution%1:14:00::", WordNet(e2) = "deposit%1:21:00::", Product-Producer(e2, e1) = "false", Query = "the * provide a *"
+Comment: this is "provide" in the sense of "give" rather than "make"
+
+169 "This proves that the <e1>generator</e1> actually produced the <e2>renewable energy</e2> purchased and acts as the operative instrument of the transaction."
+WordNet(e1) = "generator%1:06:00::", WordNet(e2) = "energy%1:19:01::", Product-Producer(e2, e1) = "true", Query = "the * produced the *"
+Comment: This is a strange sentence ...
+
+170 "The farmers and city officials in the region have tried to get state money to move the <e1>farmers</e1> <e2>market</e2> into a first-class operation and tourist attraction."
+WordNet(e1) = "farmer%1:18:00::", WordNet(e2) = "market%1:06:01::", Product-Producer(e2, e1) = "false", Query = "the farmers *"
+Comment: the relation is Instrument-User
+
+171 "Of the situation in the fifteenth century, Parkes remarks: `The <e1>mass</e1> of the people cultivated the <e2>land</e2>'."
+WordNet(e1) = "mass%1:14:01::", WordNet(e2) = "land%1:17:01::", Product-Producer(e2, e1) = "false", Query = "the * cultivated the *"
+Comment: the sentence implies that e1 uses e2, but not that e1 creates e2
+
+172 "The <e1>filament</e1> emits a yellowish-white <e2>light</e2>, and the walls have a strong yellow tint."
+WordNet(e1) = "filament%1:06:01::", WordNet(e2) = "light%1:19:00::", Product-Producer(e2, e1) = "true", Query = "the * emits"
+
+173 "In a clock, the '<e1>tick</e1>' is produced by the <e2>action</e2> of the escapement."
+WordNet(e1) = "tick%1:11:00::", WordNet(e2) = "action%1:22:00::", Product-Producer(e1, e2) = "true", Query = "the * is produced by"
+Comment: a tick can be viewed as an abstract object
+
+174 "This is incorrect, and when a <e1>minicab</e1> <e2>company</e2> uses the word taxi on their livery it can lead to prosecution by the local government body."
+WordNet(e1) = "minicab%1:06:00::", WordNet(e2) = "company%1:14:01::", Product-Producer(e1, e2) = "false", Query = "a * company"
+Comment: the relation is Instrument-User(e1, e2)
+
+175 "While the Yale <e1>biologists</e1> created the versatile <e2>protein mimic</e2> from DNA, Breaker theorizes that a similar enzyme could be created with RNA, which many scientists believe is the strongest candidate for being the precursor of all other life forms."
+WordNet(e1) = "biologist%1:18:00::", WordNet(e2) = "?", Product-Producer(e2, e1) = "true", Query = "the * created the *"
+Comment: There is no appropriate sense for "mimic" in WordNet
+
+176 "The <e1>aristocracy</e1> composed the <e2>laws</e2>, regulated the monetary system and banks, enforced justice, and often controlled prices, wages, and other economic transactions."
+WordNet(e1) = "aristocracy%1:14:02::", WordNet(e2) = "laws%1:10:00::", Product-Producer(e2, e1) = "true", Query = "the * composed the *"
+
+177 "InterSense, Inc., a market leader in precision motion technology, today announced that Hydro, a leading offshore <e1>producer</e1> of <e2>oil</e2> and gas, has installed its tenth InterSense IS-900 Precision Motion Tracking System as part of Hydro's large scale immersive visualization rooms."
+WordNet(e1) = "producer%1:18:01::", WordNet(e2) = "oil%1:27:01::", Product-Producer(e2, e1) = "true", Query = "a * producer"
+
+178 "The <e1>draft</e1> makes a <e2>distinction</e2> between 'data' and 'records'."
+WordNet(e1) = "draft%1:10:00::", WordNet(e2) = "distinction%1:09:00::", Product-Producer(e2, e1) = "true", Query = "the * makes a *"
+
+179 "The architect created the beautiful division of the space and the exact proportions, the <e1>sculptor</e1> produced the <e2>anatomically correct figures</e2>, and the painter knew how to blend forms and colours into perfect harmony."
+WordNet(e1) = "sculptor%1:18:00::", WordNet(e2) = "figure%1:06:00::", Product-Producer(e2, e1) = "true", Query = "the * produced the *"
+
+180 "Until last year, Afghanistan was known as an opium exporter, not a major <e1>heroin</e1> <e2>producer</e2>."
+WordNet(e1) = "heroin%1:06:00::", WordNet(e2) = "producer%1:18:01::", Product-Producer(e1, e2) = "true", Query = "a * producer"
+Comment: the negation is not a problem here; it seems to negate "major", rather than "heroin producer".
+
+181 "The <e1>toolkits</e1> provide a <e2>secure framework</e2> where sensitive information remains private."
+WordNet(e1) = "tool_kit%1:06:00::", WordNet(e2) = "framework%1:07:00::", Product-Producer(e2, e1) = "false", Query = "the * provide a *"
+Comment: the relation is Part-Whole(e2, e1) or Property-Object(e2, e1)
+
+182 "Nine-year-old Chloe Clark joined a <e1>ballet</e1> <e2>company</e2> on stage last Monday."
+WordNet(e1) = "ballet%1:04:00::", WordNet(e2) = "company%1:14:02::", Product-Producer(e1, e2) = "false", Query = "a * company"
+Comment: the answer here depends on whether a ballet is an abstract object or an activity
+
+183 "When I start the engine the <e1>car</e1> makes a <e2>screaching sound</e2>."
+WordNet(e1) = "car%1:06:00::", WordNet(e2) = "sound%1:11:00::", Product-Producer(e2, e1) = "false", Query = "the * makes a *"
+Comment: violates (iv); the sound is an occurrence
+
+184 "In response to the problem, the <e1>assembly</e1> composed the following <e2>statement</e2>."
+WordNet(e1) = "assembly%1:14:00::", WordNet(e2) = "statement%1:10:00::", Product-Producer(e1, e2) = "true", Query = "the * composed the *"
+
+185 "When man sinned, the occasion of his fall was a tree, and the <e1>ground</e1> cursed brought forth <e2>thorns</e2>."
+WordNet(e1) = "ground%1:17:01::", WordNet(e2) = "thorn%1:20:00::", Product-Producer(e2, e1) = "true", Query = "the * brought forth the *"
+Comment: it might not be scientifically correct to say that the ground produces thorns, but it seems to be entailed by this sentence
+
+186 "<e1>State citizens</e1> created the <e2>states</e2> who created the federal government who created federal citizens."
+WordNet(e1) = "citizen%1:18:00::", WordNet(e2) = "state%1:15:01::", Product-Producer(e2, e1) = "true", Query = "the * created the *"
+
+187 "At their peak on Saturday, 23 September, the <e1>powerboat</e1> <e2>manufacturer</e2> sold a new boat every 28 minutes."
+WordNet(e1) = "powerboat%1:06:00::", WordNet(e2) = "manufacturer%1:14:00::", Product-Producer(e1, e2) = "true", Query = "the * manufacturer"
+
+188 "A <e1>coffin</e1> <e2>maker</e2> has increased productivity by 20% since securing a Â£180000 finance package from business angels."
+WordNet(e1) = "coffin%1:06:00::", WordNet(e2) = "maker%1:14:00::", Product-Producer(e1, e2) = "true", Query = "a * maker"
+
+189 "The folder version can be used by other users with access to this form, not only the <e1>user</e1> who created the <e2>folder</e2>."
+WordNet(e1) = "user%1:18:00::", WordNet(e2) = "?", Product-Producer(e2, e1) = "true", Query = "the * created the *"
+
+190 "The <e1>bacon</e1> <e2>manufacture</e2> is the 74th greatest export of Denmark."
+WordNet(e1) = "bacon%1:13:00::", WordNet(e2) = "manufacture%1:04:00::", Product-Producer(e1, e2) = "true", Query = "the * manufacture * the"
+
+191 "Now in its 56th year, this unique <e1>folkloric dance</e1> <e2>company</e2> continues to collect, perform and preserve authentic traditional Hungarian music and dance."
+WordNet(e1) = "dance%1:10:00::", WordNet(e2) = "company%1:14:02::", Product-Producer(e1, e2) = "true", Query = "this * company"
+Comment: answer depends on whether "dance" is an abstract object or an activity
+
+192 "As many as 18 products in your home come from this <e1>guy</e1>'s <e2>company</e2>."
+WordNet(e1) = "guy%1:18:00::", WordNet(e2) = "company%1:14:01::", Product-Producer(e1, e2) = "false", Query = "this * company"
+Comment: the relation is Possesor-Possessed
+
+193 "Try a Google search for the <e1>motherboard</e1> <e2>manufacturer</e2> and exact model if the information is not listed above."
+WordNet(e1) = "mother_board%1:06:00::", WordNet(e2) = "manufacturer%1:14:00::", Product-Producer(e1, e2) = "true", Query = "the * manufacturer"
+
+194 "The cup's a bit small but who cares, the <e1>machine</e1> makes <e2>coffee</e2> quickly enough that it's no problem to just make a second cup!"
+WordNet(e1) = "machine%1:06:00::", WordNet(e2) = "coffee%1:13:00::", Product-Producer(e2, e1) = "true", Query = "the * makes * coffee"
+
+195 "Among them, 24% is related to <e1>microarrays</e1> fabricated by the microspotting <e2>approach</e2>."
+WordNet(e1) = "array%1:14:00::", WordNet(e2) = "approach%1:04:02::", Product-Producer(e1, e2) = "true", Query = "fabricated by the *"
+
+196 "The <e1>vaccine</e1>'s <e2>maker</e2>, the Irish drug company Elan, has stopped giving the shots to its 360 volunteers while doctors determine what caused this serious side effect."
+WordNet(e1) = "vaccine%1:06:00::", WordNet(e2) = "maker%1:14:00::", Product-Producer(e1, e2) = "true", Query = "the * maker"
+
+197 "In a conventional, steam turbine-only power plant, the <e1>heat</e1> required to produce the steam comes from a <e2>boiler</e2>."
+WordNet(e1) = "heat%1:19:00::", WordNet(e2) = "boiler%1:06:00::", Product-Producer(e1, e2) = "true", Query = "the * comes from a *"
+
+198 "Months later, the <e1>birds</e1> composed the <e2>syllables</e2> into complete songs, whether the songs matched natural patterns or not."
+WordNet(e1) = "bird%1:05:00::", WordNet(e2) = "syllable%1:10:00::", Product-Producer(e2, e1) = "false", Query = "the * composed the *"
+Comment: the songs are the product; the syllables are the raw material; it may be true that birds produce syllables, but that's not what this sentence is talking about; violates (2)
+
+199 "In Cicero's speech for Milo, the <e1>orator</e1> makes a <e2>valid argument</e2>."
+WordNet(e1) = "orator%1:18:00::", WordNet(e2) = "argument%1:09:01::", Product-Producer(e2, e1) = "false", Query = "the * makes a *"
+Comment: assuming an argument is an activity
+
+200 "In years gone by, the <e1>rivulet</e1> brought forth much <e2>greenery</e2>, a glimpse of which still manifests itself with trapped rainfall."
+WordNet(e1) = "rivulet%1:17:00::", WordNet(e2) = "greenery%1:20:00::", Product-Producer(e2, e1) = "false", Query = "the * brought forth the *"
+Comment: violates (iii); the rivulet supplies raw material and does not actively produce greenery
+
+201 "The <e1>carbohydrase</e1> is produced by a <e2>process</e2> which completely removes the organism Rhizopus oryzae from the carbohydrase product."
+WordNet(e1) = "?", WordNet(e2) = "process%1:04:00::", Product-Producer(e1, e2) = "true", Query = "the * is produced by"
+
+202 "Once the <e1>prisoners</e1> had created the <e2>trapdoors</e2>, they were ready to start digging the tunnels, but there was a major problem to overcome."
+WordNet(e1) = "prisoner%1:18:00::", WordNet(e2) = "trap_door%1:06:00::", Product-Producer(e2, e1) = "true", Query = "the * created the *"
+
+203 "Buyers of new stoves are sometimes encouraged to buy the optional fan that is offered by the <e1>stove</e1>'s <e2>manufacturer</e2>."
+WordNet(e1) = "stove%1:06:01::", WordNet(e2) = "manufacturer%1:14:00::", Product-Producer(e1, e2) = "true", Query = "the * manufacturer"
+
+204 "The said <e1>whistle</e1> produced the 2600 Hz <e2>tone</e2> necessary to authorize calls."
+WordNet(e1) = "whistle%1:06:02::", WordNet(e2) = "tone%1:09:00::", Product-Producer(e2, e1) = "true", Query = "the * produced the *"
+
+205 "The <e1>founders</e1> designed the <e2>constitution</e2> to transform the barbarian rule we rejected as colonies, into a civilization befitting the dignity of a free people."
+WordNet(e1) = "founder%1:18:00::", WordNet(e2) = "constitution%1:10:00::", Product-Producer(e2, e1) = "true", Query = "the * designed the *"
+Comment: A design is an abstract thing, so by designing something concrete one does not produce it. But if something abstract is designed, then that can be considered to have been produced.
+
+206 "Alex's skills as an editor and a <e1>documentary</e1> <e2>maker</e2> allowed us to be able to shoot it and turn it in that short amount of time."
+WordNet(e1) = "documentary%1:10:00::", WordNet(e2) = "maker%1:18:00::", Product-Producer(e1, e2) = "true", Query = "a * maker"
+
+207 "At some point in or after the year 857 the <e1>priest</e1> composed the <e2>book</e2>."
+WordNet(e1) = "priest%1:18:00::", WordNet(e2) = "book%1:10:00::", Product-Producer(e2, e1) = "true", Query = "the * composed the *"
+
+208 "In prolific suspense novelist Johansen's energetic new Eve Duncan thriller (Countdown, 2005, etc.), the <e1>forensics sculptor</e1> makes a <e2>dangerous deal</e2> with a Colombian weapons dealer."
+WordNet(e1) = "sculptor%1:18:00::", WordNet(e2) = "deal%1:10:00::", Product-Producer(e2, e1) = "true", Query = "the * makes a *"
+
+209 "The question then is if Sharp, as a <e1>handset</e1> <e2>maker</e2>, would be willing to produce panels for a possible competitor."
+WordNet(e1) = "handset%1:06:00::", WordNet(e2) = "maker%1:14:00::", Product-Producer(e1, e2) = "true", Query = "a * maker"
+
+210 "The company practically created the personal-home-computer industry, but the <e1>company</e1> made the fateful <e2>decision</e2> not to liberally license its software applications."
+WordNet(e1) = "company%1:14:01::", WordNet(e2) = "decision%1:09:00::", Product-Producer(e2, e1) = "true", Query = "the * made the *"
+
+211 "In 1871, nearly 60 percent of the Italian <e1>population</e1> farmed for a <e2>living</e2>, attempting to eke out an existence from arid land that often was not their own."
+WordNet(e1) = "population%1:14:00::", WordNet(e2) = "living%1:21:00::", Product-Producer(e2, e1) = "true", Query = "the * * farmed for *"
+Comment: a bit abstract, but seems OK
+
+212 "Get a <e1>quesadilla</e1> <e2>maker</e2> from one of your local discount stores such as Target, Walmart, or Kmart."
+WordNet(e1) = "quesadilla%1:13:00::", WordNet(e2) = "?", Product-Producer(e1, e2) = "true", Query = "a * maker"
+
+213 "A lamp's lumen output expresses the total amount of <e1>light</e1> the <e2>lamp</e2> emits in all directions per unit time."
+WordNet(e1) = "light%1:19:00::", WordNet(e2) = "lamp%1:06:00::", Product-Producer(e1, e2) = "true", Query = "the * emits"
+
+214 "The <e1>mentor</e1> provides a comprehensive <e2>training plan</e2> that will facilitate the applicant's progress towards his/her research career goals."
+WordNet(e1) = "mentor%1:18:00::", WordNet(e2) = "plan%1:09:00::", Product-Producer(e2, e1) = "true", Query = "the * provide a *"
+
+215 "They generally bought grapes from farmers or else they bought <e1>wine</e1> produced by <e2>cooperative wineries</e2>."
+WordNet(e1) = "wine%1:13:00::", WordNet(e2) = "winery%1:06:00::", Product-Producer(e1, e2) = "true", Query = "wine produced by *"
+
+216 "The <e1>student committee</e1> developed the following <e2>guidelines</e2>."
+WordNet(e1) = "committee%1:14:00::", WordNet(e2) = "guideline%1:09:00::", Product-Producer(e2, e1) = "true", Query = "the * developed the *"
+
+217 "The <e1>hostess</e1> made the following <e2>rules</e2>: no husband and wife could sit next to one another (to the right or to the left) and men had to alternate with women everywhere."
+WordNet(e1) = "hostess%1:18:02::", WordNet(e2) = "rule%1:10:02::", Product-Producer(e2, e1) = "true", Query = "the * made the *"
+
+218 "According to a story on Wired, the <e1>human brain</e1> is capable of producing <e2>morphine</e2>, given the right stimuli."
+WordNet(e1) = "brain%1:08:00::", WordNet(e2) = "morphine%1:06:00::", Product-Producer(e2, e1) = "true", Query = "the * * produces *"
+
+219 "It may be a family luxury villa with breeze-kissed balconies from which the <e1>sounds</e1> of the sea provide a sensuous nightly <e2>serenade</e2>."
+WordNet(e1) = "sound%1:07:00::", WordNet(e2) = "serenade%1:10:00::", Product-Producer(e2, e1) = "false", Query = "the * provide a *"
+Comment: the sounds constitute the serenade; the sounds do not produce the serenade
+
+220 "The <e1>special ingredient</e1> in the lotion comes from a <e2>plant</e2>."
+WordNet(e1) = "ingredient%1:06:00::", WordNet(e2) = "plant%1:03:00::", Product-Producer(e1, e2) = "false", Query = "the * comes from a *"
+Comment: probably violates (iii), Origin-Entity
+
+221 "The <e1>yeast</e1>'s <e2>manufacturer</e2>, Lesaffre Yeast Corp. of Milwaukee, did not return calls seeking comment."
+WordNet(e1) = "yeast%1:27:00::", WordNet(e2) = "manufacturer%1:14:00::", Product-Producer(e1, e2) = "true", Query = "the * manufacturer"
+
+222 "After various rituals, the <e1>oracle</e1> brought forth mysteriously cryptic <e2>answers</e2> that had somehow to be interpreted by the visitor."
+WordNet(e1) = "oracle%1:18:00::", WordNet(e2) = "answer%1:10:01::", Product-Producer(e2, e1) = "false", Query = "the * brought forth the *"
+Comment: the oracle was considered to be a channel to the gods, so he/she would not actually produce the answers.
+
+223 "Under the circumstance that the <e1>wife</e1> comes from a <e2>wealthy family</e2>, her dissatisfactions with her marriage may make her seem like a spoiled brat."
+WordNet(e1) = "wife%1:18:00::", WordNet(e2) = "family%1:14:02::", Product-Producer(e1, e2) = "false", Query = "the * comes from a *"
+Comment: the relation is Origin-Entity
+
+224 "Virtually all hillside <e1>farmers</e1> grow <e2>maize</e2> during both seasons, and many of the farmers cultivate beans, rice, and other crops as well."
+WordNet(e1) = "farmer%1:18:00::", WordNet(e2) = "maize%1:20:00::", Product-Producer(e2, e1) = "true", Query = "the farmers *"
+
+225 "Near Adelaide the <e1>land</e1> is intensively farmed for <e2>dairying</e2>, fruit, and vegetables."
+WordNet(e1) = "land%1:17:01::", WordNet(e2) = "dairying%1:04:00::", Product-Producer(e2, e1) = "false", Query = "the * * farmed for *"
+Comment: "dairying" = "dairy farming"; dairy farming is an activity, not a product; see (iv)
+
+226 "The <e1>senders</e1> produced the <e2>anthrax</e2> themselves."
+WordNet(e1) = "sender%1:18:00::", WordNet(e2) = "anthrax_bacillus%1:05:00::", Product-Producer(e2, e1) = "true", Query = "the * produced the *"
+
+227 "The <e1>local citizens</e1> farmed for a <e2>living</e2>, raising a variety of crops including peanuts, cotton, hay, sorghum, and a variety of truck crops."
+WordNet(e1) = "citizen%1:18:00::", WordNet(e2) = "living%1:21:00::", Product-Producer(e2, e1) = "true", Query = "the * * farmed for *"
+
+228 "According to this model, the <e1>afterglow</e1> is produced by <e2>shock waves</e2> in the jets of tenuous gas that shoot from the blast at almost the speed of light."
+WordNet(e1) = "?", WordNet(e2) = "shock_wave%1:11:00::", Product-Producer(e1, e2) = "false", Query = "the * is produced by"
+
+229 "The <e1>revolution</e1> brought forth impassioned <e2>pleas</e2> condemning the common law for not respecting the interests of the people and calling for law reform."
+WordNet(e1) = "revolution%1:11:01::", WordNet(e2) = "plea%1:10:00::", Product-Producer(e2, e1) = "false", Query = "the * brought forth the *"
+Comment: this looks like Cause-Effect rather than Product-Producer; see (iv)
+
+230 "The <e1>move</e1> makes a <e2>mockery</e2> of China's long-standing opposition to such capabilities in the hands of other powers."
+WordNet(e1) = "move%1:04:00::", WordNet(e2) = "mockery%1:10:00::", Product-Producer(e2, e1) = "false", Query = "the * makes a *"
+Comment: the move itself is a mockery; the move does not create a mockery
+
+231 "The HP LaserJet 3800n's instant-on <e1>fuser</e1> produces the first <e2>page</e2> of each print job in less than 12.5 seconds."
+WordNet(e1) = "?", WordNet(e2) = "page%1:10:00::", Product-Producer(e2, e1) = "true", Query = "* produces the"
+
+232 "The enclosed <e1>community</e1> produced the enclosed <e2>personality</e2>, and vice versa."
+WordNet(e1) = "community%1:14:00::", WordNet(e2) = "personality%1:07:00::", Product-Producer(e2, e1) = "false", Query = "the * produced the *"
+Comment: Cause-Effect fits better here
+
+233 "The simple <e1>rule</e1> produces <e2>sentences</e2> such as ABAB."
+WordNet(e1) = "rule%1:10:01::", WordNet(e2) = "sentence%1:10:00::", Product-Producer(e2, e1) = "true", Query = "the * * produces *"
+
+141 "Put <e1>wine</e1> in the <e2>refrigerator</e2> the night before so it gets thoroughly chilled."
+WordNet(e1) = "wine%1:07:00::", WordNet(e2) = "refrigerator%1:06:00::", Content-Container(e1, e2) = "true", Query = "put wine in the"
+
+142 "A high voltage coupling capacitor should be added at the input as well as a small <e1>hole</e1> in the <e2>metal box</e2> in order to provide screwdriver adjustment to the gain control potentiometer."
+WordNet(e1) = "hole%1:06:00::", WordNet(e2) = "box%1:06:00::", Content-Container(e1, e2) = "false", Query = "in the metal box"
+Comment: it may, perversely, be Part-Whole.
+
+143 "I retain all exams and therefore, all <e1>exams</e1> will be collected at the end of the debriefing period and kept in my <e2>office</e2>."
+WordNet(e1) = "exam%1:10:00::", WordNet(e2) = "office%1:06:00::", Content-Container(e1, e2) = "true", Query = "kept in my office"
+Comment: Located-Location preferred for (parts of) buildings. Also, WordNet has no sense for "exam" as assembled pages.
+
+144 "Ribozymes, also known as catalytic RNA and molecular scissors, are molecules that can break down <e1>nucleic acid</e1> inside a <e2>cell</e2>, thus they can be used to cut out bad genetic information and splice in good material."
+WordNet(e1) = "nucleic_acid%1:27:00::", WordNet(e2) = "cell%1:03:00::", Content-Container(e1, e2) = "false", Query = "acid inside a"
+Comment: looks like Stuff-Object, a subcategory of Part-Whole.
+
+145 "Place a <e1>clock</e1> inside a <e2>gravity sphere</e2> to see time dilation."
+WordNet(e1) = "clock%1:06:00::", WordNet(e2) = "sphere%1:15:01::", Content-Container(e1, e2) = "false", Query = "a clock inside a"
+Comment: not quite Located-Location.
+
+146 "Doyal said the <e1>bulldozer</e1> is kept in the <e2>area</e2> and is suspected of being used to create makeshift paths across the river."
+WordNet(e1) = "bulldozer%1:06:00::", WordNet(e2) = "area%1:15:01::", Content-Container(e1, e2) = "false", Query = "the * is kept in the"
+Comment: Located-Location.
+
+147 "The contents of the <e1>binder</e1> included <e2>handouts</e2> on lectures, lab. exercises, assignments, as well as production information of use to the participants."
+WordNet(e1) = "binder%1:06:01::", WordNet(e2) = "handout%1:10:00::", Content-Container(e2, e1) = "true", Query = "contents of the * included"
+
+148 "Reportedly the <e1>mood</e1> inside the <e2>car</e2> was very quiet as the couple continued home and went to bed."
+WordNet(e1) = "mood%1:12:00::", WordNet(e2) = "car%1:06:00::", Content-Container(e1, e2) = "false", Query = "the * inside the car"
+Comment: another tough nut to crack. Heavy metonymy: mood = people in a given mood. No relation fits this situation well.
+
+149 "For example, instead of walking on a leash, rabbits and <e1>cats</e1> must show that they can be carried in a <e2>basket</e2> or in the handler's arms."
+WordNet(e1) = "cat%1:05:00::", WordNet(e2) = "basket%1:06:00::", Content-Container(e1, e2) = "true", Query = "carried in a"
+
+150 "First, the contents of the <e1>proposal</e1> included a detailed <e2>cost analysis</e2>, accurate marketing analysis and a preliminary project execution plan."
+WordNet(e1) = "proposal%1:10:00::", WordNet(e2) = "cost_analysis%1:04:00::", Content-Container(e2, e1) = "true", Query = "contents of the * included"
+Comment: abstract contents.
+
+151 "Auto EQ is a powerful sound tuning feature which uses a microphone to monitor and analyse the <e1>acoustics</e1> inside the <e2>car</e2>."
+WordNet(e1) = "acoustics%1:09:00::", WordNet(e2) = "car%1:06:00::", Content-Container(e1, e2) = "false", Query = "the * inside the car"
+Comment: Property. Note: WordNet has a sense for plural "acoustics".
+
+152 "This was the signal for dozens of others to do the same and the <e1>noise</e1> inside the <e2>car</e2> was quite something."
+WordNet(e1) = "noise%1:11:00::", WordNet(e2) = "car%1:06:00::", Content-Container(e1, e2) = "false", Query = "the * inside the car"
+Comment: unless we see this as "noisy car", no relation fits well.
+
+153 "<e1>Dancing</e1> to The Muppets in my <e2>kitchen</e2> is something that I do frequently."
+WordNet(e1) = "dancing%1:04:00::", WordNet(e2) = "kitchen%1:06:00::", Content-Container(e1, e2) = "false", Query = "the * in my kitchen"
+Comment: Located-Location.
+
+154 "The <e1>implant</e1> contains <e2>nanoparticles</e2> that can be designed to test for different substances, including metabolites such as glucose and oxygen that are associated with tumor growth."
+WordNet(e1) = "implant%1:06:00::", WordNet(e2) = "particle%1:17:00::", Content-Container(e2, e1) = "false", Query = "the * contains"
+Comment: Stuff-Object, a subcategory of Part-Whole.
+
+155 "Bottle aging, which is anaerobic (oxygen-free), is one of the reasons that people put <e1>wine</e1> in a <e2>cellar</e2> and let it age."
+WordNet(e1) = "wine%1:07:00::", WordNet(e2) = "cellar%1:06:01::", Content-Container(e1, e2) = "false", Query = "put wine in a"
+Comment: Located-Location.
+
+156 "The <e1>envelope</e1> contained the most important intelligence <e2>discovery</e2> of the war."
+WordNet(e1) = "envelope%1:06:01::", WordNet(e2) = "discovery%1:10:00::", Content-Container(e2, e1) = "true", Query = "the * contained the"
+Comment: a case of severe metonymy.
+
+157 "Your <e1>medicines</e1> will be kept secure in the <e2>metal box</e2> at the back of your bed space."
+WordNet(e1) = "medicine%1:06:00::", WordNet(e2) = "box%1:06:00::", Content-Container(e1, e2) = "true", Query = "in the metal box"
+
+158 "Japanese commuters look at a <e1>clock</e1> inside a Tokyo <e2>train station</e2>."
+WordNet(e1) = "clock%1:06:00::", WordNet(e2) = "train_station%1:06:00::", Content-Container(e1, e2) = "false", Query = "a clock inside a"
+Comment: Located-Location.
+
+159 "It could also make the drive more comfortable by intelligently seeking out what the <e1>passengers</e1> inside the <e2>car</e2> would prefer in terms of temperature, music, lighting etc."
+WordNet(e1) = "passenger%1:18:00::", WordNet(e2) = "car%1:06:00::", Content-Container(e1, e2) = "true", Query = "the * inside the car"
+Comment: Located-Location preferred; only part of the definition of Content-Container holds.
+
+160 "The <e1>box</e1> holds our <e2>pool equipment</e2> perfectly."
+WordNet(e1) = "box%1:06:00::", WordNet(e2) = "equipment%1:06:00::", Content-Container(e2, e1) = "true", Query = "the box holds"
+
+161 "The contents of the <e1>package</e1> included one opened individual <e2>candy bar wrapper</e2>, four unopened candy bar wrappers, one cardboard tray insert, and two cash register receipts."
+WordNet(e1) = "package%1:06:00::", WordNet(e2) = "wrapper%1:06:02::", Content-Container(e2, e1) = "true", Query = "contents of the * included"
+
+162 "The <e1>worms</e1> are kept in a <e2>box</e2> with bedding made from such materials as straw, grass clippings, or shredded paper."
+WordNet(e1) = "worm%1:05:00::", WordNet(e2) = "box%1:06:00::", Content-Container(e1, e2) = "true", Query = "kept in a box"
+Comment: having a box trumps any concerns.
+
+163 "Once you put <e1>wine</e1> in a <e2>bottle</e2>, you literally create a time capsule of flavor and fragrance."
+WordNet(e1) = "wine%1:13:00::", WordNet(e2) = "bottle%1:06:00::", Content-Container(e1, e2) = "true", Query = "put wine in a"
+Comment: this is not quite straightforward. There is a temporal element -- is the wine in the bottle? One way to resolve this is by elimination. Only Measured-Measure might also apply, but there is no hint of measure or quantity here. Still, the sentence does not entail that the wine is in the bottle, so Content-Container is merely a feasible interpretation.
+
+164 "The older child took the <e1>firearm</e1> from a <e2>closet</e2> and was handling it when he fired and struck Eric, who was in the same room, investigators concluded."
+WordNet(e1) = "firearm%1:06:00::", WordNet(e2) = "closet%1:06:03::", Content-Container(e1, e2) = "false", Query = "took the * from a"
+Comment: Located-Location seems really better.
+
+165 "That's all <e1>paper</e1> stored in a <e2>binder</e2> by the door of the room."
+WordNet(e1) = "paper%1:27:00::", WordNet(e2) = "binder%1:06:01::", Content-Container(e1, e2) = "true", Query = "paper stored in a"
+
+166 "The <e1>kitchen</e1> holds little <e2>clues</e2> about how we tried to reinvent the past."
+WordNet(e1) = "kitchen%1:06:00::", WordNet(e2) = "clue%1:10:01::", Content-Container(e2, e1) = "false", Query = "the kitchen holds"
+Comment: different "hold" among 36 verbal senses.
+
+167 "The <e1>kitchen</e1> contained a <e2>well</e2> at the northern end and a well and two holding areas for live fish on the southern end."
+WordNet(e1) = "kitchen%1:06:00::", WordNet(e2) = "well%1:06:02::", Content-Container(e2, e1) = "false", Query = "the kitchen contained"
+Comment: Whole-Part.
+
+168 "One in four Americans keep <e1>coins</e1> in a <e2>jar</e2>."
+WordNet(e1) = "coin%1:21:02::", WordNet(e2) = "jar%1:06:00::", Content-Container(e1, e2) = "true", Query = "keep coins in a"
+
+169 "A lineup is when the police literally put the <e1>defendant</e1> in a <e2>line</e2> with other people to see if the victim or witness can identify anyone in the line as having participated in a crime."
+WordNet(e1) = "defendant%1:18:00::", WordNet(e2) = "line%1:14:03::", Content-Container(e1, e2) = "false", Query = "put the * in a"
+Comment: Part-Whole.
+
+170 "If you currently have <e1>batteries</e1> stored in a <e2>refrigerator</e2>, be sure to allow them to warm up to room temperature before using them in your device."
+WordNet(e1) = "battery%1:06:00::", WordNet(e2) = "refrigerator%1:06:00::", Content-Container(e1, e2) = "true", Query = "batteries stored in"
+
+171 "The <e1>box</e1> contained 126 <e2>recipes</e2>, mostly written in pen in neatly rounded script."
+WordNet(e1) = "box%1:06:00::", WordNet(e2) = "recipe%1:10:00::", Content-Container(e2, e1) = "true", Query = "the box contained"
+Comment: "recipe" interpreted as a physical object. We have metonymy here (a piece of paper on which the recipes are written).
+
+172 "The <e1>ghosts</e1> in my <e2>house</e2> are mischievous, like little children."
+WordNet(e1) = "ghost%1:09:00::", WordNet(e2) = "house%1:06:00::", Content-Container(e1, e2) = "false", Query = "the * in my house"
+Comment: Located-Location is a better fit.
+
+173 "The <e1>kitchen</e1> holds many <e2>opportunities</e2> for teaching kids as well as having fun."
+WordNet(e1) = "kitchen%1:06:00::", WordNet(e2) = "opportunity%1:26:00::", Content-Container(e2, e1) = "false", Query = "the kitchen holds"
+Comment: "hold" is metaphorical here.
+
+174 "The <e1>box</e1> contained an entire <e2>legacy</e2> of her life and the lives of those she had known and loved."
+WordNet(e1) = "box%1:06:00::", WordNet(e2) = "legacy%1:21:00::", Content-Container(e2, e1) = "true", Query = "the box contained"
+Comment: a case of extreme metonymy. While there aren't enough clues, this sentence may be read as "the box contained [papers representing] an entire legacy".
+
+175 "The <e1>list</e1> contained <e2>books</e2> of various genres and reading and interest levels."
+WordNet(e1) = "list%1:10:00::", WordNet(e2) = "book%1:10:00::", Content-Container(e2, e1) = "false", Query = "the * contained books"
+Comment: a list has components, so the best relation here is Whole-Part. Note, too, that sense n8 is the most generic, non-physical (publication).
+
+176 "The <e1>box</e1> holds the <e2>answer</e2> to how you got trapped."
+WordNet(e1) = "box%1:06:00::", WordNet(e2) = "answer%1:10:02::", Content-Container(e2, e1) = "false", Query = "the box holds"
+Comment: it seems too metaphorical; a non-container sense of "hold".
+
+177 "The contents of the <e1>envelope</e1> were a sheet of foreign <e2>note-paper</e2>, and a folded enclosure."
+WordNet(e1) = "envelope%1:06:01::", WordNet(e2) = "notepaper%1:10:00::", Content-Container(e2, e1) = "true", Query = "contents of the * were a"
+Comment: WordNet spelling has no hyphen.
+
+178 "Francis Hauksbee proves that sound needs air to travel, by experiments with a <e1>clock</e1> inside a <e2>vacuum</e2>."
+WordNet(e1) = "clock%1:06:00::", WordNet(e2) = "vacuum%1:26:00::", Content-Container(e1, e2) = "false", Query = "a clock inside a"
+Comment: Located-Location.
+
+179 "The <e1>recommendations</e1> contained the following <e2>key points</e2> and highlights."
+WordNet(e1) = "recommendation%1:10:00::", WordNet(e2) = "point%1:10:03::", Content-Container(e2, e1) = "false", Query = "the * contained the"
+Comment: Whole-Part.
+
+180 "The remaining contents of the <e1>package</e1> included four ounces of <e2>plastique</e2> filled with tiny metallic slivers."
+WordNet(e1) = "package%1:06:00::", WordNet(e2) = "plastique%1:06:00::", Content-Container(e2, e1) = "true", Query = "contents of the * included"
+
+181 "To ensure adequate nutrition, your doctor may recommend taking a <e1>multivitamin</e1> that contains <e2>vitamins</e2> D, E, K, and beta-carotene."
+WordNet(e1) = "multivitamin%1:13:00::", WordNet(e2) = "vitamin%1:27:00::", Content-Container(e2, e1) = "false", Query = "a * that contains"
+Comment: ingredient, so Object-Stuff, a subcategory of Whole-Part.
+
+182 "I found some <e1>candy</e1> in my <e2>underwear</e2>."
+WordNet(e1) = "candy%1:13:00::", WordNet(e2) = "underwear%1:06:00::", Content-Container(e1, e2) = "false", Query = "candy in my"
+Comment: Located-Location. It is hard to treat underwear as a flexible container (a bag), impossible -- as a rigid container (a box).
+
+183 "On windy days I can feel drafts coming from the <e1>baseboards</e1> in my <e2>house</e2>."
+WordNet(e1) = "baseboard%1:06:00::", WordNet(e2) = "house%1:06:00::", Content-Container(e1, e2) = "false", Query = "the * in my house"
+Comment: Part-Whole.
+
+184 "The <e1>temperature</e1> inside the <e2>car</e2> was 79 degrees, according to the thermometer I put on the dashboard."
+WordNet(e1) = "temperature%1:07:00::", WordNet(e2) = "car%1:06:00::", Content-Container(e1, e2) = "false", Query = "the * inside the car"
+Comment: another brain-teaser; perhaps Measure, but it is not clear.
+
+185 "As the officer shone his flashlight on the lock he was working on, he spotted a <e1>marijuana pipe</e1> laying on the floor inside the <e2>car</e2>."
+WordNet(e1) = "pipe%1:06:01::", WordNet(e2) = "car%1:06:00::", Content-Container(e1, e2) = "true", Query = "the * inside the car"
+Comment: Located-Location is competitive.
+
+186 "Some people put <e1>tea</e1> in a <e2>thermos</e2> to take to work, but I have not tried that."
+WordNet(e1) = "tea%1:13:00::", WordNet(e2) = "thermos%1:06:00::", Content-Container(e1, e2) = "true", Query = "put tea in a"
+
+187 "Located inside the <e1>cave</e1> was an old, broken-down army field <e2>telephone</e2>."
+WordNet(e1) = "cave%1:17:00::", WordNet(e2) = "telephone%1:06:00::", Content-Container(e2, e1) = "true", Query = "located inside the cave"
+Comment: a cave is more a location than a container (and the word "located" is likely to suggest Location-Located), but this example can be interpreted as Content-Container.
+
+188 "The goal of the study was to determine the percentage of adult Americans who keep <e1>money</e1> in a regular <e2>savings account</e2>."
+WordNet(e1) = "money%1:21:00::", WordNet(e2) = "savings_account%1:21:00::", Content-Container(e1, e2) = "true", Query = "keep money in a"
+
+189 "Paul Powell wasn't the only public figure in Illinois to keep <e1>money</e1> in a <e2>shoe box</e2>."
+WordNet(e1) = "money%1:21:01::", WordNet(e2) = "box%1:25:00::", Content-Container(e1, e2) = "true", Query = "keep money in a"
+
+190 "As the servants put the <e1>inflatable corgis</e1> in a <e2>bag</e2> for the Balmoral jumble sale, the Queen will be settling down this morning for a nice cup of tea and a quiet rest during The Archers, known to be one of her radio favourites."
+WordNet(e1) = "corgi%1:05:00::", WordNet(e2) = "bag%1:06:00::", Content-Container(e1, e2) = "true", Query = "the * in a bag"
+Comment: uninflated balloons belong in a bag.
+
+191 "Bevan opens a case on the other side of the room and pulls out a <e1>flask</e1> that contains <e2>ale</e2> of the best sort."
+WordNet(e1) = "flask%1:06:00::", WordNet(e2) = "ale%1:13:00::", Content-Container(e2, e1) = "true", Query = "a flask that contains"
+
+192 "Among the contents of the <e1>bag</e1> were a <e2>diamond ring</e2> worth $2000 and a watch worth $500."
+WordNet(e1) = "bag%1:06:00::", WordNet(e2) = "ring%1:06:00::", Content-Container(e2, e1) = "true", Query = "contents of the * were a"
+
+193 "A <e1>house</e1> that contains a minimum of three <e2>bedrooms</e2> and a maximum of seven bedrooms to include the proprietor's bedroom is considered to be a "B&B" (a Town or Country Home or a Farmhouse)."
+WordNet(e1) = "house%1:06:01::", WordNet(e2) = "bedroom%1:06:00::", Content-Container(e2, e1) = "false", Query = "a house that contains a"
+Comment: Whole-Part.
+
+194 "We had a spirited chat about gravy with roast goose; never put <e1>wine</e1> in a <e2>gravy</e2> to go with a British roast, we both agreed."
+WordNet(e1) = "wine%1:07:00::", WordNet(e2) = "gravy%1:13:01::", Content-Container(e1, e2) = "false", Query = "put wine in a"
+Comment: similar to "tea in food". Not quite Stuff-Object, not quite Located-Location
+
+195 "Forcing our state to change administrative rules that would keep <e1>money</e1> in a <e2>project</e2> instead of bleeding it off is a goal the all tax payers should support."
+WordNet(e1) = "money%1:21:00::", WordNet(e2) = "project%1:09:00::", Content-Container(e1, e2) = "false", Query = "keep money in a"
+Comment: not sure what it is, but it is not Content-Container.
+
+196 "On the courtyard there is a <e1>room</e1> that contains a <e2>billiard table</e2>, a big cinema screen with a Sony DVC/CD Player with over 300 titles and several sofas."
+WordNet(e1) = "room%1:06:00::", WordNet(e2) = "billiard_table%1:06:00::", Content-Container(e2, e1) = "true", Query = "room that contains"
+
+197 "Put <e1>wine</e1> in a small <e2>pot</e2>, and when it begins to boil, then put in grated Lebkuchen and grated Semmel."
+WordNet(e1) = "wine%1:07:00::", WordNet(e2) = "pot%1:06:00::", Content-Container(e1, e2) = "true", Query = "put wine in a"
+
+198 "Television cooking shows and more advertising have helped put <e1>wine</e1> in the <e2>limelight</e2>, he says."
+WordNet(e1) = "wine%1:07:00::", WordNet(e2) = "limelight%1:26:00::", Content-Container(e1, e2) = "false", Query = "put wine in the"
+Comment: a difficult case, and an instance of metonymy; no relation comes easily to mind.
+
+199 "The other contents of the <e1>suitcase</e1> included some <e2>gym shoes</e2>, dirty sweat socks, Limburger cheese, scented oils, and a severely poop stained Armani suit."
+WordNet(e1) = "suitcase%1:06:00::", WordNet(e2) = "gym_shoe%1:06:00::", Content-Container(e2, e1) = "true", Query = "contents of the * included"
+
+200 "Usually, stomach <e1>acid</e1> is kept in the <e2>stomach</e2> by a valve at the bottom of the esophagus called the lower esophageal sphincter."
+WordNet(e1) = "acid%1:27:00::", WordNet(e2) = "stomach%1:08:01::", Content-Container(e1, e2) = "true", Query = "acid is kept in"
+Comment: the best choice, but oddly the definition fails a little (one cannot get rid of acid).
+
+201 "Sometime an undercover agent will actually propose an action, either to deflect efforts away from some graver threat, or to put the <e1>plotters</e1> in a <e2>position</e2> where they can be caught red-handed."
+WordNet(e1) = "plotter%1:18:00::", WordNet(e2) = "position%1:26:02::", Content-Container(e1, e2) = "false", Query = "put the * in a"
+Comment: Located-Location (a metaphorical, abstract use).
+
+202 "When the equipment cannot be kept upright, the <e1>battery</e1> must be removed and carried in a strong, rigid <e2>packaging</e2>, which must be leak-tight and impervious to battery fluid."
+WordNet(e1) = "battery%1:06:00::", WordNet(e2) = "packaging%1:06:00::", Content-Container(e1, e2) = "true", Query = "carried in a"
+
+203 "There remained nothing more to be done but to enclose our <e1>heads</e1> in the <e2>metal box</e2>."
+WordNet(e1) = "head%1:08:00::", WordNet(e2) = "box%1:06:00::", Content-Container(e1, e2) = "false", Query = "in the metal box"
+Comment: Located-Location.
+
+204 "I have absolutely no idea why this <e1>newspaper</e1> was being kept in a <e2>box</e2>."
+WordNet(e1) = "newspaper%1:06:00::", WordNet(e2) = "box%1:06:00::", Content-Container(e1, e2) = "true", Query = "kept in a box"
+
+205 "For example, the <e1>jelly</e1> inside a <e2>doughnut</e2> can be scalding while the pastry is only warm."
+WordNet(e1) = "jelly%1:13:00::", WordNet(e2) = "doughnut%1:13:00::", Content-Container(e1, e2) = "false", Query = "jelly inside a"
+Comment: Stuff-Object, a subcategory of Part-Whole.
+
+206 "The <e1>driver</e1> was trapped inside the <e2>car</e2>, which landed upside down, and died while emergency crews were preparing to transport him to a local hospital, the CHP reports."
+WordNet(e1) = "driver%1:18:00::", WordNet(e2) = "car%1:06:00::", Content-Container(e1, e2) = "false", Query = "the * inside the car"
+Comment: Located-Location.
+
+207 "The acoustic test is where we put the <e1>spacecraft</e1> in a <e2>sound chamber</e2> and blast it with over 140 decibels of noise for at least a full minute to simulate what it is going to experience during the launch."
+WordNet(e1) = "spacecraft%1:06:00::", WordNet(e2) = "chamber%1:06:00::", Content-Container(e1, e2) = "true", Query = "put the * in a"
+Comment: Located-Location is equally acceptable.
+
+208 "The reaction <e1>mixture</e1> is kept in the <e2>dark</e2> at room temperature for 1 1/2 hours."
+WordNet(e1) = "mixture%1:27:00::", WordNet(e2) = "dark%1:15:00::", Content-Container(e1, e2) = "false", Query = "the * is kept in the"
+Comment: Located-Location.
+
+209 "Do not use generators, charcoal or gas grills, propane camping stoves or heaters, or any <e1>gas-powered tools</e1> inside the <e2>house</e2> or garage."
+WordNet(e1) = "tool%1:04:00::", WordNet(e2) = "house%1:06:01::", Content-Container(e1, e2) = "true", Query = "inside the house"
+Comment: or Located-Location.
+
+210 "In addition, the contents of the bear's <e1>stomach</e1> included <e2>apple mash</e2>, corn and blueberries - which is not a typical bear diet in November."
+WordNet(e1) = "stomach%1:08:00::", WordNet(e2) = "mash%1:13:00::", Content-Container(e2, e1) = "true", Query = "contents of the * included"
+
+211 "In my Vancouver home there is small portion of our <e1>kitchen</e1> that contains my <e2>desk</e2>."
+WordNet(e1) = "kitchen%1:06:00::", WordNet(e2) = "desk%1:06:00::", Content-Container(e2, e1) = "true", Query = "kitchen that contains"
+
+212 "The <e1>sound system</e1> is contained in a <e2>suitcase</e2> and controlled from within the steering wheel."
+WordNet(e1) = "sound_system%1:06:00::", WordNet(e2) = "suitcase%1:06:00::", Content-Container(e1, e2) = "true", Query = "contained in a suitcase"
+Comment: assuming a regular suitcase.
+
+213 "They put <e1>wine</e1> in the exact <e2>context</e2> it needs to be kept in - not so bloody serious."
+WordNet(e1) = "wine%1:13:00::", WordNet(e2) = "context%1:26:00::", Content-Container(e1, e2) = "false", Query = "put wine in the"
+Comment: a difficult case, and an instance of metonymy; no relation comes easily to mind.
+
+214 "The <e1>shroud</e1> is kept in the <e2>cathedral</e2> of St. John the Baptist in Turin, Italy."
+WordNet(e1) = "shroud%1:06:00::", WordNet(e2) = "cathedral%1:06:01::", Content-Container(e1, e2) = "false", Query = "the * is kept in the"
+Comment: Located-Location.
+
+141 "The <e1>name</e1> given to our cluster, Valhalla, comes from Norse <e2>mythology</e2>."
+WordNet(e1) = "name%1:10:00::", WordNet(e2) = "mythology%1:14:00::", Cause-Effect(e2,e1) = "false", Query = "* comes from *"
+Comment: (a) Origin-Entity ; (b) "no mythology" -> "mythology"
+
+142 "This as well as kinetic data support the hypothesis of <e1>inhibition</e1> through <e2>altered membrane properties</e2>."
+WordNet(e1) = "inhibition%1:04:01::", WordNet(e2) = "property%1:07:00::" Cause-Effect(e2,e1) = "true", Query = "inhibition through *"
+Comment: "altered membrane properties" -> "properties"
+
+143 "Hundreds of thousands in central China are sleeping outdoors for fear of more <e1>tremors</e1> after Saturday's <e2>earthquake</e2>."
+WordNet(e1) = "tremor%1:11:00::", WordNet(e2) = "earthquake%1:11:00::", Cause-Effect(e2,e1) = "true", Query = "tremors after *"
+Comment: indirect cause
+
+144 "<e1>Dehydration</e1> from <e2>fluid loss</e2> generally is the only major problem the virus can cause, most often in the elderly."
+WordNet(e1) = "dehydration%1:26:01::" , WordNet(e2) = "loss%1:22:00::", Cause-Effect(e2,e1) = "true", Query = "dehydration from *"
+Comment: "fluid loss" -> "loss".
+
+145 "Fathers, in particular, are often more involved in <e1>teaching</e1> social competence through <e2>physical activity</e2> and sport to their sons."
+WordNet(e1) = "teaching%1:04:01::", WordNet(e2) = "activity%1:04:00::", Cause-Effect(e2,e1) = "false", Query = "* through physical activity"
+Comment: (a) Purpose-Tool; (b) "physical activity" -> "activity".
+
+146 "Sometimes <e1>joy</e1> comes from unexpected <e2>places</e2>."
+WordNet(e1) = "joy%1:12:00::", WordNet(e2) = "n3", Cause-Effect(e2,e1) = "false", Query = "joy comes from *"
+Comment: Origin-Entity; none of the senses in WordNet listed for "places" seemed to match; howver, I added n(mental place);
+
+147 "If your main <e1>aim</e1> is for <e2>growth</e2> in the value of the property then obviously you need to look at where you think the next "value-spurt" is going to be."
+WordNet(e1) = "aim%1:09:01::", WordNet(e2) = "growth%1:22:02::", Cause-Effect(e1,e2) = "false", Query = "* is for growth"
+
+148 "<e1>Brushing</e1> after <e2>meals</e2> should become part of your daily schedule."
+WordNet(e1) = "brushing%1:04:03::", WordNet(e2) = "meal%1:28:00::", Cause-Effect(e2,e1) = "false", Query = "* after meals"
+
+149 "In order to achieve <e1>satisfaction</e1> from <e2>administrators</e2> and users, a search solution must provide an excellent experience for the end user, have a technology underpinning that can handle the scope, scale and security requirements inherent in complex environments, and be easy to deploy."
+WordNet(e1) = "satisfaction%1:12:00::", WordNet(e2) = "administrator%1:18:00::", Cause-Effect(e2,e1) = "false", Query = "satisfaction from *"
+
+150 "<e1>Virus infection</e1> starts with <e2>virus entry</e2> into the host cells and this process is mediated by viral and cellular membrane fusion in enveloped viruses."
+WordNet(e1) = "virus_infection%1:26:00::", WordNet(e2) = "entry%1:04:00::", Cause-Effect(e2,e1) = "false", Query = "* starts with *"
+Comment: (a) The entry does not cause the infection - the virus does; (b) "Virus infection" -> "infection"; (c) "Virus entry" -> "entry".
+
+151 "Research shows that 30% to 40% of law students experience <e1>depression</e1> after their first <e2>semester</e2> and this depression persists throughout law school."
+WordNet(e1) = "depression%1:12:00::", WordNet(e2) = "semester%1:28:01::", Cause-Effect(e2,e1) = "false", Query = "depression after *"
+Comment: Time
+
+152 "Givers gain moral strength and <e1>happiness</e1> from <e2>giving</e2>."
+WordNet(e1) = "happiness%1:26:00::" , WordNet(e2) = "giving%1:04:00::", Cause-Effect(e2,e1) = "true", Query = "happiness from *"
+
+153 "The <e1>joy</e1> comes from cather's <e2>writing</e2>: precise observation and wording, the lilting cadence of her phrasing, the beautiful and clear pictures she evokes of scenery and characters, and the unfamiliar, old fashioned words and expressions she uses."
+WordNet(e1) = "joy%1:12:00::", WordNet(e2) = "writing%1:10:00::", Cause-Effect(e2,e1) = "true", Query = "joy comes from *"
+
+154 "There is a rise in <e1>erratic behaviour</e1> from <e2>substance abuse</e2> and frustration caused by long waits for hospital treatment."
+WordNet(e1) = "behaviour%1:04:00::", WordNet(e2) = "substance_abuse%1:04:00::", Cause-Effect(e2,e1) = "true", Query = "behaviour from *"
+Comment: "erratic behaviour" -> "behaviour"
+
+155 "In one day, the Red Crescent treated more than injuries � mainly broken bones caused by <e1>panic</e1> from <e2>aftershocks</e2>."
+WordNet(e1) = "panic%1:12:00::", WordNet(e2) = "aftershock%1:11:00::", Cause-Effect(e2,e1) = "true", Query = "panic from *"
+
+156 "The book has as its backdrop the <e1>political controversy</e1> over <e2>euthanasia</e2> in Australia, where the author is senior lecturer in the Health Law Program."
+WordNet(e1) = "controversy%1:10:00::", WordNet(e2) = "euthanasia%1:04:00::", Cause-Effect(e2,e1) = "false", Query = "controversy over *"
+Comment: "political controversy" -> "controversy"
+
+157 "My <e1>sore throat</e1> from <e2>yesterday</e2> has turned into a full-blown cold over night."
+WordNet(e1) = "sore_throat%1:26:00::" , WordNet(e2) = "yesterday%1:28:01::", Cause-Effect(e2,e1) = "false", Query = "sore throat from *"
+Comment: Time
+
+158 "I'm finding the most <e1>joy</e1> comes from <e2>Asian flavours</e2>; beautiful fresh fish; things that have been marinated; roasted vegetables; meats that intensify in flavour during the cooking process; and dishes made from the most brilliant, fresh, in-season food."
+WordNet(e1) = "joy%1:12:00::", WordNet(e2) = "flavour%1:09:00::", Cause-Effect(e2,e1) = "true", Query = "joy comes from *"
+Comment: also Origin-Entity; "Asian flavours" -> "flavours"
+
+159 "Whilst audio sampled at 8kHz is sufficient for communication, such narrow-band speech does not sound natural, leading to user <e1>frustration</e1> after <e2>prolonged exposure</e2>, and making language learning difficult."
+WordNet(e1) = "frustration%1:12:01::". WordNet(e2) = "exposure%1:26:01::", Cause-Effect(e2,e1) = "true", Query = "frustration after *"
+Comment: "prolonged exposure" -> "exposure"
+
+160 "Videotape is a fragile medium subject to damage and <e1>deterioration</e1> from <e2>exposure</e2> to poor environmental conditions and inadequate handling practices."
+WordNet(e1) = "deterioration%1:22:00::", WordNet(e2) = "exposure%1:07:00::", Cause-Effect(e2,e1) = "true", Query = "* from exposure"
+
+161 "Get <e1>neck pain relief</e1> by <e2>easing tension</e2> in the shoulders and upper back."
+WordNet(e1) = "relief%1:12:00::", WordNet(e2) = "tension%1:26:01::", Cause-Effect(e2,e1) = "true", Query = "relief by *"
+Comment: (a) "neck pain relief" -> "relief"; (b) "easing tension" -> "tension"; (c) Here eis not in WordNet as a whole. I used the sense of "tension", but actually the head of eis "easing". This is different from a typical English NP, where the head is the last word.
+
+162 "They're bringing in applications such as catalog management and <e1>order fulfillment</e1> from <e2>vendors</e2>, then laboriously developing and integrating those applications themselves."
+WordNet(e1) = "fulfillment%1:04:00::", WordNet(e2) = "vendor%1:18:00::", Cause-Effect(e2,e1) = "false", Query = "fulfillment from *"
+Comment: "order fulfillment" -> "fulfillment".
+
+163 "Most of the <e1>taste</e1> of strong onions comes from the <e2>smell</e2>."
+WordNet(e1) = "taste%1:09:02::", WordNet(e2) = "smell%1:09:02::", Cause-Effect(e2,e1) = "true", Query = "* comes from *"
+
+164 "The centre and right images show progressive <e1>shrinkage</e1> after two and four <e2>years</e2>."
+WordNet(e1) = "shrinkage%1:11:00::", WordNet(e2) = "years%1:28:00::", Cause-Effect(e2,e1) = "false", Query = "shrinkage after *"
+Comment: Time
+
+165 "Surgery is reserved for treating residual disease six to eight <e1>weeks</e1> after <e2>radiation therapy</e2> or for recurrence."
+WordNet(e1) = "week%1:28:00::", WordNet(e2) = "radiation_therapy%1:04:00::", Cause-Effect(e2,e1) = "false", Query = "* after radiation therapy"
+
+166 "While <e1>public drinking</e1> <e2>regulations</e2> varied, some form of the beer parlour became the norm across the country."
+WordNet(e1) = "drinking%1:04:01::", WordNet(e2) = "regulation%1:10:00::", Cause-Effect(e1,e2) = "false", Query = "drinking *"
+Comment: "public drinking" -> "drinking"
+
+167 "The <e1>evacuation</e1> after the Chernobyl <e2>accident</e2> was poorly planned and chaotic."
+WordNet(e1) = "evacuation%1:04:01::", WordNet(e2) = "accident%1:11:01::", Cause-Effect(e2,e1) = "false", Query = "evacuation after *"
+Comment: the evacuation was put into action by humans, not as a result of the accident; the accident did not directly cause the evacuation.
+
+168 "A cancer survivor writes about the relatively rare occurrence of <e1>calcification</e1> of the breast after <e2>radiation therapy</e2>."
+WordNet(e1) = "calcification%1:22:00::", WordNet(e2) = "radiation_therapy%1:04:00::", Cause-Effect(e2,e1) = "true", Query = "* after radiation therapy"
+Comment: It is not 100% sure from the context that the therapy caused the calcification, but it is very likely.
+
+169 "Losing land to new white settlers, non-payment, past broken treaties, plus food shortages and <e1>famine</e1> following <e2>crop failure</e2> led to great discontent among the Dakota people."
+WordNet(e1) = "famine%1:11:00::", WordNet(e2) = "crop_failure%1:26:00::", Cause-Effect(e2,e1) = "true", Query = "famine following *"
+
+170 "Colorful, almost fat-free <e1>salad dressings</e1> start with <e2>fresh fruit</e2>."
+WordNet(e1) = "salad_dressing%1:13:00::", WordNet(e2) = "fruit%1:20:00::", Cause-Effect(e2,e1) = "false", Query = "* start with *"
+Comment: "fresh fruit" -> "fruit"
+
+171 "Subjects will be secured at all times with a safety harness to prevent <e1>injury</e1> from <e2>falling</e2>."
+WordNet(e1) = "injury%1:26:00::", WordNet(e2) = "?", Cause-Effect(e2,e1) = "true", Query = "injury from *"
+Comment: "falling" not listed as noun in WordNet
+
+172 "Diabetes drug shows promise for preventing <e1>brain injury</e1> from <e2>radiation therapy</e2>."
+WordNet(e1) = "injury%1:26:00::", WordNet(e2) = "radiation_therapy%1:04:00::", Cause-Effect(e2,e1) = "true", Query = "injury from *"
+Comment: "brain injury" -> "injury"
+
+173 "I guess that the <e1>dehydration</e1> from this <e2>morning</e2> and the heat of the sun have made my head go to mush."
+WordNet(e1) = "dehydration%1:26:00::", WordNet(e2) = "morning%1:28:00::", Cause-Effect(e2,e1) = "false", Query = "dehydration from *"
+Comment: Time
+
+174 "<e1>Entrepreneurship</e1> out of <e2>necessity</e2> is quite common in Europe where 60% of female headed businesses in Northern Europe and 70% in Southern Europe are established for this reason."
+WordNet(e1) = "?", WordNet(e2) = "necessity%1:26:00::", Cause-Effect(e2,e1) = "true", Query = "* out of *"
+Comment: entrepreneurship not found in WordNet; the necessity causes entrepreneurship indirectly
+
+175 "It has helped to revive a city whose primary natural resource -- its charm -- is constantly threatened with <e1>extinction</e1> from <e2>overdevelopment</e2>."
+WordNet(e1) = "extinction%1:26:01::", WordNet(e2) = "?", Cause-Effect(e2,e1) = "true", Query = "extinction from *"
+Comment: "overdevelopment" not listed in WordNet
+
+176 "This year's newest attractions include a dedicated music zone which takes you on a musical journey around the world and gives you a chance to experience <e1>musical ecstasy</e1> from <e2>different cultures</e2>."
+WordNet(e1) = "ecstasy%1:26:00::", WordNet(e2) = "culture%1:14:00::", Cause-Effect(e2,e1) = "false", Query = "ecstasy from *"
+Comment: (a) Origin-Entity; (b) "musical ecstasy" -> "ecstasy"; (c) "different cultures" -> "cultures"
+
+177 "I have always drawn <e1>satisfaction</e1> from <e2>exertion</e2>, straining my muscles to their limits."
+WordNet(e1) = "satisfaction%1:12:00::", WordNet(e2) = "exertion%1:04:00::", Cause-Effect(e2,e1) = "true", Query = "satisfaction from *"
+
+178 "Mr C notes <e1>worsening</e1> of seizures and cognition with <e2>sleep deprivation</e2> and stress."
+WordNet(e1) = "worsening%1:04:00::", WordNet(e2) = "sleep_deprivation%1:04:00::", Cause-Effect(e2,e1) = "true", Query = "* with sleep deprivation"
+Comment: "sleep deprivation" -> "deprivation"
+
+179 "I hear <e1>happiness</e1> from <e2>house painter</e2> Michael Gaul who wrote eloquently in Newsweek last month about the satisfaction he gets from simply painting a house."
+WordNet(e1) = "happiness%1:26:00::", WordNet(e2) = "house_painter%1:18:00::", Cause-Effect(e2,e1) = "false", Query = "happiness from *"
+Comment: The happiness is expressed/felt by, and not caused by the house painter.
+
+180 "Services include public warehousing, third party distribution, and <e1>order fulfillment</e1> from a <e2>city</e2> in Oregon."
+WordNet(e1) = "fulfillment%1:04:00::", WordNet(e2) = "city%1:15:01::", Cause-Effect(e2,e1) = "false", Query = "fulfillment from *"
+Comment: 'order fulfillment' -> 'fulfillment'
+
+181 "Principals respond to a <e1>decrease</e1> in uncertainty with more <e2>aggressive strategies</e2>."
+WordNet(e1) = "decrease%1:11:00::", WordNet(e2) = "strategy%1:09:00::", Cause-Effect(e2,e1) = "true", Query = "decrease in * with *"
+Comment: "aggressive strategies" -> "strategies"
+
+182 "His tendency to experience pathological <e1>anxiety</e1> from his <e2>early years</e2> and his tendency to respond to novelty, change, and challenges with an exaggerated anxiety response were noted."
+WordNet(e1) = "anxiety%1:26:00::", WordNet(e2) = "years%1:28:02::", Cause-Effect(e2,e1) = "false", Query = "anxiety from *"
+Comment: Time
+
+183 "I can already see from their reaction that there is <e1>enthusiasm</e1> for <e2>increased responsibility</e2> and training."
+WordNet(e1) = "enthusiasm%1:12:00::", WordNet(e2) = "responsibility%1:04:00::", Cause-Effect(e1,e2) = "false", Query = "* is for increased *"
+Comment: "increased responsibility" -> "responsibility".
+
+184 "The man cannot be too old, in his middle thirties, but his face exhibits more <e1>wrinkles</e1> from <e2>smiling</e2> than I've seen upon the mug of the happiest of grandparents."
+WordNet(e1) = "wrinkle%1:25:00::", WordNet(e2) = "smiling%1:10:00::", Cause-Effect(e2,e1) = "true", Query = "wrinkles from *"
+
+185 "But Hong Kong was able to recover from that and is now experiencing strong <e1>economic growth</e1> from <e2>exports</e2>."
+WordNet(e1) = "economic_growth%1:22:00::", WordNet(e2) = "export%1:06:00::", Cause-Effect(e2,e1) = "true", Query = "growth from *"
+
+186 "Furthermore, pain blocking by this cutaneous stimulus only lasts for a short period of time, whereas it is claimed that the effect of <e1>pain relief</e1> by <e2>acupuncture</e2> lasts for an extended period of time, sometimes months after the needle was removed."
+WordNet(e1) = "relief%1:04:01::", WordNet(e2) = "acupuncture%1:04:00::", Cause-Effect(e2,e1) = "true", Query = "relief through *"
+Comment: "pain relief" -> "relief"
+
+187 "Their retreat was disorderly and confused and much like a flight, the Pallantines hanging on their flanks and rear and doing great <e1>damage</e1> from early <e2>dawn</e2> till evening."
+WordNet(e1) = "damage%1:04:00::", WordNet(e2) = "dawn%1:28:00::", Cause-Effect(e2,e1) = "false", Query = "damage from *"
+Comment: starting time
+
+188 "<e1>Profit</e1> from <e2>sale</e2> of investments may soon be tax-free for general insurers."
+WordNet(e1) = "profit%1:21:00::", WordNet(e2) = "sale%1:04:02::", Cause-Effect(e2,e1) = "false", Query = "profit from *"
+
+189 "Development has not stepped up to offer the housing <e1>vouchers</e1> for poor victims that were so effective in the wake of the Northridge California <e2>quake</e2>."
+WordNet(e1) = "voucher%1:10:00::", WordNet(e2) = "quake%1:11:00::", Cause-Effect(e2,e1) = "false", Query = "* in the wake of *"
+
+190 "Complications from these symptoms can include weight gain from excessive eggnog and chocolate intake, and <e1>sore throat</e1> from excessive <e2>singing</e2>."
+WordNet(e1) = "sore_throat%1:26:00::", WordNet(e2) = "singing%1:04:00::", Cause-Effect(e2,e1) = "true", Query = "sore throat from *"
+
+191 "The pipeline had to face the following main concerns from opposition: disturbance of animal migration patterns, <e1>environmental damage</e1> from <e2>spills</e2>, geological concerns and the Alaskan permafrost."
+WordNet(e1) = "damage%1:11:00::", WordNet(e2) = "spill%1:27:00::", Cause-Effect(e2,e1) = "true", Query = "damage from *"
+Comment: "environmental damage" -> "damage"
+
+192 "The tongue has taste buds, but a cat's <e1>appetite</e1> comes from the <e2>smell</e2> of the food and doesn't come from the taste of it."
+WordNet(e1) = "appetite%1:12:00::", WordNet(e2) = "smell%1:09:02::", Cause-Effect(e2,e1) = "true", Query = "* comes from *"
+
+193 "Furthermore, <e1>control</e1> over <e2>agricultural research</e2>, production, distribution and practice is shifting from public institutions to private corporations, which are profit driven and are not motivated by humanitarian concerns."
+WordNet(e1) = "control%1:07:00::", WordNet(e2) = "research%1:04:00::", Cause-Effect(e2,e1) = "false", Query = "control over *"
+Comment: (a) The "research" is the object of "control"; (b) "agricultural research" -> "research"
+
+194 "Children with Asperger's Syndrome often experience <e1>anxiety</e1> from <e2>sensory overload</e2>."
+WordNet(e1) = "anxiety%1:26:00::", WordNet(e2) = "overload%1:06:02::", Cause-Effect(e2,e1) = "true", Query = "anxiety from *"
+Comment: "sensory overload" -> "overload"
+
+195 "This strategy may continue to provide the added benefit of enhanced <e1>growth</e1> from <e2>takeovers</e2>, since we anticipate merger activity to remain steady or increase."
+WordNet(e1) = "growth%1:22:02::", WordNet(e2) = "takeover%1:04:01::", Cause-Effect(e2,e1) = "true", Query = "growth from *"
+
+196 "The thing that many people don't know about the liver is that it has no nerve endings, so you would never feel pain directly from the liver, but usually as a result of <e1>inflammation</e1> from the <e2>liver</e2> pressing against other organs and circulation in the abdominal area."
+WordNet(e1) = "inflammation%1:26:00::", WordNet(e2) = "liver%1:08:00::", Cause-Effect(e2,e1) = "false", Query = "inflammation from *"
+
+197 "Sometimes the <e1>blockage</e1> comes from <e2>fear</e2>, as for a CEO who hates public speaking but must give frequent speeches."
+WordNet(e1) = "blockage%1:26:00::", WordNet(e2) = "fear%1:12:00::", Cause-Effect(e2,e1) = "true", Query = "blockage comes from *"
+
+198 "<e1>Progress</e1> comes from <e2>constructive competition</e2>, and churches and religions can benefit greatly from it."
+WordNet(e1) = "progress%1:04:01::", WordNet(e2) = "competition%1:24:01::", Cause-Effect(e2,e1) = "true", Query = "progress comes from *"
+Comment: "constructive competition" -> "competition"
+
+199 "Enter the long-term portion of <e1>gains</e1> from <e2>line</e2> 12, column (f), here and include on the appropriate line of Schedule D (see instructions)."
+WordNet(e1) = "gain%1:23:00::", WordNet(e2) = "line%1:10:02::", Cause-Effect(e2,e1) = "false", Query = "gains from *"
+Comment: Origin
+
+200 "Initiated during the early 1990's National Mineral Resource Assessment, this project received a major <e1>boost</e1> from <e2>funding</e2> provided through the 'Data-at-Risk' add-on funding received by the USGS through the fiscal year."
+WordNet(e1) = "boost%1:04:00::", WordNet(e2) = "funding%1:21:00::", Cause-Effect(e2,e1) = "true", Query = "* from funding"
+
+201 "This durable short sleeve crew neck tee shirt is made of preshrunk cotton to minimize <e1>shrinkage</e1> after <e2>washing</e2>."
+WordNet(e1) = "shrinkage%1:11:00::", WordNet(e2) = "washing%1:04:00::", Cause-Effect(e2,e1) = "true", Query = "shrinkage after *"
+
+202 "Any <e1>deformation</e1> from the <e2>circular form</e2> would have a significant effect on the ability of the hose to sustain internal pressure."
+WordNet(e1) = "deformation%1:11:01::", WordNet(e2) = "form%1:03:00::", Cause-Effect(e2,e1) = "false", Query = "deformation from *"
+Comment: "circular form" -> "form"
+
+203 "Gradually I proceeded to reflect upon the consequences of Pleyel's mistake, and on the measures I should take to guard myself against future <e1>injury</e1> from that <e2>man</e2>."
+WordNet(e1) = "injury%1:26:00::", WordNet(e2) = "man%1:18:00::", Cause-Effect(e2,e1) = "true", Query = "injury from *"
+Comment: Indirect causation.
+
+204 "<e1>Flight disruption</e1> after the <e2>attacks</e2> in the US delayed him there for three days."
+WordNet(e1) = "disruption%1:04:02::", WordNet(e2) = "attack%1:04:00::", Cause-Effect(e2,e1) = "true", Query = "disruption after *"
+Comment: "Flight disruption" -> "disruption"
+
+205 "Most patients reported moderate-to-severe dry mouth, difficulty in swallowing, and <e1>sore throat</e1> from <e2>weeks</e2> through 7."
+WordNet(e1) = "sore_throat%1:26:00::", WordNet(e2) = "week%1:28:00::", Cause-Effect(e2,e1) = "false", Query = "sore throat from *"
+Comment: Time
+
+206 "After several years of self-observation, Alexander began to teach his method of conscious <e1>inhibition</e1> through <e2>manual facilitated movement</e2>."
+WordNet(e1) = "inhibition%1:04:00::", WordNet(e2) = "movement%1:04:00::", Cause-Effect(e2,e1) = "true", Query = "inhibition through *"
+Comment: "manual facilitated movement" -> "movement"
+
+207 "Sparky Anderson is making progress in his <e1>recovery</e1> from <e2>exhaustion</e2> and could return to managing the Detroit Tigers within a week."
+WordNet(e1) = "recovery%1:22:00::", WordNet(e2) = "exhaustion%1:26:00::", Cause-Effect(e2,e1) = "false", Query = "* from exhaustion"
+
+208 "Stadler agrees, stating that <e1>progress</e1> often comes from <e2>unexpected sources</e2>."
+WordNet(e1) = "progress%1:04:01::", WordNet(e2) = "source%1:18:00::", Cause-Effect(e2,e1) = "false", Query = "progress comes from *"
+Comment: (a) Origin-Entity; (b) "unexpected sources" -> "sources"
+
+209 "We're not seeing a <e1>panic</e1> from <e2>travelers</e2>, because we've been pretty diligent in telling them for over a year that they need a passport."
+WordNet(e1) = "panic%1:12:00::", WordNet(e2) = "traveler%1:18:00::", Cause-Effect(e2,e1) = "false", Query = "panic from *"
+
+210 "To this end, the government, through the Wildlife Act, created the Endangered Species Conservation Committee (ESCC) to advise the provincial government about what to do with plants and animals that were facing <e1>extinction</e1> from Alberta's <e2>lakes</e2>, rivers, mountains and prairies."
+WordNet(e1) = "extinction%1:26:01::", WordNet(e2) = "lake%1:17:00::", Cause-Effect(e2,e1) = "false", Query = "extinction from *"
+
+211 "I derive tremendous pleasure and <e1>fulfillment</e1> from <e2>teaching</e2>, particularly when I am able to help students understand a previously foreign concept or idea, aid them in seeing a familiar object or event from a new and unusual perspective, guide them with projects they are working on, or encourage the interests they have."
+WordNet(e1) = "fulfillment%1:12:00::", WordNet(e2) = "teaching%1:04:01::", Cause-Effect(e2,e1) = "true", Query = "fulfillment from *"
+
+212 "We planetary citizens have a unique capacity for <e1>ecstasy</e1> from <e2>repetition</e2> especially when it comes from drumming."
+WordNet(e1) = "ecstasy%1:26:00::", WordNet(e2) = "repetition%1:04:00::", Cause-Effect(e2,e1) = "true", Query = "ecstasy from *"
+
+213 "It also includes an automatic purge valve for quick <e1>equalization</e1> after <e2>changes</e2> in atmospheric pressure."
+WordNet(e1) = "equalization%1:04:00::", WordNet(e2) = "change%1:19:00::", Cause-Effect(e2,e1) = "false", Query = "* after changes"
+
+214 "His lung function remained stable after <e1>complete removal</e1> from <e2>exposure</e2> to metalworking fluids."
+WordNet(e1) = "removal%1:04:00::" , WordNet(e2) = "exposure%1:07:00::" , Cause-Effect(e2,e1) = "false", Query = "* from exposure"
+Comment: Enumeration, example
+
+215 "It's very rewarding and I get a great deal of enjoyment and <e1>satisfaction</e1> from <e2>mentoring</e2>."
+WordNet(e1) = "satisfaction%1:26:00::", WordNet(e2) = "?", Cause-Effect(e2,e1) = "true", Query = "satisfaction from *"
+Comment: "mentoring" is not listed in WordNet as a noun
+
+216 "This work will identify the performance requirements for windows, given the conflict between the need for them to contain passengers during accidents, and their potential role as a means of <e1>evacuation</e1> after <e2>accidents</e2>."
+WordNet(e1) = "evacuation%1:04:01::", WordNet(e2) = "accident%1:11:01::", Cause-Effect(e2,e1) = "false", Query = "evacuation after *"
+
+217 "While we can understand Monaco's <e1>frustration</e1> after <e2>losing</e2> his position after so many years, the fact is that nothing in the record could support drawing an inference that age played any factor in AGAC's decision to terminate his employment."
+WordNet(e1) = "frustration%1:12:00::", WordNet(e2) = "?", Cause-Effect(e2,e1) = "true", Query = "frustration after *"
+Comment: "losing" not listed as noun in WordNet
+
+218 "Commisioner Wilson stated that the Board selected a list of expenditure reduction and <e1>revenue increase</e1> from the <e2>list</e2> attached to staff report."
+WordNet(e1) = "increase%1:11:00::", WordNet(e2) = "list%1:10:00::", Cause-Effect(e2,e1) = "false", Query = "increase from *"
+Comment: "revenue increase" -> "increase"
+
+219 "Short-term side effects are uncommon, but include <e1>headache</e1> from <e2>eyestrain</e2>, nausea, agitation or nervousness."
+WordNet(e1) = "headache%1:26:00::", WordNet(e2) = "eyestrain%1:26:00::", Cause-Effect(e2,e1) = "true", Query = "headache from *"
+
+220 "It is a business truism that <e1>improvement</e1> starts with <e2>leadership</e2>, right from the top and driving down throughout the whole organization."
+WordNet(e1) = "improvement%1:11:00::", WordNet(e2) = "leadership%1:14:00::", Cause-Effect(e2,e1) = "false", Query = "* starts with *"
+Comment: It is not clear if leadership is a sufficient condition for causing the improvement.
+

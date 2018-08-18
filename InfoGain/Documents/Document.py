@@ -44,7 +44,7 @@ class Document:
             
         Returns:
             cleaned (str) - The cleaned string
-        """
+        """ 
 
         cleaned_string = []  # The components of the sentence
         for rawWord in raw_string.split():
@@ -61,11 +61,21 @@ class Document:
             # Lower the case
             rawWord = rawWord.lower()
 
+            # Remove dashs
+            rawWord = rawWord.replace("-"," ")
+
             # Find words and return
-            cleaned = re.findall(r"[a-z\-_]+", rawWord)
+            cleaned = re.findall(r"([a-z]+[-_]?[a-z]+|[a-z]+)", rawWord)
 
             # Correct spelling mistakes where applicable
-            cleaned = [SpellingModel.predict(word) for word in cleaned]
+            # TODO: Fix the spelling model - time taken is massive
+            #cleaned = [SpellingModel.predict(word) for word in cleaned] 
+
+            for word in cleaned:
+                if word[0] == "-":
+                    print(rawWord)
+                    print(cleaned)
+                    exit()
 
             cleaned_string += cleaned
 
@@ -123,8 +133,7 @@ class Document:
             content = json.loads(self._content)
             self.name = content.get("name", self.name)
             self._content = content.get("content", self._content)
-            self._datapoints = self._datapoints + [Datapoint(data)
-                for data in content.get("datapoints",[])]
+            self._datapoints = [Datapoint(data) for data in content.get("datapoints",[])]
         except:
             pass
 
@@ -220,7 +229,10 @@ class Document:
         Returns:
             [Datapoint] - A structure holding the datapoints, structure depends on document type
         """
-        if data: self._datapoints = data
+        if data:
+            self._datapoints = data
+            self._content = " ".join([dp.text if dp.text[-1] == "." else dp.text + "."
+                for dp in self._datapoints])
         return self._datapoints
 
     def processKnowledge(self, ontology: Ontology) -> None:
@@ -256,7 +268,7 @@ class Document:
                     target
                 sentence (str) - The sentence that this information originated from
             """ 
-
+            
             p1, p2 = sorted((dom.span(), tar.span()))  # Sort the spans of the elements
 
             for relation in relations:
@@ -275,7 +287,7 @@ class Document:
                 # return the datapoints
                 yield dp
 
-        for sentence in Document.split(self._content, Document.SENTENCE):
+        for sentence in self.sentences():
 
             # Look for instances within the sentence - ensuring that you only match with individual words.
             instances = []
@@ -298,7 +310,6 @@ class Document:
                         relations = ontology.findRelations(domain=instConcept, target=matchConcept)
                         [self._datapoints.append(p) for p in createDatapoint(inst_match,
                             instConcept, match, matchConcept, relations, sentence)]
-
 
                         relations = ontology.findRelations(domain=matchConcept, target=instConcept)
                         [self._datapoints.append(p) for p in createDatapoint(match,

@@ -1,6 +1,7 @@
 from InfoGain.Extraction import RelationExtractor
 from InfoGain.Documents import Document
-from InfoGain.Resources import Language, Calibrator
+from InfoGain.Resources import Calibrator
+from InfoGain.Resources.Ontologies import Language
 
 import matplotlib.pyplot as plt
 

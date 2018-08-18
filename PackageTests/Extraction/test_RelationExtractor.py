@@ -6,7 +6,7 @@ from InfoGain.Knowledge import Ontology, Concept, Relation
 from InfoGain.Documents import Document, Datapoint
 
 from InfoGain.Extraction import RelationExtractor
-from InfoGain.Resources import Language
+from InfoGain.Resources.Ontologies import Language
 
 from InfoGain import Resources
 
@@ -68,7 +68,7 @@ class Test_RelationExtractor(unittest.TestCase):
         self.extractor.predict(test)
 
         # Assert that two datapoints can be found within the text
-        self.assertEqual(len(test), 2)
+        self.assertEqual(len(test), 4)  # 2 from inform, 2 from friendsWith
 
 """
     def test_fit_relation_extraction(self):

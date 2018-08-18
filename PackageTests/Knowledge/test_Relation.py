@@ -1,4 +1,5 @@
 import unittest
+from itertools import product
 
 from InfoGain.Knowledge import Concept, Relation
 
@@ -41,6 +42,32 @@ class Test_Relation(unittest.TestCase):
 
         self.assertTrue(relation.between(con2, conB))
         self.assertTrue(relation.between(con1, conA))
+
+    def test_between_differ(self):
+
+        con1, con2, con3 = Concept("1"), Concept("2"), Concept("3")
+
+        none_differ_relation = Relation({con1, con2}, "A", {con1, con2})
+        differ_relation = Relation({con1, con2}, "B", {con1, con2}, differ=True)
+
+        for a, b in product([con1, con2], [con1, con2]):
+
+            self.assertTrue(none_differ_relation.between(a, b))
+            self.assertFalse(none_differ_relation.between(a, con3))
+
+            if a is b: self.assertFalse(differ_relation.between(a,b))
+            else: self.assertTrue(differ_relation.between(a,b))
+
+    def test_differ_minimise(self):
+
+        con1, con2 = Concept("1"), Concept("2")
+
+        differ_relation = Relation({con1, con2}, "A", {con1, con2}, differ=True)
+
+        minimised = differ_relation.minimise()
+
+        self.assertTrue(minimised["differ"])
+
 
     def test_subscribe(self):
 

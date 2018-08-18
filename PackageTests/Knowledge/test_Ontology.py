@@ -1,7 +1,7 @@
 import unittest, os, json
 
 from InfoGain.Knowledge import Ontology, Concept, Relation
-from InfoGain.Resources import Language
+from InfoGain.Resources.Ontologies import Language
 
 
 class Test_Ontology_Creation(unittest.TestCase):
@@ -51,6 +51,23 @@ class Test_Ontology_Creation(unittest.TestCase):
 
         self.assertEqual(ontology.relation("speaks"), {self.speaks})
         self.assertEqual(ontology.relation("placeholder"), None)
+
+    def test_ontology_relation_differ(self):
+
+        ontology = Language.ontology()
+
+        relation = ontology.relation("informs")
+
+        for relSet in relation:
+            self.assertTrue(relSet.between(ontology.concept("Kieran"), ontology.concept("Luke")))
+            self.assertFalse(relSet.between(ontology.concept("Luke"), ontology.concept("Luke")))
+
+    def test_ontology_find_relation(self):
+
+        ontology = Language.ontology()
+
+        self.assertTrue(list(ontology.findRelations("Kieran", "Luke")))
+        self.assertFalse(list(ontology.findRelations("Kieran", "Kieran")))
 
     def test_RelationConcept_order(self):
         """ Test whether adding a concept when the ontology is populated with 
