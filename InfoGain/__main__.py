@@ -1,28 +1,41 @@
-import sys
+import argparse
 
-help_text = """
-    annotate
-    $ annotate (Ontology Path) (Document Path) (Document Path)...
-"""
+parser = argparse.ArgumentParser(
+    prog="InfoGain",
+    description="Information Gain - Extract information from text sources"
+)
 
-if len(sys.argv) == 1:
-    print(help_text)
+parser.add_argument(
+    "-a", "--annotate",
+    nargs=2,
+    metavar=("OntologyPath", "DocumentPath"),
+    help="Annotate a document acording to an ontology."
+)
 
-for i in range(1, len(sys.argv)):
+parser.add_argument(
+    "-s", "--score",
+    nargs=2,
+    metavar=("OntologyPath", "DocumentPath"),
+    help="Produce metric results for a document, according to an ontology"
+)
 
-    if sys.argv[i] == "annotate":
-        if i+2 >= len(sys.argv):
-            print("Annotation requires ontology path and document path requires filepath")
-            break
+parser.add_argument(
+    "-v", "--verbose",
+    help="Make the methods print out all available information."
+)
 
-        from .Documents import annotate, Document
-        from .Knowledge import Ontology
+args = vars(parser.parse_args())
 
-        annotate(Ontology(filepath=sys.argv[i+1]), Document(filepath=sys.argv[i+2]), save=True)
+if args["annotate"]:
 
-        break
+    from .Documents import annotate, Document
+    from .Knowledge import Ontology
 
-    if sys.argv[i] == "-h":
-        print(help_text)
-        break
+    annotate(Ontology(filepath=args["annotate"][0]), Document(filepath=args["annotate"][1]))
 
+if args["score"]:
+
+    from .Documents import score, Document
+    from .Knowledge import Ontology
+
+    score(Ontology(filepath=args["score"][0]), Document(filepath=args["score"][0]), pprint=True)
