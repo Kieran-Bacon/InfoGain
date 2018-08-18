@@ -3,6 +3,9 @@ from ..Documents import Datapoint
 import logging, numpy
 from sklearn.neural_network import MLPClassifier
 
+import logging
+log = logging.getLogger(__name__)
+
 class RelationModel:
     """ The model that represents a single relation classifier
     
@@ -39,7 +42,7 @@ class RelationModel:
 
         # Do nothing if no datapoints have been provided
         if not len(datapoints):
-            logging.warning("Fitting Relation model for '"+self.name+"' without any datapoints")
+            log.warning("Fitting Relation model for '"+self.name+"' without any datapoints")
             return 
 
         # Convert the point structure into something usable by sklearn
@@ -62,7 +65,7 @@ class RelationModel:
 
         if not points: return points
         if not self.fitted:
-            logging.error("Attempt to predict on unfitted relation model: " + self.name)
+            log.error("Attempt to predict on unfitted relation model: " + self.name)
             return points
 
         # Extract data point feature information
