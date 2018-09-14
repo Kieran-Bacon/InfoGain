@@ -1,9 +1,13 @@
-from InfoGain.Knowledge import Ontology, Concept, Relation
-from InfoGain.Extraction import RelationExtractor
-from InfoGain.Documents import Document, annotate, score
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
+from infogain.knowledge import Ontology, Concept, Relation
+from infogain.extraction import RelationExtractor
+from infogain.artefact import Document, annotate, score
 
 #from InfoGain.Resources import Language
-from InfoGain.Resources.Ontologies import Language
+from infogain.resources.ontologies import language as Language
 
 # Creating the language ontology
 LanguageOntology = Ontology("Languages")

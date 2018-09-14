@@ -4,7 +4,7 @@ with open("README.md", "r") as handler:
       README = handler.read()
 requires = ["sklearn", "matplotlib", "gensim", "mock"]
 
-setup(name='InfoGain',
+setup(name='infogain',
       install_requires=requires,
       version="1.0.1",
       description="Information Extraction and Generation",
