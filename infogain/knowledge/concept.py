@@ -102,10 +102,10 @@ class Concept:
         """
 
         concept = {"name": self.name}
-        if self.parents: concept["parents"] = [parent if isinstance(parent, str) else parent.name 
-            for parent in self.parents]
+        if self.parents: concept["parents"] = sorted([parent if isinstance(parent, str) else parent.name 
+            for parent in self.parents])
         if self.properties: concept["properties"] = self.properties
-        if self.alias: concept["alias"] = list(self.alias)
+        if self.alias: concept["alias"] = sorted(list(self.alias))
         if self.permeable: concept["permeable"] = self.permeable
 
         return concept

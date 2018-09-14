@@ -1,4 +1,4 @@
-import logging, json
+import os, uuid, logging, json
 
 from . import MissingConcept
 from .concept import Concept
@@ -43,22 +43,14 @@ class Ontology:
             for name, rawRelation in data.get("Relations", {}).items():
                 log.debug("adding relation {}".format(name))
 
-                domainSets, targetSets = [], []
-
-                # For each set of relations found in the system
-                for conceptSet in rawRelation["concepts"]:
-                    domains = {self.concept(con) for con in conceptSet["domains"]}
-                    targets = {self.concept(con) for con in conceptSet["targets"]}
-
-                    if None in domains.union(targets): raise MissingConcept("Relation '" + name + 
-                        "' references unknown concept.")
-
-                    domainSets.append(domains)
-                    targetSets.append(targets)
-
-                self.addRelation(
-                    Relation(domainSets, name, targetSets, rawRelation.get("differ", False))
+                relation = Relation(
+                    rawRelation["domains"],
+                    name,
+                    rawRelation["targets"],
+                    rawRelation.get("differ", False)
                 )
+
+                self.addRelation(relation)
 
     def addConcept(self, concept: Concept) -> None:
         """ Add concept object to ontology, overwrite previous concept if present.
@@ -180,21 +172,16 @@ class Ontology:
 
         return ontologyClone
 
-    def save(self, folder: str = "./", filename: str = None) -> None:
+    def toJson(self):
         """ Save the file to the current working directory or the filename provided
         
         Params:
             folder (str) - The directory destination of the saved file
             filename (str) - The name to be given to the saved file
         """
-
-        import os, uuid
-
-        if filename is None and self.name is None: filename = uuid.uuid4().hex
-        if self.name and not filename: filename = self.name
-            
+                    
         ontology = {
-            "Name": self.name if self.name else filename,
+            "Name": self.name,
             "Concepts": {},
             "Relations": {}
         }
@@ -209,5 +196,12 @@ class Ontology:
             del mini["name"]
             ontology["Relations"][name] = mini
 
+        return json.dumps(ontology, indent=4, sort_keys=True)
+
+    def save(self, folder: str = "./", filename: str = None) -> None:
+
+        if filename is None and self.name is None: filename = uuid.uuid4().hex
+        if self.name and not filename: filename = self.name
+
         with open(os.path.abspath(os.path.join(folder, filename)), "w") as handler:
-            handler.write(json.dumps(ontology, indent=4, sort_keys=True))
+            handler.write(self.toJson())

@@ -116,8 +116,8 @@ class Relation:
                 minTars.append(targets)
 
         # Form the relations and minimise the domains
-        minDoms = [[con if isinstance(con, str) else con.name for con in Concept.minimiseConceptSet(domSet)] for domSet in minDoms]
-        minTars = [[con if isinstance(con, str) else con.name for con in tarSet] for tarSet in minTars]
+        minDoms = sorted([sorted([con if isinstance(con, str) else con.name for con in Concept.minimiseConceptSet(domSet)]) for domSet in minDoms])
+        minTars = sorted([sorted([con if isinstance(con, str) else con.name for con in tarSet]) for tarSet in minTars])
 
         return {"domains": minDoms, "name": self.name, "targets": minTars, "differ": self.differ}
 

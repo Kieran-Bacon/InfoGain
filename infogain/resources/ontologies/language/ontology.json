@@ -1,14 +1,21 @@
 {
-    "Name": "Language",
     "Concepts": {
-        "Kieran": {
-            "alias": [
-                "Legend",
-                "Champ",
-                "Badass"
-            ],
+        "Charlie": {
             "parents": [
                 "Person"
+            ]
+        },
+        "Country": {
+            "permeable": true
+        },
+        "England": {
+            "parents": [
+                "Country"
+            ]
+        },
+        "English": {
+            "parents": [
+                "Language"
             ]
         },
         "France": {
@@ -16,25 +23,12 @@
                 "Country"
             ]
         },
-        "England": {
-            "parents": [
-                "Country"
-            ]
-        },
-        "Charlie": {
-            "parents": [
-                "Person"
-            ]
-        },
         "French": {
             "parents": [
                 "Language"
             ]
         },
-        "Language": {
-            "permeable": true
-        },
-        "Spanish": {
+        "German": {
             "parents": [
                 "Language"
             ]
@@ -44,85 +38,106 @@
                 "Country"
             ]
         },
-        "German": {
+        "Kieran": {
+            "alias": [
+                "Badass",
+                "Champ",
+                "Legend"
+            ],
             "parents": [
-                "Language"
+                "Person"
             ]
         },
-        "Spain": {
-            "parents": [
-                "Country"
-            ]
-        },
-        "Country": {
+        "Language": {
             "permeable": true
-        },
-        "Person": {
-            "properties": {
-                "name": null
-            }
         },
         "Luke": {
             "parents": [
                 "Person"
             ]
         },
-        "English": {
+        "Person": {
+            "properties": {
+                "name": null
+            }
+        },
+        "Spain": {
+            "parents": [
+                "Country"
+            ]
+        },
+        "Spanish": {
             "parents": [
                 "Language"
             ]
         }
     },
+    "Name": "Language",
     "Relations": {
-        "lives_in": {
-            "concepts": [
-                {
-                    "targets": [
-                        "Country"
-                    ],
-                    "domains": [
-                        "Person"
-                    ]
-                }
-            ]
-        },
-        "speaks": {
-            "concepts": [
-                {
-                    "targets": [
-                        "Language"
-                    ],
-                    "domains": [
-                        "Country",
-                        "Person"
-                    ]
-                }
-            ]
-        },
         "born_in": {
-            "concepts": [
-                {
-                    "targets": [
-                        "Country"
-                    ],
-                    "domains": [
-                        "Person"
-                    ]
-                }
+            "differ": false,
+            "domains": [
+                [
+                    "Person"
+                ]
+            ],
+            "targets": [
+                [
+                    "England",
+                    "France",
+                    "Germany",
+                    "Spain"
+                ]
             ]
         },
         "informs": {
-            "concepts": [
-                {
-                    "domains": [
-                        "Person"
-                    ],
-                    "targets": [
-                        "Person"
-                    ]
-                }
+            "differ": true,
+            "domains": [
+                [
+                    "Person"
+                ]
             ],
-            "differ": true
+            "targets": [
+                [
+                    "Person"
+                ]
+            ]
+        },
+        "lives_in": {
+            "differ": false,
+            "domains": [
+                [
+                    "Person"
+                ]
+            ],
+            "targets": [
+                [
+                    "England",
+                    "France",
+                    "Germany",
+                    "Spain"
+                ]
+            ]
+        },
+        "speaks": {
+            "differ": false,
+            "domains": [
+                [
+                    "England",
+                    "France",
+                    "Germany",
+                    "Person",
+                    "Spain"
+                ]
+            ],
+            "targets": [
+                [
+                    "English",
+                    "French",
+                    "German",
+                    "Spanish"
+                ]
+            ]
         }
     }
 }

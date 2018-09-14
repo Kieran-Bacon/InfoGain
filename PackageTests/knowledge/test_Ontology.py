@@ -15,19 +15,20 @@ class Test_Ontology_Creation(unittest.TestCase):
 
         self.speaks = Relation({self.person}, "speaks", {self.language})
 
+        self.maxDiff = None
+
     def test_load_and_save(self):
+        """ Test that saving and ontology returns it to the same state as it was before """
 
         ont, path = Language.ontology(get_path=True)
-        ont.save(filename="tempOnt.json")
-        
-        with open("./tempOnt.json") as handler:
-            file1_content = json.load(handler)
 
-        with open(path) as handler:
-            file2_content = json.load(handler)
+        with open(path, "r") as handler:
+            content = handler.read()
 
-                # TODO better comparison
-        #self.assertEqual(file1_content, file2_content)
+        print(content)
+        print(ont.toJson())
+
+        self.assertEqual(content, ont.toJson())
 
     def test_Concepts_Ontology(self):
 
