@@ -3,6 +3,7 @@ import os, uuid, logging, json
 from . import MissingConcept
 from .concept import Concept
 from .relation import Relation
+from .rule import Rule
 
 log = logging.getLogger(__name__)
 
@@ -43,10 +44,16 @@ class Ontology:
             for name, rawRelation in data.get("Relations", {}).items():
                 log.debug("adding relation {}".format(name))
 
+                rules = []
+                for desc in rawRelation.get("rules", []):
+                    desc["relation"] = name
+                    rules.append(Rule(**desc))
+
                 relation = Relation(
                     rawRelation["domains"],
                     name,
                     rawRelation["targets"],
+                    rules,
                     rawRelation.get("differ", False)
                 )
 
@@ -109,6 +116,14 @@ class Ontology:
             minimised = relation.minimise()
             minimised["domains"] = [[self.concept(dom) for dom in group] for group in minimised["domains"]]
             minimised["targets"] = [[self.concept(tar) for tar in group] for group in minimised["targets"]]
+
+            rules = []
+            for rule in minimised.get("rules", []):
+                rule["domains"] = [self.concept(con) for con in rule["domains"]]
+                rule["targets"] = [self.concept(con) for con in rule["targets"]]
+                rules.append(Rule(**rule))
+
+            minimised["rules"] = rules
 
             relation = Relation(**minimised)
 

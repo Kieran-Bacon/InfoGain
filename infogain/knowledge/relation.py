@@ -1,5 +1,6 @@
 from . import MissingConcept
 from .concept import Concept
+from .rule import Rule
 
 import logging
 log = logging.getLogger(__name__)
@@ -13,11 +14,12 @@ class Relation:
         targets (set): A collection of concepts
     """
 
-    def __init__(self, domains: {Concept}, name: str, targets: {Concept}, differ: bool = False):
+    def __init__(self, domains: {Concept}, name: str, targets: {Concept}, rules=[], differ: bool = False):
 
         self.name = name
         self.domains = set()
         self.targets = set()
+        self.assignRules(rules)
         self._between = {}
 
         self.differ = differ
@@ -65,7 +67,7 @@ class Relation:
         Returns:
             bool: True if relation holds between the domain and target provided
         """
-        if domain.permeable or target.permeable: return False
+        if Concept.ABSTRACT == (domain.category or target.category): return False
         if self.differ and domain == target: return False
         return target in self._between.get(domain, [])
 
@@ -73,7 +75,7 @@ class Relation:
         """ Intelligently links concept with domain or target based on 
         relative linkage """
 
-        if concept.permeable: return # Ensure concept is meant to be viewable
+        if concept.category == Concept.ABSTRACT : return # Ensure concept is meant to be viewable
 
         # Add the concept into the concept stores if one of its ancestors is present
         ancestors = concept.ancestors()
@@ -99,6 +101,27 @@ class Relation:
                     targetSet.add(concept)
 
             self.targets.add(concept)  # Add the concept as a target
+    
+    def addRule(self, rule: Rule) -> None:
+        if not self._rules: self._rules.append(rule)  # Empty collection
+
+        for i, relRule in enumerate(self._rules):
+            if rule.confidence > relRule.confidence: break
+        self._rules = self._rules[:i] + [rule] + self._rules[i:]
+
+    def rules(self, domain: Concept = None, target: Concept = None) -> [Rule]:
+
+        if domain is None and target is None:
+            return list(self._rules)
+
+        if not self.between(domain, target): return []
+        return [rule for rule in self._rules if rule.applies(domain, target)]
+
+    def assignRules(self, collection: [Rule]) -> None:
+        """ Assign a collection of rules to the relation, overwritting the old rules during the
+        operation
+        """
+        self._rules = sorted(collection, key = lambda x: x.confidence)
 
     def minimise(self) -> dict:
         """ Return only the information the relation represents """
@@ -119,8 +142,20 @@ class Relation:
         minDoms = sorted([sorted([con if isinstance(con, str) else con.name for con in Concept.minimiseConceptSet(domSet)]) for domSet in minDoms])
         minTars = sorted([sorted([con if isinstance(con, str) else con.name for con in tarSet]) for tarSet in minTars])
 
-        return {"domains": minDoms, "name": self.name, "targets": minTars, "differ": self.differ}
+        minimised = {"domains": minDoms, "name": self.name, "targets": minTars}
+
+        # Collapse the rules down
+        rules = [rule.minimise() for rule in self._rules]
+
+        if self.differ: minimised["differ"] = True
+        if rules: minimised["rules"] = rules
+
+        return minimised
 
     def clone(self):
         log.debug("Cloning relation object: {}".format(self.minimise()))
-        return Relation(**self.minimise())
+
+        minimised = self.minimise()
+        minimised["rules"] = [rule.clone() for rule in self._rules]
+
+        return Relation(**minimised)

@@ -1,3 +1,6 @@
+import logging
+log = logging.getLogger(__name__)
+
 class Concept:
     """ A concept represents a "thing", an idea, an object, a place, anything.
 
@@ -8,21 +11,33 @@ class Concept:
         json (dict): The concept information in the form of a diction, expected from json
     """
 
-    def __init__(self, name: str, parents: set = set(), children: set = set(), json: dict = {}):
+    ABSTRACT = "abstract"
+    STATIC = "static"
+    DYNAMIC = "dynamic"
+
+    def __init__(self,
+        name: str,
+        parents: set = set(),
+        children: set = set(),
+        alias: set = set(),
+        properties: dict = {},
+        category: str = "dynamic",
+        json: dict = {}):
+
         self.name = name
 
         if json:
-            self.alias = set(json.get("alias", []))
+            self.alias = set(json.get("alias", alias))
             self.properties = json.get("properties", {})
-            self.permeable = json.get("permeable", False)
+            self.category = json.get("category", category)
 
-            self.parents = set(json.get("parents", []))
-            self.children = set(json.get("children", []))
+            self.parents = set(json.get("parents", parents))
+            self.children = set(json.get("children", children))
         
         else:
-            self.alias = set()
-            self.properties = {}
-            self.permeable = False
+            self.alias = set(alias)
+            self.properties = properties.copy()
+            self.category = category
 
             self.parents = parents.copy()
             self.children = children.copy()
@@ -85,12 +100,14 @@ class Concept:
         Returns:
             Clone (Concept) - A new partial concept
         """
-        clone = Concept(self.name,
+        clone = Concept(
+            self.name,
             {p.name for p in self.parents},
-            {c.name for c in self.children})
-        clone.alias = self.alias.copy()
-        clone.properties = self.properties.copy()
-        clone.permeable = self.permeable
+            {c.name for c in self.children},
+            self.alias,
+            self.properties,
+            self.category
+            )
 
         return clone
 
@@ -106,12 +123,12 @@ class Concept:
             for parent in self.parents])
         if self.properties: concept["properties"] = self.properties
         if self.alias: concept["alias"] = sorted(list(self.alias))
-        if self.permeable: concept["permeable"] = self.permeable
+        if self.category is not Concept.DYNAMIC: concept["category"] = self.category
 
         return concept
 
     @classmethod
-    def expandConceptSet(cls, collection):
+    def expandConceptSet(cls, collection, descending: bool = True):
         """ Expand a collection of concepts to include all descendants when applicable
 
         Params:
@@ -123,20 +140,20 @@ class Concept:
 
         expansion = set()
 
-        for concept in collection:
-            if isinstance(concept, cls):
-                if not concept.permeable: expansion.add(concept)
-                for child in concept.descendants():
-                    if isinstance(child, str) or not child.permeable:
-                        # If str or a concept that isn't permeable
-                        expansion.add(child)
-            else:
-                expansion.add(concept)
 
+        for concept in collection:
+            expansion.add(concept)
+            if isinstance(concept, cls):
+                group = concept.descendants() if descending else concept.ancestors()
+                for con in group:
+                    if isinstance(con, str) or con.category is not Concept.ABSTRACT:
+                        expansion.add(con)
+
+        log.debug("expanded set {} into {}".format([str(x) for x in collection], [str(x) for x in expansion]))
         return expansion
 
     @classmethod
-    def minimiseConceptSet(cls, collection):
+    def minimiseConceptSet(cls, collection, ascending: bool = True):
         """ Minimise a collection according to possible concepts within another. 
         
         Params:
@@ -145,17 +162,17 @@ class Concept:
         Returns:
             set: Minimised set
         """
-
+        collection = set(collection)
         minimised = set()
 
         for con in collection:
-
             if isinstance(con, cls):
-                viableParents = con.ancestors().intersection(set(collection))
-                if viableParents: continue
+                group = con.ancestors() if ascending else con.descendants()
+                if group.intersection(collection): continue
 
             minimised.add(con)
 
+        log.debug("minimised set {} from {}".format([str(x) for x in minimised], [str(x) for x in collection]))
         return minimised
 
     @staticmethod

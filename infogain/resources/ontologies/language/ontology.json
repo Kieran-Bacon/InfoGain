@@ -1,39 +1,46 @@
 {
     "Concepts": {
         "Charlie": {
+            "category": "static",
             "parents": [
                 "Person"
             ]
         },
         "Country": {
-            "permeable": true
+            "category": "abstract"
         },
         "England": {
+            "category": "static",
             "parents": [
                 "Country"
             ]
         },
         "English": {
+            "category": "static",
             "parents": [
                 "Language"
             ]
         },
         "France": {
+            "category": "static",
             "parents": [
                 "Country"
             ]
         },
         "French": {
+            "category": "static",
             "parents": [
                 "Language"
             ]
         },
         "German": {
+            "category": "static",
             "parents": [
                 "Language"
             ]
         },
         "Germany": {
+            "category": "static",
             "parents": [
                 "Country"
             ]
@@ -44,14 +51,16 @@
                 "Champ",
                 "Legend"
             ],
+            "category": "static",
             "parents": [
                 "Person"
             ]
         },
         "Language": {
-            "permeable": true
+            "category": "abstract"
         },
         "Luke": {
+            "category": "static",
             "parents": [
                 "Person"
             ]
@@ -62,11 +71,13 @@
             }
         },
         "Spain": {
+            "category": "static",
             "parents": [
                 "Country"
             ]
         },
         "Spanish": {
+            "category": "static",
             "parents": [
                 "Language"
             ]
@@ -75,7 +86,6 @@
     "Name": "Language",
     "Relations": {
         "born_in": {
-            "differ": false,
             "domains": [
                 [
                     "Person"
@@ -104,11 +114,22 @@
             ]
         },
         "lives_in": {
-            "differ": false,
             "domains": [
                 [
                     "Person"
                 ]
+            ],
+            "rules": [
+                {
+                    "confidence": 50,
+                    "domains": [
+                        "Kieran"
+                    ],
+                    "relation": "lives_in",
+                    "targets": [
+                        "England"
+                    ]
+                }
             ],
             "targets": [
                 [
@@ -120,22 +141,50 @@
             ]
         },
         "speaks": {
-            "differ": false,
             "domains": [
                 [
-                    "England",
-                    "France",
-                    "Germany",
-                    "Person",
-                    "Spain"
+                    "Country",
+                    "Person"
                 ]
+            ],
+            "rules": [
+                {
+                    "conditions": [
+                        {
+                            "logic": "%=lives_in=#Country",
+                            "salience": 100
+                        },
+                        {
+                            "logic": "#Country=speaks=@",
+                            "salience": 100
+                        }
+                    ],
+                    "confidence": 50,
+                    "domains": [
+                        "Person"
+                    ],
+                    "relation": "speaks",
+                    "targets": [
+                        "English",
+                        "French",
+                        "German",
+                        "Spanish"
+                    ]
+                },
+                {
+                    "confidence": 89,
+                    "domains": [
+                        "England"
+                    ],
+                    "relation": "speaks",
+                    "targets": [
+                        "English"
+                    ]
+                }
             ],
             "targets": [
                 [
-                    "English",
-                    "French",
-                    "German",
-                    "Spanish"
+                    "Language"
                 ]
             ]
         }

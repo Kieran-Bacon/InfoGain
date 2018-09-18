@@ -43,8 +43,7 @@ class Test_Relation(unittest.TestCase):
 
     def test_initialisation_expansion_permeable(self):
 
-        con1 = Concept("1")
-        con1.permeable = True
+        con1 = Concept("1", category=Concept.ABSTRACT)
         con2 = Concept("2", children={con1})
         con3 = Concept("3", children={con2})
 
@@ -115,8 +114,7 @@ class Test_Relation(unittest.TestCase):
     def test_permeable_subscribe(self):
 
         con1 = Concept("1")
-        con2 = Concept("2", parents={con1})
-        con2.permeable = True
+        con2 = Concept("2", parents={con1}, category=Concept.ABSTRACT)
         con3 = Concept("3", parents={con2})
 
         relation = Relation({con1},"relates",{con1})
@@ -129,12 +127,9 @@ class Test_Relation(unittest.TestCase):
 
     def test_minimise(self):
 
-        con1 = Concept("1")
-        con1.permeable = True
+        con1 = Concept("1", category=Concept.ABSTRACT)
         con2 = Concept("2", parents={con1})
-        con1.children.add(con2)
-        con3 = Concept("3", parents={con2})
-        con2.children.add(con3)
+        Concept("3", parents={con2})
 
         self.assertTrue(con2 == "2")
 
@@ -144,7 +139,7 @@ class Test_Relation(unittest.TestCase):
 
         self.assertEqual(mini["name"], "speaks")
 
-        self.assertEqual(set(mini["domains"][0]), {con2.name})
+        self.assertEqual(set(mini["domains"][0]), {con1.name})
         self.assertEqual(set(mini["targets"][0]), {con2.name})
 
 if __name__ == "__main__":

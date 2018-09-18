@@ -25,9 +25,6 @@ class Test_Ontology_Creation(unittest.TestCase):
         with open(path, "r") as handler:
             content = handler.read()
 
-        print(content)
-        print(ont.toJson())
-
         self.assertEqual(content, ont.toJson())
 
     def test_Concepts_Ontology(self):
