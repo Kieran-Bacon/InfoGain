@@ -1,5 +1,7 @@
 from inspect import signature
 
+from ..knowledge import Concept, Relation
+
 class Instance():
     """ Abstract class to imply a instatiation of an ontology object """
 
@@ -7,7 +9,7 @@ class Instance():
         self._properties = {}  # A dictionary of properties
         self._functions = {}  # A dictionary of functions with parameters
 
-    def property(self, name: str) -> (object/None):
+    def property(self, name: str) -> (object):
         """ Return the value of the property that has been asked for. If the
         property doesn't exist, return None 
         
@@ -40,17 +42,13 @@ class Instance():
     def __empty_function__(*args):
         return None
 
-class ConceptInstance(Instance):
+class ConceptInstance(Instance, Concept):
     """ A instance of a concept """
 
     def __init__(self, concept):
         Instance.__init__(self)
+        Concept.__init__(self, **concept.minimise())
 
-        self.name = concept.name
-
-        # Add concept properties to the instance
-        [self._addProperty(name, value) for name, value in concept.properties.items()]
-
-class RelationInstance(Instance):
+class RelationInstance(Instance, Relation):
     """ An instance of a relation paring """
     pass

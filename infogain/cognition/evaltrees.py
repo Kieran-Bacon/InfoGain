@@ -5,15 +5,21 @@ log = logging.getLogger(__name__)
 class IncorrectLogic(Exception):
     pass
 
-class EvalTreeNode:
+class EvalTree:
     
     def __str__(self):
+        raise NotImplementedError()
+
+    def _assignEngine(self, engine):
+        self.engine = engine
+
+    def parameters(self) -> set:
         raise NotImplementedError()
 
     def eval(self, *args):
         raise NotImplementedError()
 
-class PipeNode(EvalTreeNode):
+class PipeNode(EvalTree):
 
     def __init__(self, left, right):
         log.info("Created PipeNode")
@@ -24,7 +30,14 @@ class PipeNode(EvalTreeNode):
     def __str__(self):
         return str(self.left) + "->" + str(self.right)
 
-class PropertyNode(EvalTreeNode):
+    def eval(self):
+        return self.right.eval(additional=[self.left.eval()])
+
+    def parameters(self):
+        return self.left.parameters().union(self.right.parameters())
+         
+
+class PropertyNode(EvalTree):
 
     def __init__(self, component: str, property_key: str):
         self.component = component
@@ -33,40 +46,131 @@ class PropertyNode(EvalTreeNode):
     def __str__(self):
         return str(self.component) + "." + str(self.key)
 
-class ConceptNode(EvalTreeNode):
+    def parameters(self):
+        return self.component.parameters()
+
+class ConceptNode(EvalTree):
     
     def __init__(self, concept_name: str):
-        self.concept = concept_name
+        self.concept_name = concept_name
 
     def __str__(self):
-        return self.concept
+        return self.concept_name
 
-class ConceptFunctionNode(EvalTreeNode):
+    def eval(self, **kwargs):
+        return self.concept_name
 
-    def __init__(self, concept: ConceptNode, function_name: str, parameters: [EvalTreeNode]):
+    def parameters(self):
+        return [self.concept_name]
+
+class ConceptFunctionNode(EvalTree):
+
+    def __init__(self, concept: ConceptNode, function_name: str, parameters: [EvalTree]):
         self.concept = concept
         self.function = function_name
-        self.parameters = parameters
+        self.function_parameters = parameters
 
     def __str__(self):
-        return str(self.concept) + ">" + str(self.function) + "({})".format(",".join([str(x) for x in self.parameters]))
+        return str(self.concept) + ">" + str(self.function) + "({})".format(",".join([str(x) for x in self.function_parameters]))
 
-class RelationNode(EvalTreeNode):
+    def parameters(self):
+        return self.concept.parameters() + [param for group in self.function_parameters for param in group]
+
+class RelationNode(EvalTree):
     
     def __init__(self, domain: ConceptNode, relation: str, target: ConceptNode):
         self.domain = domain
         self.relation = relation
         self.target = target
 
-class BuiltInFunctionNode(EvalTreeNode):
+    def __str__(self):
+        return "=".join([str(self.domain), self.relation, str(self.target)])
+
+    def parameters(self):
+        return self.domain.parameters() + self.target.parameters()
+
+    def eval(self, **kwargs):
+
+        domain = self.domain.eval(**kwargs)
+        target = self.target.eval(**kwargs)
+
+        if "scenario" in kwargs:
+            domain = kwargs["scenario"].get(domain)
+            target = kwargs["scenario"].get(target)
+
+        return self.engine.inferRelation(domain, self.relation, target)
+
+class BuiltInFunctionNode(EvalTree):
+
+    functionList = [
+        "graph"
+    ]
 
     def __init__(self, function_name: str, parameters: str):
+
+        self.__function_list = {
+            "graph": self.graph
+        }
+
         log.info("Created BuildInFunctionNode {}".format(function_name))
         self.function = function_name
-        self.parameters = parameters[1:-1].split(",")
+        self.function_parameters = parameters[1:-1].split(",")
 
     def __str__(self):
-        return self.function + "({})".format(",".join(self.parameters))
+        return self.function + "({})".format(",".join(self.function_parameters))
+
+    def parameters(self):
+        return [param for func_param in self.function_parameters for param in func_param.parameters()]
+
+    def eval(self, **kwargs):
+
+        function_parameters = kwargs.get("additional", []) + self.function_parameters
+
+        return self.__function_list[self.function](*function_parameters)
+
+    @staticmethod
+    def graph(*args):
+
+        assert(len(args) > 0)
+
+        expression = args[-1].replace("'", "").replace('"', "")
+        
+        function_list = []
+        for char in expression:
+            function_list.append(char)
+            if re.search("[A-Za-z]", char): function_list.append(" ")
+        function_string = "".join(function_list)
+
+        parameters = [float(param) for param in args[:-1]]
+        variables = []
+        for var in re.findall(r"[A-Za-z]", function_string):
+            if var not in variables: variables.append(var)
+
+        assert(len(parameters) ==  len(variables))
+
+        return eval(function_string, {var: par for var, par in zip(variables, parameters)})
+
+class StringNode(EvalTree):
+
+    def __init__(self, string):
+        self.string = string
+    
+    def __str__(self):
+        return self.string
+
+    def eval(self, **kwargs):
+        return self.string
+
+class NumberNode(EvalTree):
+
+    def __init__(self, number):
+        self.number = float(number)
+
+    def __str__(self):
+        return str(self.number)
+
+    def eval(self, **kwargs):
+        return self.number
 
 class EvalTreeFactory:
 
@@ -80,13 +184,17 @@ class EvalTreeFactory:
     __String = re.compile(r"\".+\"")
     __Number = re.compile(r"(\d+\.\d+|\d+)")
 
-    __buildinFunction = {"map", "min", "multiply"}
+    def __init__(self, engine):
+        self.engine = engine
 
-    def __init__(self, ontology):
+    def constructTree(self, logic) -> EvalTree:
+        """ Wrapper function for private node generator - ensures recursively generated nodes
+        have the information they need to function """
+        node = self.__constructTree(logic)
+        node._assignEngine(self.engine)
+        return node
 
-        self.ontology = ontology
-
-    def constructTree(self, logic) -> EvalTreeNode:
+    def __constructTree(self, logic):
 
         if not logic: raise IncorrectLogic("Empty logic")
         tll, segments = self._breakdown_logic(logic)
@@ -131,13 +239,13 @@ class EvalTreeFactory:
 
         match = self.__String.search(tll)
         if match:
-            return re.escape(tll)
+            return StringNode(tll)
         
         match = self.__Number.search(tll)
         if match:
-            return float(tll)
+            return NumberNode(tll)
 
-        if tll in self.__buildinFunction:
+        if tll in BuiltInFunctionNode.functionList:
             if len(segments) != 1: raise IncorrectLogic()
             return BuiltInFunctionNode(tll, segments[0][1])
 
@@ -208,22 +316,8 @@ class EvalTreeFactory:
         # Construct left and right and return
         return addSegments(left, leftSegs), addSegments(right, rightSegs)
 
-
-
-class EvalTreeleaf:
-    pass
-
-if __name__ == "__main__":
-
-    logging.basicConfig()
-    log.setLevel(logging.DEBUG)
-
-    logic = "map(3, x**2)->min(4)->multiply(%=rel1=@)->map(x>2)"
-
-    TreeFactory = EvalTreeFactory(None)
-
-    node = TreeFactory.constructTree(logic)
-    log.info(node)
-
-    log.info(TreeFactory.constructTree("#Time>length(%.start_date, @.start_date)->map(x>0)"))
-    log.info(TreeFactory.constructTree("(#Time>length(%.start_date, @.start_date))->(map(x>0))"))
+    @staticmethod
+    def paramToConcept(concept_name: str) -> str:
+        """ Convert a parameter name into a valid concept string """
+        match = re.search("[A-Za-z_]+", concept_name)
+        if match: return match.group(0), "#" in concept_name
