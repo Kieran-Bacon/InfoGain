@@ -1,5 +1,7 @@
-import logging, re
+import re
+from .instance import Instance
 
+import logging
 log = logging.getLogger(__name__)
 
 class IncorrectLogic(Exception):
@@ -12,44 +14,23 @@ class EvalTree:
 
     def _assignEngine(self, engine):
         self.engine = engine
+    
+    def instance(self, *args) -> Instance:
+        """ return the instance this node is linked too or None in the event the node does not
+        relate """
+        return None
 
     def parameters(self) -> set:
+        """ Determine the parameters that are contained within the node """
+        return set()
+
+    def eval(self, *args, **kwargs):
+        """ Determine the value of the node and return its value """
         raise NotImplementedError()
-
-    def eval(self, *args):
-        raise NotImplementedError()
-
-class PipeNode(EvalTree):
-
-    def __init__(self, left, right):
-        log.info("Created PipeNode")
-
-        self.left = left
-        self.right = right
-
-    def __str__(self):
-        return str(self.left) + "->" + str(self.right)
-
-    def eval(self):
-        return self.right.eval(additional=[self.left.eval()])
-
-    def parameters(self):
-        return self.left.parameters().union(self.right.parameters())
-         
-
-class PropertyNode(EvalTree):
-
-    def __init__(self, component: str, property_key: str):
-        self.component = component
-        self.key = property_key
-
-    def __str__(self):
-        return str(self.component) + "." + str(self.key)
-
-    def parameters(self):
-        return self.component.parameters()
 
 class ConceptNode(EvalTree):
+
+    expression = re.compile(r"\%|\@|#[\w_]+")
     
     def __init__(self, concept_name: str):
         self.concept_name = concept_name
@@ -57,26 +38,19 @@ class ConceptNode(EvalTree):
     def __str__(self):
         return self.concept_name
 
+    def instance(self, **kwargs):
+        return kwargs["scenario"].get(self.concept_name)
+
     def eval(self, **kwargs):
-        return self.concept_name
+        if "scenario" in kwargs: return (kwargs["scenario"].get(self.concept_name) is not None)*100
+        else: return 0
 
     def parameters(self):
-        return [self.concept_name]
-
-class ConceptFunctionNode(EvalTree):
-
-    def __init__(self, concept: ConceptNode, function_name: str, parameters: [EvalTree]):
-        self.concept = concept
-        self.function = function_name
-        self.function_parameters = parameters
-
-    def __str__(self):
-        return str(self.concept) + ">" + str(self.function) + "({})".format(",".join([str(x) for x in self.function_parameters]))
-
-    def parameters(self):
-        return self.concept.parameters() + [param for group in self.function_parameters for param in group]
+        return {self.concept_name}
 
 class RelationNode(EvalTree):
+
+    expression = re.compile(r"({})=([\w_]+)=({})".format(ConceptNode.expression.pattern, ConceptNode.expression.pattern))
     
     def __init__(self, domain: ConceptNode, relation: str, target: ConceptNode):
         self.domain = domain
@@ -87,7 +61,7 @@ class RelationNode(EvalTree):
         return "=".join([str(self.domain), self.relation, str(self.target)])
 
     def parameters(self):
-        return self.domain.parameters() + self.target.parameters()
+        return self.domain.parameters().union(self.target.parameters())
 
     def eval(self, **kwargs):
 
@@ -100,13 +74,63 @@ class RelationNode(EvalTree):
 
         return self.engine.inferRelation(domain, self.relation, target)
 
+class PropertyNode(EvalTree):
+
+    expression = re.compile(r"(?!([0-9]*[A-Za-z]+[0-9]*)+)\.(?=([0-9]*[A-Za-z]+[0-9]*)+)")
+
+    def __init__(self, component: str, property_key: str):
+        self.component = component
+        self.key = property_key
+
+    def __str__(self):
+        return str(self.component) + "." + str(self.key)
+
+    def parameters(self):
+        return self.component.parameters()
+
+    def eval(self, **kwargs):
+        """ Extract the property from the object on the left """
+
+        component = self.component.instance(component=True, **kwargs)
+
+        if component and isinstance(component, Instance):
+            return component.property(self.key)
+        else:
+            return None
+
+class FunctionNode(EvalTree):
+
+    expression = re.compile(r">")
+
+    def __init__(self, component: Instance, function_name: str, parameters: [EvalTree]):
+        self.component = component
+        self.function = function_name
+        self.function_parameters = parameters
+
+    def __str__(self):
+        return str(self.component) + ">" + str(self.function) + "({})".format(",".join([str(x) for x in self.function_parameters]))
+
+    def parameters(self):
+        return self.component.parameters().union({param for group in self.function_parameters for param in group.parameters()})
+
+    def eval(self, **kwargs):
+
+        inst = self.component.instance(**kwargs)
+
+        if inst:
+            if self.function_parameters:
+                args = [param.eval(**kwargs) for param in self.function_parameters]
+                return inst.function(self.function, *args)
+            else: return inst.function(self.function)
+        else: return None
+
 class BuiltInFunctionNode(EvalTree):
 
     functionList = [
         "graph"
     ]
 
-    def __init__(self, function_name: str, parameters: str):
+    def __init__(self, function_name: str, parameters: [EvalTree]):
 
         self.__function_list = {
             "graph": self.graph
@@ -114,7 +138,7 @@ class BuiltInFunctionNode(EvalTree):
 
         log.info("Created BuildInFunctionNode {}".format(function_name))
         self.function = function_name
-        self.function_parameters = parameters[1:-1].split(",")
+        self.function_parameters = parameters
 
     def __str__(self):
         return self.function + "({})".format(",".join(self.function_parameters))
@@ -124,7 +148,7 @@ class BuiltInFunctionNode(EvalTree):
 
     def eval(self, **kwargs):
 
-        function_parameters = kwargs.get("additional", []) + self.function_parameters
+        function_parameters = [node.eval(**kwargs) for node in self.function_parameters]
 
         return self.__function_list[self.function](*function_parameters)
 
@@ -163,26 +187,19 @@ class StringNode(EvalTree):
 
 class NumberNode(EvalTree):
 
+    expression = re.compile(r"(^\d+\.\d+$|^\d+$)")
+
     def __init__(self, number):
         self.number = float(number)
 
     def __str__(self):
+        if int(self.number) == self.number: return str(int(self.number))
         return str(self.number)
 
     def eval(self, **kwargs):
         return self.number
 
 class EvalTreeFactory:
-
-    __PipeFunction = re.compile(r"->")
-    __ConceptFunction = re.compile(r">")
-    __Property = re.compile(r"\.")
-
-    __Concept = re.compile(r"\%|\@|#[\w_]+")
-    __Relation = re.compile(r"({})=([\w_]+)=({})".format(__Concept.pattern, __Concept.pattern))
-
-    __String = re.compile(r"\".+\"")
-    __Number = re.compile(r"(\d+\.\d+|\d+)")
 
     def __init__(self, engine):
         self.engine = engine
@@ -203,51 +220,39 @@ class EvalTreeFactory:
             # Remove all encompassing parenthesis
             return self.constructTree(segments[0][1][1:-1])
 
-        # The logic contains a piping function
-        match = self.__PipeFunction.search(tll)
-        if match:
-            # Reform the logic on the split
-            left, right = self._reformSplit(tll, segments, match.span())
-            return PipeNode(self.constructTree(left), self.constructTree(right))
-
         # The logic contains a concept function as the main pivort
-        match = self.__ConceptFunction.search(tll)
+        match = FunctionNode.expression.search(tll)
         if match:
-            if len(segments) != 1: raise IncorrectLogic()
             left, right = self._reformSplit(tll, segments, match.span())
-
             function, signature = right[:right.index("(")], right[right.index("("):][1:-1].split(",")
-
-            parameters = [self.constructTree(sigParam) for sigParam in signature]
-
-            return ConceptFunctionNode(self.constructTree(left), function, parameters)
+            parameters = [self.constructTree(sigParam) for sigParam in signature if sigParam != ""]
+            return FunctionNode(self.constructTree(left), function, parameters)
 
         # Property key of component is main pivort
-        match = self.__Property.search(tll)
+        match = PropertyNode.expression.search(tll)
         if match:
             left, right = self._reformSplit(tll, segments, match.span())
             return PropertyNode(self.constructTree(left), right)
 
-        match = self.__Relation.search(tll)
+        match = RelationNode.expression.search(tll)
         if match:
             domain, relation, target = tll.split("=")
             return RelationNode(self.constructTree(domain), relation, self.constructTree(target))
 
-        match = self.__Concept.search(tll)
+        match = ConceptNode.expression.search(tll)
         if match:
             return ConceptNode(tll)
 
-        match = self.__String.search(tll)
-        if match:
-            return StringNode(tll)
+        if tll in BuiltInFunctionNode.functionList:
+            if len(segments) != 1: raise IncorrectLogic()
+            parameters = [self.constructTree(param) for param in segments[0][1][1:-1].split(",")]
+            return BuiltInFunctionNode(tll, parameters)
         
-        match = self.__Number.search(tll)
+        match = NumberNode.expression.search(tll)
         if match:
             return NumberNode(tll)
 
-        if tll in BuiltInFunctionNode.functionList:
-            if len(segments) != 1: raise IncorrectLogic()
-            return BuiltInFunctionNode(tll, segments[0][1])
+        return StringNode(tll)
 
     @staticmethod
     def _breakdown_logic(logic: str) -> (str, (int, str)):
