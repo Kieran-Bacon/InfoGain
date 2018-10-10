@@ -1,6 +1,6 @@
 from inspect import signature
 
-from ..knowledge import Concept, Relation
+from ..information import Vertice, Edge
 
 class Instance():
     """ Abstract class to imply a instatiation of an ontology object - the base class defines the 
@@ -12,16 +12,6 @@ class Instance():
         self._properties = {}  # A dictionary of properties
         self._functions = {}  # A dictionary of functions with parameters
 
-    def property(self, name: str) -> (object):
-        """ Return the value of the property that has been asked for. If the
-        property doesn't exist, return None 
-        
-        Params:
-            name (str): The name of the property that is to be returned
-        """
-        value = self._properties.get(name)  # Extract the object at the location
-        return value if not callable(value) else value()  # if the property is a function, run it
-
     def addFunction(self, function: callable):
         """ Add a function to the instance object - to be called using the function method.
         Functions that do not have parameters are also stored as properties for ease of use.
@@ -31,7 +21,7 @@ class Instance():
         """
 
         functionSignature = signature(function)  # Extract inspect the signature of the function
-        if not functionSignature.parameters: self._addProperty(function.__name__, function)
+        if not functionSignature.parameters: self.addProperty(function.__name__, function)
         
         self._functions[function.__name__] = function  # Save the function to the instance
 
@@ -45,12 +35,18 @@ class Instance():
         Returns
             The output of the function - could literally be anything
         """
-        print(function_name)
-        print(self._functions)
         if args: return self._functions.get(function_name, self.__empty_function__)(*args)
         else: return self._functions.get(function_name, self.__empty_function__)()
 
-    def _addProperty(self, prop_name: str, prop_value: object) -> None:
+    def removeFunction(self, function_name: str) -> None:
+        """ Remove a function from the instance
+
+        Params:
+            function_name (str): The name of the function to be removed
+        """
+        del self._functions[function_name]
+
+    def addProperty(self, prop_name: str, prop_value: object) -> None:
         """ Add a property into the instance 
         
         Params:
@@ -59,7 +55,17 @@ class Instance():
         """
         self._properties[prop_name] = prop_value
 
-    def _removeProperty(self, prop_name: str):
+    def property(self, name: str) -> (object):
+        """ Return the value of the property that has been asked for. If the
+        property doesn't exist, return None 
+        
+        Params:
+            name (str): The name of the property that is to be returned
+        """
+        value = self._properties.get(name)  # Extract the object at the location
+        return value if not callable(value) else value()  # if the property is a function, run it
+
+    def removeProperty(self, prop_name: str):
         """ Delete the property with the given name 
         
         Params:
@@ -76,16 +82,33 @@ class Instance():
         """
         return None
 
-class ConceptInstance(Instance, Concept):
-    """ A instance of a concept """
+class ConceptInstance(Instance, Vertice):
+    """ An instance of a concept. The concept a ConceptInstance represents is responsible for 
+    generating its instance - the responsiblity of ensuring correctness within the instance is
+    therefore handled by the concept.
 
-    def __init__(self, concept):
+    No abstract concept will have a ConceptInstance
+
+    A static concept will share its internal properties dictionary with this instance - updates to 
+    either will have side-effects for the other
+
+    A dynamic concept will have entirely separated properties
+
+    Params:
+
+        concept (knowledge.Concept): The concept this instance resembles
+    """
+
+    def __init__(self, concept_name: str, instance_name: str = None, properties: dict = {}):
         Instance.__init__(self)
-        Concept.__init__(self, **concept.minimise())
+        self.concept = concept_name
+        self.name = instance_name if instance_name is not None else self.concept
+        self._properties = properties
 
-        self.concept = concept  # Reference back to the original instance
-        self._properties = self.properties  # Set the hidden properties dict as a pointer to the concept properties
+    def __str__(self):
+        return self.name
 
-class RelationInstance(Instance, Relation):
+
+class RelationInstance(Instance, Edge):
     """ An instance of a relation paring """
     pass

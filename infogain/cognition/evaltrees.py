@@ -1,5 +1,7 @@
 import re
-from .instance import Instance
+
+from . import ConsistencyError
+from ..knowledge import Instance
 
 import logging
 log = logging.getLogger(__name__)
@@ -39,6 +41,8 @@ class ConceptNode(EvalTree):
         return self.concept_name
 
     def instance(self, **kwargs):
+        if "scenario" not in kwargs: raise ConsistencyError("A valid scenario has not been passed through evaluation stack")
+        if kwargs["scenario"].get(self.concept_name) is None: raise ConsistencyError("Logic error - Concept node for {} not found in scenario".format(self.concept_name))
         return kwargs["scenario"].get(self.concept_name)
 
     def eval(self, **kwargs):
@@ -50,6 +54,7 @@ class ConceptNode(EvalTree):
 
 class RelationNode(EvalTree):
 
+    # TODO: Handle negative relations
     expression = re.compile(r"({})=([\w_]+)=({})".format(ConceptNode.expression.pattern, ConceptNode.expression.pattern))
     
     def __init__(self, domain: ConceptNode, relation: str, target: ConceptNode):
@@ -64,15 +69,7 @@ class RelationNode(EvalTree):
         return self.domain.parameters().union(self.target.parameters())
 
     def eval(self, **kwargs):
-
-        domain = self.domain.eval(**kwargs)
-        target = self.target.eval(**kwargs)
-
-        if "scenario" in kwargs:
-            domain = kwargs["scenario"].get(domain)
-            target = kwargs["scenario"].get(target)
-
-        return self.engine.inferRelation(domain, self.relation, target)
+        return self.engine.inferRelation(self.domain.instance(**kwargs), self.relation, self.target.instance(**kwargs))
 
 class PropertyNode(EvalTree):
 

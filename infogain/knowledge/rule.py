@@ -24,10 +24,19 @@ class Rule:
 
         if conditions:
             self.domains = Concept.expandConceptSet(self.domains)
+            
+            if variableOnTarget:
+                self.targets = self.targets.union(Concept.expandConceptSet(self.targets))
             self.targets = Concept.expandConceptSet(self.targets, descending=False)
 
-            if variableOnTarget:
-                self.targets = self.targets.union(Concept.expandConceptSet(targets))
+    def __str__(self):
+        base = " ".join([str([str(d) for d in self.domains]), self.relation, str([str(d) for d in self.targets]), "is true with", str(self.confidence)])
+        if self._conditions:
+            base += " when:\n"
+            base += "\n".join([str(condition) for condition in self._conditions])
+
+        return base
+
 
     def applies(self, domain: (Concept), target: (Concept)):
         """ Determine if the rule applies to the the domain and target pairing that has been

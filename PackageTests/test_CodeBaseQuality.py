@@ -15,9 +15,9 @@ class Test_CodeQuality(unittest.TestCase):
         issues = []
 
         printIssue = "Print statement found in {}: line {} \"{}\""
-        todoIssue = "TODO statement found: line {} \"{}\""
+        todoIssue = "TODO statement found in {}: line {} \"{}\""
 
-        for (dirpath, dirname, filenames) in os.walk(self.infogain_location):
+        for (dirpath, _, filenames) in os.walk(self.infogain_location):
 
             for filename in filenames:
                 directory = dirpath.split("/")[-1]

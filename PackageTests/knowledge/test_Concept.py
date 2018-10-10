@@ -1,4 +1,4 @@
-import unittest
+import unittest, pytest
 
 from infogain.knowledge import Ontology, Concept
 
@@ -108,6 +108,45 @@ class Test_Concept(unittest.TestCase):
             ont.addConcept(concept)
 
         self.assertEqual({c.name for c in Concept.minimiseConceptSet(Concept.expandConceptSet({x, y1}))}, {x, y1})
+
+    def test_generation_of_concept_instance(self):
+        """ Test that a concept generates its instance correctly and that it has the behaviour that 
+        we would want """
+
+        # Test that an abstract concept raises an type error when attempting to generate its instance
+        being = Concept("Being", properties={"age": int}, category="abstract")
+        with pytest.raises(TypeError):
+            being.instance()
+
+        # Test that a static concept returns only a single instance regardless of the number of calls
+        kieran = Concept("Kieran", properties={"age": 10}, category="static")
+
+        firstKieranInst = kieran.instance()
+        secondKieranInst = kieran.instance()
+
+        self.assertTrue(firstKieranInst is secondKieranInst)
+        self.assertTrue(kieran.properties is firstKieranInst._properties is secondKieranInst._properties)
+
+        kieran.properties["lastname"] = "Bacon"
+
+        self.assertEqual(firstKieranInst.property("lastname"), "Bacon")
+        self.assertEqual(secondKieranInst.property("lastname"), "Bacon")
+
+        # Test that a dynamic concept generates multiple differing instances with individual properties
+        person = Concept("Person", properties={"age": 10})
+
+        ben = person.instance("Ben")
+        tom = person.instance("Tom")
+
+        person.properties["lastname"] = "Bacon"
+
+        self.assertEqual(ben.property("lastname"), None)  # Does not have the new property
+
+        tom.addProperty("height", 6.4)
+
+        self.assertEqual(tom.property("height"), 6.4)
+        self.assertEqual(ben.property("height"), None)
+
 
 if __name__ == "__main__":
     unittest.main()

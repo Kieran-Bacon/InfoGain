@@ -1,8 +1,8 @@
 import unittest
 
-from infogain.knowledge import Concept, Relation
+from infogain.knowledge import Concept, ConceptInstance, Relation
 
-from infogain.cognition import InferenceEngine, ConceptInstance
+from infogain.cognition import InferenceEngine
 from infogain.cognition import evaltrees
 
 class Test_eval_trees(unittest.TestCase):
@@ -18,7 +18,7 @@ class Test_eval_trees(unittest.TestCase):
         self.maps_to = Relation({self.example}, "maps_to", {self.example})
         self.engine.addRelation(self.maps_to)
 
-        self.scenario = {"#example": self.engine.instances("example")[0]}
+        self.scenario = {"#example": self.example.instance()}
 
         self.factory = evaltrees.EvalTreeFactory(self.engine)
 
@@ -31,7 +31,7 @@ class Test_eval_trees(unittest.TestCase):
         self.assertEqual(str(conceptNode), logic)
         self.assertEqual(conceptNode.parameters(), {"#example"})
         self.assertEqual(conceptNode.eval(scenario=self.scenario), 100)
-        self.assertEqual(conceptNode.instance(scenario=self.scenario), self.example)
+        self.assertEqual(conceptNode.instance(scenario=self.scenario).concept, self.example)
 
     def test_FunctionNode_functions(self):
 
@@ -41,7 +41,7 @@ class Test_eval_trees(unittest.TestCase):
         def function_with_arguments(x, y, z):
             return x + y + z
 
-        inst = self.engine.instances("example")[0]
+        inst = self.example.instance()
         inst.addFunction(function)
         inst.addFunction(function_with_arguments)
 

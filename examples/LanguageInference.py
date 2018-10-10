@@ -1,3 +1,6 @@
+
+from infogain.artefact import Document
+from infogain.extraction import RelationExtractor
 from infogain.cognition import InferenceEngine
 from infogain.resources.ontologies import language
 
@@ -9,16 +12,24 @@ ontologylog.setLevel(logging.ERROR)
 
 ont = language.ontology()
 
-rel = ont.relation("speaks")
+extractor = RelationExtractor(ontology=ont)
+extractor.fit(language.training())
+
+Document(content="Kieran lives in England, he has done for around 10 years.")
+
+documents = extractor.predict(Document(content="Kieran lives in England, he has done for around 10 years."))
+
 
 engine = InferenceEngine("inference", ontology=ont)
 
-newRel = engine.relation("speaks")
+print(engine.inferRelation(engine.instances("England"), "speaks", engine.instances("English")))
 
-print(engine.inferRelation("England", "speaks", "English"))
+print(engine.inferRelation(engine.instances("Kieran"), "lives_in", engine.instances("England")))
 
-print(engine.inferRelation("Kieran", "lives_in", "England"))
+for doc in documents:
+    for point in doc.datapoints():
+        print(point)
 
-print("Eval", engine.inferRelation(engine.concept("Kieran"), "speaks", engine.concept("English")))
+engine.addWorldKnowledge(documents)
 
-print(engine.inferRelation("Kieran", "lives_in", "England"))
+print(engine.inferRelation(engine.instances("Kieran"), "lives_in", engine.instances("England")))

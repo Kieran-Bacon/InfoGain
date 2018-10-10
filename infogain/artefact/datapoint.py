@@ -7,6 +7,10 @@ class Datapoint:
         data (dict) - A dictionary of data point information, very relaxed in its requirement
     """
 
+    POSITIVE = 1
+    INSUFFICIENT = 0
+    NEGATIVE = -1
+
     def __init__(self, data: dict = {}):
 
         # The relation information

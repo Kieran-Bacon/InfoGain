@@ -1,6 +1,6 @@
 from . import ConsistencyError
-from ..knowledge import Ontology, Concept, Relation, Rule
-from .instance import ConceptInstance, RelationInstance
+from ..artefact import Document
+from ..knowledge import Ontology, Concept, ConceptInstance, Relation, Rule
 from .evalrule import EvalRule
 from .evaltrees import EvalTreeFactory
 
@@ -32,7 +32,7 @@ class InferenceEngine(Ontology):
 
         self._conceptInstances[concept.name] = []
         if concept.category == Concept.STATIC:
-            self._conceptInstances[concept.name].append(ConceptInstance(concept))
+            self._conceptInstances[concept.name].append(concept.instance())
 
     def addRelation(self, relation: Relation):
         Ontology.addRelation(self, relation)  # Call the original add relation function
@@ -49,42 +49,98 @@ class InferenceEngine(Ontology):
         # Unpackage the rules of the ontology, generate eval rules to represent them
         relation.assignRules(evalRules)
 
-    def instances(self, concept_name: str, expand: bool = False) -> [ConceptInstance]:
+    def addInstance(self, concept_instance: ConceptInstance) -> None:
+        """ Add a concept instance - Only possible for dynamic concepts
 
-        if expand:
-            concept = self.concept(concept_name)
+        Params:
+            concept_instance (ConceptInstance): The instance object to be added
+
+        Raises:
+            ConsistencyError: In the event that the concept is not already apart of the engine
+            TypeError: In the event that the concept is not suitable for additional instances
+        """
+
+        concept = self.concept(concept_instance.concept)
+        if concept is None: raise ConsistencyError("{} is not an concept within the engine - Cannot add instance for missing concept".format(concept_instance.concept))
+        if concept.category is(Concept.ABSTRACT or Concept.STATIC): TypeError("{} is not suitable for additional instances. Its category needs to be set to dynamic".format(concept.name))
+
+        self._conceptInstances[concept.name].append(concept_instance)
+
+    def instances(self, concept_name: str, descendants: bool = False) -> [ConceptInstance]:
+        """ Collect the instances for a concept identifier. If the concept is static then only its 
+        single instance shall be returned. Or all the instances for a concept and its children.
+
+        Params:
+            concept_name (str): The concept idenfitier
+            descendants (bool): Along with the concept gather the descendant concept's instances
+
+        Returns:
+            ConceptInstances: A ConceptInstance or a list of concept instances
+        """
+
+        concept = self.concept(concept_name)
+
+        if descendants:
             expanded = Concept.expandConceptSet({concept})
             return [inst for con in expanded for inst in self._conceptInstances.get(con.name, [])]
 
+        if concept.category is Concept.ABSTRACT:
+            log.warning(
+                "Attempting to collect instances for an Abstract concept" +
+                " - Mistake to call instances on {}".format(concept_name))
+            return []
+
+        if concept.category is Concept.STATIC:
+            return concept.instance() # Singlton - will return stored instance  
+
         return self._conceptInstances.get(concept_name, [])
 
-    def addInstance(self, concept_instance: ConceptInstance) -> None:
-        if concept_instance.name in self._concepts:
-            self.addConcept(concept_instance.concept)  # Add the concept the instance is associated with
+    def addWorldKnowledge(self, documents: [Document]) -> None:
+        """ Add world knowledge into the inference engine via document datapoints, unmatched datapoints
+        are ignored.
 
-            # Assign this instance - overwrite a concept instance if it has been generated during adding
-            self._conceptInstances[concept_instance.name] = [concept_instance]
+        Params:
+            documents ([Document]): A list of document objects each with datapoints (hopefully)
+        """
 
-        else:
-            # The concept exists 
-            if concept_instance.category == Concept.STATIC:
-                raise ConsistencyError("Attempting to add instance for {} despite concept category".format(concept_instance.name))
+        for document in documents:
+            for point in document.datapoints():
+                if point.prediction == 0: continue  # No information
 
-            self._conceptInstances[concept_instance.name].append(concept_instance)
+                domain = self.concept(point.domain["concept"])
+                relation = self.relation(point.relation)
+                target = self.concept(point.target["concept"])
 
-    def inferRelation(self, domain: str, relation: str, target: str):
-        """ Determine the confidence of a relation between entities """
+                if relation:
+                    rule = EvalRule(domain, relation.name, target, point.probability*100, supporting=point.prediction)
+                    rule.assignOntology(self)
+                    relation.addRule(rule)
+                else:
+                    log.debug("Datapoint's relation {} missed during adding of world knowledge".format(point.relation))        
 
-        if isinstance(domain, str):
-            domain = self.instances(domain)[0]
-            target = self.instances(target)[0]
+    def inferRelation(self, domain: ConceptInstance, relation: (str, Relation), target: ConceptInstance):
+        """ Determine the confidence of a relation between entities 
+        
+        Params:
+            domain (ConceptInstance): A concept instance which is a domain of the relation
+            relation (str/Relation): The string identifier of a relation, or the relation itself
+            target (ConceptInstance): A concept instance of which is a target of the relation
+        
+        Returns:
+            float: The certainty of a relation which falls between the range(0, 100)
+        """
 
-        relation = self.relation(relation)  # Collect the relation
+        if isinstance(relation, (str)): relation = self.relation(relation)
+        domConcept, tarConcept = self.concept(domain.concept), self.concept(target.concept)
 
-        log.info("Infering relation '{} {} {}' - {} rules found for relation instance".format( domain, relation.name, target, len(relation.rules(domain, target))))
+        if None is (domConcept or tarConcept): raise Exception("Cannot infer relation between concepts unknown to the engine")
+
+        log.info("Infering relation '{} {} {}' - {} rules found for relation instance".format(
+            domain, relation.name, target, len(relation.rules(domConcept, tarConcept))))
+
 
         confidence = 0
-        for rule in relation.rules(domain, target):
+        for rule in relation.rules(domConcept, tarConcept):
             confidence += rule.eval(domain, target)
 
         return confidence

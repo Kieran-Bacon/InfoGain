@@ -1,13 +1,21 @@
+import uuid
+
+from ..information import Vertice
+from .instance import ConceptInstance
+
 import logging
 log = logging.getLogger(__name__)
 
-class Concept:
+class Concept(Vertice):
     """ A concept represents a "thing", an idea, an object, a place, anything.
 
     Args:
         name (str): The name/representation for the concept
         parents (set): A set of concepts/strings that represent parent concepts
         children (set): A set of concepts/strings that represent child concepts
+        alias (set(str)): A set of string representations for the concept that maybe found in text
+        properties (dict): A property of a concept e.g "age": 20
+        category ("abstract"/"static"/"dynamic"): The class of the concept - defines behaviour
         json (dict): The concept information in the form of a diction, expected from json
     """
 
@@ -29,7 +37,7 @@ class Concept:
         if json:
             self.alias = set(json.get("alias", alias))
             self.properties = json.get("properties", {})
-            self.category = json.get("category", category)
+            self.category = self.__stampCategory(json.get("category", category))
 
             self.parents = set(json.get("parents", parents))
             self.children = set(json.get("children", children))
@@ -37,13 +45,19 @@ class Concept:
         else:
             self.alias = set(alias)
             self.properties = properties.copy()
-            self.category = category
+            self.category = self.__stampCategory(category)
 
             self.parents = parents.copy()
             self.children = children.copy()
 
         [Concept.fuse(self, par) for par in self.parents if not isinstance(par, str)]
         [Concept.fuse(self, child) for child in self.children if not isinstance(child, str)]
+
+        if self.category is not Concept.ABSTRACT:
+            self._instance_class = ConceptInstance
+
+            if self.category is Concept.STATIC:
+                self._instance = self._instance_class(self.name, properties=self.properties)
 
     def __str__(self): return self.name
 
@@ -94,6 +108,50 @@ class Concept:
 
         return decendants
 
+    def setInstanceClass(self, instance_class: ConceptInstance) -> None:
+        """ Overload the default ConceptInstance with another that extends ConceptInstance such that
+        when new instances of this class are generated they shall be instances of the new class. In
+        the event that the concept is static, the concept instance is replaced.
+
+        Params:
+            instance_class (ConceptInstance): The class object
+
+        Raises:
+            TypeError: In the event that the instance_class is does not extend ConceptInstance
+        """
+
+        if not isinstance(instance_class, ConceptInstance):
+            raise TypeError("Class passed to {} as new instance class does not extend ConceptInstance".format(self.name))
+
+        self._instance_class = instance_class
+
+        if self.category is Concept.STATIC:
+            self._instance = self._instance_class(self)
+
+    def instance(self, instance_name: str = None) -> ConceptInstance:
+        """ Generate an instance of this concept and return it. In the event that the concept is 
+        static, this function acts as a singlton and returns the single instance of this concept
+        
+        Params:
+            instance_name (str): (dynamic only) An unique identifier for the instance - defaults to 
+                UUID in the event that it is not provided and needed
+
+        Raises:
+            TypeError: In the event that the concept is abstract - no instance can be created
+        """
+
+        if self.category is Concept.ABSTRACT:
+            raise TypeError("Concept {} is abstract - No instances can be generated for this concept")
+
+        if self.category is Concept.STATIC:
+            if instance_name is not None:
+                log.warning("{} concept is static yet instance called for with an identifier".format(self.name))
+            return self._instance
+
+        if instance_name is None: instance_name = str(uuid.uuid4())
+
+        return self._instance_class(self.name, instance_name, self.properties.copy())  # Generate a new instance of this class
+
     def clone(self):
         """ Return an new partial concept with identical information but invalid concept connections
         
@@ -126,6 +184,15 @@ class Concept:
         if self.category is not Concept.DYNAMIC: concept["category"] = self.category
 
         return concept
+
+    @classmethod
+    def __stampCategory(cls, category):
+        """ Return the global concept category type to allow for cooler comparisons and reduced
+        memory requirement
+        """
+        if   category == cls.ABSTRACT: return cls.ABSTRACT
+        elif category == cls.STATIC: return cls.STATIC
+        elif category == cls.DYNAMIC: return cls.DYNAMIC
 
     @classmethod
     def expandConceptSet(cls, collection, descending: bool = True):
@@ -188,13 +255,3 @@ class Concept:
 
             concept_one.parents = {concept_two}.union(concept_one.parents)
             concept_two.children = {concept_one}.union(concept_two.children)
-
-class Instance(Concept):
-    """ A geniune instance of a concept existing in the knowledge. An instance is of a particular concept. """
-    
-    def __init__(self, name: str, parent: Concept, properties={}):
-        self.name = name
-        self.parent = parent
-
-        # Combine the provided properties of the instance with the concept properties if applicable
-        self.properties = {**parent.properties, **properties} if isinstance(parent, Concept) else properties

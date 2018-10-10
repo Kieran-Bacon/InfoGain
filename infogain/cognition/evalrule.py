@@ -1,16 +1,39 @@
 import itertools
 
-from ..knowledge import Ontology, Concept, Rule
-from .instance import ConceptInstance
+from ..knowledge import Ontology, Concept, ConceptInstance, Rule
 from .evaltrees import EvalTreeFactory, EvalTree
 
 import logging
 log = logging.getLogger(__name__)
 
 class EvalRule(Rule):
+    """ As part of a inference engine, an EvalRule is able to use evaluate its internal logic and 
+    return with a confidence for a domain target paring that has been passed. The object is 
+    responsible for generating all relevant scenarios and combining their confidences
 
-    def __init__(self, domains: {Concept}, relation: str, targets: {Concept}, confidence: float, conditions: [dict] = [], ontology: Ontology = None):
+    Params:
+        domains ({Concept}): A subset of the relation domains that this rule applies too
+        relation (str): Relation identifier
+        targets ({Concept}): A subset of the relation targets that this rul applies too
+        confidence (float): The maximum certainty this rule can generate
+        supporting (bool): Indicates whether this rule agrees with a relation or undermines it -
+                           if True confidence goes up else confidence goes down
+        conditions ([dict]): A list of dictionaries containing the definition for logical conditions
+                            that would need to be meet for the rule to be valid
+        ontology (Ontology): The inference engine refer needed for the evaluation of some logic
+    """
+
+    def __init__(self,
+        domains: {Concept},
+        relation: str,
+        targets: {Concept},
+        confidence: float,
+        supporting: bool = True,
+        conditions: [dict] = [],
+        ontology: Ontology = None):
         Rule.__init__(self, domains, relation, targets, confidence, conditions)
+        self.supporting = supporting
+        self._evaluatedConfidences = {} 
         if ontology: self.assignOntology(ontology)
 
     def assignOntology(self, ontology: Ontology) -> None:
@@ -21,7 +44,6 @@ class EvalRule(Rule):
         self.targets = {self.engine.concept(con) for con in self.targets if isinstance(con, str)}.union(self.targets)
 
         self._factory = EvalTreeFactory(self.engine)
-        self._evaluatedConfidences = {} 
         self._conditionTrees = [self._factory.constructTree(cond["logic"]) for cond in self._conditions]
 
         self._parameters = {}
@@ -36,9 +58,12 @@ class EvalRule(Rule):
         """ Evaluate all the scenarios of a particular relation instance and determine the confidence
         of the relation """
 
-        if domain not in self.domains and target not in self.targets:
+        if domain.concept not in self.domains and target.concept not in self.targets:
             log.debug("Rule doesn't apply to the paring, returning None")
             return 0  # Return 0 as the rule doesn't support the pair provided
+
+        if not self._conditions:
+            return self.confidence
 
         pairing_key = "-".join([str(domain), str(target)])  # Generate the key for this pairing
 
@@ -61,7 +86,7 @@ class EvalRule(Rule):
             scenario["%"] = domain
             scenario["@"] = target
 
-            log.debug("Evaluating rule scenario - {}".format({k: v.name for k,v in scenario.items()}))
+            log.debug("Evaluating rule scenario - {}".format({k: str(v) for k,v in scenario.items()}))
 
             confidence = self.evalScenario(scenario)/100
 
