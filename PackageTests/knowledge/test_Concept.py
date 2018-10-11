@@ -1,6 +1,6 @@
 import unittest, pytest
 
-from infogain.knowledge import Ontology, Concept
+from infogain.knowledge import Ontology, Concept, ConceptInstance
 
 class Test_Concept(unittest.TestCase):
 
@@ -146,6 +146,16 @@ class Test_Concept(unittest.TestCase):
 
         self.assertEqual(tom.property("height"), 6.4)
         self.assertEqual(ben.property("height"), None)
+
+    def test_ConceptInstance_assignment(self):
+
+        class PersonInstance(ConceptInstance):
+
+            def something():
+                pass
+            
+
+        pass
 
 
 if __name__ == "__main__":

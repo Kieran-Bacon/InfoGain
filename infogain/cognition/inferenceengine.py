@@ -1,4 +1,4 @@
-from . import ConsistencyError
+from ..exceptions import ConsistencyError
 from ..artefact import Document
 from ..knowledge import Ontology, Concept, ConceptInstance, Relation, Rule
 from .evalrule import EvalRule
@@ -28,13 +28,30 @@ class InferenceEngine(Ontology):
             Ontology.__init__(name, filepath=filepath)
 
     def addConcept(self, concept: Concept) -> None:
+        """ Add a concept into the engine ontology
+
+        Params:
+            concept (Concept): The concept object to be added
+        """
         Ontology.addConcept(self, concept)  # Call the original add concept function
 
+        if concept.category is Concept.ABSTRACT: return
+
         self._conceptInstances[concept.name] = []
-        if concept.category == Concept.STATIC:
+        if concept.category is Concept.STATIC:
             self._conceptInstances[concept.name].append(concept.instance())
 
     def addRelation(self, relation: Relation):
+        """ Add a relationship into the engine - convert any rules within the relations to
+        evaluable rules according to the engine
+
+        Params:
+            relation (Relation): The relation to be added
+
+        Raises:
+            IncorrectLogic: A rule within the relation has malformed logic
+        """
+
         Ontology.addRelation(self, relation)  # Call the original add relation function
 
         evalRules = []

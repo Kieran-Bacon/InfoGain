@@ -13,7 +13,6 @@ class EvalRule(Rule):
 
     Params:
         domains ({Concept}): A subset of the relation domains that this rule applies too
-        relation (str): Relation identifier
         targets ({Concept}): A subset of the relation targets that this rul applies too
         confidence (float): The maximum certainty this rule can generate
         supporting (bool): Indicates whether this rule agrees with a relation or undermines it -
@@ -25,13 +24,14 @@ class EvalRule(Rule):
 
     def __init__(self,
         domains: {Concept},
-        relation: str,
         targets: {Concept},
         confidence: float,
         supporting: bool = True,
         conditions: [dict] = [],
         ontology: Ontology = None):
-        Rule.__init__(self, domains, relation, targets, confidence, conditions)
+
+        Rule.__init__(self, domains, targets, confidence, conditions)
+
         self.supporting = supporting
         self._evaluatedConfidences = {} 
         if ontology: self.assignOntology(ontology)
@@ -68,10 +68,10 @@ class EvalRule(Rule):
         pairing_key = "-".join([str(domain), str(target)])  # Generate the key for this pairing
 
         if pairing_key in self._evaluatedConfidences:
-            log.debug("Evaluating rule for {} {} {} - returning previous calculated value {}".format(domain, self.relation, target, self._evaluatedConfidences[pairing_key]))
+            log.debug("Evaluating rule for {} {} - returning previous calculated value {}".format(domain, target, self._evaluatedConfidences[pairing_key]))
             return self._evaluatedConfidences[pairing_key]  # Returned previously evaluted score
 
-        log.debug("Evaluating rule for {} {} {}".format(domain, self.relation, target))
+        log.debug("Evaluating rule for {} {}".format(domain, target))
 
         ruleConfidence = 1.0
         params = list(self._parameters)

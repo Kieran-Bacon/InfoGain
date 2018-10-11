@@ -61,14 +61,6 @@ class Concept(Vertice):
 
     def __str__(self): return self.name
 
-    def __eq__(self, other):
-        if isinstance(other, Concept):
-            return self.name == other.name
-        return self.name == other
-
-    def __ne__(self, other):
-        return not self.__eq__(other)
-
     def __hash__(self):
         if not self.__dict__: return 0
         return hash(self.name)

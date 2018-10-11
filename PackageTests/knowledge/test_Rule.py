@@ -10,14 +10,14 @@ class Test_Rule(unittest.TestCase):
         england, english = knowledge.Concept("England", {country}), knowledge.Concept("English", {language})
 
         # Fact applying rule
-        self.england_speaks_english = knowledge.Rule(england, "speaks", english, 80)
+        self.england_speaks_english = knowledge.Rule(england, english, 80)
 
         # Condition based rule
         conditions = [
             {"logic": "%.age->graph(x > 10)", "salience": 24}
         ]
 
-        self.country_speaks_language = knowledge.Rule({country}, "speaks", {language}, 80, conditions)
+        self.country_speaks_language = knowledge.Rule({country}, {language}, 80, conditions)
 
     def test_minimise(self):
 
@@ -26,7 +26,6 @@ class Test_Rule(unittest.TestCase):
             "domains": ["England"],
             "targets": ["English"],
             "confidence": 80,
-            "relation": "speaks"
         }
 
         self.assertEqual(minimised, self.england_speaks_english.minimise())
@@ -34,7 +33,6 @@ class Test_Rule(unittest.TestCase):
         minimised = {
             "domains": ["Country"],
             "targets": ["Language"],
-            "relation": "speaks",
             "confidence": 80,
             "conditions":[
                 {"logic": "%.age->graph(x > 10)", "salience": 24}

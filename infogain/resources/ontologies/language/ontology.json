@@ -125,7 +125,6 @@
                     "domains": [
                         "Kieran"
                     ],
-                    "relation": "lives_in",
                     "targets": [
                         "England"
                     ]
@@ -163,7 +162,6 @@
                     "domains": [
                         "Person"
                     ],
-                    "relation": "speaks",
                     "targets": [
                         "English",
                         "French",
@@ -176,7 +174,6 @@
                     "domains": [
                         "England"
                     ],
-                    "relation": "speaks",
                     "targets": [
                         "English"
                     ]

@@ -1,13 +1,10 @@
 import re
 
-from . import ConsistencyError
+from ..exceptions import IncorrectLogic, ConsistencyError
 from ..knowledge import Instance
 
 import logging
 log = logging.getLogger(__name__)
-
-class IncorrectLogic(Exception):
-    pass
 
 class EvalTree:
     

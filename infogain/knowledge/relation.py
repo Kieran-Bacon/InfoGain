@@ -1,4 +1,4 @@
-from . import MissingConcept
+from ..exceptions import MissingConcept
 from .concept import Concept
 from .rule import Rule
 
@@ -7,7 +7,7 @@ log = logging.getLogger(__name__)
 
 class Relation:
     """ A relation expresses a connection between concepts.
-    
+    # TODO fix this
     Args:
         domains (set): A collection of concepts
         name (str): The name to identify the relation object

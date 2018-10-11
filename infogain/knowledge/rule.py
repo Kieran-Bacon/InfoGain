@@ -2,15 +2,15 @@ from .concept import Concept
 
 class Rule:
     """ A rule is used to express how a relation might come about given a collection of knowledge """
+    # TODO: Complete documentation for Rule
 
-    def __init__(self, domains: {Concept}, relation: str, targets: {Concept}, confidence: float, conditions: [dict] = []):
+    def __init__(self, domains: {Concept}, targets: {Concept}, confidence: float, conditions: [dict] = []):
 
         if isinstance(domains, (Concept, str)):
             domains = {domains}
             targets = {targets}
 
         self.domains = set(domains)
-        self.relation = relation
         self.targets = set(targets)
 
         self.confidence = confidence
@@ -30,7 +30,7 @@ class Rule:
             self.targets = Concept.expandConceptSet(self.targets, descending=False)
 
     def __str__(self):
-        base = " ".join([str([str(d) for d in self.domains]), self.relation, str([str(d) for d in self.targets]), "is true with", str(self.confidence)])
+        base = " ".join([str([str(d) for d in self.domains]), str([str(d) for d in self.targets]), "is true with", str(self.confidence)])
         if self._conditions:
             base += " when:\n"
             base += "\n".join([str(condition) for condition in self._conditions])
@@ -49,9 +49,8 @@ class Rule:
 
         domains = sorted([con.name if isinstance(con, Concept) else con for con in Concept.minimiseConceptSet(self.domains)])
         targets = sorted([con.name if isinstance(con, Concept) else con for con in Concept.minimiseConceptSet(self.targets, ascending=False)])
-        relation = self.relation
 
-        minimised = {"domains": domains, "relation": relation, "targets": targets, "confidence": self.confidence }
+        minimised = {"domains": domains, "targets": targets, "confidence": self.confidence }
 
         if self._conditions:
             minimised["conditions"] = self._conditions

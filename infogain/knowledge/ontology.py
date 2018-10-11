@@ -1,6 +1,6 @@
 import os, uuid, logging, json
 
-from . import MissingConcept
+from ..exceptions import MissingConcept
 from .concept import Concept
 from .relation import Relation
 from .rule import Rule
@@ -46,7 +46,6 @@ class Ontology:
 
                 rules = []
                 for desc in rawRelation.get("rules", []):
-                    desc["relation"] = name
                     rules.append(Rule(**desc))
 
                 relation = Relation(

@@ -1,5 +1,3 @@
-class MissingConcept(Exception): pass
-
 from .concept import Concept
 from .relation import Relation
 from .rule import Rule
