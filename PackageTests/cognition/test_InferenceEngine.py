@@ -1,8 +1,8 @@
 import unittest, pytest
 
 from infogain.cognition import InferenceEngine
-from infogain.knowledge import Concept, ConceptInstance, Relation, Rule
-from infogain.exceptions import IncorrectLogic
+from infogain.knowledge import Concept, Instance, Relation, Rule
+from infogain.exceptions import IncorrectLogic, ConsistencyError
 
 class Test_InferenceEngine(unittest.TestCase):
 
@@ -50,10 +50,53 @@ class Test_InferenceEngine(unittest.TestCase):
             engine.addRelation(Relation("x", "wrong", "y", [Rule("x", "y", 100, [{"logic": "graph()()", "salience": 100}])]))
 
     def test_addInstance(self):
-        self.fail("Not implemented")
+        """ Add instances to the engine """
+
+        dynamic = Concept("dynamic")
+        static = Concept("static", category=Concept.STATIC)
+        abstract = Concept("abstract", category=Concept.ABSTRACT)
+
+        engine = InferenceEngine()
+        for con in [dynamic, static, abstract]: engine.addConcept(con)
+
+        self.assertEqual(engine._conceptInstances, {"dynamic": [], "static": [static.instance()]})
+
+        engine.addInstance(dynamic.instance())
+
+        self.assertTrue(engine.instances("dynamic"), 1)
+
+        instance = dynamic.instance()
+        instance.properties["dynamic_prop"] = True
+
+        engine.addInstance(instance)
+
+        self.assertTrue(engine.instances("dynamic"), 2)
+
+        for inst in engine.instances("dynamic"):
+            if inst.name == instance.name:
+                self.assertTrue(inst["dynamic_prop"])
+                self.assertTrue(inst.dynamic_prop)
+
+        with pytest.raises(ConsistencyError):
+            engine.addInstance(Instance("Not a concept"))
+
+        with pytest.raises(TypeError):
+            engine.addInstance(static.instance())
+
+        with pytest.raises(TypeError):
+            engine.addInstance(abstract.instance())
 
     def test_instances(self):
-        self.fail("Not implemented")
+        """ Test the collection of instances """
+
+        dynamic = Concept("dynamic")
+        static = Concept("static", category=Concept.STATIC)
+        abstract = Concept("abstract", category=Concept.ABSTRACT)
+
+        engine = InferenceEngine()
+        for con in [dynamic, static, abstract]: engine.addConcept(con)
+
+        self.assertEqual(static.instance(), engine.instances("static"))
 
     def test_inferRelation(self):
         self.fail("Not implemented")

@@ -1,6 +1,6 @@
 import itertools
 
-from ..knowledge import Ontology, Concept, ConceptInstance, Rule
+from ..knowledge import Ontology, Concept, Instance, Rule
 from .evaltrees import EvalTreeFactory, EvalTree
 
 import logging
@@ -54,7 +54,7 @@ class EvalRule(Rule):
 
         self._parameters = {param for tree in self._conditionTrees for param in tree.parameters()}.difference({"%", "@"})
 
-    def eval(self, domain: ConceptInstance, target: ConceptInstance):
+    def eval(self, domain: Instance, target: Instance):
         """ Evaluate all the scenarios of a particular relation instance and determine the confidence
         of the relation """
 

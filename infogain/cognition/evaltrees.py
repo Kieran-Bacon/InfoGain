@@ -84,13 +84,7 @@ class PropertyNode(EvalTree):
 
     def eval(self, **kwargs):
         """ Extract the property from the object on the left """
-
-        component = self.component.instance(component=True, **kwargs)
-
-        if component and isinstance(component, Instance):
-            return component.property(self.key)
-        else:
-            return None
+        return self.component.instance(**kwargs)[self.key]
 
 class FunctionNode(EvalTree):
 
@@ -109,14 +103,8 @@ class FunctionNode(EvalTree):
 
     def eval(self, **kwargs):
 
-        inst = self.component.instance(**kwargs)
-
-        if inst:
-            if self.function_parameters:
-                args = [param.eval(**kwargs) for param in self.function_parameters]
-                return inst.function(self.function, *args)
-            else: return inst.function(self.function)
-        else: return None
+        function = self.component.instance(**kwargs).__getattribute__(self.function)
+        return function(*[param.eval(**kwargs) for param in self.function_parameters]) if function else None 
 
 class BuiltInFunctionNode(EvalTree):
 

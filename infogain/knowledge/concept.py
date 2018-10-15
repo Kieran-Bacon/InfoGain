@@ -1,7 +1,7 @@
 import uuid
 
 from ..information import Vertice
-from .instance import ConceptInstance
+from .instance import Instance
 
 import logging
 log = logging.getLogger(__name__)
@@ -54,7 +54,7 @@ class Concept(Vertice):
         [Concept.fuse(self, child) for child in self.children if not isinstance(child, str)]
 
         if self.category is not Concept.ABSTRACT:
-            self._instance_class = ConceptInstance
+            self._instance_class = Instance
 
             if self.category is Concept.STATIC:
                 self._instance = self._instance_class(self.name, properties=self.properties)
@@ -100,7 +100,7 @@ class Concept(Vertice):
 
         return decendants
 
-    def setInstanceClass(self, instance_class: ConceptInstance) -> None:
+    def setInstanceClass(self, instance_class: Instance) -> None:
         """ Overload the default ConceptInstance with another that extends ConceptInstance such that
         when new instances of this class are generated they shall be instances of the new class. In
         the event that the concept is static, the concept instance is replaced.
@@ -112,15 +112,15 @@ class Concept(Vertice):
             TypeError: In the event that the instance_class is does not extend ConceptInstance
         """
 
-        if not isinstance(instance_class, ConceptInstance):
-            raise TypeError("Class passed to {} as new instance class does not extend ConceptInstance".format(self.name))
+        if not issubclass(instance_class, Instance):
+            raise TypeError("Class passed to concept '{}' as new instance class does not extend Instance and is type {}".format(self.name, type(instance_class)))
 
         self._instance_class = instance_class
 
         if self.category is Concept.STATIC:
-            self._instance = self._instance_class(self)
+            self._instance = self._instance_class(self, properties=self.properties)
 
-    def instance(self, instance_name: str = None) -> ConceptInstance:
+    def instance(self, instance_name: str = None) -> Instance:
         """ Generate an instance of this concept and return it. In the event that the concept is 
         static, this function acts as a singlton and returns the single instance of this concept
         
@@ -185,6 +185,8 @@ class Concept(Vertice):
         if   category == cls.ABSTRACT: return cls.ABSTRACT
         elif category == cls.STATIC: return cls.STATIC
         elif category == cls.DYNAMIC: return cls.DYNAMIC
+
+        raise ValueError("Invalid category provided")
 
     @classmethod
     def expandConceptSet(cls, collection, descending: bool = True):

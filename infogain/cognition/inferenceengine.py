@@ -1,6 +1,6 @@
 from ..exceptions import ConsistencyError
 from ..artefact import Document
-from ..knowledge import Ontology, Concept, ConceptInstance, Relation, Rule
+from ..knowledge import Ontology, Concept, Instance, Relation, Rule
 from .evalrule import EvalRule
 from .evaltrees import EvalTreeFactory
 
@@ -66,7 +66,7 @@ class InferenceEngine(Ontology):
         # Unpackage the rules of the ontology, generate eval rules to represent them
         relation.assignRules(evalRules)
 
-    def addInstance(self, concept_instance: ConceptInstance) -> None:
+    def addInstance(self, concept_instance: Instance) -> None:
         """ Add a concept instance - Only possible for dynamic concepts
 
         Params:
@@ -78,12 +78,12 @@ class InferenceEngine(Ontology):
         """
 
         concept = self.concept(concept_instance.concept)
-        if concept is None: raise ConsistencyError("{} is not an concept within the engine - Cannot add instance for missing concept".format(concept_instance.concept))
-        if concept.category is(Concept.ABSTRACT or Concept.STATIC): TypeError("{} is not suitable for additional instances. Its category needs to be set to dynamic".format(concept.name))
+        if concept is None: raise ConsistencyError("{} is not an concept within the engine - Cannot add instance for missing concept".format(concept_instance.concept)) 
+        if concept.category is Concept.ABSTRACT or concept.category is Concept.STATIC: raise TypeError("{} is not suitable for additional instances. Its category needs to be set to dynamic".format(concept.name))
 
         self._conceptInstances[concept.name].append(concept_instance)
 
-    def instances(self, concept_name: str, descendants: bool = False) -> [ConceptInstance]:
+    def instances(self, concept_name: str, descendants: bool = False) -> [Instance]:
         """ Collect the instances for a concept identifier. If the concept is static then only its 
         single instance shall be returned. Or all the instances for a concept and its children.
 
@@ -135,7 +135,7 @@ class InferenceEngine(Ontology):
                 else:
                     log.debug("Datapoint's relation {} missed during adding of world knowledge".format(point.relation))        
 
-    def inferRelation(self, domain: ConceptInstance, relation: (str, Relation), target: ConceptInstance):
+    def inferRelation(self, domain: Instance, relation: (str, Relation), target: Instance):
         """ Determine the confidence of a relation between entities 
         
         Params:

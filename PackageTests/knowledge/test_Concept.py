@@ -1,6 +1,6 @@
 import unittest, pytest
 
-from infogain.knowledge import Ontology, Concept, ConceptInstance
+from infogain.knowledge import Ontology, Concept, Instance
 
 class Test_Concept(unittest.TestCase):
 
@@ -125,12 +125,12 @@ class Test_Concept(unittest.TestCase):
         secondKieranInst = kieran.instance()
 
         self.assertTrue(firstKieranInst is secondKieranInst)
-        self.assertTrue(kieran.properties is firstKieranInst._properties is secondKieranInst._properties)
+        self.assertTrue(kieran.properties is firstKieranInst.properties is secondKieranInst.properties)
 
         kieran.properties["lastname"] = "Bacon"
 
-        self.assertEqual(firstKieranInst.property("lastname"), "Bacon")
-        self.assertEqual(secondKieranInst.property("lastname"), "Bacon")
+        self.assertEqual(firstKieranInst.lastname, "Bacon")
+        self.assertEqual(secondKieranInst.lastname, "Bacon")
 
         # Test that a dynamic concept generates multiple differing instances with individual properties
         person = Concept("Person", properties={"age": 10})
@@ -140,22 +140,29 @@ class Test_Concept(unittest.TestCase):
 
         person.properties["lastname"] = "Bacon"
 
-        self.assertEqual(ben.property("lastname"), None)  # Does not have the new property
+        self.assertEqual(ben.lastname, None)  # Does not have the new property
 
-        tom.addProperty("height", 6.4)
+        tom.height = 6.4
 
-        self.assertEqual(tom.property("height"), 6.4)
-        self.assertEqual(ben.property("height"), None)
+        self.assertEqual(tom.height, 6.4)
+        self.assertEqual(ben.height, None)
 
     def test_ConceptInstance_assignment(self):
 
-        class PersonInstance(ConceptInstance):
+        class PersonInstance(Instance):
 
-            def something():
-                pass
+            def something(self):
+                return 10
+
+        self.assertTrue(issubclass(PersonInstance, Instance))
             
+        example = Concept("example", properties={"cool": 97})
 
-        pass
+        example.setInstanceClass(PersonInstance)
+
+        inst = example.instance()
+
+        self.assertEqual(inst.something(), 10)
 
 
 if __name__ == "__main__":

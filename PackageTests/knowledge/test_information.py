@@ -1,7 +1,7 @@
 import unittest
 
 from infogain.information import Vertice
-from infogain.knowledge import Concept, ConceptInstance
+from infogain.knowledge import Concept, Instance
 
 class Test_Vertices(unittest.TestCase):
 
@@ -16,7 +16,7 @@ class Test_Vertices(unittest.TestCase):
         self.assertEqual(a, a2)
         self.assertNotEqual(a, b)
 
-        ai = ConceptInstance("a")
+        ai = Instance("a")
 
         self.assertEqual(a, ai)
         self.assertNotEqual(b, ai)

@@ -20,13 +20,12 @@ class Instance(Vertice):
     """
 
     def __init__(self, concept_name: str, instance_name: str = None, properties: dict = {}):
-        Instance.__init__(self)
         self.concept = concept_name
         self.name = instance_name if instance_name is not None else self.concept
-        self._properties = properties
+        self.properties = properties  # Data structure to contain the properties of the instance
 
-    def __getattr__(self, attribute):
-        return self._properties.get(attribute)
-
-    def __str__(self):
-        return self.name
+    def __str__(self): return self.name
+    def __getstate__(self): return self.__dict__
+    def __setstate__(self, d): self.__dict__.update(d)
+    def __getattr__(self, attribute): return self.properties.get(attribute)
+    def __getitem__(self, attribute): return self.properties.get(attribute)

@@ -1,6 +1,6 @@
 import unittest
 
-from infogain.knowledge import Concept, ConceptInstance, Relation
+from infogain.knowledge import Concept, Instance, Relation
 
 from infogain.cognition import InferenceEngine
 from infogain.cognition import evaltrees
@@ -35,22 +35,25 @@ class Test_eval_trees(unittest.TestCase):
 
     def test_FunctionNode_functions(self):
 
-        def function():
-            return "function returned value"
+        class exampleInstance(Instance):
 
-        def function_with_arguments(x, y, z):
-            return x + y + z
+            def function(self):
+                return "function returned value"
+
+            def function_with_arguments(self, x, y, z):
+                return x + y + z
+
+        self.example.setInstanceClass(exampleInstance)
 
         inst = self.example.instance()
-        inst.addFunction(function)
-        inst.addFunction(function_with_arguments)
+        scenario = {"#example": inst}
 
         logic = "#example>function()"
     
         functionNode = self.factory.constructTree(logic)
 
         self.assertEqual(str(functionNode), logic)
-        self.assertEqual(functionNode.eval(scenario=self.scenario), "function returned value")
+        self.assertEqual(functionNode.eval(scenario=scenario), "function returned value")
         self.assertEqual(functionNode.parameters(), {"#example"})
 
         logic2 = "#example>function_with_arguments(1,3,4)"
@@ -58,14 +61,14 @@ class Test_eval_trees(unittest.TestCase):
         functionNode = self.factory.constructTree(logic2)        
 
         self.assertEqual(str(functionNode), logic2)
-        self.assertEqual(functionNode.eval(scenario=self.scenario), 8)
+        self.assertEqual(functionNode.eval(scenario=scenario), 8)
         self.assertEqual(functionNode.parameters(), {"#example"})
 
         logic3 = "#example>function_with_arguments(#example.age,3,4)"
 
         functionNode = self.factory.constructTree(logic3)
 
-        self.assertEqual(functionNode.eval(scenario=self.scenario), 31)
+        self.assertEqual(functionNode.eval(scenario=scenario), 31)
 
     def test_RelationNode_function(self):
 

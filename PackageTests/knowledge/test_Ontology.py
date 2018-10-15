@@ -160,29 +160,15 @@ class Test_Ontology_Creation(unittest.TestCase):
         kieran = ont.concept("Kieran")
         self.assertEqual(kieran.alias, {"Legend", "Champ", "Badass"})
 
-    def test_ontology_clone(self):
-        ont, path = Language.ontology(get_path=True )
-
-        cloned = ont.clone()
-
-        cloned.save(filename="tempOnt.json")
-
-        with open("./tempOnt.json") as handler:
-            file1_content = json.load(handler)
-
-        with open(path) as handler:
-            file2_content = json.load(handler)
-
-        # TODO better comparison
-        #self.assertEqual(file1_content, file2_content)
-
-        os.remove("tempOnt.json")
-
     def test_ontology_pickle_able(self):
         import pickle
-        ont = pickle.loads(pickle.dumps(Language.ontology()))
-        self.assertTrue(ont.concept("Kieran") is not None)
-        self.assertEqual(ont.concept("Kieran"), Language.ontology().concept("Kieran"))
+
+        ontology = Language.ontology()
+        reloaded = pickle.loads(pickle.dumps(ontology))
+        
+
+        self.assertTrue(reloaded.concept("Kieran") is not None)
+        self.assertEqual(reloaded.concept("Kieran"), ontology.concept("Kieran"))
 
 if __name__ == "__main__":
     unittest.main()
