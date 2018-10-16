@@ -1,0 +1,189 @@
+{
+    "Concepts": {
+        "Charlie": {
+            "category": "static",
+            "parents": [
+                "Person"
+            ]
+        },
+        "Country": {
+            "category": "abstract"
+        },
+        "England": {
+            "category": "static",
+            "parents": [
+                "Country"
+            ]
+        },
+        "English": {
+            "category": "static",
+            "parents": [
+                "Language"
+            ]
+        },
+        "France": {
+            "category": "static",
+            "parents": [
+                "Country"
+            ]
+        },
+        "French": {
+            "category": "static",
+            "parents": [
+                "Language"
+            ]
+        },
+        "German": {
+            "category": "static",
+            "parents": [
+                "Language"
+            ]
+        },
+        "Germany": {
+            "category": "static",
+            "parents": [
+                "Country"
+            ]
+        },
+        "Kieran": {
+            "alias": [
+                "Badass",
+                "Champ",
+                "Legend"
+            ],
+            "category": "static",
+            "parents": [
+                "Person"
+            ]
+        },
+        "Language": {
+            "category": "abstract"
+        },
+        "Luke": {
+            "category": "static",
+            "parents": [
+                "Person"
+            ]
+        },
+        "Person": {
+            "properties": {
+                "name": null
+            }
+        },
+        "Spain": {
+            "category": "static",
+            "parents": [
+                "Country"
+            ]
+        },
+        "Spanish": {
+            "category": "static",
+            "parents": [
+                "Language"
+            ]
+        }
+    },
+    "Name": "Language",
+    "Relations": {
+        "born_in": {
+            "domains": [
+                [
+                    "Person"
+                ]
+            ],
+            "targets": [
+                [
+                    "England",
+                    "France",
+                    "Germany",
+                    "Spain"
+                ]
+            ]
+        },
+        "informs": {
+            "differ": true,
+            "domains": [
+                [
+                    "Person"
+                ]
+            ],
+            "targets": [
+                [
+                    "Person"
+                ]
+            ]
+        },
+        "lives_in": {
+            "domains": [
+                [
+                    "Person"
+                ]
+            ],
+            "rules": [
+                {
+                    "confidence": 50,
+                    "domains": [
+                        "Kieran"
+                    ],
+                    "targets": [
+                        "England"
+                    ]
+                }
+            ],
+            "targets": [
+                [
+                    "England",
+                    "France",
+                    "Germany",
+                    "Spain"
+                ]
+            ]
+        },
+        "speaks": {
+            "domains": [
+                [
+                    "Country",
+                    "Person"
+                ]
+            ],
+            "rules": [
+                {
+                    "conditions": [
+                        {
+                            "logic": "%=lives_in=#Country",
+                            "salience": 100
+                        },
+                        {
+                            "logic": "#Country=speaks=@",
+                            "salience": 100
+                        }
+                    ],
+                    "confidence": 50,
+                    "domains": [
+                        "Person"
+                    ],
+                    "targets": [
+                        "English",
+                        "French",
+                        "German",
+                        "Spanish"
+                    ]
+                },
+                {
+                    "confidence": 89,
+                    "domains": [
+                        "England"
+                    ],
+                    "targets": [
+                        "English"
+                    ]
+                }
+            ],
+            "targets": [
+                [
+                    "Language"
+                ]
+            ]
+        }
+    }
+}

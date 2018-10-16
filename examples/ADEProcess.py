@@ -1,8 +1,8 @@
 import os, re, random
 
-from InfoGain.Knowledge import Ontology, Concept, Relation
-from InfoGain.Documents import Document, Datapoint, score
-from InfoGain.Extraction import RelationExtractor
+from infogain.knowledge import Ontology, Concept, Relation
+from infogain.artefact import Document, Datapoint, score
+from infogain.extraction import RelationExtractor
 
 DATA = os.path.abspath(os.path.join(os.path.dirname(__file__), "Dataset-ADE"))
 

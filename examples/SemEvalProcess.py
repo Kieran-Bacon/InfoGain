@@ -1,8 +1,10 @@
-import os, re
+import os, re, logging
 
-from InfoGain.Knowledge import Ontology, Concept, Relation
-from InfoGain.Documents import Document, Datapoint, score
-from InfoGain.Extraction import RelationExtractor
+from infogain.knowledge import Ontology, Concept, Relation
+from infogain.artefact import Document, Datapoint, score
+from infogain.extraction import RelationExtractor
+
+logging.config.dictConfig({'disable_existing_loggers': True})
 
 DATA = os.path.abspath(os.path.join(os.path.dirname(__file__), "Dataset-SemEval2007"))
 
