@@ -115,3 +115,6 @@ class EvalRule(Rule):
         scenarioConfidence = round((self.confidence/100)*(1 - scenarioConfidence)*100, 2)
         log.debug("Evaluated Scenario completed with confidence {}%".format(scenarioConfidence))
         return scenarioConfidence
+
+    def reset(self):
+        self._evaluatedConfidences = {}

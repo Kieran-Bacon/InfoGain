@@ -1,7 +1,10 @@
 import unittest, pytest
 
+from infogain.artefact import Document, Datapoint
 from infogain.cognition import InferenceEngine
 from infogain.knowledge import Concept, Instance, Relation, Rule
+from infogain.resources.ontologies import language
+
 from infogain.exceptions import IncorrectLogic, ConsistencyError
 
 class Test_InferenceEngine(unittest.TestCase):
@@ -98,8 +101,49 @@ class Test_InferenceEngine(unittest.TestCase):
 
         self.assertEqual(static.instance(), engine.instances("static"))
 
-    def test_inferRelation(self):
+    def test_inferRelation_no_conditions(self):
+        self.fail("Not implemented")
+
+
+    def test_inferRelation_conditions(self):
+        self.fail("Not implemented")
+
+    def test_inferRelation_weird_logic(self):
         self.fail("Not implemented")
 
     def test_addWorldKnowledge(self):
+
+        engine = InferenceEngine(ontology=language.ontology())
+
+        originalConfidence = engine.inferRelation(
+            engine.concept("Kieran").instance(),
+            "speaks",
+            engine.concept("English").instance()
+        )
+
+        speaks = Datapoint({
+            "domain": {"concept": "Kieran", "text": "Kieran"},
+            "relation": "speaks",
+            "target": {"concept": "English", "text": "English"},
+
+            "prediction": 1,
+            "probability": 0.69
+        })
+
+        world_knowledge = Document()
+        world_knowledge.datapoints([speaks])
+
+        engine.addWorldKnowledge([world_knowledge])
+
+        confidence = engine.inferRelation(
+            engine.concept("Kieran").instance(),
+            "speaks",
+            engine.concept("English").instance()
+        )
+
+        # Ensure that the confidence relation has been affected by the world knowledge
+        # Ensure that the confidence of the rules within the ontology are included
+        self.assertEqual(confidence, (1 - (1-0.69)*(1-originalConfidence/100))*100)
+
+    def test_addWorldKnowledge_resetting_of_rules(self):
         self.fail("Not implemented")

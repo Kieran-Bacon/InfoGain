@@ -129,11 +129,13 @@ class InferenceEngine(Ontology):
                 target = self.concept(point.target["concept"])
 
                 if relation:
-                    rule = EvalRule(domain, relation.name, target, point.probability*100, supporting=point.prediction)
+                    rule = EvalRule(domain, target, point.probability*100, point.prediction == point.POSITIVE)
                     rule.assignOntology(self)
                     relation.addRule(rule)
                 else:
-                    log.debug("Datapoint's relation {} missed during adding of world knowledge".format(point.relation))        
+                    log.debug("Datapoint's relation {} missed during adding of world knowledge".format(point.relation))
+
+        self.reset()        
 
     def inferRelation(self, domain: Instance, relation: (str, Relation), target: Instance):
         """ Determine the confidence of a relation between entities 
@@ -156,8 +158,17 @@ class InferenceEngine(Ontology):
             domain, relation.name, target, len(relation.rules(domConcept, tarConcept))))
 
 
-        confidence = 0
+        confidence, scepticism = 1.0, 1.0
         for rule in relation.rules(domConcept, tarConcept):
-            confidence += rule.eval(domain, target)
 
-        return confidence
+            ruleValue = (1.0 - rule.eval(domain, target)/100)
+            if rule.supporting: confidence *= ruleValue
+            else:               scepticism *= ruleValue
+
+        return ((1.0 - confidence) - (1.0 - scepticism))*100
+
+    def reset(self):
+        """ Clean up any information collected during inference. """
+        for relation in self._relations.values():
+            for rule in relation.rules():
+                rule.reset()

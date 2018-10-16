@@ -1,5 +1,7 @@
 import argparse
 
+# TODO: Correct imports - build hierachy of ArgParsers
+
 parser = argparse.ArgumentParser(
     prog="InfoGain",
     description="Information Gain - Extract information from text sources"

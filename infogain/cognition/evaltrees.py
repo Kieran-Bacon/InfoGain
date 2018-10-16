@@ -51,22 +51,31 @@ class ConceptNode(EvalTree):
 
 class RelationNode(EvalTree):
 
-    # TODO: Handle negative relations
-    expression = re.compile(r"({})=([\w_]+)=({})".format(ConceptNode.expression.pattern, ConceptNode.expression.pattern))
+    expression = re.compile(r"({0})=([\w_]+)=({0})|({0})-([\w_]+)-({0})".format(ConceptNode.expression.pattern))
     
-    def __init__(self, domain: ConceptNode, relation: str, target: ConceptNode):
+    def __init__(self, domain: ConceptNode, relation: str, target: ConceptNode, isPositive: bool):
         self.domain = domain
         self.relation = relation
         self.target = target
+        self.isPositive = isPositive
 
     def __str__(self):
-        return "=".join([str(self.domain), self.relation, str(self.target)])
+        link = "=" if self.isPositive else "-"
+        return link.join([str(self.domain), self.relation, str(self.target)])
 
     def parameters(self):
         return self.domain.parameters().union(self.target.parameters())
 
     def eval(self, **kwargs):
-        return self.engine.inferRelation(self.domain.instance(**kwargs), self.relation, self.target.instance(**kwargs))
+        confidence = self.engine.inferRelation(self.domain.instance(**kwargs), self.relation, self.target.instance(**kwargs))
+        return confidence if self.isPositive else (-1)*confidence
+
+    @staticmethod
+    def split(expression):
+        if "=" in expression:
+            return (*expression.split("="), True)
+        else:
+            return (*expression.split("-"), False)
 
 class PropertyNode(EvalTree):
 
@@ -182,6 +191,13 @@ class NumberNode(EvalTree):
         return self.number
 
 class EvalTreeFactory:
+    """ Evaluable logic tree factory - Converts a logical string into a complex tree structure
+    that may be evaluated. Tree's can be comprised of EvalNodes that all inherit from EvalTree. Each
+    Node descripts how the language of the logic is used.
+    
+    Params:
+        engine (InferenceEngine): Reference to the inference engine - the scope of the logic
+    """
 
     def __init__(self, engine):
         self.engine = engine
@@ -218,8 +234,8 @@ class EvalTreeFactory:
 
         match = RelationNode.expression.search(tll)
         if match:
-            domain, relation, target = tll.split("=")
-            return RelationNode(self.constructTree(domain), relation, self.constructTree(target))
+            domain, relation, target, isPositive = RelationNode.split(tll)
+            return RelationNode(self.constructTree(domain), relation, self.constructTree(target), isPositive)
 
         match = ConceptNode.expression.search(tll)
         if match:

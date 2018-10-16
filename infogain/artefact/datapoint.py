@@ -1,3 +1,4 @@
+from ..exceptions import ConsistencyError
 from . import IncompleteDatapoint
 
 class Datapoint:
@@ -27,6 +28,12 @@ class Datapoint:
         self.annotation = data.get("annotation", None)  # The human annotated class
         self.prediction = data.get("prediction", None)  # The predicted class
         self.probability = data.get("probability", None)  # The probability of the prediction
+
+        if self.probability is not None and (self.probability < 0 or self.probability > 1):
+            raise ConsistencyError("Datapoint initialised with invalid probability - {}".format(self))
+            
+        if self.prediction is not None and self.prediction not in [-1,0,1]:
+            raise ConsistencyError("Datapoint class unrecognised - {}".format(self))
 
     def __str__(self):
 

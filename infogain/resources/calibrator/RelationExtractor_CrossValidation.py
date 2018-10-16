@@ -1,3 +1,5 @@
+# TODO: Convert this to the most recent version of the current system
+
 from numpy import *
 from sklearn.model_selection import KFold
 from gensim.models import Word2Vec
