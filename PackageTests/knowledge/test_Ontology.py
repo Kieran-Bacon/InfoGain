@@ -1,4 +1,4 @@
-import unittest, os, json
+import unittest, pytest, os, json
 
 from infogain.knowledge import Ontology, Concept, Relation
 from infogain.resources.ontologies import language as Language
@@ -16,6 +16,19 @@ class Test_Ontology_Creation(unittest.TestCase):
         self.speaks = Relation({self.person}, "speaks", {self.language})
 
         self.maxDiff = None
+
+    def test_builtins(self):
+
+        emptyOnt = Ontology()
+
+        self.assertEqual(emptyOnt._concepts, {})
+
+        emptyOnt.importBuiltin("time")
+
+        self.assertIsNotNone(emptyOnt.concept("Time"))
+
+        with pytest.raises(ImportError):
+            emptyOnt.importBuiltin("NotAModule")
 
     def test_load_and_save(self):
         """ Test that saving and ontology returns it to the same state as it was before """

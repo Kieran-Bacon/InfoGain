@@ -1,28 +1,23 @@
-from ..instance import ConceptInstance
+from ..concept import Concept
+from ..instance import Instance
 
-class Date(ConceptInstance):
-    """ A concept that represents a specific date """
+class Date(Instance): pass
+class Time(Instance): pass
+class Datetime(Date, Time): pass
+class Period(Instance): pass
 
-    def __init__(self):
+def concepts():
 
-        from ..concept import Concept
-        date = Concept("Date")
+    date = Concept("Date", children={"Datetime"}, category="static")
+    date.setInstanceClass(Date)
 
-        ConceptInstance.__init__(self, date)
-    
+    time = Concept("Time", children={"Datetime"}, category="static")
+    time.setInstanceClass(Time)
 
+    datetime = Concept("Datetime", parents={"Date", "Time"}, category="static")
+    datetime.setInstanceClass(Datetime)
 
-class Time(ConceptInstance):
-    pass
+    period = Concept("Period", category="static")
+    period.setInstanceClass(Period)
 
-class Datetime(Date, Time):
-
-    pass
-
-class Period(ConceptInstance):
-
-
-
-
-
-    pass
+    return [date, time, datetime, period]

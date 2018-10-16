@@ -25,6 +25,8 @@ class Ontology:
 
         self._missedConcepts = {}               # Mapping between incomplete concepts
 
+        self._importedmodules = []              # Keep track of the imported builtin modules
+
         if filepath:
 
             # Extract the information from the input ontology file
@@ -57,6 +59,23 @@ class Ontology:
                 )
 
                 self.addRelation(relation)
+
+    def importBuiltin(self, module_name: str) -> None:
+        """ Import knowledge considered common (and required) in most applications. Add the
+
+        Params:
+            module_name (str): The builtin title
+        """
+        import importlib
+
+        try:
+            module = importlib.import_module("infogain.knowledge.builtin_concepts.{}".format(module_name))
+            [self.addConcept(con) for con in module.concepts()]
+        except ImportError as e:
+            msg = "ImportError - No builtin module by that name: {}".format(module_name)
+            log.error(msg, exc_info=True)
+            e.msg = msg
+            raise e
 
     def addConcept(self, concept: Concept) -> None:
         """ Add concept object to ontology, overwrite previous concept if present.
