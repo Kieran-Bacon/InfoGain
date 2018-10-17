@@ -54,6 +54,20 @@ class EvalRule(Rule):
 
         self._parameters = {param for tree in self._conditionTrees for param in tree.parameters()}.difference({"%", "@"})
 
+    def hasConditions(self, domain: Concept = None, target: Concept = None) -> bool:
+        """ Check if the the rule has conditions, or, if the conditions apply, would they apply in 
+        the instance that a domain and target pairing has been provided
+
+        Params:
+            domain (Concept): A concept within the engine
+            target (Concept): A concept within the engine
+        
+        Returns:
+            bool - True if no conditions or pairing has been evaluated else false
+        """
+        if domain and target and self._evaluatedConfidences[self.evalIdGen(domain, target)]: return True
+        return self._conditions != []
+
     def eval(self, domain: Instance, target: Instance):
         """ Evaluate all the scenarios of a particular relation instance and determine the confidence
         of the relation """
@@ -65,7 +79,7 @@ class EvalRule(Rule):
         if not self._conditions:
             return self.confidence
 
-        pairing_key = "-".join([str(domain), str(target)])  # Generate the key for this pairing
+        pairing_key = self.evalIdGen(domain, target)  # Generate the key for this pairing
 
         if pairing_key in self._evaluatedConfidences:
             log.debug("Evaluating rule for {} {} - returning previous calculated value {}".format(domain, target, self._evaluatedConfidences[pairing_key]))
@@ -91,8 +105,6 @@ class EvalRule(Rule):
             confidence = self.evalScenario(scenario)/100
 
             ruleConfidence *= (1.0-confidence)
-            if ruleConfidence < 0:
-                return 0
 
         self._evaluatedConfidences[pairing_key] = (1.0 - ruleConfidence)*100
         return (1.0 - ruleConfidence)*100
@@ -118,3 +130,7 @@ class EvalRule(Rule):
 
     def reset(self):
         self._evaluatedConfidences = {}
+
+    @staticmethod
+    def evalIdGen(domain: Concept, target: Concept) -> str:
+        return "-".join([domain, target])
