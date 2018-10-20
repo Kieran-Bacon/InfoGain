@@ -122,12 +122,15 @@ class Ontology:
         else:
             record["parents"].add(concept)
 
-    def addRelation(self, relation: Relation) -> None:
+    def addRelation(self, relation: Relation) -> Relation:
         """ Add a new relation object to the ontology, correctly link the relation concepts to the 
         ontology.
         
         Params:
             relation (Relation) - The relation object to add to the ontology
+
+        Returns:
+            Relation - The original relation or a newly generated relation with edits.
         """
 
         if any([isinstance(con, str) for con in relation.domains.union(relation.targets)]):
@@ -147,6 +150,7 @@ class Ontology:
 
         log.debug("Added Relation {}".format(str(relation)))
         self._relations[relation.name] = relation
+        return relation
 
     def concept(self, conceptName: str) -> Concept:
         """ Collect the ontology concept with the name given, or None """

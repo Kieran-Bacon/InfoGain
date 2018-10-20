@@ -103,13 +103,15 @@ class Relation:
             self.targets.add(concept)  # Add the concept as a target
     
     def addRule(self, rule: Rule) -> None:
-        if not self._rules: self._rules.append(rule)  # Empty collection
+        # TODO: Documentation
+        if self._rules == []: return self._rules.append(rule)  # Empty collection
 
         for i, relRule in enumerate(self._rules):
             if rule.confidence > relRule.confidence: break
         self._rules = self._rules[:i] + [rule] + self._rules[i:]
 
     def rules(self, domain: Concept = None, target: Concept = None) -> [Rule]:
+        # TODO: Documentation
 
         if domain is None and target is None:
             return list(self._rules)

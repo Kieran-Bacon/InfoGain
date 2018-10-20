@@ -65,7 +65,7 @@ class EvalRule(Rule):
         Returns:
             bool - True if no conditions or pairing has been evaluated else false
         """
-        if domain and target and self._evaluatedConfidences[self.evalIdGen(domain, target)]: return True
+        if domain and target and self._evaluatedConfidences.get(self.evalIdGen(domain, target)): return True
         return self._conditions != []
 
     def eval(self, domain: Instance, target: Instance):
@@ -104,6 +104,9 @@ class EvalRule(Rule):
 
             confidence = self.evalScenario(scenario)/100
 
+            if confidence < -1 or confidence > 1: raise Exception("This is bad")
+            if confidence < 0: confidence = 1 + confidence
+
             ruleConfidence *= (1.0-confidence)
 
         self._evaluatedConfidences[pairing_key] = (1.0 - ruleConfidence)*100
@@ -133,4 +136,4 @@ class EvalRule(Rule):
 
     @staticmethod
     def evalIdGen(domain: Concept, target: Concept) -> str:
-        return "-".join([domain, target])
+        return "-".join([domain.name, target.name])

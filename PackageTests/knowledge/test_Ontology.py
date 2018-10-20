@@ -14,9 +14,7 @@ class Test_Ontology_Creation(unittest.TestCase):
         self.english = Concept("English", parents={self.language})
 
         self.speaks = Relation({self.person}, "speaks", {self.language})
-
-        self.maxDiff = None
-
+        
     def test_builtins(self):
 
         emptyOnt = Ontology()
@@ -97,8 +95,6 @@ class Test_Ontology_Creation(unittest.TestCase):
         self.assertEqual({z.name for z in rel.domains}, {z.name for z in {x1,x2,x11,x12}})
         self.assertEqual({z for z in rel.targets}, {z.name for z in {y1, y11, y2}})
 
-        print(rel._between)
-
         for dom in {x1, x11, x12}:
             for tar in {y1, y11}:
                 self.assertTrue(rel.between(dom, tar))
@@ -178,7 +174,6 @@ class Test_Ontology_Creation(unittest.TestCase):
 
         ontology = Language.ontology()
         reloaded = pickle.loads(pickle.dumps(ontology))
-        
 
         self.assertTrue(reloaded.concept("Kieran") is not None)
         self.assertEqual(reloaded.concept("Kieran"), ontology.concept("Kieran"))

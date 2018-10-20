@@ -80,15 +80,6 @@ class Test_eval_trees(unittest.TestCase):
         self.assertEqual(relationNode.parameters(), {"#example"})
         self.assertEqual(relationNode.eval(scenario=self.scenario), 0)
 
-    def test_BuiltInFunctionNode_function(self):
-        
-        logic = "graph(2, x + 2)"
-
-        builtInFunction = self.factory.constructTree(logic)
-
-        self.assertEqual(builtInFunction.eval(), 4)
-
-
     def test_PropertyNode_function(self):
         """ Test that the extraction of a concept property """
 

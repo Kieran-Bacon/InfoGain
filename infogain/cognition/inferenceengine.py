@@ -52,7 +52,7 @@ class InferenceEngine(Ontology):
             IncorrectLogic: A rule within the relation has malformed logic
         """
 
-        Ontology.addRelation(self, relation)  # Call the original add relation function
+        relation = Ontology.addRelation(self, relation)  # Call the original add relation function
 
         evalRules = []
         for rule in relation.rules():
@@ -65,6 +65,7 @@ class InferenceEngine(Ontology):
 
         # Unpackage the rules of the ontology, generate eval rules to represent them
         relation.assignRules(evalRules)
+        return relation
 
     def addInstance(self, concept_instance: Instance) -> None:
         """ Add a concept instance - Only possible for dynamic concepts
@@ -137,7 +138,7 @@ class InferenceEngine(Ontology):
 
         self.reset()        
 
-    def inferRelation(self, domain: Instance, relation: (str, Relation), target: Instance):
+    def inferRelation(self, domain: Instance, relation: (str, Relation), target: Instance, *, evaluate_conditions=True) -> float:
         """ Determine the confidence of a relation between entities 
         
         Params:
@@ -154,12 +155,15 @@ class InferenceEngine(Ontology):
 
         if None is (domConcept or tarConcept): raise Exception("Cannot infer relation between concepts unknown to the engine")
 
+        print(relation)
+
         log.info("Infering relation '{} {} {}' - {} rules found for relation instance".format(
             domain, relation.name, target, len(relation.rules(domConcept, tarConcept))))
 
-
         confidence, scepticism = 1.0, 1.0
         for rule in relation.rules(domConcept, tarConcept):
+            log.debug("Rule: {}".format(rule))
+            if not evaluate_conditions and rule.hasConditions(domConcept, tarConcept): continue  # Avoid condition rules
 
             ruleValue = (1.0 - rule.eval(domain, target)/100)
             if rule.supporting: confidence *= ruleValue

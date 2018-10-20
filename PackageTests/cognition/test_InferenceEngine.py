@@ -102,14 +102,54 @@ class Test_InferenceEngine(unittest.TestCase):
         self.assertEqual(static.instance(), engine.instances("static"))
 
     def test_inferRelation_no_conditions(self):
-        self.fail("Not implemented")
+
+        engine = InferenceEngine()
+
+        a, b = Concept("A", category="static"), Concept("B", category="static")
+        atob = Relation({a}, "atob", {b})
+        atob.addRule(Rule(a, b, 45.0))
+
+        assert(len(atob.rules()) == 1)
+
+        for con in [a, b]: engine.addConcept(con)
+        atob = engine.addRelation(atob)
+
+        assert(len(atob.rules()) == 1)
+
+        self.assertAlmostEqual(engine.inferRelation(a.instance(), atob, b.instance()), 45.0)
 
 
     def test_inferRelation_conditions(self):
-        self.fail("Not implemented")
+        engine = InferenceEngine()
 
-    def test_inferRelation_weird_logic(self):
-        self.fail("Not implemented")
+        a, b = Concept("A", properties={"x": 10, "y": 15}, category="static"), Concept("B", category="static")
+        atob = Relation({a}, "atob", {b})
+        atob.addRule(Rule(a, b, 45.0, conditions=[
+            {"logic": "graph(%.x, (x == 10)*100)", "salience": 100},
+            {"logic": "graph(%.y, (y == 14)*100)", "salience": 50}
+        ]))
+
+        for con in [a, b]: engine.addConcept(con)
+        engine.addRelation(atob)
+
+        self.assertAlmostEqual(engine.inferRelation(a.instance(), atob, b.instance()), 22.5)
+
+    def test_inferRelation_ignore_logic_conditions(self):
+
+        engine = InferenceEngine()
+
+        a, b = Concept("A", properties={"x": 10, "y": 15}, category="static"), Concept("B", category="static")
+        atob = Relation({a}, "atob", {b})
+        atob.addRule(Rule(a, b, 55.0))
+        atob.addRule(Rule(a, b, 45.0, conditions=[
+            {"logic": "graph(%.x, (x == 10)*100)", "salience": 100},
+            {"logic": "graph(%.y, (y == 14)*100)", "salience": 50}
+        ]))
+
+        for con in [a, b]: engine.addConcept(con)
+        engine.addRelation(atob)
+
+        self.assertAlmostEqual(engine.inferRelation(a.instance(), atob, b.instance(), evaluate_conditions=False), 55.0)
 
     def test_addWorldKnowledge(self):
 
@@ -145,5 +185,70 @@ class Test_InferenceEngine(unittest.TestCase):
         # Ensure that the confidence of the rules within the ontology are included
         self.assertEqual(confidence, (1 - (1-0.69)*(1-originalConfidence/100))*100)
 
-    def test_addWorldKnowledge_resetting_of_rules(self):
-        self.fail("Not implemented")
+    def test_worldKnowledge2(self):
+
+        engine = InferenceEngine(ontology=language.ontology())
+
+        lives_in = Datapoint({
+            "domain": {"concept": "Kieran", "text": "Kieran"},
+            "relation": "lives_in",
+            "target": {"concept": "Germany", "text": "Germany"},
+
+            "prediction": 1,
+            "probability": 0.69
+        })
+
+        doc = Document()
+        doc.datapoints([lives_in])
+
+        engine.addWorldKnowledge([doc])
+
+        for place in ["England", "Germany", "France", "Spain"]:
+            print(engine.inferRelation(
+                engine.concept("Kieran").instance(),
+                "lives_in",
+                engine.concept(place).instance()
+            ))
+
+        self.assertAlmostEqual(
+            engine.inferRelation(
+                engine.concept("Kieran").instance(),
+                "lives_in",
+                engine.concept("Germany").instance()
+            ), 
+            76.5109435
+        )
+
+    def test_worldKnowledge3(self):
+
+        engine = InferenceEngine(ontology=language.ontology())
+
+        lives_in = Datapoint({
+            "domain": {"concept": "Kieran", "text": "Kieran"},
+            "relation": "lives_in",
+            "target": {"concept": "Germany", "text": "Germany"},
+
+            "prediction": -1,
+            "probability": 0.69
+        })
+
+        doc = Document()
+        doc.datapoints([lives_in])
+
+        engine.addWorldKnowledge([doc])
+
+        for place in ["England", "Germany", "France", "Spain"]:
+            print(engine.inferRelation(
+                engine.concept("Kieran").instance(),
+                "lives_in",
+                engine.concept(place).instance()
+            ))
+
+        self.assertAlmostEqual(
+            engine.inferRelation(
+                engine.concept("Kieran").instance(),
+                "lives_in",
+                engine.concept("Germany").instance()
+            ), 
+            -44.77115
+        )
