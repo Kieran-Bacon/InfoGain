@@ -1,9 +1,11 @@
-import unittest
+import unittest, pytest
 
 from infogain.knowledge import Concept, Instance, Relation
+from infogain.exceptions import IncorrectLogic
 
 from infogain.cognition import InferenceEngine
 from infogain.cognition import evaltrees
+from infogain.cognition.treenodes import StringNode
 
 class Test_eval_trees(unittest.TestCase):
 
@@ -96,7 +98,10 @@ class Test_eval_trees(unittest.TestCase):
 
     def test_primatives(self):
 
-        self.assertEqual(self.factory.constructTree("Hello there").eval(), "Hello there")
+        with pytest.raises(IncorrectLogic):
+            self.factory.constructTree("Hello there")
+
+        self.assertEqual(StringNode("Hello there").eval(), "Hello there")
         self.assertEqual(self.factory.constructTree("128.2").eval(), 128.2)
         self.assertEqual(self.factory.constructTree("128").eval(), 128)
 
@@ -104,7 +109,7 @@ class Test_eval_trees(unittest.TestCase):
     def test_long_logic(self):
 
 
-        logic = "graph(#example=maps_to=#example, 400,#example.age,x + y + z)"
+        logic = "f(#example=maps_to=#example, 400,#example.age,x + y + z)"
 
         tree = self.factory.constructTree(logic)
 

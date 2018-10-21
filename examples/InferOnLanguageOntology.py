@@ -6,7 +6,7 @@ from infogain.resources.ontologies import language
 
 # Set up logging for the example
 import logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.ERROR)
 for model in ["infogain.knowledge", "infogain.extraction", "smart_open"]:
     log = logging.getLogger(model)
     log.setLevel(logging.ERROR)
@@ -39,11 +39,15 @@ extractor.fit(language.training())
 
 # Generate some examples of world knowledge written in unstructured form
 documents = [
-    Document(content="Kieran lives in England, he has done for around 10 years.")
+    #Document(content="Kieran loves living in England, he has done for around 10 years.")
+    Document(content="Kieran has been living in the same place for 10 years, England.")
 ]
 
 # Extract the information from the world knowledge
 documents = extractor.predict(documents)
+
+for datapoint in [document.datapoints() for document in documents]:
+    print(*datapoint)
 
 # Add the information into the inference engine
 engine.addWorldKnowledge(documents)

@@ -6,7 +6,7 @@ from .conceptnode import ConceptNode
 
 class RelationNode(EvalTree):
 
-    expression = re.compile(r"({0})=([\w_]+)=({0})|({0})-([\w_]+)-({0})".format(ConceptNode.expression.pattern))
+    expression = re.compile(r"({0})=([\w_]+)=({0})|({0})-([\w_]+)-({0})".format(ConceptNode.systax.pattern))
     
     def __init__(self, domain: ConceptNode, relation: str, target: ConceptNode, isPositive: bool):
         self.domain = domain

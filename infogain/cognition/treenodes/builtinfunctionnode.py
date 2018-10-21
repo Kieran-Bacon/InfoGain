@@ -1,7 +1,8 @@
-import re
+import re, math
 
 from ..evaltrees import EvalTree
 from .relationnode import RelationNode
+from .numbernode import NumberNode
 
 from ...exceptions import IncorrectLogic
 
@@ -9,19 +10,27 @@ class BuiltInFunctionNode(EvalTree):
     # TODO: Documentation
 
     functionList = [
-        "graph",
+        "f",
         "facts",
         "is",
-        "isNot"
+        "isNot",
+
+        "approx", 
+        "eq", 
+        "eqNot"
     ]
 
     def __init__(self, function_name: str, parameters: [EvalTree]):
 
         self.__function_list = {
-            "graph": self.graph,
+            "f": self.f,
             "facts": self.facts,
             "is": self.isFunc,
-            "isNot": self.isNot
+            "isNot": self.isNot,
+
+            "approx": self.approx,
+            "eq": self.eq,
+            "eqNot": self.eqNot
         }
 
         self.function = function_name
@@ -41,7 +50,7 @@ class BuiltInFunctionNode(EvalTree):
             raise IncorrectLogic("Logical error for : {} - Context: {}".format(self, e)).with_traceback(sys.exc_info()[2])
 
     @staticmethod
-    def graph(*args, **kwargs):
+    def f(*args, **kwargs):
         # TODO: Builtin graph function documentation
 
         assert(len(args) > 0)
@@ -83,7 +92,7 @@ class BuiltInFunctionNode(EvalTree):
         return relation_node.eval(**kwargs)
 
     @staticmethod
-    def isFunc(concept_one: EvalTree, concept_two, **kwargs) -> float:
+    def isFunc(concept_one: EvalTree, concept_two: EvalTree, **kwargs) -> float:
         """ Test to determine if any two instances are the same - As the language is defined, it 
         would be possible to ensure this for named concepts, however, the domain and target are 
         special.
@@ -123,8 +132,16 @@ class BuiltInFunctionNode(EvalTree):
         return (concept_one.instance(**kwargs) is not concept_two.instance(**kwargs))*100
 
     @staticmethod
-    def approx(value, target, degrees_of_freedom) -> float:
+    def approx(a: EvalTree, b: EvalTree, distance: NumberNode, **kwargs) -> float:
         """ Check if a value is close to another with a given indicator of degrees of freedom """
-        
-        #TODO implement this cool function bro - approx in builtins
-        pass
+
+        a_val, b_val, d_val = a.eval(**kwargs), b.eval(**kwargs), distance.eval(**kwargs)
+        prox = math.isclose(a_val, b_val, abs_tol=d_val)
+
+        if prox: return (1 - (abs(a_val - b_val)/d_val))*100
+        else: return 0
+
+    @staticmethod
+    def eq(a: EvalTree, b: EvalTree, **kwargs): return (a.eval(**kwargs) == b.eval(**kwargs))*100
+    @staticmethod
+    def eqNot(a: EvalTree, b: EvalTree, **kwargs): return (a.eval(**kwargs) != b.eval(**kwargs))*100

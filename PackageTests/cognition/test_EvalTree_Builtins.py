@@ -20,7 +20,7 @@ class Test_EvalTreeBuiltins(unittest.TestCase):
 
     def test_graph(self):
         
-        logic = "graph(2, x + 2)"
+        logic = "f(2, x + 2)"
 
         builtInFunction = self.factory.constructTree(logic)
 
@@ -116,3 +116,30 @@ class Test_EvalTreeBuiltins(unittest.TestCase):
             ),
             69
         )
+
+    def test_equality(self):
+        """ Test that two instances are the same instance """
+
+        self.assertEqual(self.factory.constructTree("eq(10.0, 10)").eval(), 100)
+        self.assertEqual(self.factory.constructTree("eq(10.1, 10)").eval(), 0)
+
+        self.assertEqual(self.factory.constructTree("eq('Hello world', 'Hello world')").eval(), 100)
+        self.assertEqual(self.factory.constructTree("eq('Hello world', 'Hello world!')").eval(), 0)
+        self.assertEqual(self.factory.constructTree("eq(Hello world, 'Hello world')").eval(), 100)
+        self.assertEqual(self.factory.constructTree("eq('Hello world', Hello world)").eval(), 0)
+
+    def test_notequality(self):
+        """ Test that two instances are the same instance """
+
+        self.assertEqual(self.factory.constructTree("eqNot(10.0, 10)").eval(), 0)
+        self.assertEqual(self.factory.constructTree("eqNot(10.1, 10)").eval(), 100)
+
+        self.assertEqual(self.factory.constructTree("eqNot('Hello world', 'Hello world')").eval(), 0)
+        self.assertEqual(self.factory.constructTree("eqNot('Hello world', 'Hello world!')").eval(), 100)
+        self.assertEqual(self.factory.constructTree("eqNot(Hello world, 'Hello world')").eval(), 0)
+        self.assertEqual(self.factory.constructTree("eqNot('Hello world', Hello world)").eval(), 100)
+
+    def test_approx(self):
+
+        self.assertEqual(self.factory.constructTree("approx(10.0, 10, 1)").eval(), 100)
+        self.assertAlmostEqual(self.factory.constructTree("approx(10.1, 10, 1)").eval(), 90)

@@ -125,8 +125,8 @@ class Test_InferenceEngine(unittest.TestCase):
         a, b = Concept("A", properties={"x": 10, "y": 15}, category="static"), Concept("B", category="static")
         atob = Relation({a}, "atob", {b})
         atob.addRule(Rule(a, b, 45.0, conditions=[
-            {"logic": "graph(%.x, (x == 10)*100)", "salience": 100},
-            {"logic": "graph(%.y, (y == 14)*100)", "salience": 50}
+            {"logic": "f(%.x, (x == 10)*100)", "salience": 100},
+            {"logic": "f(%.y, (y == 14)*100)", "salience": 50}
         ]))
 
         for con in [a, b]: engine.addConcept(con)
@@ -142,8 +142,8 @@ class Test_InferenceEngine(unittest.TestCase):
         atob = Relation({a}, "atob", {b})
         atob.addRule(Rule(a, b, 55.0))
         atob.addRule(Rule(a, b, 45.0, conditions=[
-            {"logic": "graph(%.x, (x == 10)*100)", "salience": 100},
-            {"logic": "graph(%.y, (y == 14)*100)", "salience": 50}
+            {"logic": "f(%.x, (x == 10)*100)", "salience": 100},
+            {"logic": "f(%.y, (y == 14)*100)", "salience": 50}
         ]))
 
         for con in [a, b]: engine.addConcept(con)

@@ -51,7 +51,6 @@ class EvalRule(Rule):
             for param in tree.parameters():
                 self._parameters[param] = EvalTreeFactory.paramToConcept(param)
 
-
         self._parameters = {param for tree in self._conditionTrees for param in tree.parameters()}.difference({"%", "@"})
 
     def hasConditions(self, domain: Concept = None, target: Concept = None) -> bool:

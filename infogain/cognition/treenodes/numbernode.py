@@ -4,7 +4,7 @@ from ..evaltrees import EvalTree
 
 class NumberNode(EvalTree):
 
-    expression = re.compile(r"(^\d+\.\d+$|^\d+$)")
+    expression = re.compile(r"(^\s*)(\d+\.\d+|\d+)(\s*$)")
 
     def __init__(self, number):
         self.number = float(number)

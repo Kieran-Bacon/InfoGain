@@ -36,6 +36,7 @@ class EvalTreeFactory:
     """
 
     def __init__(self, engine):
+        self._depth = 0
         self.engine = engine
 
     def constructTree(self, logic) -> EvalTree:
@@ -44,7 +45,13 @@ class EvalTreeFactory:
         
         #TODO: Documentation"""
 
+        self._depth += 1
         node = self._constructTree(logic)
+        self._depth -= 1
+
+        if not self._depth and isinstance(node, StringNode):
+            raise IncorrectLogic("The logic provided shall only ever yield a string - {}".format(logic))
+            # Top of recursion
         node._assignEngine(self.engine)
         return node
 
@@ -77,7 +84,7 @@ class EvalTreeFactory:
             domain, relation, target, isPositive = RelationNode.split(tll)
             return RelationNode(self.constructTree(domain), relation, self.constructTree(target), isPositive)
 
-        match = re.search(r"(^|^\s*)({})(\s*$|$)".format(ConceptNode.expression.pattern), tll)
+        match = ConceptNode.expression.search(tll)
         if match:
             return ConceptNode(match.group(2))
 
@@ -88,7 +95,7 @@ class EvalTreeFactory:
         
         match = NumberNode.expression.search(tll)
         if match:
-            return NumberNode(tll)
+            return NumberNode(match.group(2))
 
         return StringNode(logic)
 
