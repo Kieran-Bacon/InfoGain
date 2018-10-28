@@ -155,8 +155,6 @@ class InferenceEngine(Ontology):
 
         if None is (domConcept or tarConcept): raise Exception("Cannot infer relation between concepts unknown to the engine")
 
-        print(relation)
-
         log.info("Infering relation '{} {} {}' - {} rules found for relation instance".format(
             domain, relation.name, target, len(relation.rules(domConcept, tarConcept))))
 
