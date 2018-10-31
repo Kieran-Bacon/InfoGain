@@ -86,7 +86,15 @@ class EvalTreeFactory:
 
         match = ConceptNode.expression.search(tll)
         if match:
-            return ConceptNode(match.group(2))
+
+            if 0 > len(segments) > 1: raise IncorrectLogic("Weird amount of segments provided to this...") # TODO improve raise message
+            
+            parameters = None
+            if len(segments) == 1:
+                parameters = [self.constructTree(param) for param in segments[0][1][1:-1].split(",")]
+            
+                 
+            return ConceptNode(match.group(2), callparameters=parameters)
 
         if tll in BuiltInFunctionNode.functionList:
             if len(segments) != 1: raise IncorrectLogic()

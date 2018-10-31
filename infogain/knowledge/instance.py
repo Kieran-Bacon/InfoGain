@@ -29,3 +29,4 @@ class Instance(Vertice):
     def __setstate__(self, d): self.__dict__.update(d)
     def __getattr__(self, attribute): return self.properties.get(attribute)
     def __getitem__(self, attribute): return self.properties.get(attribute)
+    def __call__(self, *args, **kwargs): return self.__class__(*args, **kwargs)
