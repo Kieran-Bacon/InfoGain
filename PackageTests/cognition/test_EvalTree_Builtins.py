@@ -143,3 +143,27 @@ class Test_EvalTreeBuiltins(unittest.TestCase):
 
         self.assertEqual(self.factory.constructTree("approx(10.0, 10, 1)").eval(), 100)
         self.assertAlmostEqual(self.factory.constructTree("approx(10.1, 10, 1)").eval(), 90)
+
+    def test_approximate_time_builtin(self):
+
+
+        return
+        import datetime
+
+        engine = InferenceEngine()
+        engine.importBuiltin("time")
+
+        example = Concept("example", category="static")
+        example.properties["date"] = datetime.datetime.strptime("18-09-19", "%d-%m-%Y")
+        example.properties["date"] = engine.concept("datetime").instance("18.09.19")
+
+
+        engine.addConcept(Concept())
+
+        logic = "@period>length(12.08.19, #example.date), "
+
+        logic = "eq(#example>date, @date>date(18.09.19))"
+
+        logic "@date.before(18.09.19, #example>birthday)"
+
+        "@period(17.09.2001, #example.birthday)>length()"

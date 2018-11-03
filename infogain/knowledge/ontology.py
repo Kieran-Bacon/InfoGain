@@ -21,6 +21,7 @@ class Ontology:
         # Simply idenfitication of the ontology, no functional use
         self.name = name
         self._concepts = {}                     # Unique concept store
+        self._builtins = {}                     # Unique built in concept store
         self._relations = {}                    # Unique relation store
 
         self._missedConcepts = {}               # Mapping between incomplete concepts
@@ -74,8 +75,7 @@ class Ontology:
         except ImportError as e:
             msg = "ImportError - No builtin module by that name: {}".format(module_name)
             log.error(msg, exc_info=True)
-            e.msg = msg
-            raise e
+            raise ImportError(msg)
 
     def addConcept(self, concept: Concept) -> None:
         """ Add concept object to ontology, overwrite previous concept if present.
