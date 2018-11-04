@@ -4,6 +4,9 @@ class Vertice:
     def __init__(self):
         self.name = None
 
+    def __hash__(self):
+        return hash(self.name)
+
     def __eq__(self, other):
         if isinstance(other, Vertice):
             return self.name == other.name

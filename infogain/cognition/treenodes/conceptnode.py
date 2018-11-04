@@ -5,7 +5,7 @@ from ...exceptions import ConsistencyError
 
 class ConceptNode(EvalTree):
 
-    systax = re.compile(r"\%|\@|#[\w_]+")
+    systax = re.compile(r"\%|\@|#(\[[\w_]+\])?[\w_]+")
     expression = re.compile(r"(^\s*)({})(\s*$)".format(systax.pattern))
     
     def __init__(self, concept_name: str, callparameters: [object] = None):

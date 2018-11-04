@@ -58,54 +58,57 @@ class EvalTreeFactory:
     def _constructTree(self, logic):
         # TODO: Documentation
 
-        if not logic: raise IncorrectLogic("Empty logic")
+        if not logic: raise IncorrectLogic("Empty logic - cannot construct tree for literally nothing...")
         tll, segments = self._breakdown_logic(logic)
 
         if not tll and len(segments) == 1:
             # Remove all encompassing parenthesis
             return self.constructTree(segments[0][1][1:-1])
 
-        # The logic contains a concept function as the main pivort
-        match = FunctionNode.expression.search(tll)
-        if match:
-            left, right = self._reformSplit(tll, segments, match.span())
-            function, signature = right[:right.index("(")], right[right.index("("):][1:-1].split(",")
-            parameters = [self.constructTree(sigParam) for sigParam in signature if sigParam != ""]
-            return FunctionNode(self.constructTree(left), function, parameters)
+        try:
+            # The logic contains a concept function as the main pivort
+            match = FunctionNode.expression.search(tll)
+            if match:
+                left, right = self._reformSplit(tll, segments, match.span())
+                function, signature = right[:right.index("(")], right[right.index("("):][1:-1].split(",")
+                parameters = [self.constructTree(sigParam) for sigParam in signature if sigParam != ""]
+                return FunctionNode(self.constructTree(left), function, parameters)
 
-        # Property key of component is main pivort
-        match = PropertyNode.expression.search(tll)
-        if match:
-            left, right = self._reformSplit(tll, segments, match.span())
-            return PropertyNode(self.constructTree(left), right)
+            # Property key of component is main pivort
+            match = PropertyNode.expression.search(tll)
+            if match:
+                left, right = self._reformSplit(tll, segments, match.span())
+                return PropertyNode(self.constructTree(left), right)
 
-        match = RelationNode.expression.search(tll)
-        if match:
-            domain, relation, target, isPositive = RelationNode.split(tll)
-            return RelationNode(self.constructTree(domain), relation, self.constructTree(target), isPositive)
+            match = RelationNode.expression.search(tll)
+            if match:
+                domain, relation, target, isPositive = RelationNode.split(tll)
+                return RelationNode(self.constructTree(domain), relation, self.constructTree(target), isPositive)
 
-        match = ConceptNode.expression.search(tll)
-        if match:
+            match = ConceptNode.expression.search(tll)
+            if match:
 
-            if 0 > len(segments) > 1: raise IncorrectLogic("Weird amount of segments provided to this...") # TODO improve raise message
-            
-            parameters = None
-            if len(segments) == 1:
+                if 0 > len(segments) > 1: raise IncorrectLogic("Weird amount of segments provided to this...") # TODO improve raise message
+                
+                parameters = None
+                if len(segments) == 1:
+                    parameters = [self.constructTree(param) for param in segments[0][1][1:-1].split(",") if param != ""]
+                
+                    
+                return ConceptNode(match.group(2), callparameters=parameters)
+
+            if tll in BuiltInFunctionNode.functionList:
+                if len(segments) != 1: raise IncorrectLogic()
                 parameters = [self.constructTree(param) for param in segments[0][1][1:-1].split(",")]
+                return BuiltInFunctionNode(tll, parameters)
             
-                 
-            return ConceptNode(match.group(2), callparameters=parameters)
+            match = NumberNode.expression.search(tll)
+            if match:
+                return NumberNode(match.group(2))
 
-        if tll in BuiltInFunctionNode.functionList:
-            if len(segments) != 1: raise IncorrectLogic()
-            parameters = [self.constructTree(param) for param in segments[0][1][1:-1].split(",")]
-            return BuiltInFunctionNode(tll, parameters)
-        
-        match = NumberNode.expression.search(tll)
-        if match:
-            return NumberNode(match.group(2))
-
-        return StringNode(logic)
+            return StringNode(logic)
+        except IncorrectLogic as e:
+            raise IncorrectLogic("Could not parse sub logic for {}".format(logic)) from e
 
     @staticmethod
     def paramToConcept(concept_name: str) -> str:

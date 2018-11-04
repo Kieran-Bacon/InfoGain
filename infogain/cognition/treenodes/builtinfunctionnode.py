@@ -40,7 +40,7 @@ class BuiltInFunctionNode(EvalTree):
         return self.function + "({})".format(",".join([str(x) for x in self.function_parameters]))
 
     def parameters(self):
-        return [param for func_param in self.function_parameters for param in func_param.parameters()]
+        return {param for func_param in self.function_parameters for param in func_param.parameters()}
 
     def eval(self, **kwargs):
         try:
