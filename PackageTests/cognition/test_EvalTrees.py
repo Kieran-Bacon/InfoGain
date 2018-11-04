@@ -50,7 +50,7 @@ class Test_eval_trees(unittest.TestCase):
         inst = self.example.instance()
         scenario = {"#example": inst}
 
-        logic = "#example>function()"
+        logic = "#example.function()"
     
         functionNode = self.factory.constructTree(logic)
 
@@ -58,7 +58,7 @@ class Test_eval_trees(unittest.TestCase):
         self.assertEqual(functionNode.eval(scenario=scenario), "function returned value")
         self.assertEqual(functionNode.parameters(), {"#example"})
 
-        logic2 = "#example>function_with_arguments(1,3,4)"
+        logic2 = "#example.function_with_arguments(1,3,4)"
 
         functionNode = self.factory.constructTree(logic2)        
 
@@ -66,7 +66,7 @@ class Test_eval_trees(unittest.TestCase):
         self.assertEqual(functionNode.eval(scenario=scenario), 8)
         self.assertEqual(functionNode.parameters(), {"#example"})
 
-        logic3 = "#example>function_with_arguments(#example.age,3,4)"
+        logic3 = "#example.function_with_arguments(#example.age,3,4)"
 
         functionNode = self.factory.constructTree(logic3)
 

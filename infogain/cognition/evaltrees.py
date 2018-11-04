@@ -56,29 +56,28 @@ class EvalTreeFactory:
         return node
 
     def _constructTree(self, logic):
-        # TODO: Documentation
-
         if not logic: raise IncorrectLogic("Empty logic - cannot construct tree for literally nothing...")
+
+        # Break down the logic into its top level information and its various sections
         tll, segments = self._breakdown_logic(logic)
 
-        if not tll and len(segments) == 1:
-            # Remove all encompassing parenthesis
-            return self.constructTree(segments[0][1][1:-1])
+        # The Logic was surrounded by parenthesis - Remove them and call again
+        if not tll and len(segments) == 1: return self.constructTree(segments[0][1][1:-1])
 
         try:
-            # The logic contains a concept function as the main pivort
-            match = FunctionNode.expression.search(tll)
-            if match:
-                left, right = self._reformSplit(tll, segments, match.span())
-                function, signature = right[:right.index("(")], right[right.index("("):][1:-1].split(",")
-                parameters = [self.constructTree(sigParam) for sigParam in signature if sigParam != ""]
-                return FunctionNode(self.constructTree(left), function, parameters)
-
-            # Property key of component is main pivort
             match = PropertyNode.expression.search(tll)
             if match:
-                left, right = self._reformSplit(tll, segments, match.span())
-                return PropertyNode(self.constructTree(left), right)
+
+                # Split by the inflection point, 
+                left, _ = self._reformSplit(tll, segments, match.span("flection_point"))
+
+                parameters = None
+                for segment in segments:
+                    if segment[0] == match.span()[1]:
+                        parameters = self._buildParameters(segment[1])
+                        break
+
+                return PropertyNode(self.constructTree(left), match.group("property_name"), parameters)
 
             match = RelationNode.expression.search(tll)
             if match:
@@ -87,31 +86,32 @@ class EvalTreeFactory:
 
             match = ConceptNode.expression.search(tll)
             if match:
-
+                # Construct a concept node
                 if 0 > len(segments) > 1: raise IncorrectLogic("Weird amount of segments provided to this...") # TODO improve raise message
-                
-                parameters = None
-                if len(segments) == 1:
-                    parameters = [self.constructTree(param) for param in segments[0][1][1:-1].split(",") if param != ""]
-                
-                    
-                return ConceptNode(match.group(2), callparameters=parameters)
+                parameters = self._buildParameters(segments[0][1]) if len(segments) else None
+                return ConceptNode(match.group(0), callparameters=parameters)
 
             if tll in BuiltInFunctionNode.functionList:
-                if len(segments) != 1: raise IncorrectLogic()
-                parameters = [self.constructTree(param) for param in segments[0][1][1:-1].split(",")]
-                return BuiltInFunctionNode(tll, parameters)
+                if len(segments) != 1: raise IncorrectLogic()  # TODO look into this and why its the way that it is.
+                return BuiltInFunctionNode(tll, self._buildParameters(segments[0][1]))
             
             match = NumberNode.expression.search(tll)
-            if match:
-                return NumberNode(match.group(2))
+            if match: return NumberNode(match.group(2))
 
             return StringNode(logic)
         except IncorrectLogic as e:
             raise IncorrectLogic("Could not parse sub logic for {}".format(logic)) from e
 
+    def _buildParameters(self, logic: str): # TODO Document
+        """ Build the parameters from a logic string and return the collection of EvalTrees 
+        constructed """
+        logic = logic.strip("()")
+        logic = logic.split(",")
+        if logic == [""]: return []
+        else: return [self.constructTree(param) for param in logic]
+
     @staticmethod
-    def paramToConcept(concept_name: str) -> str:
+    def paramToConcept(concept_name: str) -> str:  # TODO FIX THIS FUNCTION
         """ Convert a parameter name into a valid concept string 
         
         # TODO: Documentation"""
