@@ -65,6 +65,12 @@ class EvalTreeFactory:
         if not tll and len(segments) == 1: return self.constructTree(segments[0][1][1:-1])
 
         try:
+            match = OperatorNode.expression.search(tll)
+            if match:
+                left, right = self._reformSplit(tll, segments, match.span("operator"))
+                return OperatorNode(self.constructTree(left), match.group("operator"), self.constructTree(right))
+
+
             match = PropertyNode.expression.search(tll)
             if match:
 
