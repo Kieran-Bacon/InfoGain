@@ -30,11 +30,9 @@ class Date(Instance):
                 raise IncorrectLogic("Attempted to create a date with an invalid string: {}".format(date_object))
 
             # Create and return the date object
-            return Date("Date", str(date), {"date": date})
+            return Date("Date", str(date), {"__self__": date})
 
-            
-
-
+    def before(self, other): return self.properties["__self__"] < other
 
 
 
@@ -43,7 +41,7 @@ class Time(Instance): pass
 class Datetime(Date, Time): pass
 class Period(Instance):
 
-    def days(self)
+    def days(self):
         """ Return the number of days between two """
         pass
 

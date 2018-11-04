@@ -1,7 +1,11 @@
 import re
 
+from ...knowledge import Instance
+
 from ..evaltrees import EvalTree
-from ...exceptions import ConsistencyError
+from ...exceptions import ConsistencyError, IncorrectLogic
+
+from .decorators import *
 
 class ConceptNode(EvalTree):
 
@@ -12,6 +16,8 @@ class ConceptNode(EvalTree):
         self.concept_name = concept_name
         self.callparameters = callparameters
 
+        self.__scenario_requires__ = [self.concept_name]
+
     def __str__(self):
 
         string = self.concept_name
@@ -20,21 +26,27 @@ class ConceptNode(EvalTree):
 
         return string
 
+    @scenario_consistent
     def instance(self, **kwargs):
-        if "scenario" not in kwargs: raise ConsistencyError("A valid scenario has not been passed through evaluation stack")
-        if kwargs["scenario"].get(self.concept_name) is None: raise ConsistencyError("Logic error - Concept node for {} not found in scenario".format(self.concept_name))
-        return kwargs["scenario"].get(self.concept_name)
 
+        instance = kwargs["scenario"][self.concept_name]
+
+        if self.callparameters:
+            instance = instance(*self._evaluatedParameters(**kwargs))
+            if not isinstance(instance, Instance) and kwargs.get("ignore") != True:
+                raise IncorrectLogic("Parent of concept node {} is asking for an instance, but, this concept call does not yield one.".format(self)) 
+
+        return instance
+
+    @scenario_consistent
     def eval(self, **kwargs):
 
-        if self.callparameters is not None:
-            # The node is to use its instance's call function
-            instance = self.instance(**kwargs)
-            if instance is None: raise ConsistencyError("A valid scenario has not been passed through evaluation stack")  # TODO improve message
-            return instance(*[param.eval(**kwargs) for param in self.callparameters])
+        if self.callparameters is not None: return self.instance(**kwargs, ignore=True)
+        else: return 100
 
-        if "scenario" in kwargs: return (self.instance(**kwargs) is not None)*100
-        else: return 0
+    def _evaluatedParameters(self, **kwargs):
+        """ Evaluate all the parameters in the call parameters and return a list of their results """
+        return [param.eval(**kwargs) for param in self.callparameters]
 
     def parameters(self):
         return {self.concept_name}

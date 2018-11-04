@@ -20,7 +20,7 @@ class Test_Datapoint(unittest.TestCase):
         context_point.embedContext(self.embeddingModel.sentence)
 
         self.assertEqual(len(context_point.embedding["left"]), self.embeddingModel.size())
-        self.assertEquals(list(context_point.embedding["left"]), list(context_point.embedding["middle"]))
+        self.assertEqual(list(context_point.embedding["left"]), list(context_point.embedding["middle"]))
         self.assertNotEqual(list(context_point.embedding["left"]), list(context_point.embedding["right"]))
 
     def test_features(self):

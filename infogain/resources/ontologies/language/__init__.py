@@ -32,6 +32,7 @@ def training(num_of_docs: int = None) -> [Document]:
 
     trainingFiles = os.listdir(os.path.join(ROOT, "training"))
     trainingFiles.remove("__init__.py")
+    trainingFiles.remove("__pycache__")
 
     if num_of_docs: trainingFiles = trainingFiles[:num_of_docs]
 
@@ -51,6 +52,7 @@ def testing(num_of_docs: int = None) -> [Document]:
 
     testingFiles = os.listdir(os.path.join(ROOT, "testing"))
     testingFiles.remove("__init__.py")
+    testingFiles.remove("__pycache__")
 
     if num_of_docs: testingFiles = testingFiles[:num_of_docs]
 

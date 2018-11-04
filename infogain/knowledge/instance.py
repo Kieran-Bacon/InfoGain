@@ -25,6 +25,14 @@ class Instance(Vertice):
         self.properties = properties  # Data structure to contain the properties of the instance
 
     def __str__(self): return self.name
+    def __hash__(self):
+        if "__self__" in self.properties: return hash(self.properties["__self__"])
+        else: return Vertice.__hash__(self)
+    def __eq__(self, other):
+        if "__self__" in self.properties: return self.properties["__self__"] == other
+        else: return Vertice.__eq__(self, other)
+    def __ne__(self, other):
+        return not self.__eq__(other)
     def __getstate__(self): return self.__dict__
     def __setstate__(self, d): self.__dict__.update(d)
     def __getattr__(self, attribute): return self.properties.get(attribute)

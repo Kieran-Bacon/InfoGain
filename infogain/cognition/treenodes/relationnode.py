@@ -3,6 +3,7 @@ import re
 from ..evaltrees import EvalTree
 from .conceptnode import ConceptNode
 
+from .decorators import scenario_consistent
 
 class RelationNode(EvalTree):
 
@@ -21,6 +22,7 @@ class RelationNode(EvalTree):
     def parameters(self):
         return self.domain.parameters().union(self.target.parameters())
 
+    @scenario_consistent
     def eval(self, **kwargs):
         confidence = self.engine.inferRelation(
             self.domain.instance(**kwargs),

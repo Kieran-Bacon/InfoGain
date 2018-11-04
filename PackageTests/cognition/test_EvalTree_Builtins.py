@@ -162,8 +162,8 @@ class Test_EvalTreeBuiltins(unittest.TestCase):
 
         logic = "@period>length(12.08.19, #example.date), "
 
-        logic = "eq(#example>date, @date>date(18.09.19))"
+        logic = "eq(#example.date, @date>date(18.09.19))"
 
-        logic "@date.before(18.09.19, #example>birthday)"
+        logic = "@date.before(18.09.19, #example>birthday)"
 
-        "@period(17.09.2001, #example.birthday)>length()"
+        logic = "@period(17.09.2001, #example.birthday)>length()"

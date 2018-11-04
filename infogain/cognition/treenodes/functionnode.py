@@ -1,6 +1,7 @@
 import re
 
 from ..evaltrees import EvalTree
+from .decorators import scenario_consistent
 
 class FunctionNode(EvalTree):
 
@@ -17,6 +18,7 @@ class FunctionNode(EvalTree):
     def parameters(self):
         return self.component.parameters().union({param for group in self.function_parameters for param in group.parameters()})
 
+    @scenario_consistent
     def eval(self, **kwargs):
 
         function = self.component.instance(**kwargs).__getattribute__(self.function)

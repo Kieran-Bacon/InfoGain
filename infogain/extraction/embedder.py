@@ -41,7 +41,7 @@ class Embedder:
 
     def size(self) -> int:
         """ Return the size of the embedding vectors """
-        return self.model.layer1_size
+        return self.model.trainables.layer1_size
 
     def workers(self) -> int:
         """ Return the number of works being used by the embedding method """
