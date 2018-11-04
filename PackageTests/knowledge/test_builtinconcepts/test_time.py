@@ -36,7 +36,7 @@ class Test_Time_Builtin(unittest.TestCase):
         example = knowledge.Concept("example", properties={"date": datetime.date(2017, 2, 1)})
         self.engine.addConcept(example)
 
-        for logic, answer in {"#Date(02-02-2017)>before(#example.date)": False, "#Date(01-01-2017)>before(#example.date)": True}.items(): 
+        for logic, answer in {"#Date(02-02-2017).before(#example.date)": False, "#Date(01-01-2017).before(#example.date)": True}.items(): 
 
             node = self.factory.constructTree(logic)
 

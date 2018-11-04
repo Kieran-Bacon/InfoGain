@@ -65,6 +65,9 @@ class EvalTreeFactory:
         if not tll and len(segments) == 1: return self.constructTree(segments[0][1][1:-1])
 
         try:
+
+            print(tll, segments)
+
             match = OperatorNode.expression.search(tll)
             if match:
                 left, right = self._reformSplit(tll, segments, match.span("operator"))
@@ -111,7 +114,7 @@ class EvalTreeFactory:
     def _buildParameters(self, logic: str): # TODO Document
         """ Build the parameters from a logic string and return the collection of EvalTrees 
         constructed """
-        logic = logic.strip("()")
+        logic = logic[1:-1]
         logic = logic.split(",")
         if logic == [""]: return []
         else: return [self.constructTree(param) for param in logic]
@@ -134,13 +137,15 @@ class EvalTreeFactory:
         indexOfOpenned, ignoreCount = None, 0  
         segments = []
 
+        parenthesisError = IncorrectLogic("Parenthesis miss match while examining logic: {}".format(logic))
+
         for i, char in enumerate(logic):
             if char is "(":
                 if indexOfOpenned is None: indexOfOpenned = i  # Found a new segment, record index
                 else: ignoreCount += 1  # Found open parethesis between open and close
 
             if char is ")":
-                if indexOfOpenned is None: raise IncorrectLogic("Parenthesis miss match")
+                if indexOfOpenned is None: raise parenthesisError
 
                 if ignoreCount: ignoreCount -= 1  # Closed a inbetween segment
                 else:
@@ -148,7 +153,7 @@ class EvalTreeFactory:
                     segments.append((indexOfOpenned, i))
                     indexOfOpenned = None
 
-        if indexOfOpenned: raise IncorrectLogic("Parenthesis miss match")
+        if indexOfOpenned: raise parenthesisError
 
         # Split the logic now via the segments
 
