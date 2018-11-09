@@ -1,32 +1,48 @@
+import collections
+
 from .concept import Concept
+from .instance import Instance
+
+class Condition:
+
+    def __init__(self, logic: str, salience: float = 100):
+        self.logic = logic
+        self.salience = salience
+
+    def __str__(self): return self.logic
+    def __hash__(self): return hash(self.logic)
+    def __eq__(self, other): self.logic == other
+    def __ne__(self, other): not self.__eq__(other)
+
+    def containsDomain(self): return "%" in self.logic
+    def containsTarget(self): return "@" in self.logic
+
+    def minimise(self): return {"logic": self.logic, "salience": self.salience}
 
 class Rule:
     """ A rule is used to express how a relation might come about given a collection of knowledge """
     # TODO: Complete documentation for Rule
 
-    def __init__(self, domains: {Concept}, targets: {Concept}, confidence: float, conditions: [dict] = []):
+    def __init__(self, domains: {Concept}, targets: {Concept}, confidence: float, conditions: [Condition] = []):
 
-        if isinstance(domains, (Concept, str)):
-            domains = {domains}
-            targets = {targets}
-
-        self.domains = set(domains)
-        self.targets = set(targets)
-
+        # Copy the contents of the two sets as to ensure decoupling
+        self.domains = set(domains) if isinstance(domains, collections.Iterable) else {domains}
+        self.targets = set(targets) if isinstance(domains, collections.Iterable) else {targets}
         self.confidence = confidence
-        self._conditions = sorted(conditions, key = lambda x: x["salience"])
 
-        variableOnTarget = False
-        for condition in conditions:
-            if "@" in condition["logic"]:
-                variableOnTarget = True
-                break
+        for i, condition in enumerate(conditions):
+            if isinstance(condition, dict) and all([key in condition for key in ["logic", "salience"]]):
+                conditions[i] = Condition(condition["logic"], condition["salience"])
+
+
+        self._conditions = sorted(conditions, key = lambda x: x.salience)
 
         if conditions:
             self.domains = Concept.expandConceptSet(self.domains)
             
-            if variableOnTarget:
+            if any([condition.containsTarget() for condition in conditions]):
                 self.targets = self.targets.union(Concept.expandConceptSet(self.targets))
+
             self.targets = Concept.expandConceptSet(self.targets, descending=False)
 
     def __str__(self):
@@ -38,11 +54,30 @@ class Rule:
         return base
 
 
-    def applies(self, domain: (Concept), target: (Concept)):
+    def applies(self, domain: (Concept), target: (Concept)): # TODO Documentation
         """ Determine if the rule applies to the the domain and target pairing that has been
         provided """
-        if Concept.ABSTRACT == (domain.category or target.category): return False
-        else: return domain in self.domains and target in self.targets
+
+        # Ensure that the arguments are compariable
+        if type(domain) is not type(target):
+            raise ValueError("The domain and range passed have different types: {}({}) and {}({}) respectively".format(
+                type(domain), domain, type(target), target
+            ))
+
+        # Quick check before search whether or not the concepts are viable 
+        if isinstance(domain, Concept) and (Concept.ABSTRACT is (domain.category or target.category)): return False
+
+        # Expanded search for instances
+        if isinstance(domain, Instance):
+            return ((domain in self.domains or domain.concept in self.domains) and
+                    (target in self.targets or target.concept in self.targets))
+
+        # Final search of items
+        return domain in self.domains and target in self.targets
+
+    def hasConditions(self):
+        """ Deterimine of the rule has any conditions - Return True if it does, False if not """
+        return len(self._conditions) > 0
 
     def minimise(self):
         """ Reduce the rule down to a dictionary object of definitions """
@@ -53,9 +88,9 @@ class Rule:
         minimised = {"domains": domains, "targets": targets, "confidence": self.confidence }
 
         if self._conditions:
-            minimised["conditions"] = self._conditions
+            minimised["conditions"] = [condition.minimise() for condition in self._conditions]
 
         return minimised
 
-    def clone(self):
+    def clone(self): # TODO Documentation
         return Rule(**self.minimise())

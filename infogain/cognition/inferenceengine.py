@@ -163,7 +163,12 @@ class InferenceEngine(Ontology):
         confidence, scepticism = 1.0, 1.0
         for rule in relation.rules(domConcept, tarConcept):
             log.debug("Rule: {}".format(rule))
-            if not evaluate_conditions and rule.hasConditions(domConcept, tarConcept): continue  # Avoid condition rules
+            print(rule.hasConditions())
+            print(rule.hasConditions(domain, target))
+            print(rule.hasConditions(domConcept, tarConcept))
+            if not evaluate_conditions and rule.hasConditions(domain, target):
+                print("GOT HERE")
+                continue  # Avoid condition rules
 
             ruleValue = (1.0 - rule.eval(domain, target)/100)
             if rule.supporting: confidence *= ruleValue

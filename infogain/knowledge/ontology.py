@@ -3,7 +3,7 @@ import os, uuid, logging, json
 from ..exceptions import MissingConcept
 from .concept import Concept
 from .relation import Relation
-from .rule import Rule
+from .rule import Rule, Condition
 
 log = logging.getLogger(__name__)
 
@@ -49,6 +49,9 @@ class Ontology:
 
                 rules = []
                 for desc in rawRelation.get("rules", []):
+                    if "conditions" in desc:
+                        # Replace all conditions with legitimate condition objects
+                        desc["conditions"] = [Condition(cond["logic"], cond["salience"]) for cond in desc["conditions"]]
                     rules.append(Rule(**desc))
 
                 relation = Relation(
@@ -72,7 +75,7 @@ class Ontology:
         try:
             module = importlib.import_module("infogain.knowledge.builtin_concepts.{}".format(module_name))
             [self.addConcept(con) for con in module.concepts()]
-        except ImportError as e:
+        except ImportError:
             msg = "ImportError - No builtin module by that name: {}".format(module_name)
             log.error(msg, exc_info=True)
             raise ImportError(msg)

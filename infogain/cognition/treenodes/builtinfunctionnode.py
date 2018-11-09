@@ -88,7 +88,7 @@ class BuiltInFunctionNode(EvalTree):
         if not isinstance(relation_node, RelationNode):
             raise IncorrectLogic("Built in function facts received something other than a relation - {}".format(relation_node))
 
-        kwargs["evaluate_conditions"] = True
+        kwargs["evaluate_conditions"] = False
         return relation_node.eval(**kwargs)
 
     @staticmethod

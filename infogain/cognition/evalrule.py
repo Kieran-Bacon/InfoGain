@@ -1,6 +1,6 @@
 import itertools
 
-from ..knowledge import Ontology, Concept, Instance, Rule
+from ..knowledge import Ontology, Concept, Instance, Rule, Condition
 from .evaltrees import EvalTreeFactory, EvalTree
 
 import logging
@@ -27,7 +27,7 @@ class EvalRule(Rule):
         targets: {Concept},
         confidence: float,
         supporting: bool = True,
-        conditions: [dict] = [],
+        conditions: [Condition] = [],
         ontology: Ontology = None):
 
         Rule.__init__(self, domains, targets, confidence, conditions)
@@ -36,42 +36,45 @@ class EvalRule(Rule):
         self._evaluatedConfidences = {} 
         if ontology: self.assignOntology(ontology)
 
-    def assignOntology(self, ontology: Ontology) -> None:
+    def assignOntology(self, ontology: Ontology) -> None:  # TODO Document
         """ Assign the ontology object to the rule and link the correct variables """
+        
+        # Record a reference to the engine
         self.engine = ontology
 
-        self.domains = {self.engine.concept(con) for con in self.domains if isinstance(con, str)}.union(self.domains)
-        self.targets = {self.engine.concept(con) for con in self.targets if isinstance(con, str)}.union(self.targets)
-
+        # Generate a tree factory for against the engine
         self._factory = EvalTreeFactory(self.engine)
-        self._conditionTrees = [self._factory.constructTree(cond["logic"]) for cond in self._conditions]
 
+        # Generate the evaluable condition trees for the conditions objects
+        self._conditionTrees = [self._factory.constructTree(cond.logic) for cond in self._conditions]
+
+        # Find all the parameters within the logic and extract their concept definitions precisely
         self._parameters = {}
-        for tree in self._conditionTrees:
-            for param in tree.parameters():
-                self._parameters[param] = EvalTreeFactory.paramToConcept(param)
-
-        self._parameters = {param for tree in self._conditionTrees for param in tree.parameters()}.difference({"%", "@"})
+        for param in {param for tree in self._conditionTrees for param in tree.parameters()}.difference({"%", "@"}):
+            self._parameters[param] = EvalTreeFactory.paramToConcept(param)
 
     def hasConditions(self, domain: Concept = None, target: Concept = None) -> bool:
         """ Check if the the rule has conditions, or, if the conditions apply, would they apply in 
         the instance that a domain and target pairing has been provided
 
         Params:
-            domain (Concept): A concept within the engine
-            target (Concept): A concept within the engine
+            domain (Concept): A concept or instance within the engine
+            target (Concept): A concept or instance within the engine
         
         Returns:
             bool - True if no conditions or pairing has been evaluated else false
         """
-        if domain and target and self._evaluatedConfidences.get(self.evalIdGen(domain, target)): return True
-        return self._conditions != []
+        if domain is not None and target is not None and self:  # They have been provided
+            if self._evaluatedConfidences.get(self.evalIdGen(domain, target)) is not None:  # There is a value for it
+                return False
+        
+        return Rule.hasConditions(self)
 
     def eval(self, domain: Instance, target: Instance):
         """ Evaluate all the scenarios of a particular relation instance and determine the confidence
         of the relation """
 
-        if domain.concept not in self.domains and target.concept not in self.targets:
+        if not self.applies(domain, target):
             log.debug("Rule doesn't apply to the paring, returning None")
             return 0  # Return 0 as the rule doesn't support the pair provided
 
@@ -83,33 +86,39 @@ class EvalRule(Rule):
         if pairing_key in self._evaluatedConfidences:
             log.debug("Evaluating rule for {} {} - returning previous calculated value {}".format(domain, target, self._evaluatedConfidences[pairing_key]))
             return self._evaluatedConfidences[pairing_key]  # Returned previously evaluted score
+        else:
+            # Place an initial value to indicate that it is being evaluated
+            self._evaluatedConfidences[pairing_key] = 0
 
         log.debug("Evaluating rule for {} {}".format(domain, target))
 
+        # Collect together all the instances that may contribute to this rule, against the logic that represents them
+        params = list(self._parameters.keys())
+        instances = [self.engine.instances(*self._parameters[param]) for param in params]
+
+        # Find the product of the instance sets 
         ruleConfidence = 1.0
-        params = list(self._parameters)
-        instances = []
-        for param in params:
-            conceptName, expand = EvalTreeFactory.paramToConcept(param)
-            instances.append(self.engine.instances(conceptName, expand))
+        for scenario_instances in itertools.product(*instances): # TODO: itertools only works for lists and if the concept is static it breaks...
 
-        for scenario_instances in itertools.product(*instances):
-
+            # Generate the scenario instances
             scenario = {param: scenario_instances[i] for i, param in enumerate(params)}
             scenario["%"] = domain
             scenario["@"] = target
-
             log.debug("Evaluating rule scenario - {}".format({k: str(v) for k,v in scenario.items()}))
 
+            # Evaluate the scenario against all the conditions
             confidence = self.evalScenario(scenario)/100
 
+            # TODO Fix this logic - I do not feel happy with the way in which we add up negitive outcomes.
             if confidence < -1 or confidence > 1: raise Exception("This is bad")
             if confidence < 0: confidence = 1 + confidence
 
             ruleConfidence *= (1.0-confidence)
 
-        self._evaluatedConfidences[pairing_key] = (1.0 - ruleConfidence)*100
-        return (1.0 - ruleConfidence)*100
+        # Store the evaluation pairs outcome and return it
+        pairing_key_confidence = (1.0 - ruleConfidence)*100
+        self._evaluatedConfidences[pairing_key] = pairing_key_confidence
+        return pairing_key_confidence
 
     def evalScenario(self, scenario: dict) -> float:
 
@@ -119,7 +128,7 @@ class EvalRule(Rule):
             log.debug("Evaluating condition of the rule - {}".format(conditionEvalTree))
             confidence = conditionEvalTree.eval(scenario=scenario)/100  # Apply scenario
             
-            scenarioConfidence += (1 - confidence)*(condition["salience"]/100)
+            scenarioConfidence += (1 - confidence)*(condition.salience/100)
             log.debug("Condition evaluated with confidence {}. Sum of error: {}".format(confidence, scenarioConfidence))
             
             if scenarioConfidence >= 1.0:

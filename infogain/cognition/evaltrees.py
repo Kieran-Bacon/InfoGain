@@ -113,19 +113,28 @@ class EvalTreeFactory:
 
     def _buildParameters(self, logic: str): # TODO Document
         """ Build the parameters from a logic string and return the collection of EvalTrees 
-        constructed """
+        constructed """  # TODO DOCUMENT
         logic = logic[1:-1]
         logic = logic.split(",")
         if logic == [""]: return []
         else: return [self.constructTree(param) for param in logic]
 
     @staticmethod
-    def paramToConcept(concept_name: str) -> str:  # TODO FIX THIS FUNCTION
+    def paramToConcept(concept_name: str) -> (str, bool):  # TODO FIX THIS FUNCTION
         """ Convert a parameter name into a valid concept string 
-        
-        # TODO: Documentation"""
-        match = re.search("[A-Za-z_]+", concept_name)
-        if match: return match.group(0), "#" in concept_name
+
+        Params:
+            concept_name (str): String that expresses a concept
+
+        Returns:
+            str: A valid concept name
+            bool: Identifies that the concept is meant to be expanded to include its children.
+        """
+
+
+        match = ConceptNode.systax.search(concept_name)
+        if match and match.group(2): return match.group(2), "#" in match.group(0)
+        else: raise ValueError("Could not match concept definition with provided string: {}".format(concept_name))
 
     @staticmethod
     def _breakdown_logic(logic: str) -> (str, (int, str)):

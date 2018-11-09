@@ -28,7 +28,7 @@ class RelationNode(EvalTree):
             self.domain.instance(**kwargs),
             self.relation,
             self.target.instance(**kwargs),
-            evaluate_conditions = "facts_only" in kwargs
+            evaluate_conditions = "evaluate_conditions" in kwargs
         )
         return confidence if self.isPositive else (-1)*confidence #(100.0-confidence)
 

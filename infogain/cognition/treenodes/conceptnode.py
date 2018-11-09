@@ -9,7 +9,7 @@ from .decorators import *
 
 class ConceptNode(EvalTree):
 
-    systax = re.compile(r"\%|\@|#(\[[\w_]+\])?[A-Za-z][\w_]*")  # The concept syntax in the logic e.g %, @, #doggo
+    systax = re.compile(r"\%|\@|#(\[[\w_]+\])?([A-Za-z][\w_]*)")  # The concept syntax in the logic e.g %, @, #doggo
     expression = re.compile(r"(^\s*){}(\s*$)".format(systax.pattern))
     
     def __init__(self, concept_name: str, callparameters: [object] = None):
