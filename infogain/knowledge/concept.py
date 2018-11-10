@@ -60,6 +60,7 @@ class Concept(Vertice):
                 self._instance = self._instance_class(self.name, properties=self.properties)
 
     def __str__(self): return self.name
+    def __repr__(self): return "<Concept: {}>".format(self.name)
 
     def __hash__(self):
         if not self.__dict__: return 0

@@ -1,5 +1,3 @@
-from inspect import signature
-
 from ..information import Vertice, Edge
 
 class Instance(Vertice):
@@ -25,6 +23,7 @@ class Instance(Vertice):
         self.properties = properties  # Data structure to contain the properties of the instance
 
     def __str__(self): return self.name
+    def __repr__(self): return "<Instance of {}: '{}' with properties {}>".format(self.concept, self.name, self.properties)
     def __hash__(self):
         if "__self__" in self.properties: return hash(self.properties["__self__"])
         else: return Vertice.__hash__(self)
