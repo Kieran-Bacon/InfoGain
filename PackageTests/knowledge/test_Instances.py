@@ -1,6 +1,6 @@
 import unittest
 
-from infogain.knowledge import Instance
+from infogain.knowledge import Instance, Concept
 
 class Test_Instance(unittest.TestCase):
 
@@ -21,6 +21,28 @@ class Test_Instance(unittest.TestCase):
 
         self.assertEqual(example.prop, "value")
         self.assertIsNone(example.something)
+
+    def test_equality_string(self):
+
+        self.assertTrue("England" == Instance("England"))
+        self.assertFalse("England" == Instance("England", "uuid"))
+        self.assertTrue("England" == Instance("Country", "England"))
+
+    def test_equality_concept(self):
+        
+        england = Concept("England")
+        
+        self.assertTrue(england == Instance("England"))
+        self.assertFalse(england == Instance("England", "uuid"))
+        self.assertTrue(england == Instance("Country", "England"))
+
+    def test_equality_instance(self):
+
+        england = Instance("England")
+
+        self.assertTrue(england == Instance("England"))
+        self.assertFalse(england == Instance("England", "uuid"))
+        self.assertTrue(england == Instance("Country", "England"))
 
 class Test_ConceptInstance(unittest.TestCase):
     pass

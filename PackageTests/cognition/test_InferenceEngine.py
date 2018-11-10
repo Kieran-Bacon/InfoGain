@@ -46,11 +46,11 @@ class Test_InferenceEngine(unittest.TestCase):
         engine.addConcept(Concept("y"))
 
         engine.addRelation(Relation("x", "simple", "y"))
-        engine.addRelation(Relation("x", "soundlogic", "y", [Rule("x", "y", 100, [{"logic": "%", "salience": 100}])]))
+        engine.addRelation(Relation("x", "soundlogic", "y", [Rule("x", "y", 100, conditions=[{"logic": "%", "salience": 100}])]))
         
 
         with pytest.raises(IncorrectLogic):
-            engine.addRelation(Relation("x", "wrong", "y", [Rule("x", "y", 100, [{"logic": "graph()()", "salience": 100}])]))
+            engine.addRelation(Relation("x", "wrong", "y", [Rule("x", "y", 100, conditions=[{"logic": "graph()()", "salience": 100}])]))
 
     def test_addInstance(self):
         """ Add instances to the engine """
@@ -209,8 +209,7 @@ class Test_InferenceEngine(unittest.TestCase):
                 "lives_in",
                 engine.concept("Germany").instance()
             ), 
-            76.5109435,
-            0
+            69
         )
 
     def test_worldKnowledge3(self):
@@ -243,7 +242,6 @@ class Test_InferenceEngine(unittest.TestCase):
                 engine.concept("Kieran").instance(),
                 "lives_in",
                 engine.concept("Germany").instance()
-            ), 
-            -44.77115,
-            0
+            ),
+            -69
         )

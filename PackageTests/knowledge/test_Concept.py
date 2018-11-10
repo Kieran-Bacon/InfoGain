@@ -164,6 +164,20 @@ class Test_Concept(unittest.TestCase):
 
         self.assertEqual(inst.something(), 10)
 
+    def test_concept_string_equality_in_dictionaries(self):
+
+        example = Concept("example")
+
+        collection = {example: 10}
+
+        self.assertEqual(collection.get(example), 10)
+        self.assertEqual(collection.get("example"), 10)
+
+        collection2 = {"example": 10}
+
+        self.assertEqual(collection2.get(example), 10)
+        self.assertEqual(collection2.get("example"), 10)
+
 
 if __name__ == "__main__":
     unittest.main()
