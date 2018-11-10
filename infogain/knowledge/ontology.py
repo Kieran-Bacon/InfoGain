@@ -135,21 +135,20 @@ class Ontology:
         Returns:
             Relation - The original relation or a newly generated relation with edits.
         """
+        # Connect any incomplete concepts with the ontology
+        domains = {self.concept(d) for d in relation.domains if isinstance(d, str)}.union(relation.domains)
+        targets = {self.concept(t) for t in relation.targets if isinstance(t, str)}.union(relation.targets)
+        
+        # Ask the relation to correctly allocate the domains and targets
+        for domain in Concept.expandConceptSet(domains): relation.subscribe(domain)
+        for target in Concept.expandConceptSet(targets): relation.subscribe(target)
 
-        if any([isinstance(con, str) for con in relation.domains.union(relation.targets)]):
-            minimised = relation.minimise()
-            minimised["domains"] = [[self.concept(dom) for dom in group] for group in minimised["domains"]]
-            minimised["targets"] = [[self.concept(tar) for tar in group] for group in minimised["targets"]]
-
-            rules = []
-            for rule in minimised.get("rules", []):
-                rule["domains"] = [self.concept(con) for con in rule["domains"]]
-                rule["targets"] = [self.concept(con) for con in rule["targets"]]
-                rules.append(Rule(**rule))
-
-            minimised["rules"] = rules
-
-            relation = Relation(**minimised)
+        # Connect any of the rules 
+        for rule in relation.rules():
+            rule.domains = {self.concept(d) for d in rule.domains if isinstance(d, str)}.union(rule.domains)
+            rule.targets = {self.concept(t) for t in rule.targets if isinstance(t, str)}.union(rule.targets)
+            rule.domains = Concept.expandConceptSet(rule.domains)
+            rule.targets = Concept.expandConceptSet(rule.targets)
 
         log.debug("Added Relation {}".format(str(relation)))
         self._relations[relation.name] = relation

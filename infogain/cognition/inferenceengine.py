@@ -1,6 +1,8 @@
 from ..exceptions import ConsistencyError
 from ..artefact import Document
 from ..knowledge import Ontology, Concept, Instance, Relation, Rule
+
+from .evalrelation import EvalRelation
 from .evalrule import EvalRule
 from .evaltrees import EvalTreeFactory
 
@@ -14,7 +16,8 @@ class InferenceEngine(Ontology):
     def __init__(self, name:str = None, filepath:str=None, ontology:Ontology=None):
 
         Ontology.__init__(self, name=name, filepath=filepath)
-        self._conceptInstances = {}
+        self._conceptInstances = {}  # Links concepts to their instances
+        self._instances = {}  # stores instances
 
         if ontology:
             ont = ontology.clone()
@@ -39,7 +42,9 @@ class InferenceEngine(Ontology):
 
         self._conceptInstances[concept.name] = []
         if concept.category is Concept.STATIC:
-            self._conceptInstances[concept.name].append(concept.instance())
+            instance = concept.instance()
+            self._conceptInstances[concept.name].append(instance)
+            self._instances[concept.name] = instance
 
     def addRelation(self, relation: Relation):
         """ Add a relationship into the engine - convert any rules within the relations to
@@ -51,21 +56,13 @@ class InferenceEngine(Ontology):
         Raises:
             IncorrectLogic: A rule within the relation has malformed logic
         """
+        evalRelation = EvalRelation.fromRelation(relation, self)
+        Ontology.addRelation(self, evalRelation)
+        return evalRelation
 
-        relation = Ontology.addRelation(self, relation)  # Call the original add relation function
-
-        evalRules = []
-        for rule in relation.rules():
-            # Update all the rules within the relation with evalable rules
-            minimsied = rule.minimise()
-            minimsied["domains"] = {self.concept(con) for con in minimsied["domains"]}
-            minimsied["targets"] = {self.concept(con) for con in minimsied["targets"]}
-            minimsied["ontology"] = self
-            evalRules.append(EvalRule(**minimsied))
-
-        # Unpackage the rules of the ontology, generate eval rules to represent them
-        relation.assignRules(evalRules)
-        return relation
+    def relation(self, relation: (str, Relation)):
+        if isinstance(relation, Relation): relation = relation.name
+        return Ontology.relation(self, relation)
 
     def addInstance(self, concept_instance: Instance) -> None:
         """ Add a concept instance - Only possible for dynamic concepts
@@ -83,6 +80,20 @@ class InferenceEngine(Ontology):
         if concept.category is Concept.ABSTRACT or concept.category is Concept.STATIC: raise TypeError("{} is not suitable for additional instances. Its category needs to be set to dynamic".format(concept.name))
 
         self._conceptInstances[concept.name].append(concept_instance)
+        self._instances[concept_instance.name] = concept_instance
+
+    def instance(self, instance_name: str) -> Instance:
+        """ Collect an instance with the provided name or return None in the event that no instance exists with that
+        name
+
+        Params:
+            instance_name (str): The instance name
+
+        Returns:
+            Instance: The instance object with the same name
+            None: The instance could not be found
+        """
+        return self._instances.get(instance_name)
 
     def instances(self, concept_name: str, descendants: bool = False) -> [Instance]:
         """ Collect the instances for a concept identifier. If the concept is static then only its 
@@ -150,27 +161,22 @@ class InferenceEngine(Ontology):
             float: The certainty of a relation which falls between the range(0, 100)
         """
 
-        if isinstance(relation, (str)): relation = self.relation(relation)
+        if isinstance(relation, (str, Relation)): relation = self.relation(relation)
         domConcept, tarConcept = self.concept(domain.concept), self.concept(target.concept)
 
         if None is (domConcept or tarConcept): raise Exception("Cannot infer relation between concepts unknown to the engine")
 
-        print(relation)
-
         log.info("Infering relation '{} {} {}' - {} rules found for relation instance".format(
-            domain, relation.name, target, len(relation.rules(domConcept, tarConcept))))
+            domain, relation.name, target, len(relation.rules(domain, target))))
 
         confidence, scepticism = 1.0, 1.0
-        for rule in relation.rules(domConcept, tarConcept):
+        for rule in relation.rules(domain, target):
             log.debug("Rule: {}".format(rule))
-            print(rule.hasConditions())
-            print(rule.hasConditions(domain, target))
-            print(rule.hasConditions(domConcept, tarConcept))
             if not evaluate_conditions and rule.hasConditions(domain, target):
-                print("GOT HERE")
                 continue  # Avoid condition rules
 
             ruleValue = (1.0 - rule.eval(domain, target)/100)
+            log.debug(rule.supporting)
             if rule.supporting: confidence *= ruleValue
             else:               scepticism *= ruleValue
 

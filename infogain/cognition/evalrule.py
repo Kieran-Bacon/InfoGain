@@ -30,11 +30,14 @@ class EvalRule(Rule):
         conditions: [Condition] = [],
         ontology: Ontology = None):
 
-        Rule.__init__(self, domains, targets, confidence, conditions)
+        Rule.__init__(self, domains, targets, confidence, supporting, conditions)
 
-        self.supporting = supporting
+        self._conditionTrees = []
+        self._parameters = {}
         self._evaluatedConfidences = {} 
         if ontology: self.assignOntology(ontology)
+
+    def __repr__(self): return "<{} {} {} {} {} {}>".format(super().__repr__(), self.domains, self.targets, self.confidence, self.supporting, self.conditions())
 
     def assignOntology(self, ontology: Ontology) -> None:  # TODO Document
         """ Assign the ontology object to the rule and link the correct variables """
@@ -51,7 +54,7 @@ class EvalRule(Rule):
         # Find all the parameters within the logic and extract their concept definitions precisely
         self._parameters = {}
         for param in {param for tree in self._conditionTrees for param in tree.parameters()}.difference({"%", "@"}):
-            self._parameters[param] = EvalTreeFactory.paramToConcept(param)
+            self._parameters[param] = EvalTree.paramToConcept(param)
 
     def hasConditions(self, domain: Concept = None, target: Concept = None) -> bool:
         """ Check if the the rule has conditions, or, if the conditions apply, would they apply in 
@@ -80,6 +83,8 @@ class EvalRule(Rule):
 
         if not self._conditions:
             return self.confidence
+
+        if not self._conditionTrees: raise RuntimeError("EvalRule({}) yet to construct condition trees - requires ontology/engine".format(self))
 
         pairing_key = self.evalIdGen(domain, target)  # Generate the key for this pairing
 
@@ -141,6 +146,11 @@ class EvalRule(Rule):
 
     def reset(self):
         self._evaluatedConfidences = {}
+
+    @classmethod
+    def fromRule(cls, rule: Rule, engine: Ontology): # TODO
+        """ Convert a rule into an evaluable rule """
+        return EvalRule(rule.domains, rule.targets, rule.confidence, rule.supporting, rule.conditions(), engine)
 
     @staticmethod
     def evalIdGen(domain: Concept, target: Concept) -> str:
