@@ -120,13 +120,14 @@ class Concept(Vertice):
         if self.category is Concept.STATIC:
             self._instance = self._instance_class(self, properties=self.properties)
 
-    def instance(self, instance_name: str = None) -> Instance:
+    def instance(self, instance_name: str = None, properties: dict = None) -> Instance:
         """ Generate an instance of this concept and return it. In the event that the concept is 
         static, this function acts as a singlton and returns the single instance of this concept
         
         Params:
             instance_name (str): (dynamic only) An unique identifier for the instance - defaults to 
                 UUID in the event that it is not provided and needed
+            properties (dict): (dynamic only) A collection of properties for this instance, overloads concept properties
 
         Raises:
             TypeError: In the event that the concept is abstract - no instance can be created
@@ -141,8 +142,9 @@ class Concept(Vertice):
             return self._instance
 
         if instance_name is None: instance_name = str(uuid.uuid4())
+        props = self.properties.copy() if properties is None else properties
 
-        return self._instance_class(self.name, instance_name, self.properties.copy())  # Generate a new instance of this class
+        return self._instance_class(self.name, instance_name, props)  # Generate a new instance of this class
 
     def clone(self):
         """ Return an new partial concept with identical information but invalid concept connections
