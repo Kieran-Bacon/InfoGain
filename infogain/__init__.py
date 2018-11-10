@@ -1,7 +1,8 @@
 import logging
 
-gensim = logging.getLogger("gensim")
-gensim.setLevel(logging.ERROR)
+for module in ["infogain.knowledge", "gensim"]:
+    logger = logging.getLogger(module)
+    logger.setLevel(logging.ERROR)
 
 from . import knowledge
 from . import artefact
