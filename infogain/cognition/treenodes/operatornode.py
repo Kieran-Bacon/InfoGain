@@ -14,10 +14,10 @@ class OperatorNode(EvalTree):
         ">=":  lambda a, b : a >= b,
         "<=":  lambda a, b : a <= b,
 
-        "is(?! not)":  lambda a, b : a is b,
-        "is not": lambda a, b : a is not b,
-        "and":  lambda a, b : a and b,
-        "or":  lambda a, b : a or b,
+        r"\sis(?!\snot)\s":  lambda a, b : a is b,
+        r"\sis\snot\s": lambda a, b : a is not b,
+        r"\sand\s":  lambda a, b : a and b,
+        r"\sor\s":  lambda a, b : a or b,
     }
 
     expression = re.compile(r".+(?P<operator>{}).+".format("|".join(operators.keys())))

@@ -4,6 +4,8 @@ from ..exceptions import IncorrectLogic, ConsistencyError
 from ..knowledge import Instance
 
 class EvalTree:
+
+    concept_syntax = re.compile(r"\%|\@|#(\[[\w_]+\])?([A-Za-z][\w_]*)")  # The concept syntax in the logic e.g %, @, #doggo
     
     def __str__(self):
         raise NotImplementedError()
@@ -23,6 +25,22 @@ class EvalTree:
     def eval(self, *args, **kwargs):
         """ Determine the value of the node and return its value """
         raise NotImplementedError()
+
+    @classmethod
+    def paramToConcept(cls, concept_name: str) -> (str, bool):  # TODO FIX THIS FUNCTION
+        """ Convert a parameter name into a valid concept string 
+
+        Params:
+            concept_name (str): String that expresses a concept
+
+        Returns:
+            str: A valid concept name
+            bool: Identifies that the concept is meant to be expanded to include its children.
+        """
+
+        match = cls.concept_syntax.search(concept_name)
+        if match and match.group(2): return match.group(2), "#" in match.group(0)
+        else: raise ValueError("Could not match concept definition with provided string: {}".format(concept_name))
 
 from .treenodes import *
 
@@ -65,8 +83,6 @@ class EvalTreeFactory:
         if not tll and len(segments) == 1: return self.constructTree(segments[0][1][1:-1])
 
         try:
-
-            print(tll, segments)
 
             match = OperatorNode.expression.search(tll)
             if match:
@@ -118,23 +134,6 @@ class EvalTreeFactory:
         logic = logic.split(",")
         if logic == [""]: return []
         else: return [self.constructTree(param) for param in logic]
-
-    @staticmethod
-    def paramToConcept(concept_name: str) -> (str, bool):  # TODO FIX THIS FUNCTION
-        """ Convert a parameter name into a valid concept string 
-
-        Params:
-            concept_name (str): String that expresses a concept
-
-        Returns:
-            str: A valid concept name
-            bool: Identifies that the concept is meant to be expanded to include its children.
-        """
-
-
-        match = ConceptNode.systax.search(concept_name)
-        if match and match.group(2): return match.group(2), "#" in match.group(0)
-        else: raise ValueError("Could not match concept definition with provided string: {}".format(concept_name))
 
     @staticmethod
     def _breakdown_logic(logic: str) -> (str, (int, str)):

@@ -7,7 +7,7 @@ from .decorators import scenario_consistent
 
 class RelationNode(EvalTree):
 
-    expression = re.compile(r"({0})=([\w_]+)=({0})|({0})-([\w_]+)-({0})".format(ConceptNode.systax.pattern))
+    expression = re.compile(r"({0})=([\w_]+)=({0})|({0})-([\w_]+)-({0})".format(EvalTree.concept_syntax.pattern))
     
     def __init__(self, domain: ConceptNode, relation: str, target: ConceptNode, isPositive: bool):
         self.domain = domain
