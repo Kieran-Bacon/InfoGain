@@ -14,6 +14,8 @@ class Test_Ontology_Creation(unittest.TestCase):
         self.english = Concept("English", parents={self.language})
 
         self.speaks = Relation({self.person}, "speaks", {self.language})
+
+        self.maxDiff = None
         
     def test_builtins(self):
 
@@ -31,9 +33,9 @@ class Test_Ontology_Creation(unittest.TestCase):
     def test_load_and_save(self):
         """ Test that saving and ontology returns it to the same state as it was before """
 
-        ont, path = Language.ontology(get_path=True)
+        ont = Language.ontology()
 
-        with open(path, "r") as handler:
+        with open(Language.path_ontology, "r") as handler:
             content = handler.read()
 
         self.assertEqual(content, ont.toJson())

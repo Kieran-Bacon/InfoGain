@@ -17,7 +17,7 @@ class Test_Rule(unittest.TestCase):
             knowledge.Condition("%.age.graph(x > 10)", 24)
         ]
 
-        self.country_speaks_language = knowledge.Rule(self.country, self.language, 80, conditions)
+        self.country_speaks_language = knowledge.Rule(self.country, self.language, 80, conditions=conditions)
 
     def test_applies_raises_when_not_equal(self):
 
