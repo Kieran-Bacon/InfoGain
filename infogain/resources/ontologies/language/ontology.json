@@ -93,10 +93,7 @@
             ],
             "targets": [
                 [
-                    "England",
-                    "France",
-                    "Germany",
-                    "Spain"
+                    "Country"
                 ]
             ]
         },
@@ -121,21 +118,6 @@
             ],
             "rules": [
                 {
-                    "domains": ["Person"],
-                    "targets": ["Country"],
-                    "confidence": 10,
-                    "conditions": [
-                        {
-                            "logic": "isNot(@, #Country)",
-                            "salience": 100
-                        },
-                        {
-                            "logic": "facts(%-lives_in-#Country)",
-                            "salience": 10
-                        }
-                    ]
-                },
-                {
                     "confidence": 50,
                     "domains": [
                         "Kieran"
@@ -147,10 +129,7 @@
             ],
             "targets": [
                 [
-                    "England",
-                    "France",
-                    "Germany",
-                    "Spain"
+                    "Country"
                 ]
             ]
         },
@@ -178,10 +157,7 @@
                         "Person"
                     ],
                     "targets": [
-                        "English",
-                        "French",
-                        "German",
-                        "Spanish"
+                        "Language"
                     ]
                 },
                 {

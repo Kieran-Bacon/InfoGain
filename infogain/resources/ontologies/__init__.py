@@ -1,1 +1,2 @@
-from . import language
+from .ontologymanager import language
+from .ontologymanager import school
