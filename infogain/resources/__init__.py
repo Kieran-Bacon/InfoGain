@@ -1,7 +1,6 @@
 import os
 
 #from . import Calibrator
-from . import ontologies
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
 TEXT_COLLECTIONS = [os.path.join(ROOT,"TextCollections", name) for name in os.listdir(os.path.join(ROOT,"TextCollections"))]
