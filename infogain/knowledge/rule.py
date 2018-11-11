@@ -8,7 +8,6 @@ class Condition:
     def __init__(self, logic: str, salience: float = 100):
         self.logic = logic
         self.salience = salience
-
     def __str__(self): return self.logic
     def __repr__(self): return "<Condition: '{}' with salience {}>".format(self.logic, self.salience)
     def __hash__(self): return hash(self.logic)
@@ -22,10 +21,27 @@ class Condition:
     def clone(self): return Condition(self.logic, self.salience)
 
 class Rule:
-    """ A rule is used to express how a relation might come about given a collection of knowledge """
-    # TODO: Complete documentation for Rule
+    """ A rule expresses when a relation occurs and with what confidence does it occur. It references external pieces of
+    information and describes the scenarios that may give rise to a Relation
+    
+    Params:
+        domains ({Concept}): A set of domain concepts - A subset of the relation domains
+        targets ({Concept}): A set of target concepts - A subset of the relation targets
+        confidence (float): The confidence of the relation given its conditions
 
-    def __init__(self, domains: {Concept}, targets: {Concept}, confidence: float, supporting: bool = True, conditions: [Condition] = []):
+        [Keywords]
+        supporting (bool): sign of the rule - If the rule, does it suggest the relation is true or false
+        conditions ([Condition]): The list of conditions of the Rule, contains the logic of the rule 
+    """
+
+    def __init__(
+        self,
+        domains: {Concept},
+        targets: {Concept},
+        confidence: float,
+        *,
+        supporting: bool = True,
+        conditions: [Condition] = []):
 
         # Copy the contents of the two sets as to ensure decoupling
         self.domains = set(domains) if isinstance(domains, collections.Iterable) else {domains}
@@ -39,7 +55,6 @@ class Rule:
             if isinstance(condition, dict) and all([key in condition for key in ["logic", "salience"]]):
                 conditions[i] = Condition(condition["logic"], condition["salience"])
 
-
         self._conditions = sorted(conditions, key = lambda x: x.salience)
 
         if conditions:
@@ -51,16 +66,27 @@ class Rule:
             self.targets = Concept.expandConceptSet(self.targets, descending=False)
 
     def __str__(self):
-        base = " ".join([str([str(d) for d in self.domains]), str([str(d) for d in self.targets]), "is true with", str(self.confidence)])
+        base = " ".join([self.domains, self.targets, "is true with", str(self.confidence)])
         if self._conditions:
             base += " when:\n"
             base += "\n".join([str(condition) for condition in self._conditions])
 
         return base
 
-    def applies(self, domain: (Concept), target: (Concept)): # TODO Documentation
+    def applies(self, domain: (Concept), target: (Concept)) -> bool:
         """ Determine if the rule applies to the the domain and target pairing that has been
-        provided """
+        provided.
+        
+        Params:
+            domain (Concept/Instance): The domain concept
+            target (Concept/Instance): The target concept
+
+        Returns:
+            bool: True if it does apply else False
+
+        Raises:
+            ValueError: When the domain and target types don't match
+        """
 
         # Ensure that the arguments are compariable
         if type(domain) is not type(target):
@@ -83,16 +109,22 @@ class Rule:
         """ Deterimine of the rule has any conditions - Return True if it does, False if not """
         return len(self._conditions) > 0
 
-    def conditions(self): # TODO document and test
+    def conditions(self):
+        """ Return the conditions of the Rule """
         return self._conditions
 
     def _collapse_domain_targets(self):
+        """ Collapse the domain and target down to their most expressive form, supports other functions """
         domains = sorted([c if isinstance(c, str) else c.name for c in Concept.minimiseConceptSet(self.domains)])
         targets = sorted([c if isinstance(c, str) else c.name for c in Concept.minimiseConceptSet(self.targets)])
         return domains, targets
 
-    def minimise(self):
-        """ Reduce the rule down to a dictionary object of definitions """
+    def minimise(self) -> dict:
+        """ Reduce the rule down to a dictionary object that defines the rule
+        
+        Returns:
+            dict: keys {"domains", "targets", "confidence", "supporting", "conditions"}
+        """
 
         domains, targets = self._collapse_domain_targets()
 
@@ -100,9 +132,21 @@ class Rule:
 
         if self._conditions:
             minimised["conditions"] = [condition.minimise() for condition in self._conditions]
+        if not self.supporting: minimised["supporting"] = self.supporting
 
         return minimised
 
-    def clone(self): # TODO Documentation
+    def clone(self):
+        """ Generate a deep copy of this Rule - All references to concepts are replaced with strings 
+        
+        Returns:
+            Rule: A new Rule emblematic of the original
+        """
         domains, targets = self._collapse_domain_targets()
-        return Rule(domains, targets, self.confidence, self.supporting, [condition.clone() for condition in self._conditions])
+        return Rule(
+            domains,
+            targets,
+            self.confidence,
+            supporting=self.supporting,
+            conditions=[condition.clone() for condition in self._conditions]
+        )

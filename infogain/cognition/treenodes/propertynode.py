@@ -27,7 +27,8 @@ class PropertyNode(EvalTree):
 
     def __str__(self):
         string = "{}.{}".format(self.component, self.property_key)
-        if self.function_parameters is not None: string += "({})".format(",".join([str(param) for param in self.function_parameters]))
+        if self.function_parameters is not None:
+            string += "({})".format(",".join([str(param) for param in self.function_parameters]))
         return string
 
     def parameters(self):
@@ -43,6 +44,7 @@ class PropertyNode(EvalTree):
         instance = self.component.instance(**kwargs)
 
         if self.function_parameters is not None:
-            return instance.__getattribute__(self.property_key)(*[param.eval(**kwargs) for param in self.function_parameters])
+            return instance.__getattribute__(self.property_key)(*[param.eval(**kwargs)
+                for param in self.function_parameters])
         else:
             return instance[self.property_key]

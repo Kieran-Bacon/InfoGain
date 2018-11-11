@@ -19,6 +19,7 @@ class Test_CodeQuality(unittest.TestCase):
         printIssue = "Print statement found in {}: line {} \"{}\""
         todoIssue = "TODO statement found in {}: line {} \"{}\""
         passIssue = "Pass statement found in {}: line {} \"{}\""
+        lengthIssue = "Line length exceeded in {}: line {} length {} \"{}\""
 
         for (dirpath, _, filenames) in os.walk(directory):
 
@@ -32,13 +33,18 @@ class Test_CodeQuality(unittest.TestCase):
                     with open(os.path.join(dirpath, filename), "r") as handler:
                         previous = "BEGINNING OF SENTENCE"
                         for line, content in enumerate(handler):
-                            content = re.sub("\n","", content.strip())
+                            line += 1
+                            content = re.sub("\n", "", content)
+                            if len(content) > 120:
+                                issues.append(lengthIssue.format(filename, line, len(content), content.strip()[:80] + "..."))
+                            content = content.strip()
                             if re.search(r"print\(.*\)", content):
                                 issues.append(printIssue.format(filename, line, content))
                             if re.search(r"#\s*TODO", content):
                                 issues.append(todoIssue.format(filename, line, content))
-                            if re.search(r"^\s*pass", content):
+                            if re.search(r"^\s*pass(?!\s)", content) and previous.strip() != "except:":
                                 issues.append(passIssue.format(filename, line, previous))
+
                             previous = content
                 except:
                     continue

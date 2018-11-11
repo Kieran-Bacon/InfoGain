@@ -5,7 +5,7 @@ from ..knowledge import Instance
 
 class EvalTree:
 
-    concept_syntax = re.compile(r"\%|\@|#(\[[\w_]+\])?([A-Za-z][\w_]*)")  # The concept syntax in the logic e.g %, @, #doggo
+    concept_syntax = re.compile(r"\%|\@|#(\[[\w_]+\])?([A-Za-z][\w_]*)")  # The concept syntax in the logic
     
     def __str__(self):
         raise NotImplementedError()
@@ -27,7 +27,7 @@ class EvalTree:
         raise NotImplementedError()
 
     @classmethod
-    def paramToConcept(cls, concept_name: str) -> (str, bool):  # TODO FIX THIS FUNCTION
+    def paramToConcept(cls, concept_name: str) -> (str, bool):
         """ Convert a parameter name into a valid concept string 
 
         Params:
@@ -37,7 +37,6 @@ class EvalTree:
             str: A valid concept name
             bool: Identifies that the concept is meant to be expanded to include its children.
         """
-
         match = cls.concept_syntax.search(concept_name)
         if match and match.group(2): return match.group(2), "#" in match.group(0)
         else: raise ValueError("Could not match concept definition with provided string: {}".format(concept_name))
@@ -58,18 +57,27 @@ class EvalTreeFactory:
         self.engine = engine
 
     def constructTree(self, logic) -> EvalTree:
-        """ Wrapper function for private node generator - ensures recursively generated nodes
-        have the information they need to function 
+        """ Convert the provided logic into a EvalTree structure. The Eval tree is the root node of a tree who's
+        complexity is dependant on the logic.
+
+        Params:
+            logic (str): The logic to be parsed
         
-        #TODO: Documentation"""
+        Returns:
+            EvalTree: Root of a complex tree structure
+
+        Raises:
+            IncorrectLogic: When the logic is poorly writen and a syntax error has occured
+        """
 
         self._depth += 1
         node = self._constructTree(logic)
         self._depth -= 1
 
-        if not self._depth and isinstance(node, StringNode):
+        if not self._depth and isinstance(node, StringNode): # Check run only for top of tree recursion
             raise IncorrectLogic("The logic provided shall only ever yield a string - {}".format(logic))
-            # Top of recursion
+
+        # Pass reference to the engine to each of the nodes within the tree   
         node._assignEngine(self.engine)
         return node
 
@@ -112,12 +120,15 @@ class EvalTreeFactory:
             match = ConceptNode.expression.search(tll)
             if match:
                 # Construct a concept node
-                if 0 > len(segments) > 1: raise IncorrectLogic("Weird amount of segments provided to this...") # TODO improve raise message
+                if len(segments) > 1:
+                    raise IncorrectLogic(
+                        "Found extra tuples of information while matching Concept {}".format(match.group(0))
+                    )
                 parameters = self._buildParameters(segments[0][1]) if len(segments) else None
                 return ConceptNode(match.group(0), callparameters=parameters)
 
             if tll in BuiltInFunctionNode.functionList:
-                if len(segments) != 1: raise IncorrectLogic()  # TODO look into this and why its the way that it is.
+                if len(segments) != 1: raise IncorrectLogic("No arguments passed to builtin function {}".format(tll))
                 return BuiltInFunctionNode(tll, self._buildParameters(segments[0][1]))
             
             match = NumberNode.expression.search(tll)
@@ -127,18 +138,34 @@ class EvalTreeFactory:
         except IncorrectLogic as e:
             raise IncorrectLogic("Could not parse sub logic for {}".format(logic)) from e
 
-    def _buildParameters(self, logic: str): # TODO Document
-        """ Build the parameters from a logic string and return the collection of EvalTrees 
-        constructed """  # TODO DOCUMENT
+    def _buildParameters(self, logic: str) -> [EvalTree]:
+        """ Convert a logic string that represents a tuple of arguments into a list of Evaltrees for each element in 
+        the same original order. These shall form the parameters of a EvalTree node in the logic.
+
+        Params:
+            logic (str): A tuple of arguments to be converted e.g. (%.age, 12, something)
+
+        Returns:
+            [EvalTree]: A collection of EvalTrees that represent the logic
+        """
         logic = logic[1:-1]
         logic = logic.split(",")
         if logic == [""]: return []
         else: return [self.constructTree(param) for param in logic]
 
     @staticmethod
-    def _breakdown_logic(logic: str) -> (str, (int, str)):
-        """ Break down the logic provided into top level logic, along with accompanying secondary
-        logic captures.
+    def _breakdown_logic(logic: str) -> (str, [(int, str)]):
+        """ Identify that parts of the logic that can be considered "top level" and remove the sub-level logic recording
+        their original position within the logic. This breaks down the logic provided such that the hiearchy of EvalTree
+        Nodes can be established
+
+        Params:
+            logic (str): A human readable logical string
+
+        Returns:
+            str: A string of the top level, most relevent, logic to be processed first
+            [(int, str)]: Segments of the original logic string that have been removed, index of their original location
+                and their value
         """
 
         # The currently openned parenthesis index + the number of inner open parenthesis before its close
@@ -178,9 +205,19 @@ class EvalTreeFactory:
         return top_level_logic, tllSegmentsMap
 
     @staticmethod
-    def _reformSplit(logic: str, segments: (int, str), split_span: (int, int)) -> (str, str):
-        """ Expand the logic with the provided removed segments, and split the newly regenerated 
-        logic string via the split span of the originally provided logic
+    def _reformSplit(logic: str, segments: [(int, str)], split_span: (int, int)) -> (str, str):
+        """ Reform a broken down piece of logic by inserting the extracted segments back into their rightful place.
+        The reformed string is then split according to a span object, the span is in relation to the top level logic
+        view, and is according to an expression of one of the Eval tree nodes.
+
+        Params:
+            logic (str): The top level logic
+            segments ([(int, str)]): Segments of logic to be returned to their respective index
+            split_span (int, int): The span of the intended split. The span content is lost.
+
+        Returns:
+            str: logic to the left of the split
+            str: logic to the right og the split
         """
 
         # Seperate logic and segments

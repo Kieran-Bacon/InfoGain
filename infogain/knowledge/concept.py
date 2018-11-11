@@ -114,7 +114,8 @@ class Concept(Vertice):
         """
 
         if not issubclass(instance_class, Instance):
-            raise TypeError("Class passed to concept '{}' as new instance class does not extend Instance and is type {}".format(self.name, type(instance_class)))
+            raise TypeError("Class passed to concept '{}' as new instance".format(self) + 
+                            " class does not extend Instance and is type {}".format(type(instance_class)))
 
         self._instance_class = instance_class
 
@@ -203,7 +204,6 @@ class Concept(Vertice):
         """
 
         expansion = set()
-
 
         for concept in collection:
             expansion.add(concept)

@@ -1,4 +1,4 @@
-from ..information import Vertice, Edge
+from ..information import Vertice
 
 class Instance(Vertice):
     """ An instance of a concept. The concept an instance represents is responsible for 
@@ -23,7 +23,8 @@ class Instance(Vertice):
         self.properties = properties  # Data structure to contain the properties of the instance
 
     def __str__(self): return self.name
-    def __repr__(self): return "<Instance of {}: '{}' with properties {}>".format(self.concept, self.name, self.properties)
+    def __repr__(self): return "<Instance of {}: '{}' with properties {}>".format(
+        self.concept, self.name, self.properties)
     def __hash__(self):
         if "__self__" in self.properties: return hash(self.properties["__self__"])
         else: return Vertice.__hash__(self)

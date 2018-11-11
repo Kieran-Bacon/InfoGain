@@ -13,7 +13,13 @@ import logging
 log = logging.getLogger(__name__)
 
 class BuiltInFunctionNode(EvalTree):
-    # TODO: Documentation
+    """ This node handles builtin functions and their behaviour. Built in functions can be called from anywhere within
+    the logic and are meant to expose the functionality that is in high demand.
+
+    Params:
+        function_name (str): The name of the function
+        parameters ([EvalTree]): The parameters that is being passed into the builtin
+    """
 
     functionList = [
         "count",
@@ -21,7 +27,6 @@ class BuiltInFunctionNode(EvalTree):
         "facts",
         "is",
         "isNot",
-
         "approx", 
         "eq", 
         "eqNot"
@@ -34,47 +39,59 @@ class BuiltInFunctionNode(EvalTree):
 
         if function_name == "count":
             # For the concept
-            if parameters is []: raise IncorrectLogic("Builtin function 'count' requies at least 1 parameter - None given")
+            if parameters is []:
+                raise IncorrectLogic("Builtin function 'count' requies at least 1 parameter - None given")
 
             # Extract the parameters
             target, filters = parameters[0], parameters[1:]
 
             if isinstance(target, ConceptNode):
-                target_parameters = target.parameters()
+                targetParameters = target.parameters()
 
                 for f in filters:
-                    if target_parameters != f.parameters():
-                        raise IncorrectLogic("Builtin function 'count' defined incorrectly - filter {} doesn't reference target {}".format(f, target))
+                    if targetParameters != f.parameters():
+                        raise IncorrectLogic("Builtin function 'count' defined incorrectly " +
+                                             "- filter {} doesn't reference target {}".format(f, target))
 
             elif isinstance(target, RelationNode):
                 
-                target_parameters = target.parameters()
+                targetParameters = target.parameters()
 
                 for f in filters:
                     filter_parameters = f.parameters()
 
-                    if not target_parameters.intersection(filter_parameters):
+                    if not targetParameters.intersection(filter_parameters):
                         # The filter parameters contain either other concepts or no parameters
-                        raise IncorrectLogic("Builtin function 'count' defined incorrectly - filter {} doesn't reference either target {}".format(f, target_parameters))
+                        raise IncorrectLogic("Builtin function 'count' defined incorrectly - "+
+                                             "filter {} doesn't reference either target {}".format(f, targetParameters))
             else:
-                raise IncorrectLogic("Builtin function count passed invalid target node: {} - Excepts Concepts or Relations only".format(type(target)))
+                raise IncorrectLogic("Builtin function count passed invalid target node: "+
+                                     "{} - Excepts Concepts or Relations only".format(type(target)))
 
             self.function = self.count
             self.parameters = lambda x: set()
         
         elif function_name == "f": self.function = self.f
-        elif function_name == "facts": self.function = self.facts
+        elif function_name == "facts":
+            
+            if len(self.function_parameters) != 1:
+                raise IncorrectLogic("Builtin function 'fact' takes only 1 argument - {} provided".format(
+                    len(self.function_parameters)))
+            
+            if not isinstance(self.function_parameters[0], RelationNode):
+                raise IncorrectLogic("Builtin function 'fact' requires Relation - {} provided".format(
+                    type(self.function_parameters[0])
+                ))
+            
+            self.function = self.facts
         elif function_name == "is": self.function = self.isFunc
         elif function_name == "isNot": self.function = self.isNot
         elif function_name == "approx": self.function = self.approx
         elif function_name == "eq": self.function = self.eq
         elif function_name == "eqNot": self.function = self.eqNot
-        else:
-            raise IncorrectLogic("Builtin function name not recognised {}".format(self.function_name))
+        else: raise IncorrectLogic("Builtin function name not recognised {}".format(self.function_name))
 
-    def __str__(self):
-        return self.function_name + "({})".format(",".join([str(x) for x in self.function_parameters]))
-
+    def __str__(self): return self.function_name + "({})".format(",".join([str(x) for x in self.function_parameters]))
     def parameters(self): return {param for params in self.function_parameters for param in params.parameters()}
 
     def eval(self, **kwargs):
@@ -103,6 +120,25 @@ class BuiltInFunctionNode(EvalTree):
         countTarget = args[0]  # The expression that needs to be counted
         filters = args[1:]  # The filter expressions
 
+        def apply_filters(collection: [dict]):
+            
+            # Apply the filters in order removing instances that do not pass
+            temp = []
+            for f in filters:
+                for inst in collection:
+                    evaluation = f.eval(**{**kwargs, **inst})
+
+                    if not isinstance(evaluation, bool):
+                        log.warning("count filter didn't evaluate to a bool {}".format(f))
+
+                    if evaluation: temp.append(inst)
+
+                collection = temp
+                temp = []
+
+            return collection
+
+
         if isinstance(countTarget, ConceptNode):
             
             # Extract the concept and its representation in the logic
@@ -111,19 +147,7 @@ class BuiltInFunctionNode(EvalTree):
 
             # Collect together all the instances for the concept
             collection = [{"scenario": {parameter: inst}} for inst in engine.instances(*concept)]
-            temp = []
-            
-            # Apply the filters in order removing instances that do not pass
-            for f in filters:
-                for inst in collection:
-                    evaluation = f.eval(**{**kwargs, **inst})
-
-                    if not isinstance(evaluation, bool): log.warning("count filter didn't evaluate to a bool {}".format(f))
-
-                    if evaluation: temp.append(inst)
-
-                collection = temp
-                temp = []
+            collection = apply_filters(collection)
 
             # Return the length of the remain collection
             return len(collection)
@@ -144,52 +168,33 @@ class BuiltInFunctionNode(EvalTree):
                 return 0
 
             # Extract the valid instances for this - if the concept is linked via scenario only choose that
-            if domainParam in kwargs.get("scenario", []): domainInstances = {kwargs["scenario"][domainParam]}
-            else:                                 domainInstances = set(engine.instances(domain, descendants=True))
+            if domainParam in kwargs.get("scenario", []): domInst = {kwargs["scenario"][domainParam]}
+            else:                                 domInst = set(engine.instances(domain, descendants=True))
 
-            if targetParam in kwargs.get("scenario",[]): targetInstances = {kwargs["scenario"][targetParam]}
-            else:                                 targetInstances = set(engine.instances(target, descendants=True))
+            if targetParam in kwargs.get("scenario",[]): tarInst = {kwargs["scenario"][targetParam]}
+            else:                                 tarInst = set(engine.instances(target, descendants=True))
 
             # Filter the instances to those that apply to the relation
-            print(domainInstances, relation.domains)
-            domainInstances = {domain for domain in domainInstances if domain.name in relation.domains or domain.concept in relation.domains}
-            targetInstances = {target for target in targetInstances if target.name in relation.targets or target.concept in relation.targets}
+            domInst = {dom for dom in domInst if dom.name in relation.domains or dom.concept in relation.domains}
+            tarInst = {tar for tar in tarInst if tar.name in relation.targets or tar.concept in relation.targets}
 
             # No valid instances exist
-            if 0 in [len(domainInstances), len(targetInstances)]:
-                print("Here")
-                return 0
+            if 0 in [len(domInst), len(tarInst)]: return 0
 
             # Generate the valid scenarios for the instances
-
             collection = []
-            for dom, tar in itertools.product(domainInstances, targetInstances):
+            for dom, tar in itertools.product(domInst, tarInst):
                 if "scenario" in kwargs:
                     collection.append({"scenario": {**kwargs["scenario"], **{domainParam: dom, targetParam: tar}}})
                 else:
                     collection.append({"scenario": {domainParam: dom, targetParam: tar}})
-            temp = []
 
-            # Apply the filters in order removing instances that do not pass
+            collection = apply_filters(collection)
 
-            for f in filters:
-                for inst in collection:
-                    evaluation = f.eval(**{**kwargs, **inst})
-
-                    if not isinstance(evaluation, bool): log.warning("count filter didn't evaluate to a bool {}".format(f))
-
-                    if evaluation: temp.append(inst)
-
-                collection = temp
-                temp = []
-
-            for c in collection:
-                print(c)
             # Evaluate any remaining instances to determine the number of valid instances.
             count = 0
             for inst in collection:
                 evaluation = countTarget.eval(**{**kwargs, **inst})
-
                 if evaluation: count += 1
 
             # Return the length of the remain collection
@@ -197,7 +202,13 @@ class BuiltInFunctionNode(EvalTree):
         
     @staticmethod
     def f(*args, **kwargs):
-        # TODO: Builtin graph function documentation
+        """ Perform a mathematical function taking arbitary numbers of arguments. Arguments replace
+        alphabet characters, function evaluation is returned.
+
+        >>>%.age = 10
+        >>>f(12, %.age, x*y)
+        120
+        """
 
         assert(len(args) > 0)
         args = [node.eval(**kwargs) for node in args]
@@ -230,10 +241,6 @@ class BuiltInFunctionNode(EvalTree):
         Returns:
             float: The confidence of the relation on based on conditionless rules only
         """
-
-        if not isinstance(relation_node, RelationNode):
-            raise IncorrectLogic("Built in function facts received something other than a relation - {}".format(relation_node))
-
         kwargs["evaluate_conditions"] = False
         return relation_node.eval(**kwargs)
 
@@ -247,6 +254,10 @@ class BuiltInFunctionNode(EvalTree):
         domain and instance concepts. Can be used to differ two different named concepts of the same
         concept however - but likely shouldn't...
 
+        Params:
+            concept_one (EvalTree::ConceptNode) - A concept node
+            concept_two (EvalTree::ConceptNode) - A concept node
+
         Returns:
             float - 100.0 if true else 0.0
 
@@ -254,10 +265,6 @@ class BuiltInFunctionNode(EvalTree):
         100
         >>> is(#[1]example, #[another_tag]example)
         0
-
-        Params:
-            concept_one (EvalTree::ConceptNode) - A concept node
-            concept_two (EvalTree::ConceptNode) - A concept node
         """
         return (concept_one.instance(**kwargs) is concept_two.instance(**kwargs))*100
 

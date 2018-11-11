@@ -26,21 +26,30 @@ class EvalRule(Rule):
         domains: {Concept},
         targets: {Concept},
         confidence: float,
+        *,
         supporting: bool = True,
         conditions: [Condition] = [],
         ontology: Ontology = None):
 
-        Rule.__init__(self, domains, targets, confidence, supporting, conditions)
+        Rule.__init__(self, domains, targets, confidence, supporting=supporting, conditions=conditions)
 
         self._conditionTrees = []
         self._parameters = {}
         self._evaluatedConfidences = {} 
         if ontology: self.assignOntology(ontology)
 
-    def __repr__(self): return "<{} {} {} {} {} {}>".format(super().__repr__(), self.domains, self.targets, self.confidence, self.supporting, self.conditions())
+    def __repr__(self):
+        confidence = self.confidence if self.supporting else self.confidence*-1
+        return "<EvalRule: {} to {} with {} confidence given {}>".format(
+            self.domains, self.targets, confidence, self.conditions())
 
-    def assignOntology(self, ontology: Ontology) -> None:  # TODO Document
-        """ Assign the ontology object to the rule and link the correct variables """
+    def assignOntology(self, ontology: Ontology) -> None:
+        """ Record a reference to the Ontology (InferenceEngine) that this EvalRule is a member of so that it may be
+        able to generate Evaluable Trees for its logic, and to collect componets it needs during its evaluation
+        
+        Params:
+            ontology (Ontology or InferenceEngine): The Ontology this object is a member of
+        """
         
         # Record a reference to the engine
         self.engine = ontology
@@ -68,14 +77,21 @@ class EvalRule(Rule):
             bool - True if no conditions or pairing has been evaluated else false
         """
         if domain is not None and target is not None and self:  # They have been provided
-            if self._evaluatedConfidences.get(self.evalIdGen(domain, target)) is not None:  # There is a value for it
+            if self._evaluatedConfidences.get(self._evalIdGen(domain, target)) is not None:  # There is a value for it
                 return False
         
         return Rule.hasConditions(self)
 
-    def eval(self, domain: Instance, target: Instance):
-        """ Evaluate all the scenarios of a particular relation instance and determine the confidence
-        of the relation """
+    def eval(self, domain: Instance, target: Instance) -> float:
+        """ Generate the confidence of the rule being true for the provided domain and target instance.
+
+        Params:
+            domain (Instance): The domain instance
+            target (Instance): The target instance
+        
+        Returns:
+            float: value between 0 - 100 that represents the confidence of the rule
+        """
 
         if not self.applies(domain, target):
             log.debug("Rule doesn't apply to the paring, returning None")
@@ -84,12 +100,14 @@ class EvalRule(Rule):
         if not self._conditions:
             return self.confidence
 
-        if not self._conditionTrees: raise RuntimeError("EvalRule({}) yet to construct condition trees - requires ontology/engine".format(self))
+        if not self._conditionTrees:
+            raise RuntimeError("EvalRule({}) yet to construct condition trees - requires ontology/engine".format(self))
 
-        pairing_key = self.evalIdGen(domain, target)  # Generate the key for this pairing
+        pairing_key = self._evalIdGen(domain, target)  # Generate the key for this pairing
 
         if pairing_key in self._evaluatedConfidences:
-            log.debug("Evaluating rule for {} {} - returning previous calculated value {}".format(domain, target, self._evaluatedConfidences[pairing_key]))
+            log.debug("Evaluating rule for {} {} - returning previous calculated value {}".format(
+                domain, target, self._evaluatedConfidences[pairing_key]))
             return self._evaluatedConfidences[pairing_key]  # Returned previously evaluted score
         else:
             # Place an initial value to indicate that it is being evaluated
@@ -103,7 +121,7 @@ class EvalRule(Rule):
 
         # Find the product of the instance sets 
         ruleConfidence = 1.0
-        for scenario_instances in itertools.product(*instances): # TODO: itertools only works for lists and if the concept is static it breaks...
+        for scenario_instances in itertools.product(*instances):
 
             # Generate the scenario instances
             scenario = {param: scenario_instances[i] for i, param in enumerate(params)}
@@ -126,6 +144,15 @@ class EvalRule(Rule):
         return pairing_key_confidence
 
     def evalScenario(self, scenario: dict) -> float:
+        """ Evaluate a particular scenario for the rule - given that the conditions contain unbound instance references,
+        evaluate a particular scenario for the domain, target and the unbound instances
+
+        Params:
+            scenario (dict): A diction mapping the parameter representation in the logic to the instance to be inserted
+
+        Returns:
+            float: The confidence of the given scenario
+        """
 
         scenarioConfidence = 0  # The confidence over the course of the trees
         for condition, conditionEvalTree in zip(self._conditions, self._conditionTrees):
@@ -144,14 +171,28 @@ class EvalRule(Rule):
         log.debug("Evaluated Scenario completed with confidence {}%".format(scenarioConfidence))
         return scenarioConfidence
 
-    def reset(self):
+    def reset(self) -> None:
+        """ Reset the EvalRule such that it doesn't persist its recorded confidences for domain target pairings that
+        have been evaluated
+        """
         self._evaluatedConfidences = {}
 
     @classmethod
-    def fromRule(cls, rule: Rule, engine: Ontology): # TODO
-        """ Convert a rule into an evaluable rule """
-        return EvalRule(rule.domains, rule.targets, rule.confidence, rule.supporting, rule.conditions(), engine)
+    def fromRule(cls, rule: Rule, engine: Ontology):
+        """ Convert a Rule onject from infogain.knowledge into an EvalRule object
+        
+        Params:
+            rule (knowledge.Rule): The rule to be converted
+            engine (Ontology): The ontology to be assigned to the newly generated EvalRule
+        """
+        return EvalRule(rule.domains, rule.targets, rule.confidence, supporting=rule.supporting, conditions=rule.conditions(), ontology=engine)
 
     @staticmethod
-    def evalIdGen(domain: Concept, target: Concept) -> str:
+    def _evalIdGen(domain: Concept, target: Concept) -> str:
+        """ Generate an id for a evaluation pairing
+
+        Params:
+            domain (Concept, Instance): The domain that was used during evaluation
+            target (Concept, Instance): The target that was used during evaluation
+        """
         return "-".join([domain.name, target.name])

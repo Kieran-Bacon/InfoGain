@@ -64,7 +64,7 @@ class InferenceEngine(Ontology):
         if isinstance(relation, Relation): relation = relation.name
         return Ontology.relation(self, relation)
 
-    def addInstance(self, concept_instance: Instance) -> None:
+    def addInstance(self, instance: Instance) -> None:
         """ Add a concept instance - Only possible for dynamic concepts
 
         Params:
@@ -75,12 +75,14 @@ class InferenceEngine(Ontology):
             TypeError: In the event that the concept is not suitable for additional instances
         """
 
-        concept = self.concept(concept_instance.concept)
-        if concept is None: raise ConsistencyError("{} is not an concept within the engine - Cannot add instance for missing concept".format(concept_instance.concept)) 
-        if concept.category is Concept.ABSTRACT or concept.category is Concept.STATIC: raise TypeError("{} is not suitable for additional instances. Its category needs to be set to dynamic".format(concept.name))
+        concept = self.concept(instance.concept)
+        if concept is None: raise ConsistencyError(
+            "{} is not an concept within the engine - Cannot add instance for missing concept".format(repr(instance))) 
+        if concept.category is Concept.ABSTRACT or concept.category is Concept.STATIC:
+            raise TypeError("{} is not suitable for additional instances.".format(concept.name))
 
-        self._conceptInstances[concept.name].append(concept_instance)
-        self._instances[concept_instance.name] = concept_instance
+        self._conceptInstances[concept.name].append(instance)
+        self._instances[instance.name] = instance
 
     def instance(self, instance_name: str) -> Instance:
         """ Collect an instance with the provided name or return None in the event that no instance exists with that
@@ -119,9 +121,6 @@ class InferenceEngine(Ontology):
                 " - Mistake to call instances on {}".format(concept_name))
             return []
 
-        if concept.category is Concept.STATIC:
-            return concept.instance() # Singlton - will return stored instance  
-
         return self._conceptInstances.get(concept_name, [])
 
     def addWorldKnowledge(self, documents: [Document]) -> None:
@@ -141,15 +140,20 @@ class InferenceEngine(Ontology):
                 target = self.concept(point.target["concept"])
 
                 if relation:
-                    rule = EvalRule(domain, target, point.probability*100, point.prediction == point.POSITIVE)
-                    rule.assignOntology(self)
+                    rule = EvalRule(
+                        domain,
+                        target,
+                        point.probability*100,
+                        supporting = point.prediction == point.POSITIVE,
+                        ontology=self
+                    )
                     relation.addRule(rule)
                 else:
                     log.debug("Datapoint's relation {} missed during adding of world knowledge".format(point.relation))
 
         self.reset()        
 
-    def inferRelation(self, domain: Instance, relation: (str, Relation), target: Instance, *, evaluate_conditions=True) -> float:
+    def inferRelation(self, domain: Instance, relation: str, target: Instance, *, evaluate_conditions=True) -> float:
         """ Determine the confidence of a relation between entities 
         
         Params:
@@ -164,7 +168,8 @@ class InferenceEngine(Ontology):
         if isinstance(relation, (str, Relation)): relation = self.relation(relation)
         domConcept, tarConcept = self.concept(domain.concept), self.concept(target.concept)
 
-        if None is (domConcept or tarConcept): raise Exception("Cannot infer relation between concepts unknown to the engine")
+        if None is (domConcept or tarConcept):
+            raise Exception("Cannot infer relation between concepts unknown to the engine")
 
         log.info("Infering relation '{} {} {}' - {} rules found for relation instance".format(
             domain, relation.name, target, len(relation.rules(domain, target))))
@@ -176,7 +181,6 @@ class InferenceEngine(Ontology):
                 continue  # Avoid condition rules
 
             ruleValue = (1.0 - rule.eval(domain, target)/100)
-            log.debug(rule.supporting)
             if rule.supporting: confidence *= ruleValue
             else:               scepticism *= ruleValue
 

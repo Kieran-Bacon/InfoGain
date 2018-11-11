@@ -7,12 +7,15 @@ import logging
 log = logging.getLogger(__name__)
 
 class Relation:
-    """ A relation expresses a connection between concepts.
-    # TODO fix this
-    Args:
+    """ A relation expresses a connection between concepts. It declares how particular concepts interact and informs
+    other system functionality.
+
+    Params:
         domains (set): A collection of concepts
         name (str): The name to identify the relation object
         targets (set): A collection of concepts
+        rules ([Rule]): Rules that determine when the relation holds between concepts
+        differ (bool): toggle for where a relation holds between a concept and itself 
     """
 
     def __init__(self, domains: {Concept}, name: str, targets: {Concept}, rules=[], differ: bool = False):
@@ -68,7 +71,8 @@ class Relation:
         Returns:
             bool: True if relation holds between the domain and target provided
         """
-        if type(domain) is not type(target): raise ValueError("Passed incompatible types - domain: '{}' target: '{}'".format(repr(domain), repr(target)))
+        if type(domain) is not type(target):
+            raise ValueError("Passed incompatible types - domain: '{}' target: '{}'".format(repr(domain), repr(target)))
         if self.differ and domain == target: return False
 
         if isinstance(domain, Concept):
@@ -79,9 +83,13 @@ class Relation:
             if group is None: return False
             else: return True if {target.concept, target.name}.intersection(group) else False
 
-    def subscribe(self, concept: Concept) -> None:  # TODO Improve documentation
-        """ Intelligently links concept with domain or target based on 
-        relative linkage """
+    def subscribe(self, concept: Concept) -> None:
+        """ Add the concept object into the relation, correctly mapping the concept to targets, or domains to the 
+        concept where applicable.
+        
+        Params:
+            concept (Concept): the concept to be added
+        """
 
         if concept.category == Concept.ABSTRACT : return # Ensure concept is meant to be viewable
 
@@ -111,7 +119,11 @@ class Relation:
             self.targets.add(concept)  # Add the concept as a target
     
     def addRule(self, rule: Rule) -> None:
-        # TODO: Documentation
+        """ Add a Rule object to the relation, order the rule correctly based on confidence
+
+        Params:
+            rule (Rule): The rule
+        """
         if self._rules == []: return self._rules.append(rule)  # Empty collection
 
         for i, relRule in enumerate(self._rules):
@@ -119,7 +131,16 @@ class Relation:
         self._rules = self._rules[:i] + [rule] + self._rules[i:]
 
     def rules(self, domain: Concept = None, target: Concept = None) -> [Rule]:
-        # TODO: Documentation
+        """ Collect the rules within the relation, if domain and target is passed, collect together only rules that
+        apply to those concepts. Perform a sanity check within the relation first to avoid unncessary checking.
+
+        Params:
+            domain (Concept) = None: Domain concept
+            target (Concept) = None: Target concept
+        
+        Returns:
+            [Rule]: A list of rules of the relation or that apply to the scenario
+        """
 
         if domain is None and target is None:
             return list(self._rules)

@@ -27,7 +27,7 @@ class Test_InferenceEngine(unittest.TestCase):
         engine.addConcept(static)
 
         self.assertIsNotNone(engine.concept("static"))
-        self.assertEqual(static.instance(), engine.instances("static"))
+        self.assertEqual(static.instance(), engine.instance("static"))
 
         # Test dynamic adding
         dynamic = Concept("dynamic")
@@ -99,7 +99,7 @@ class Test_InferenceEngine(unittest.TestCase):
         engine = InferenceEngine()
         for con in [dynamic, static, abstract]: engine.addConcept(con)
 
-        self.assertEqual(static.instance(), engine.instances("static"))
+        self.assertEqual(static.instance(), engine.instance("static"))
 
     def test_inferRelation_no_conditions(self):
 
