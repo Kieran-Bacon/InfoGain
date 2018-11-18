@@ -39,9 +39,8 @@ class EvalRule(Rule):
         if ontology: self.assignOntology(ontology)
 
     def __repr__(self):
-        confidence = self.confidence if self.supporting else self.confidence*-1
-        return "<EvalRule: {} to {} with {} confidence given {}>".format(
-            self.domains, self.targets, confidence, self.conditions())
+        super_repr = Rule.__repr__(self)
+        return super_repr.replace("<Rule:", "<EvalRule:")
 
     def assignOntology(self, ontology: Ontology) -> None:
         """ Record a reference to the Ontology (InferenceEngine) that this EvalRule is a member of so that it may be
