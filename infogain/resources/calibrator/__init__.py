@@ -1,7 +1,6 @@
-from ...Extraction import RelationExtractor
+from ...extraction import RelationExtractor
 
 from .RelationExtractor_CrossValidation import RETune
-
 
 def tune(object_to_tune: object, *args) -> "Scores":
     """ Factory function that runs the apprioprate function for the object provided. Turn the object

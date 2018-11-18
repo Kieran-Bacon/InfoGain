@@ -1,13 +1,11 @@
-# TODO: Convert this to the most recent version of the current system
-
-from numpy import *
+from numpy import logspace
 from sklearn.model_selection import KFold
 from gensim.models import Word2Vec
 import logging
 
-from ...Knowledge import Ontology
-from ...Documents import Datapoint, Document, score
-from ...Extraction import RelationExtractor
+from ...knowledge import Ontology
+from ...artefact import Datapoint, Document, score
+from ...extraction import RelationExtractor
 
 from multiprocessing import Process, Queue
 
@@ -57,7 +55,8 @@ def RETune(ont: Ontology, training: [Datapoint]):
                 queue.put(results[0])
 
             queue = Queue()
-            processors = [Process(target=run, args=(queue, tr, val)) for tr, val in KFold(n_splits=5, shuffle=True).split(training)]
+            processors = [Process(target=run, args=(queue, tr, val)) 
+                for tr, val in KFold(n_splits=5, shuffle=True).split(training)]
             [p.start() for p in processors]
             [p.join() for p in processors]
 
