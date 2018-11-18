@@ -32,6 +32,11 @@ class Date(Instance):
             # Create and return the date object
             return Date("Date", str(date), {"__self__": date})
 
+    def __getattr__(self, attribute):
+        if attribute in self.properties: return self.properties[attribute]
+        elif "__self__" in self.properties: return getattr(self.properties["__self__"], attribute)
+        else: return getattr(datetime.date, attribute)
+
     def before(self, other): return self.properties["__self__"] < other
 
 
