@@ -13,7 +13,7 @@ class test_BuiltinNode_count(unittest.TestCase):
 
         concept_person = self.school.concept("Person")
         concept_class = self.school.concept("Class")
-        inst_english = concept_class.instance("English")
+        inst_english = concept_class.instance("English", {"grade": 4})
         self.school.addInstance(inst_english)
 
         people = [
@@ -50,7 +50,20 @@ class test_BuiltinNode_count(unittest.TestCase):
         self.assertEqual(node.eval(), 2)
 
     def test_count_relations_with_domain_target(self):
-        pass
+
+        node = self.factory.constructTree("count(%=enrolled_on=#Class)")
+        self.assertEqual(node.eval(scenario={"%": self.school.instance("Kieran")}), 1)
+
+        node = self.factory.constructTree("count(%=enrolled_on=#Class)")
+        self.assertEqual(node.eval(scenario={"%": self.school.instance("Zino")}), 0)
 
     def test_count_relations_with_filters(self):
-        pass
+        
+        node = self.factory.constructTree("count(#Person=enrolled_on=#Class, #Person.age < 20)")
+        self.assertEqual(node.eval(), 1)
+
+        node = self.factory.constructTree("count(%=enrolled_on=#Class, #Class.grade < 2)")
+        self.assertEqual(node.eval(scenario={"%": self.school.instance("Kieran")}), 0)
+
+        node = self.factory.constructTree("count(%=enrolled_on=#Class, #Class.grade > 2)")
+        self.assertEqual(node.eval(scenario={"%": self.school.instance("Kieran")}), 1)

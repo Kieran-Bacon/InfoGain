@@ -1,43 +1,58 @@
 import argparse
-
-# TODO: Correct imports - build hierachy of ArgParsers
+import sys
 
 parser = argparse.ArgumentParser(
     prog="InfoGain",
-    description="Information Gain - Extract information from text sources"
+    description="Information Gain - Extract information\n"
 )
 
 parser.add_argument(
-    "-a", "--annotate",
-    nargs=2,
-    metavar=("OntologyPath", "DocumentPath"),
-    help="Annotate a document acording to an ontology."
+    "command",
+    help="Select a command to run:\n\tDocument"
 )
 
-parser.add_argument(
-    "-s", "--score",
-    nargs=2,
-    metavar=("OntologyPath", "DocumentPath"),
-    help="Produce metric results for a document, according to an ontology"
-)
+args = parser.parse_args(sys.argv[1:2])
 
-parser.add_argument(
-    "-v", "--verbose",
-    help="Make the methods print out all available information."
-)
+if args.command == "Document":
 
-args = vars(parser.parse_args())
+    parser = argparse.ArgumentParser(
+        prog="{} {}".format(parser.prog, "InfoGain Document"),
+        description="{}{}".format(parser.description, "Access the functions within the document")
+    )
 
-if args["annotate"]:
+    commands = parser.add_mutually_exclusive_group(required=True)
 
-    from .Documents import annotate, Document
-    from .Knowledge import Ontology
+    commands.add_argument(
+        "--annotate",
+        nargs=2,
+        metavar=("OntologyPath", "DocumentPath"),
+        help="Annotate a document acording to an ontology."
+    )
 
-    annotate(Ontology(filepath=args["annotate"][0]), Document(filepath=args["annotate"][1]))
+    commands.add_argument(
+        "--score",
+        nargs=2,
+        metavar=("OntologyPath", "DocumentPath"),
+        help="Produce metric results for a document, according to an ontology"
+    )
 
-if args["score"]:
+    args = parser.parse_args(sys.argv[2:])
 
-    from .Documents import score, Document
-    from .Knowledge import Ontology
+    if args.annotate:
+        from . import artefact
+        from . import knowledge
 
-    score(Ontology(filepath=args["score"][0]), Document(filepath=args["score"][0]), pprint=True)
+        artefact.annotate(
+            knowledge.Ontology(filepath=args.annotate[0]),
+            artefact.Document(filepath=args.annotate[1])
+        )
+
+    elif args.score:
+        from . import artefact
+        from . import knowledge
+
+        artefact.score(
+            knowledge.Ontology(filepath=args.annotate[0]),
+            artefact.Document(filepath=args.annotate[1]),
+            True
+        )

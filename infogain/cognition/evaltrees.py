@@ -27,6 +27,16 @@ class EvalTree:
         raise NotImplementedError()
 
     @classmethod
+    def isPlaceholder(cls, concept_name: str):
+        """ Identify whether the provided concept_name is actually just a valid placeholder for a concept, the concept
+        name itself doesn't contain the information to determine its own concept.
+
+        Params:
+            concept_name (str): The potential concept name to be tested
+        """
+        return concept_name in ["%", "@"] 
+
+    @classmethod
     def paramToConcept(cls, concept_name: str) -> (str, bool):
         """ Convert a parameter name into a valid concept string 
 
@@ -88,15 +98,19 @@ class EvalTreeFactory:
         tll, segments = self._breakdown_logic(logic)
 
         # The Logic was surrounded by parenthesis - Remove them and call again
-        if not tll and len(segments) == 1: return self.constructTree(segments[0][1][1:-1])
+        if not tll or tll.isspace() and len(segments) == 1: return self.constructTree(segments[0][1][1:-1])
 
         try:
+            match = StringNode.expression.search(logic)
+            if match: return StringNode(logic)
+
+            match = NumberNode.expression.search(tll)
+            if match: return NumberNode(match.group(2))
 
             match = OperatorNode.expression.search(tll)
             if match:
                 left, right = self._reformSplit(tll, segments, match.span("operator"))
                 return OperatorNode(self.constructTree(left), match.group("operator"), self.constructTree(right))
-
 
             match = PropertyNode.expression.search(tll)
             if match:
@@ -127,16 +141,13 @@ class EvalTreeFactory:
                 parameters = self._buildParameters(segments[0][1]) if len(segments) else None
                 return ConceptNode(match.group(0), callparameters=parameters)
 
-            if tll in BuiltInFunctionNode.functionList:
+            if tll.strip() in BuiltInFunctionNode.functionList:
                 if len(segments) != 1: raise IncorrectLogic("No arguments passed to builtin function {}".format(tll))
-                return BuiltInFunctionNode(tll, self._buildParameters(segments[0][1]))
+                return BuiltInFunctionNode(tll.strip(), self._buildParameters(segments[0][1]))
             
-            match = NumberNode.expression.search(tll)
-            if match: return NumberNode(match.group(2))
-
-            return StringNode(logic)
+            raise IncorrectLogic("Could not match logic with any node type: '{}'".format(tll))
         except IncorrectLogic as e:
-            raise IncorrectLogic("Could not parse sub logic for {}".format(logic)) from e
+            raise IncorrectLogic("Could not parse sub logic for '{}'".format(logic)) from e
 
     def _buildParameters(self, logic: str) -> [EvalTree]:
         """ Convert a logic string that represents a tuple of arguments into a list of Evaltrees for each element in 

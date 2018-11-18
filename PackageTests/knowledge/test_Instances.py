@@ -43,9 +43,3 @@ class Test_Instance(unittest.TestCase):
         self.assertTrue(england == Instance("England"))
         self.assertFalse(england == Instance("England", "uuid"))
         self.assertTrue(england == Instance("Country", "England"))
-
-class Test_ConceptInstance(unittest.TestCase):
-    pass
-
-class Test_RelationInstance(unittest.TestCase):
-    pass

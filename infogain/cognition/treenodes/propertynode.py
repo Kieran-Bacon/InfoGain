@@ -42,9 +42,8 @@ class PropertyNode(EvalTree):
         """ Extract the property from the object on the left """
 
         instance = self.component.instance(**kwargs)
-
-        if self.function_parameters is not None:
-            return instance.__getattribute__(self.property_key)(*[param.eval(**kwargs)
-                for param in self.function_parameters])
+        prop = getattr(instance, self.property_key)
+        if self.function_parameters is not None: 
+            return prop(*[param.eval(**kwargs) for param in self.function_parameters])
         else:
-            return instance[self.property_key]
+            return prop

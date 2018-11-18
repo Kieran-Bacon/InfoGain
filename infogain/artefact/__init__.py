@@ -117,7 +117,7 @@ def annotate(ontology, documents: [Document]):
 
         # Check to see if the document is to be saved
         ans = cmdread("Save the generated training document?", ['Y','N'])
-        filename = cmdread("Filename: ") if ans == "Y" else None
+        filename = cmdread("Filename: ") if ans.lower() == "y" else None
 
         # Process the document according to the ontology
         document.processKnowledge(ontology)

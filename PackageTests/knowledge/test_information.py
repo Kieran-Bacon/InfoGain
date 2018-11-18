@@ -26,6 +26,3 @@ class Test_Vertices(unittest.TestCase):
         a = Concept("a")
 
         self.assertEqual(a, "a")
-
-class Test_Edges(unittest.TestCase):
-    pass

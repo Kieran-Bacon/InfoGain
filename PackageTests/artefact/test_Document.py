@@ -20,8 +20,11 @@ class Test_Document(unittest.TestCase):
         for dirty, clean in sentenceMapping.items():
             self.assertEqual(Document.clean(dirty), clean)
 
-        self.assertEqual(Document.clean(self.contents), "when i generate a document in this manner " +
-        "i want to ensure that the document object is created correctly this is the initial test fingers crossed testing sentence end")
+        self.assertEqual(
+            Document.clean(self.contents),
+            "when i generate a document in this manner i want to ensure that the document object is created correctly "+
+            "this is the initial test fingers crossed testing sentence end"
+        )
 
         self.assertEqual(Document.clean("Couldn't"), "could not")
 
@@ -31,48 +34,62 @@ class Test_Document(unittest.TestCase):
         for dirty, clean in wordMapping.items():
             self.assertEqual(Document.clean(dirty), clean)
 
-        Document.split(Document.clean("Luke can speak English rather well, but Luke doesn't live in England."), Document.SENTENCE)
-
-
     def test_split(self):
         content = Document.split(self.contents, Document.SENTENCE)
 
-        self.assertEqual(content, ["When I generate a document in this manner, I want to ensure that the document object is created correctly.",
-                                   "This is the initial test!", 
-                                   "Fingers crossed!!!",
-                                   "Testing sentence end."])
+        self.assertEqual(
+            content,
+            ["When I generate a document in this manner, "+
+            "I want to ensure that the document object is created correctly.",
+            "This is the initial test!", 
+            "Fingers crossed!!!",
+            "Testing sentence end."]
+        )
 
-        content = Document.split("Luke can speak English rather well, but Luke doesn't live in England.", Document.SENTENCE)
+        content = Document.split(
+            "Luke can speak English rather well, but Luke doesn't live in England.",
+            Document.SENTENCE
+        )
         
         self.assertEqual(content, ["Luke can speak English rather well, but Luke doesn't live in England."])
 
     def test_removeWhitespace(self):
-        self.assertEqual(Document.removeWhiteSpace("content     like this ? Should be fixed.. right   !"), "content like this? Should be fixed.. right!")
+        self.assertEqual(
+            Document.removeWhiteSpace("content     like this ? Should be fixed.. right   !"),
+            "content like this? Should be fixed.. right!"
+        )
 
     def test_content_sentences(self):
         """ Generate a document with content that has been passed to the document """
         
         document = Document(content=self.contents)
-        self.assertEqual(document.sentences(), ["When I generate a document in this manner, I want to ensure that the document object is created correctly.",
-                                                "This is the initial test!", 
-                                                "Fingers crossed!!!",
-                                                "Testing sentence end."])
+        self.assertEqual(
+            document.sentences(),
+            ["When I generate a document in this manner, "+
+            "I want to ensure that the document object is created correctly.",
+            "This is the initial test!", 
+            "Fingers crossed!!!",
+            "Testing sentence end."]
+        )
 
 
     def test_content_words(self):
         """ Test that a generated document correctly provides the words """
 
         document = Document(content=self.contents)
-        self.assertEqual(document.words(), [["When","I","generate","a","document","in","this","manner,","I","want","to","ensure","that","the","document","object","is","created","correctly."],
-                                            ["This", "is", "the", "initial", "test!"],
-                                            ["Fingers", "crossed!!!"],
-                                            ["Testing", "sentence", "end."]])
+        self.assertEqual(
+            document.words(),
+            [["When","I","generate","a","document","in","this","manner,",
+            "I","want","to","ensure","that","the","document","object","is","created","correctly."],
+            ["This", "is", "the", "initial", "test!"],
+            ["Fingers", "crossed!!!"],
+            ["Testing", "sentence", "end."]])
 
     def test_document_processKnowledge(self):
         """ Set that the datapoints are generated correctly. """
 
-        language_content = "Luke has been living in England for about 10 years. When he first arrived he didn't know much"+\
-        " English. Luke has been studying French, German and Spanish in a local community college."
+        language_content = "Luke has been living in England for about 10 years. When he first arrived he didn't know "+\
+        "much English. Luke has been studying French, German and Spanish in a local community college."
 
         languages = language.ontology()
         doc = Document(content=language_content)

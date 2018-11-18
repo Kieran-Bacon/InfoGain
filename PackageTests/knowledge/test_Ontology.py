@@ -124,12 +124,42 @@ class Test_Ontology_Creation(unittest.TestCase):
     def test_RelationConcept_order(self):
         """ Test whether adding a concept when the ontology is populated with 
         dependant relations, correctly affects the correct relations. """
-        pass
+
+        # Get a relation from the ontology
+        ontology = Language.ontology()
+        rel_speaks = ontology.relation("speaks")
+
+        # Steve doesn't exist within the ontology
+        self.assertFalse("Steve" in rel_speaks.domains)
+        self.assertFalse("Joe" in rel_speaks.domains)
+
+        # Define concepts to be added
+        steve = Concept("Steve", parents={"Person"}, category="static")
+        joe  = Concept("Joe", parents={ontology.concept("Person")}, category="static")
+        ontology.addConcept(steve)
+        ontology.addConcept(joe)
+
+        # Assert that the concept has been updated
+        self.assertTrue("Steve" in rel_speaks.domains)
+        self.assertTrue("Joe" in rel_speaks.domains)
 
     def test_Relations(self):
         """ Ensure that relations that undergo changes within the ontology are
         reflected by future instances of the relation """
-        pass
+
+        # Get a relation from the ontology
+        ontology = Language.ontology()
+        rel_speaks = ontology.relation("speaks")
+
+        # Steve doesn't exist within the ontology
+        self.assertFalse(rel_speaks.between("Steve", "English"))
+
+        # Define concepts to be added
+        steve = Concept("Steve", parents={"Person"}, category="static")
+        ontology.addConcept(steve)
+
+        # Assert that the concept has been updated
+        self.assertTrue(rel_speaks.between("Steve", "English"))
 
     def test_findRelations(self):
         """ Ensure that the find relations finds the correct relations within the system when asked """

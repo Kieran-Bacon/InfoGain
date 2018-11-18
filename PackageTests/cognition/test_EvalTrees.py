@@ -109,7 +109,7 @@ class Test_eval_trees(unittest.TestCase):
     def test_long_logic(self):
 
 
-        logic = "f(#example=maps_to=#example, 400,#example.age,x + y + z)"
+        logic = "f(#example=maps_to=#example, 400,#example.age,'x + y + z')"
 
         tree = self.factory.constructTree(logic)
 

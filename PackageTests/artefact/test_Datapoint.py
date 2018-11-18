@@ -33,7 +33,15 @@ class Test_Datapoint(unittest.TestCase):
         point = Datapoint({"context":{"left":"Some text", "middle": "Some text", "right": "other text"}})
         point.embedContext(self.embeddingModel.sentence)
 
-        self.assertEqual(point.features(), ([point.embedding["left"], point.embedding["middle"], point.embedding["right"]], point.annotation))
+        self.assertEqual(
+            point.features(),
+            (
+                [point.embedding["left"],
+                point.embedding["middle"],
+                point.embedding["right"]],
+                point.annotation
+            )
+        )
 
     def test_minimise(self):
 

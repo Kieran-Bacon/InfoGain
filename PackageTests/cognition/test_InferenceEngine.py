@@ -46,11 +46,15 @@ class Test_InferenceEngine(unittest.TestCase):
         engine.addConcept(Concept("y"))
 
         engine.addRelation(Relation("x", "simple", "y"))
-        engine.addRelation(Relation("x", "soundlogic", "y", [Rule("x", "y", 100, conditions=[{"logic": "%", "salience": 100}])]))
+        engine.addRelation(
+            Relation("x", "soundlogic", "y", [Rule("x", "y", 100, conditions=[{"logic": "%", "salience": 100}])])
+        )
         
 
         with pytest.raises(IncorrectLogic):
-            engine.addRelation(Relation("x", "wrong", "y", [Rule("x", "y", 100, conditions=[{"logic": "graph()()", "salience": 100}])]))
+            engine.addRelation(
+                Relation("x", "wrong", "y", [Rule("x", "y", 100, conditions=[{"logic": "graph()()", "salience": 100}])])
+            )
 
     def test_addInstance(self):
         """ Add instances to the engine """
@@ -125,8 +129,8 @@ class Test_InferenceEngine(unittest.TestCase):
         a, b = Concept("A", properties={"x": 10, "y": 15}, category="static"), Concept("B", category="static")
         atob = Relation({a}, "atob", {b})
         atob.addRule(Rule(a, b, 45.0, conditions=[
-            {"logic": "f(%.x, (x == 10)*100)", "salience": 100},
-            {"logic": "f(%.y, (y == 14)*100)", "salience": 50}
+            {"logic": "f(%.x, '(x == 10)*100')", "salience": 100},
+            {"logic": "f(%.y, '(y == 14)*100')", "salience": 50}
         ]))
 
         for con in [a, b]: engine.addConcept(con)
@@ -142,8 +146,8 @@ class Test_InferenceEngine(unittest.TestCase):
         atob = Relation({a}, "atob", {b})
         atob.addRule(Rule(a, b, 55.0))
         atob.addRule(Rule(a, b, 45.0, conditions=[
-            {"logic": "f(%.x, (x == 10)*100)", "salience": 100},
-            {"logic": "f(%.y, (y == 14)*100)", "salience": 50}
+            {"logic": "f(%.x, '(x == 10)*100')", "salience": 100},
+            {"logic": "f(%.y, '(y == 14)*100')", "salience": 50}
         ]))
 
         for con in [a, b]: engine.addConcept(con)
@@ -229,13 +233,6 @@ class Test_InferenceEngine(unittest.TestCase):
         doc.datapoints([lives_in])
 
         engine.addWorldKnowledge([doc])
-
-        for place in ["England", "Germany", "France", "Spain"]:
-            print(engine.inferRelation(
-                engine.concept("Kieran").instance(),
-                "lives_in",
-                engine.concept(place).instance()
-            ))
 
         self.assertAlmostEqual(
             engine.inferRelation(

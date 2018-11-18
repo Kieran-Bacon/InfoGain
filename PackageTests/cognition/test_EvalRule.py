@@ -50,7 +50,10 @@ class Test_EvalRule(unittest.TestCase):
 
     def test_eval_when_lots_of_params(self):
         engine = InferenceEngine(ontology=language.ontology())
-        self.assertAlmostEqual(engine.inferRelation(engine.instance("Kieran"), "speaks", engine.instance("English")), 19.5)
+        self.assertAlmostEqual(
+            engine.inferRelation(engine.instance("Kieran"), "speaks", engine.instance("English")),
+            19.5
+        )
 
     def test_reset(self):
         self.test_hasCondition()

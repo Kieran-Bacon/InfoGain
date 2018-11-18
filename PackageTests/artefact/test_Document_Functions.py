@@ -1,4 +1,5 @@
-import unittest, mock, sys
+import unittest, sys
+from unittest import mock
 
 from infogain.artefact import Document, Datapoint, score, annotate
 from infogain.extraction import RelationExtractor
@@ -6,43 +7,35 @@ from infogain.resources.ontologies import language
 
 class Test_Document_Functions(unittest.TestCase):
 
+    def setUp(self):
+        self.ont_language = language.ontology()
+
     def test_score_function(self):
 
-        # TODO: TO FINISH CORRECT THIS
-        # shouldn't use the actual relation extractor to run
-        # To much cross package dependances going on here
+        # Collect a training document
+        training = Document(content = "Luke can speak English. Kieran can speak English. Kieran cannot speak French")
+        training.processKnowledge(self.ont_language)
 
-        return
+        # Assign an annotation, and prediction to each of the datapoints like the RelationExtractor would
+        for datapoint, ann in zip(training.datapoints(), [1, 1, 0]):
+            datapoint.annotation = ann
+            datapoint.prediction = 1
 
-        training, test = language.training()[:-1], language.training()[-1]
+        # Run the function on the document
+        corpus, _ = score(self.ont_language, [training])
 
-        # Train
-        extractor = RelationExtractor(ontology=language.ontology(), min_count=1)
-        extractor.fit(training)
+        self.assertEqual(2/3, corpus["precision"])
+        self.assertEqual(1, corpus["recall"])
+        self.assertAlmostEqual(0.8, corpus["f1"])
 
-        test = extractor.predict(test)
-
-        corpus, _ = score(extractor, test)
-
-        self.assertTrue(0 < corpus["precision"])
-        self.assertTrue(0 < corpus["recall"])
-        self.assertTrue(0 < corpus["f1"])
-
-    #@mock.patch("input")
     def test_annotate_function(self):
         """ Test the annotation function """
 
         document = Document(content="Luke can speak English rather well, but Luke doesn't live in England.")
 
-        #TODO: Correctly mock the built in input function as to allow for the automation of this method
-        ## Or wait till the annotation method is changed to something much much nicer and move
-        return
-        
-        with mock.patch("builtins.input") as mock_input:
-            mock_input.return_value = iter(["N", "0", "0", "0"])
-            document = annotate(language.ontology(), document)
+        with mock.patch('builtins.input', side_effect=["N"] + ["0"]*7):
+            annotate(self.ont_language, document)
 
-        self.assertEqual(len(document), 3)
+        self.assertTrue(len(document) == 7)
         for point in document.datapoints():
-            self.assertTrue(point.annotation, 0)
-        
+            self.assertTrue(point.annotation == 0)

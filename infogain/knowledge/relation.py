@@ -78,10 +78,14 @@ class Relation:
         if isinstance(domain, Concept):
             if Concept.ABSTRACT == (domain.category or target.category): return False
             return target in self._between.get(domain, [])
+
         elif isinstance(domain, Instance):
             group = self._between[domain.name] if domain.name in self._between else self._between.get(domain.concept)
             if group is None: return False
             else: return True if {target.concept, target.name}.intersection(group) else False
+
+        else: # Strings have been provided
+            return target in self._between.get(domain, [])
 
     def subscribe(self, concept: Concept) -> None:
         """ Add the concept object into the relation, correctly mapping the concept to targets, or domains to the 

@@ -1,6 +1,10 @@
+import re
+
 from ..evaltrees import EvalTree
 
 class StringNode(EvalTree):
+
+    expression = re.compile("^\s*((\".*\")|('.*'))\s*$")
 
     def __init__(self, string: str):
 
@@ -9,7 +13,7 @@ class StringNode(EvalTree):
         self.string = string
     
     def __str__(self):
-        return self.string
+        return "'{}'".format(self.string)
 
     def eval(self, **kwargs):
         return self.string
