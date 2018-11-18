@@ -185,7 +185,14 @@ class EvalRule(Rule):
             rule (knowledge.Rule): The rule to be converted
             engine (Ontology): The ontology to be assigned to the newly generated EvalRule
         """
-        return EvalRule(rule.domains, rule.targets, rule.confidence, supporting=rule.supporting, conditions=rule.conditions(), ontology=engine)
+        return EvalRule(
+            rule.domains,
+            rule.targets,
+            rule.confidence,
+            supporting=rule.supporting,
+            conditions=rule.conditions(),
+            ontology=engine
+        )
 
     @staticmethod
     def _evalIdGen(domain: Concept, target: Concept) -> str:

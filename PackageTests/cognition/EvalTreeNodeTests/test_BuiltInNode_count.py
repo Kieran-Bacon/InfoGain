@@ -1,7 +1,7 @@
 import unittest
 
 from infogain.cognition import InferenceEngine
-from infogain.cognition.evalrule import EvalRule  # TODO Remove this
+from infogain.cognition.evalrule import EvalRule
 from infogain.cognition.evaltrees import EvalTreeFactory
 
 from infogain.resources.ontologies import school as resouce

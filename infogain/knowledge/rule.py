@@ -65,8 +65,8 @@ class Rule:
 
             self.targets = Concept.expandConceptSet(self.targets, descending=False)
 
-    def __str__(self):
-        base = " ".join([self.domains, self.targets, "is true with", str(self.confidence)])
+    def __repr__(self):
+        base = "<Rule: {} {} is true with {}".format(self.domains, self.targets, self.confidence)
         if self._conditions:
             base += " when:\n"
             base += "\n".join([str(condition) for condition in self._conditions])

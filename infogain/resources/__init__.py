@@ -3,12 +3,14 @@ import os
 #from . import Calibrator
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
-TEXT_COLLECTIONS = [os.path.join(ROOT,"TextCollections", name) for name in os.listdir(os.path.join(ROOT,"TextCollections"))]
+TEXT_COLLECTIONS = [os.path.join(ROOT,"TextCollections", name) 
+    for name in os.listdir(os.path.join(ROOT,"TextCollections"))]
 DICTIONARY = os.path.join(os.path.dirname(os.path.realpath(__file__)), "Dictionary.txt")
 
 class TEXT(object):
     def __init__(self):
-        self.files = [os.path.join(ROOT,"TextCollections", name) for name in os.listdir(os.path.join(ROOT,"TextCollections"))]
+        self.files = [os.path.join(ROOT,"TextCollections", name) 
+            for name in os.listdir(os.path.join(ROOT,"TextCollections"))]
  
     def __iter__(self):
         for fname in self.files:
