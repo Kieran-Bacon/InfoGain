@@ -73,7 +73,7 @@ class Ontology:
         import importlib
 
         try:
-            module = importlib.import_module("infogain.knowledge.builtin_concepts.{}".format(module_name))
+            module = importlib.import_module("infogain.knowledge.builtin_concepts.collection_{}".format(module_name))
             [self.addConcept(con) for con in module.concepts()]
         except ImportError:
             msg = "ImportError - No builtin module by that name: {}".format(module_name)

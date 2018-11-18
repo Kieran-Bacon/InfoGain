@@ -1,4 +1,5 @@
-import datetime
+import datetime as py_datetime
+import time as py_time
 
 from ..concept import Concept
 from ..instance import Instance
@@ -6,12 +7,14 @@ from ...exceptions import IncorrectLogic
 
 class Date(Instance):
 
-    formats = [
+    _self = py_datetime.date  # The class this instances represents
+
+    formats = {
         "%d/%m/%y",
         "%d/%m/%Y",
         "%d-%m-%y",
         "%d-%m-%Y" 
-    ]
+    }
 
     def __call__(self, date_object: object) -> Instance:
         """ Allow the Date instance to be used to create a new data instance during the processing
@@ -21,7 +24,7 @@ class Date(Instance):
 
             for dateFormat in self.formats:
                 try:
-                    date = datetime.datetime.strptime(date_object, dateFormat).date()
+                    date = py_datetime.datetime.strptime(date_object, dateFormat).date()
                     break
                 except ValueError:
                     # The format was not valid for the string
@@ -32,38 +35,14 @@ class Date(Instance):
             # Create and return the date object
             return Date("Date", str(date), {"__self__": date})
 
-    def __getattr__(self, attribute):
-        if attribute in self.properties: return self.properties[attribute]
-        elif "__self__" in self.properties: return getattr(self.properties["__self__"], attribute)
-        else: return getattr(datetime.date, attribute)
-
     def before(self, other): return self.properties["__self__"] < other
 
-
-
-
-class Time(Instance): pass
-class Datetime(Date, Time): pass
+class Time(Instance):
+    _self = py_time
+class Datetime(Date, Time):
+    _self = py_datetime.datetime
 class Period(Instance):
-
-    def days(self):
-        """ Return the number of days between two """
-        pass
-
-    def seconds(self):
-        pass
-
-    def length(self, *args):
-        """ Find the length of a period of time
-        
-        >>>a = Period("Period", properties={"period": datetime.timedelta(days=2, seconds=400)})
-        >>>a.length()
-        (2, 400)
-
-        >>>a.length("18-09-2017", "20-09-2017")
-        (2, 0)
-        """
-        pass
+    _self = py_datetime.timedelta
 
 def concepts():
 

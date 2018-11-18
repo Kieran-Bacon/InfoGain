@@ -18,7 +18,7 @@ class Test_Time_Builtin(unittest.TestCase):
         self.engine.addConcept(example)
 
 
-        for logic in ["eq(#Date(01-02-2017), #example.date)", "eq(#example.date, #Date(01-02-2017))"]:
+        for logic in ["eq(#Date('01-02-2017'), #example.date)", "eq(#example.date, #Date('01-02-2017'))"]:
             node = self.factory.constructTree(logic = logic)
 
             self.assertEqual(
@@ -36,7 +36,9 @@ class Test_Time_Builtin(unittest.TestCase):
         example = knowledge.Concept("example", properties={"date": datetime.date(2017, 2, 1)})
         self.engine.addConcept(example)
 
-        for logic, answer in {"#Date(02-02-2017).before(#example.date)": False, "#Date(01-01-2017).before(#example.date)": True}.items(): 
+        for logic, answer in {
+            "#Date('02-02-2017').before(#example.date)": False,
+            "#Date('01-01-2017').before(#example.date)": True}.items(): 
 
             node = self.factory.constructTree(logic)
 
@@ -50,6 +52,23 @@ class Test_Time_Builtin(unittest.TestCase):
                 answer
             )
 
+    def test_pulled_down_behaviour(self):
+
+        for logic, answer in {
+            "#Date.today()": datetime.date.today(),
+            "#Date('02-06-1927').isoformat()": datetime.date(1927,6,2).isoformat()
+            }.items():
+
+            node = self.factory.constructTree(logic)
+
+            self.assertEqual(
+                node.eval(
+                    scenario = {
+                        "#Date": self.engine.concept("Date").instance(),
+                    }
+                ),
+                answer
+            )
 
 
         

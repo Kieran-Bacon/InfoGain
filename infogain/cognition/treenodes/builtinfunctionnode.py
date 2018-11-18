@@ -5,7 +5,7 @@ from .conceptnode import ConceptNode
 from .relationnode import RelationNode
 from .numbernode import NumberNode
 
-from ...exceptions import IncorrectLogic
+from ...exceptions import IncorrectLogic, ConsistencyError
 from .decorators import scenario_consistent
 
 
@@ -69,7 +69,8 @@ class BuiltInFunctionNode(EvalTree):
                                      "{} - Excepts Concepts or Relations only".format(type(target)))
 
             self.function = self.count
-            self.parameters = lambda x: set()
+            def return_parameters(): return set()
+            self.parameters = return_parameters
         
         elif function_name == "f": self.function = self.f
         elif function_name == "facts":
@@ -154,25 +155,28 @@ class BuiltInFunctionNode(EvalTree):
 
         elif isinstance(countTarget, RelationNode):
 
-            # Extract the domain and concept params and concept 
+            # From the relationship, get the domain concept name and information as to whether it should be expanded
             domainParam = countTarget.domain.parameters().pop()
-            domain = EvalTree.paramToConcept(domainParam)[0]
+            if EvalTree.isPlaceholder(domainParam): domain = (countTarget.domain.instance(**kwargs).concept, False)
+            else: domain = EvalTree.paramToConcept(domainParam)
 
+            # From the relationship, get the target concept name and information as to whether it should be expanded
             targetParam = countTarget.target.parameters().pop()
-            target = EvalTree.paramToConcept(targetParam)[0]
+            if EvalTree.isPlaceholder(targetParam): target = (countTarget.target.instance(**kwargs).concept, False)
+            target = EvalTree.paramToConcept(targetParam)
 
             # Ensure the relationship is valid for these concepts
             relation = engine.relation(countTarget.relation)
-            if not relation.between(engine.concept(domain), engine.concept(target)):
+            if not relation.between(engine.concept(domain[0]), engine.concept(target[0])):
                 log.warning("Attempting to count relations for invalid concept pairs: {}".format(countTarget))
                 return 0
 
             # Extract the valid instances for this - if the concept is linked via scenario only choose that
             if domainParam in kwargs.get("scenario", []): domInst = {kwargs["scenario"][domainParam]}
-            else:                                 domInst = set(engine.instances(domain, descendants=True))
+            else:                                         domInst = set(engine.instances(*domain))
 
             if targetParam in kwargs.get("scenario",[]): tarInst = {kwargs["scenario"][targetParam]}
-            else:                                 tarInst = set(engine.instances(target, descendants=True))
+            else:                                        tarInst = set(engine.instances(*target))
 
             # Filter the instances to those that apply to the relation
             domInst = {dom for dom in domInst if dom.name in relation.domains or dom.concept in relation.domains}
