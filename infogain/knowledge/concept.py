@@ -37,7 +37,7 @@ class Concept(Vertice):
         if json:
             self.alias = set(json.get("alias", alias))
             self.properties = json.get("properties", {})
-            self.category = self.__stampCategory(json.get("category", category))
+            self.category = json.get("category", category)
 
             self.parents = set(json.get("parents", parents))
             self.children = set(json.get("children", children))
@@ -45,7 +45,7 @@ class Concept(Vertice):
         else:
             self.alias = set(alias)
             self.properties = properties.copy()
-            self.category = self.__stampCategory(category)
+            self.category = category
 
             self.parents = parents.copy()
             self.children = children.copy()
@@ -65,6 +65,15 @@ class Concept(Vertice):
     def __hash__(self):
         if not self.__dict__: return 0
         return hash(self.name)
+
+    @property
+    def category(self): return self.__category
+    @category.setter
+    def category(self, category: str):
+        if   category == self.ABSTRACT: self.__category = self.ABSTRACT
+        elif category == self.STATIC: self.__category = self.STATIC
+        elif category == self.DYNAMIC: self.__category = self.DYNAMIC
+        else: raise ValueError("Invalid category '{}' provided to concept {} definition".format(category, self.name))
 
     def ancestors(self):
         """ Return a collection of concepts, all of the concepts that can be linked via the parent
@@ -180,17 +189,6 @@ class Concept(Vertice):
         if self.category is not Concept.DYNAMIC: concept["category"] = self.category
 
         return concept
-
-    @classmethod
-    def __stampCategory(cls, category):
-        """ Return the global concept category type to allow for cooler comparisons and reduced
-        memory requirement
-        """
-        if   category == cls.ABSTRACT: return cls.ABSTRACT
-        elif category == cls.STATIC: return cls.STATIC
-        elif category == cls.DYNAMIC: return cls.DYNAMIC
-
-        raise ValueError("Invalid category provided")
 
     @classmethod
     def expandConceptSet(cls, collection, descending: bool = True):
