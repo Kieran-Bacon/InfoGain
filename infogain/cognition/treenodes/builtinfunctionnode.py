@@ -69,8 +69,6 @@ class BuiltInFunctionNode(EvalTree):
                                      "{} - Excepts Concepts or Relations only".format(type(target)))
 
             self.function = self.count
-            def return_parameters(): return set()
-            self.parameters = return_parameters
         
         elif function_name == "f": self.function = self.f
         elif function_name == "facts":
@@ -93,7 +91,9 @@ class BuiltInFunctionNode(EvalTree):
         else: raise IncorrectLogic("Builtin function name not recognised {}".format(self.function_name))
 
     def __str__(self): return self.function_name + "({})".format(",".join([str(x) for x in self.function_parameters]))
-    def parameters(self): return {param for params in self.function_parameters for param in params.parameters()}
+    def parameters(self):
+        if self.function_name in ["count"]: return set()
+        return {param for params in self.function_parameters for param in params.parameters()}
 
     def eval(self, **kwargs):
         kwargs["__engine__"] = self.engine
