@@ -33,8 +33,8 @@ class Test_Instance(unittest.TestCase):
         england = Concept("England")
         
         self.assertTrue(england == Instance("England"))
-        self.assertFalse(england == Instance("England", "uuid"))
-        self.assertTrue(england == Instance("Country", "England"))
+        self.assertTrue(england == Instance("England", "uuid"))
+        self.assertFalse(england == Instance("Country", "England"))
 
     def test_equality_instance(self):
 
@@ -42,4 +42,12 @@ class Test_Instance(unittest.TestCase):
 
         self.assertTrue(england == Instance("England"))
         self.assertFalse(england == Instance("England", "uuid"))
+        self.assertFalse(england == Instance("Country", "England"))
+        
+        england = Instance("Country", "England")
+
+        self.assertFalse(england == Instance("England"))
+        self.assertFalse(england == Instance("England", "uuid"))
         self.assertTrue(england == Instance("Country", "England"))
+        self.assertFalse(england == Instance("SomethingElse", "England"))
+
