@@ -5,7 +5,7 @@ from .datapoint import Datapoint
 
 log = logging.getLogger(__name__)
 
-class Document:
+class Document:  # TODO: Change the method by which concepts and relations are stored and generated
     """ A document represents a textual source, a file, paper, etc. The document provides a method
     to manipulate and extract information from the source and provides the method of processing
     the information within and ontology to generate potential datapoints within the source.
@@ -106,6 +106,7 @@ class Document:
         # Save name or generate an id randomly
         self.name = name if name else uuid.uuid4().hex
         self._concepts = None
+        self._relations = None
         
         # Save the content, overwrite provided content with read content
         self._content = content
@@ -146,6 +147,8 @@ class Document:
         Returns:
             {str: [str]} (dict) - A mapping of concepts to aliases
         """
+
+        # TODO: Fix this issue - If concepts is generated, further changes to this document do not change this
         if self._concepts is None:
             self._concepts = {} 
 
@@ -154,6 +157,25 @@ class Document:
                 self._concepts[p.target["concept"]] = self._concepts.get(p.target["concept"], []) + [p.target["text"]]
 
         return self._concepts
+
+    def relations(self) -> {str: int}:
+        """ Return a dictionary that maps relation names to an integer that represents the number of times it appears
+        within the datapoints of the document.
+
+        Returns:
+            {str: int}: A dictionary mapping relation name to count of their occurance
+        """
+
+        # TODO: Changes to the document doesn't get reflexed here.
+        if self._relations is None:
+            self._relations = {}
+
+            for p in self._datapoints:
+                self._relations[p.relation] = self._relations.get(p.relation, 0) + 1
+
+        return self._relations
+
+
 
     def text(self) -> str:
         """ Return the entire content of the document, but, doesn't construct the content from data
@@ -208,6 +230,15 @@ class Document:
                 return [Document.clean(point.text).split() for point in self._datapoints]
             return [point.text for point in self._datapoints]
 
+    def addDatapoint(self, point: Datapoint) -> None:
+        """ Add a datapoint into the document. Extend the content of this document by the contents of the datapoint
+        
+        Params:
+            point (Datapoint): The datapoint object to be added
+        """
+        self._datapoints.append(point)
+        self._content += " " + point.text + "" if point.text[-1] == "." else "."
+
     def datapoints(self, data: [Datapoint] = None) -> [Datapoint]:
         """
         Return the datapoints held by the document. If datapoints have been provided replace
@@ -224,6 +255,10 @@ class Document:
             self._content = " ".join([dp.text if dp.text[-1] == "." else dp.text + "."
                 for dp in self._datapoints if dp.text is not None])
         return self._datapoints
+
+    def hasDatapoints(self) -> bool:
+        """ Determine whether the the document has any datapoints """
+        return len(self._datapoints) > 0
 
     def processKnowledge(self, ontology: Ontology) -> None:
         """ Iterate over the document and create potential datapoints for all possible combinations 
@@ -303,6 +338,24 @@ class Document:
                         relations = ontology.findRelations(domain=matchConcept, target=instConcept)
                         [self._datapoints.append(p) for p in createDatapoint(match,
                             matchConcept, inst_match, instConcept, relations, sentence)]
+
+    def clone(self, *, meta_only: bool = False):
+        """ Clone the document and return a new document object. if meta_only is toggles, return an document object that
+        doesn't have any content, only initialised with the same meta information
+
+        Params:
+            meta_only (bool): clone this document's meta data only
+        
+        returns:
+            Document:
+        """
+
+        if meta_only:
+            return Document(self.name)
+        else:
+            cloned = Document(self.name, self._content)
+            cloned.datapoints([point.clone() for point in self.datapoints()])
+            return cloned
 
     def save(self, folder: str = "./", filename: str = None) -> None:
         """ Save the training file and it's datapoints, checks to see if the location is a file or a 

@@ -35,6 +35,18 @@ class Datapoint:
         if self.prediction is not None and self.prediction not in [-1,0,1]:
             raise ConsistencyError("Datapoint class unrecognised - {}".format(self))
 
+    def __repr__(self):
+        return "<Datapoint: {}({}) {} {}({}) - ann: {}, pred: {}, prob: {}>".format(
+            self.domain["concept"],
+            self.domain["text"],
+            self.relation,
+            self.target["concept"],
+            self.target["text"],
+            self.annotation,
+            self.prediction,
+            self.probability
+        )
+
     def __str__(self):
 
         # Create the string representation of the data point
@@ -108,6 +120,13 @@ class Datapoint:
             self.embedding["left"],
             self.embedding["middle"],
             self.embedding["right"]], self.annotation)
+
+    def clone(self):
+
+        datapoint = Datapoint(self.minimise().copy())
+        if self.embedding is not None:
+            datapoint.embedding = self.embedding.copy()
+        return datapoint
 
     def minimise(self) -> dict:
         """ Minimise the relevant information about the data point.
