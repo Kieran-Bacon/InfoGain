@@ -6,7 +6,7 @@ from infogain.resources.ontologies import language
 
 class Test_Relation_Model(unittest.TestCase):
 
-    def test_RelationFittingAndPredicting(self):
+    def test_RelationFittingAndPredicting(self):  # TODO: Break this down into different tests.
         # Create the model
         relationModel = RelationModel("speaks")
 

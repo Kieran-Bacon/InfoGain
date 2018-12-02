@@ -7,7 +7,7 @@ from sklearn.neural_network import MLPClassifier
 import logging
 log = logging.getLogger(__name__)
 
-class RelationModel:
+class RelationModel: # TODO: Refactor this, shouldn't have a class variables like this that get editted
     """ The model that represents a single relation classifier
     
     Params:
@@ -32,13 +32,16 @@ class RelationModel:
     def __init__(self, name: str):
         self.name = name
         self.classifier = MLPClassifier(hidden_layer_sizes=RelationModel.structure)
+        self._batch_size = None # TODO: Include batch_size into the training method
         self.fitted = False
 
-    def fit(self, datapoints: [Datapoint]) -> None:
+    def fit(self, datapoints: [Datapoint], *, batch_size: int = None) -> None:
         """ Use the datapoints to train the relation model
         
         Params:
             datapoints (Datapoint) - A collection of datapoints for this relation to train on
+
+            batch_size (int): Overload the RelationModel's batch size, number of datapoints to train with at a time
         """
 
         # Do nothing if no datapoints have been provided
@@ -65,7 +68,7 @@ class RelationModel:
         """
 
         if not points: return points
-        if not self.fitted:
+        if not self.fitted:  # TODO: Raise error, don't just log error - change tests to reflex that
             log.error("Attempt to predict on unfitted relation model: " + self.name)
             return points
 
