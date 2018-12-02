@@ -16,6 +16,7 @@ class Test_RelationExtractor(unittest.TestCase):
 
         cls.testing.processKnowledge(cls.ont_language)
 
+    @pytest.mark.skip
     def test_fit(self):
         """ Test the multiprocessing fitting process, ensure that it correctly fits and returns the model """
         
@@ -46,6 +47,7 @@ class Test_RelationExtractor(unittest.TestCase):
 
         for point in testing.datapoints(): self.assertAlmostEqual(point.prediction, 0.9, delta=0.1)
 
+    @pytest.mark.skip
     def test_predict(self):
 
         extractor = RelationExtractor(ontology=language.ontology())

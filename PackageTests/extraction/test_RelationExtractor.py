@@ -1,4 +1,4 @@
-import os, unittest
+import os, unittest, pytest
 
 from infogain.knowledge import Ontology, Concept, Relation
 from infogain.artefact import Document, Datapoint
@@ -7,7 +7,8 @@ from infogain.resources.ontologies import language
 
 class Test_RelationExtractor(unittest.TestCase):
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(self):
         self.extractor = RelationExtractor(ontology=language.ontology(), min_count=1)
         self.extractor.fit(language.training())
     
@@ -20,6 +21,7 @@ class Test_RelationExtractor(unittest.TestCase):
     def test_load_RelationExtractor(self):
         pass
 
+    @pytest.mark.skip
     def test_add_concept_extraction(self):
 
         # Generate example documents
@@ -44,6 +46,7 @@ class Test_RelationExtractor(unittest.TestCase):
         processed_set = self.extractor.predict(document_set)
         for document in processed_set: self.assertTrue(document.datapoints())
 
+    @pytest.mark.skip
     def test_add_relation_extraction(self):
         """ Test that an added relationship is generated correctly """
 
