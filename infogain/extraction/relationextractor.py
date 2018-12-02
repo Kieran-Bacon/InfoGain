@@ -1,12 +1,11 @@
+import sys, os, better
+from tqdm import tqdm
+
 from ..artefact import Datapoint, Document
 from ..knowledge import Ontology, Relation
 
 from .relationmodel import RelationModel
 from .embedder import Embedder
-
-import os, sys, multiprocessing as mp
-from multiprocessing.pool import Pool
-from multiprocessing import Queue
 
 import logging
 log = logging.getLogger(__name__)
@@ -49,7 +48,7 @@ class RelationExtractor(Ontology):
         word_embedding_model = None,
         embedding_size: int = 300,
         min_count: int = 10,
-        workers: int = mp.cpu_count(),
+        workers: int = os.cpu_count(),
         alpha: float = None,
         hidden_layers: (int) = (50,20)):
 
@@ -97,83 +96,72 @@ class RelationExtractor(Ontology):
         log.debug("Fitting the relation extractor - {} training documents".format(len(training_documents)))
 
         # Allow single or list of documents, convert training documents
-        if isinstance(training_documents, Document):
-            training_documents = [training_documents]
+        if isinstance(training_documents, Document): training_documents = [training_documents]
 
-        sentences = []
+        # Process the documents and train the embedder - set up the process for working on the documents
+        relation_counter = {}
         for document in training_documents:
-            
+
             # Store the text representations for the concept store
-            [self.concept(name).alias.add(text)
-                for name, textRepr in document.concepts().items()
-                for text in textRepr]
+            for concept_name, text_repr in document.concepts().items():
+                concept = self.concept(concept_name)
+                concept.alias = concept.alias.union(text_repr)
 
-            # Collect the words of the training documents 
-            sentences += document.words(cleaned=True) # List of sentences, which are lists of words
+            # Collect the number of relations within set 
+            for relation_name, counter in document.relations().items():
+                relation_counter[relation_name] = relation_counter.get(relation_name, 0) + counter
 
-        # Train embedder with training information
-        self.embedder.train(sentences)
+            # Train the embedder
+            self.embedder.train(document.words(cleaned=True))
 
-        # Separate out the datapoints for relation models specific collections
-        modelData = {}
-        for document in training_documents:
+        relations_to_process = sorted(relation_counter.keys(), key = lambda x: relation_counter[x])
+
+        # Set up containers for document datapoints after processing
+        models_training_containter = {
+            name: {
+                "document": Document("{} training set".format(name)),
+                "lock": better.threading.Lock()
+            }
+            for name in relations_to_process
+        }
+
+        def processing_document(document: Document):
+            """ Process a document and separate out the contents into the correct relation documents
+
+            Params:
+                document: A document object containing some datatpoints
+            """
             for point in document.datapoints():
-                # Pass the embedding function to the point to embed its context
-                point.embedContext(self.embedder.sentence)
-                # Store the embedded point
-                modelData[point.relation] = modelData.get(point.relation, []) + [point]
+                point.embedContext(self.embedder.sentence)  # Embed the point so that it can be used to train the model
 
-        # Add training data to training queue for processing
-        processPool, trainingQueue, returnQueue = None, Queue(), Queue()
-        [trainingQueue.put((self.ensemble[model], datapoints)) for model, datapoints in modelData.items()]
+                # Place into the relation training document 
+                with models_training_containter[point.relation]["lock"]:
+                    models_training_containter[point.relation]["document"].addDatapoint(point)
+        better.threading.tfor(processing_document, training_documents)
 
-        # Process the pool
-        poolsize = min(len(modelData), self.MAXTHREADS)
-        log.debug("Fitting the relation extractor - {} process to be spawned".format(poolsize))
-        if poolsize > 1: processPool = Pool(poolsize, self._fit, (trainingQueue, returnQueue))
-        else: self._fit(trainingQueue, returnQueue)
+        with better.multiprocessing.PoolManager(self._fit) as pool:
 
+            for relation in relations_to_process:
+                pool.put(self.ensemble[relation], models_training_containter[relation]["document"])
 
-        # For each of the training models that have been scheduled, store fitted model
-        for _ in range(len(modelData)):
-            relationModel = returnQueue.get(True)
-            if isinstance(relationModel, str): raise Exception("Error while fitting relation model")
-            self.ensemble[relationModel.name] = relationModel
-
-        if processPool: processPool.close()
+            for _ in range(len(relations_to_process)):
+                model = pool.get()
+                self.ensemble[model.name] = model
 
     @staticmethod
-    def _fit(trainingQueue: mp.Queue, returnQueue: mp.Queue):
-        """ Trains a single relation model, to be used as a multiprocess target function
-        
+    def _fit(relation_model: RelationModel, training_document: Document) -> RelationModel:
+        """ Taking a RelationModel, and a training document that contains only datapoints for that model. Train the 
+        model with the datapoints and return the newly training RelationModel
+
         Params:
-            trainingQueue (model, datapoints): A queue of the training material for the process to
-                get work from
-            returnQueue (mp.Queue): A queue for the training relation models to be put, to return
-                them back to the main processes
-        
-        Returns:
-            None - The function doesn't end. Process is to be killed when no more training documents
-                in the training Queue.
+            relation_model (RelationModel): The relation model to train
+            training_document (Document): The document to train the model from, containing datapoints for one relation
         """
+        relation_model.fit(training_document.datapoints())
+        return relation_model
 
-        while True:
-            relationModel, datapoints = trainingQueue.get(True)  # Collect training data
-            try:
-                relationModel.fit(datapoints)  # train the model on the data
-                returnQueue.put(relationModel)  # return the training model
-            except:
-                log.error(
-                    "Exception raised during fiting of relation model: {}".format(relationModel.name),
-                    exc_info=True
-                )
-                returnQueue.put(relationModel.name)
-
-            if trainingQueue.empty(): return
-        
     def predict(self, documents: [Document]) -> [Document]:
-        """
-        Take a collection of documents and predict each of the extractable datapoints
+        """ Take a collection of documents and predict each of the extractable datapoints
         found. The documents are paralised to provide a performance boost. Documents have 
         datapoints classified and generated.
 
@@ -183,77 +171,39 @@ class RelationExtractor(Ontology):
         Returns:
             [Document] - Initial document collection (order altered) process and predicted
         """
+        # Set up the environment such that a process exists for a particular relation 
+        if isinstance(documents, Document): return self._predict(documents, self)
 
-        if isinstance(documents, Document): documents = [documents]  # Ensure collection of documents
-        log.debug("Starting to predict {} documents".format(len(documents)))
+        predicted_documents = []
+        with better.multiprocessing.PoolManager(self._predict, static_args=[self], ordered=True) as pool:
+            pool.put_async(documents)
+            for _ in tqdm(range(len(documents))): predicted_documents.append(pool.get())  # Get the documents back
 
-        # Create processing structures
-        processPool, documentQueue, returnQueue = None, Queue(), Queue()
-        [documentQueue.put(document) for document in documents]
-
-        # Determine processing strategy
-        poolsize = min(len(documents), self.MAXTHREADS)
-        log.debug("Spawning {} processes to help predict documents".format(poolsize))
-        if poolsize > 1: processPool = Pool(poolsize, self._predict, (documentQueue, returnQueue, self))
-        else: self._predict(documentQueue, returnQueue, self)
-
-        predicted = []
-        for _ in range(len(documents)):
-            document = returnQueue.get(True)  # Get a predicted document
-            if isinstance(document, str): raise Exception("Error while processing document: {}".format(document))
-            predicted.append(document)
-
-        # Close pool if applicable
-        if processPool: processPool.close()
-
-        return predicted
+        return predicted_documents
 
     @staticmethod
-    def _predict(documentQueue, returnQueue, extractor):
+    def _predict(document: Document, extractor) -> Document:
         """ Processed a document according to the extractor, predict the datapoints of the 
-        documents and return the processed documents. To be run as a multiprocessing process
-        taking an extractor and a queues for the pick up and drop off of documents.
+        documents and return the processed documents. To be run within a multiprocessing environment.
         
         Params:
-            extractor (RelationExtractor): The extractor trained to predict the datapoints
-            documentQueue (mp.Queue): Queue of documents to be processed - work picked up here
-            returnQueue (mp.Queue): Queue where processed documents are placed
+            document (Document): The document to be predicted
+            extractor (RelationExtractor): The extractor model that is to predict the document
             
         Returns:
-            None - The function doesn't end. To be killed after documents have all been predicted
+            Document: A document of the same type as the initial document, containing predicted datapoints
         """
+        # Generate document datapoints according to the extractor, if the document doesn't have any datapoints
+        if not document.hasDatapoints(): document.processKnowledge(extractor)
 
-        while True:
-            document = None
-            try:
-                document = documentQueue.get(True)  # Get the document
+        # Create a new document to store predicted datapoints and to be returned
+        predicted_document = document.clone(meta_only=True)
+        for point in document.datapoints():
+            point.embedContext(extractor.embedder.sentence)
+            predicted_point = extractor.ensemble[point.relation].predict([point])[0]
+            predicted_document.addDatapoint(predicted_point)
 
-                # Produce datapoints for the document if not already produced
-                if not len(document.datapoints()): document.processKnowledge(extractor)
-                log.debug("document {}: knowledge processed = {}".format(document.name, not len(document.datapoints())))
-
-                # Seperate the points while embedding them
-                predictData = {}
-                for point in document.datapoints():
-                    point.embedContext(extractor.embedder.sentence)
-                    predictData[point.relation] = predictData.get(point.relation, []) + [point]
-
-                # Predict the points
-                predictedPoints = []
-                for relation, points in predictData.items():
-                    predictedPoints += extractor.ensemble[relation].predict(points)
-
-                # Pass predicted points back to the document
-                document.datapoints(predictedPoints)
-                returnQueue.put(document)  # Return the document
-            except:
-                log.error(
-                    "Error while processing prediction document: {}".format(document.name),
-                    exc_info=True
-                )
-                returnQueue.put(document.name)
-            
-            if documentQueue.empty(): return
+        return predicted_document
 
     def save(self, folder: str = "./", filename: str = "RelationExtractor") -> None:
         """ Save the Relation Extractor object along with the relevent supporting objects """

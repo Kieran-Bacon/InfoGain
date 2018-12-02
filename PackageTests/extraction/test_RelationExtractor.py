@@ -11,6 +11,15 @@ class Test_RelationExtractor(unittest.TestCase):
         self.extractor = RelationExtractor(ontology=language.ontology(), min_count=1)
         self.extractor.fit(language.training())
     
+    def test_add_relation(self):
+        pass
+
+    def test_save_RelationExtractor(self):
+        pass
+
+    def test_load_RelationExtractor(self):
+        pass
+
     def test_add_concept_extraction(self):
 
         # Generate example documents
@@ -57,7 +66,7 @@ class Test_RelationExtractor(unittest.TestCase):
 
         # Create a test document and predict on it
         test = Document(content="Kieran has always been a friend of Luke's")
-        test = self.extractor.predict(test)[0]
+        test = self.extractor.predict(test)
 
         self.assertEqual(len(test), 4)  # 2 from inform, 2 from friendsWith
         count = 0
