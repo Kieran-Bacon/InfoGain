@@ -177,7 +177,8 @@ class RelationExtractor(Ontology):
         predicted_documents = []
         with better.multiprocessing.PoolManager(self._predict, static_args=[self], ordered=True) as pool:
             pool.put_async(documents)
-            for _ in tqdm(range(len(documents))): predicted_documents.append(pool.get())  # Get the documents back
+            for _ in tqdm(range(len(documents)), ascii=True, desc="Documents Predicted"):
+                predicted_documents.append(pool.get())  # Get the documents back
 
         return predicted_documents
 

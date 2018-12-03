@@ -19,17 +19,17 @@ engine = InferenceEngine("inference", ontology=ont)
 
 # Calculate the confidence of the speaks relationship
 speaksConf = engine.inferRelation(
-    engine.instances("England"),
+    engine.instance("England"),
     "speaks",
-    engine.instances("English")
+    engine.instance("English")
 )
 print("England speaks English is believed with confidence {}".format(speaksConf))
 
 
 lives_inConf = engine.inferRelation(
-    engine.instances("Kieran"),
+    engine.instance("Kieran"),
     "lives_in",
-    engine.instances("England")
+    engine.instance("England")
 )
 print("Kieran lives in England has a confidence of {}".format(lives_inConf))
 
