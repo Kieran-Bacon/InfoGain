@@ -174,6 +174,7 @@ class InferenceEngine(Ontology):
         log.info("Infering relation '{} {} {}' - {} rules found for relation instance".format(
             domain, relation.name, target, len(relation.rules(domain, target))))
 
+        rulePositive, ruleNegative = False, False
         confidence, scepticism = 1.0, 1.0
         for rule in relation.rules(domain, target):
             log.debug("Rule: {}".format(rule))
@@ -181,10 +182,23 @@ class InferenceEngine(Ontology):
                 continue  # Avoid condition rules
 
             ruleValue = (1.0 - rule.eval(domain, target)/100)
-            if rule.supporting: confidence *= ruleValue
-            else:               scepticism *= ruleValue
+            if rule.supporting:
+                rulePositive = True
+                confidence *= ruleValue
+            else:
+                ruleNegative = True
+                scepticism *= ruleValue
 
-        return ((1.0 - confidence) - (1.0 - scepticism))*100
+        # If the confidence has not been editted then we don't want to consider it in the function
+        # equally if the scepticism has not been set
+        # we don't want to do it
+
+        if rulePositive:
+            return ((1.0 - confidence) * (scepticism))*100
+        elif ruleNegative:
+            return scepticism*100
+        else:
+            None  # There is nothing to suggest any answer - don't suggest that it is entirely negative
 
     def reset(self):
         """ Clean up any information collected during inference. """

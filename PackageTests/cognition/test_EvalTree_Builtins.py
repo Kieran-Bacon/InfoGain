@@ -78,14 +78,14 @@ class Test_EvalTreeBuiltins(unittest.TestCase):
 
         factsNode = self.factory.constructTree(logic)
 
-        self.assertEqual(
+        self.assertAlmostEqual(
             factsNode.eval(
                 scenario={
                     "#Kieran": self.engine.concept("Kieran").instance(),
                     "#Germany": self.engine.concept("Germany").instance()
                 }
             ),
-            -69
+            31
         )
 
     def test_negative_facts2(self):

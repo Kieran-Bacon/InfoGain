@@ -129,13 +129,7 @@ class EvalRule(Rule):
             log.debug("Evaluating rule scenario - {}".format({k: str(v) for k,v in scenario.items()}))
 
             # Evaluate the scenario against all the conditions
-            confidence = self.evalScenario(scenario)/100
-
-            # TODO Fix this logic - I do not feel happy with the way in which we add up negitive outcomes.
-            if confidence < -1 or confidence > 1: raise Exception("This is bad")
-            if confidence < 0: confidence = 1 + confidence
-
-            ruleConfidence *= (1.0-confidence)
+            ruleConfidence *= (1.0-(self.evalScenario(scenario)/100))
 
         # Store the evaluation pairs outcome and return it
         pairing_key_confidence = (1.0 - ruleConfidence)*100

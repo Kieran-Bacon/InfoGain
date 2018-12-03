@@ -240,5 +240,5 @@ class Test_InferenceEngine(unittest.TestCase):
                 "lives_in",
                 engine.concept("Germany").instance()
             ),
-            -69
+            31
         )

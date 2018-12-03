@@ -5,7 +5,7 @@ from .conceptnode import ConceptNode
 
 from .decorators import scenario_consistent
 
-class RelationNode(EvalTree):
+class RelationNode(EvalTree): #TODO: Document class
 
     expression = re.compile(r"({0})=([\w_]+)=({0})|({0})-([\w_]+)-({0})".format(EvalTree.concept_syntax.pattern))
     
@@ -28,9 +28,10 @@ class RelationNode(EvalTree):
             self.domain.instance(**kwargs),
             self.relation,
             self.target.instance(**kwargs),
-            evaluate_conditions = "evaluate_conditions" in kwargs
+            evaluate_conditions = kwargs.get("evaluate_conditions", True)
         )
-        return confidence if self.isPositive else (-1)*confidence #(100.0-confidence)
+        if confidence is None: return 0
+        return confidence if self.isPositive else 100.0 - confidence
 
     @staticmethod
     def split(expression):
