@@ -1,0 +1,13 @@
+Currently
+
+We load in an relation extraction.
+
+
+
+Lets talk some file types because we are at a stage where we need to be saving some byte code. Cannot be trying to
+serialise as json anymore...
+
+dig document-infogain
+oig ontology-*
+cig conition
+eig
