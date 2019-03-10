@@ -23,7 +23,7 @@ class Condition:
 class Rule:
     """ A rule expresses when a relation occurs and with what confidence does it occur. It references external pieces of
     information and describes the scenarios that may give rise to a Relation
-    
+
     Params:
         domains ({Concept}): A set of domain concepts - A subset of the relation domains
         targets ({Concept}): A set of target concepts - A subset of the relation targets
@@ -31,7 +31,7 @@ class Rule:
 
         [Keywords]
         supporting (bool): sign of the rule - If the rule, does it suggest the relation is true or false
-        conditions ([Condition]): The list of conditions of the Rule, contains the logic of the rule 
+        conditions ([Condition]): The list of conditions of the Rule, contains the logic of the rule
     """
 
     def __init__(
@@ -49,7 +49,7 @@ class Rule:
         self.confidence = confidence
         self.supporting = supporting
 
-        if isinstance(self.supporting, list): raise ValueError("Its happened")
+        if isinstance(self.supporting, list): raise ValueError("Its happened") # TODO wtf
 
         for i, condition in enumerate(conditions):
             if isinstance(condition, dict) and all([key in condition for key in ["logic", "salience"]]):
@@ -59,7 +59,7 @@ class Rule:
 
         if conditions:
             self.domains = Concept.expandConceptSet(self.domains)
-            
+
             if any([condition.containsTarget() for condition in conditions]):
                 self.targets = self.targets.union(Concept.expandConceptSet(self.targets))
 
@@ -77,7 +77,7 @@ class Rule:
     def applies(self, domain: (Concept), target: (Concept)) -> bool:
         """ Determine if the rule applies to the the domain and target pairing that has been
         provided.
-        
+
         Params:
             domain (Concept/Instance): The domain concept
             target (Concept/Instance): The target concept
@@ -95,7 +95,7 @@ class Rule:
                 type(domain), domain, type(target), target
             ))
 
-        # Quick check before search whether or not the concepts are viable 
+        # Quick check before search whether or not the concepts are viable
         if isinstance(domain, Concept) and (Concept.ABSTRACT is (domain.category or target.category)): return False
 
         # Expanded search for instances
@@ -122,7 +122,7 @@ class Rule:
 
     def minimise(self) -> dict:
         """ Reduce the rule down to a dictionary object that defines the rule
-        
+
         Returns:
             dict: keys {"domains", "targets", "confidence", "supporting", "conditions"}
         """
@@ -138,8 +138,8 @@ class Rule:
         return minimised
 
     def clone(self):
-        """ Generate a deep copy of this Rule - All references to concepts are replaced with strings 
-        
+        """ Generate a deep copy of this Rule - All references to concepts are replaced with strings
+
         Returns:
             Rule: A new Rule emblematic of the original
         """
