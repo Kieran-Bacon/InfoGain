@@ -1,13 +1,13 @@
-from ..information import Vertice
+from ..information import Vertex
 
-class Instance(Vertice):
-    """ An instance of a concept. The concept an instance represents is responsible for 
+class Instance(Vertex):
+    """ An instance of a concept. The concept an instance represents is responsible for
     generating its instance - the responsiblity of ensuring correctness within the instance is
-    therefore handled by the concept. 
+    therefore handled by the concept.
 
     No abstract concept will have a instance
 
-    A static concept will share its internal properties dictionary with this instance - updates to 
+    A static concept will share its internal properties dictionary with this instance - updates to
     either will have side-effects for the other
 
     A dynamic concept will have entirely separated properties
@@ -28,10 +28,10 @@ class Instance(Vertice):
         self.concept, self.name, self.properties)
     def __hash__(self):
         if "__self__" in self.properties: return hash(self.properties["__self__"])
-        else: return Vertice.__hash__(self)
+        else: return Vertex.__hash__(self)
     def __eq__(self, other):
         if "__self__" in self.properties: return self.properties["__self__"] == other
-        else: return Vertice.__eq__(self, other)
+        else: return Vertex.__eq__(self, other)
     def __ne__(self, other):
         return not self.__eq__(other)
     def __getstate__(self): return self.__dict__

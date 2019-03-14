@@ -1,12 +1,12 @@
 import unittest
 
-from infogain.information import Vertice
+from infogain.information import Vertex
 from infogain.knowledge import Concept, Instance
 
-class Test_Vertices(unittest.TestCase):
+class Test_Vertexs(unittest.TestCase):
 
-    def test_vertice_equality(self):
-        """ The aim is to ensure that classes that inherit from vertice
+    def test_Vertex_equality(self):
+        """ The aim is to ensure that classes that inherit from Vertex
         are able to be compaired """
 
         a = Concept("a")

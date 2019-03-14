@@ -1,4 +1,4 @@
-class Vertice:
+class Vertex:
     """ A single point of information """
     def __init__(self):
         self.concept = None

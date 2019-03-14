@@ -1,12 +1,143 @@
 import uuid
+from collections.abc import MutableSet
 
-from ..information import Vertice
+from ..information import Vertex
 from .instance import Instance
+from ..exceptions import ConsistencyError
 
 import logging
 log = logging.getLogger(__name__)
 
-class Concept(Vertice):
+# class ConceptSet(MutableSet):
+
+#     def __init__(self, iterable: {Concept} = None):
+#         for con in iterable: self.add(con)
+#         self._partial = set()
+
+#     def expand(self, descending: bool = True) -> None:
+#         """ Expand a collection of concepts to include either their descendants or their ancestors when applicable
+
+#         Params:
+#             descending (bool): Dictate the direction of expansion
+#         """
+
+#         expansion = set()
+
+#         for concept in self:
+#             expansion.add(concept)
+#             if isinstance(concept, Concept):
+#                 group = concept.descendants() if descending else concept.ancestors()
+#                 for con in group:
+#                     if isinstance(con, str) or con.category is not Concept.ABSTRACT:
+#                         expansion.add(con)
+
+#         for concept in expansion: self.add(concept)
+
+#     def minimise(self, ascending: bool = True) -> None:
+#         """ Minimise a collection according to possible concepts within another.
+
+#         Params:
+#             collection (set): The collection that is being minimised
+#         """
+#         minimised = set()
+
+#         for con in self:
+#             if isinstance(con, Concept):
+#                 group = con.ancestors() if ascending else con.descendants()
+#                 if group.intersection(self): continue
+
+#             minimised.add(con)
+
+#         for c in self: self.remove(c)
+#         for c in minimised: self.add(c)
+
+#     def toStringSet(self):
+#         """ Generate a conventional set of concept names (str) from this concept set and return
+
+#         Returns:
+#             {str}: A set of concept names which are strings
+#         """
+#         return {c if isinstance(c, str) else c.name for c in self}
+
+class FamilyConceptSet(MutableSet):
+    """ A set to hold information of a family hierarchy. Concepts held in this set are the parents or children of the
+    concept that holds this set. The set is responsible for making consisten this relationship with the concepts in this
+    set.
+
+    Params:
+        iterable ({Concept}): A collection of concepts to act as the initial members of the set
+        ancestors (bool): Indicates whether this set holds the the parents or children of the class
+    """
+
+    def __init__(self, owner: Vertex = None, ancestors: bool = True):
+        self._elements = set()
+        self._owner = owner
+        self._ancestors = ancestors
+        self._partial = set()
+
+    def __iter__(self): return iter(self._elements)
+    def __len__(self): return len(self._elements)
+    def __contains__(self, x): return x in self._elements
+
+    def isAncestors(self): return self._ancestors
+
+    def add(self, concept: Vertex) -> None:
+        """ Add a concept into this set. If the concept is partial, store its information such that it can be replaced
+        at a later date. If this is the parent set, pull down relations that have been set up on the concepts within.
+
+        Params:
+            concept (Concept): The concept to be added into the set
+        """
+        if isinstance(concept, str):
+            self._elements.add(concept)
+            self._partial.add(concept)  # The concept is added, but it is also simply a partial concept
+            return
+
+        if concept in self._partial:
+            # This is a non partial element to replace the current partial element
+            self._elements.remove(concept)
+            self._partial.remove(concept)
+
+        # Add the concept into this FamilyConceptSet
+        self._elements.add(concept)
+
+        # Identify corresponding family concept set from new concept + pull down relations where applicable
+        if self._ancestors:
+            # Pull down relations from the new parent concept
+            for relation in concept._relationMembership:
+                self._owner._relationMembership.add(relation)
+                relation.subscribe(self._owner)
+
+            otherSet = concept.children
+
+        else:
+            otherSet = concept.parents
+
+        # Check whether the owning concept is correctly linked with the new concept from their perspective
+        if not otherSet.linked(self._owner):
+            otherSet.add(self._owner)
+
+    def discard(self, concept: Vertex) -> None:
+        """ Removing a concept from the family set shall remove the it and all of its does """
+        if concept in self._partial: self._partial.remove(concept)
+        if concept in self._elements: self._elements.remove(concept)
+
+    def linked(self, concept: Vertex):
+        """ Determine whether this concept is correctly linked inside this concept set. Linked if the concept is within
+        the set and isn't partial.
+
+        Params:
+            concept (Concept): The concept that is being checked if correctly a member
+        """
+        return concept not in self._partial and concept in self._elements
+
+    def partials(self):
+        """ Provide a set of the partial concepts within the set """
+        return self._partial.copy()
+
+    def copy(self): return self._elements.copy()
+
+class Concept(Vertex):
     """ A concept represents a "thing", an idea, an object, a place, anything.
 
     Args:
@@ -30,29 +161,28 @@ class Concept(Vertice):
         alias: set = set(),
         properties: dict = {},
         category: str = "dynamic",
-        json: dict = {}):
+        json: dict = {}
+        ):
 
         self.name = name
 
-        if json:
-            self.alias = set(json.get("alias", alias))
-            self.properties = json.get("properties", {})
-            self.category = json.get("category", category)
+        # Relationships this concept is a part of
+        self._relationMembership = set()
 
-            self.parents = set(json.get("parents", parents))
-            self.children = set(json.get("children", children))
-        
-        else:
-            self.alias = set(alias)
-            self.properties = properties.copy()
-            self.category = category
+        # Family hierarchy structures
+        self.parents = FamilyConceptSet(owner=self, ancestors=True)
+        self.children = FamilyConceptSet(owner=self, ancestors=False)
+        for con in parents: self.parents.add(con)
+        for con in children: self.children.add(con)
 
-            self.parents = parents.copy()
-            self.children = children.copy()
+        # Concept aliases and properties
+        self.alias = alias
+        self.properties = properties.copy()
 
-        [Concept.fuse(self, par) for par in self.parents if not isinstance(par, str)]
-        [Concept.fuse(self, child) for child in self.children if not isinstance(child, str)]
+        # Type of concept instance
+        self.category = category
 
+        # Set up the concept instance class
         if self.category is not Concept.ABSTRACT:
             self._instance_class = Instance
 
@@ -67,18 +197,41 @@ class Concept(Vertice):
         return hash(self.name)
 
     @property
-    def category(self): return self.__category
+    def parents(self):
+        return self._parents
+    @parents.setter
+    def parents(self, conceptSet: FamilyConceptSet):
+        if isinstance(conceptSet, FamilyConceptSet) and conceptSet.isAncestors():
+            self._parents = conceptSet
+            conceptSet._owner = self
+        else:
+            raise ConsistencyError("Incorrect definition of {}'s parent set. Passed {}".format(self, conceptSet))
+
+    @property
+    def children(self):
+        return self._children
+    @children.setter
+    def children(self, conceptSet: FamilyConceptSet):
+        if isinstance(conceptSet, FamilyConceptSet) and not conceptSet.isAncestors():
+            self._children = conceptSet
+            conceptSet._owner = self
+        else:
+            raise ConsistencyError("Incorrect definition of {}'s children set. Passed {}".format(self, conceptSet))
+
+
+    @property
+    def category(self): return self._category
     @category.setter
     def category(self, category: str):
-        if   category == self.ABSTRACT: self.__category = self.ABSTRACT
-        elif category == self.STATIC: self.__category = self.STATIC
-        elif category == self.DYNAMIC: self.__category = self.DYNAMIC
+        if   category == self.ABSTRACT: self._category = self.ABSTRACT
+        elif category == self.STATIC: self._category = self.STATIC
+        elif category == self.DYNAMIC: self._category = self.DYNAMIC
         else: raise ValueError("Invalid category '{}' provided to concept {} definition".format(category, self.name))
 
     def ancestors(self):
         """ Return a collection of concepts, all of the concepts that can be linked via the parent
         link. All the ancestor concepts are returned.
-        
+
         Returns:
             ancestors ({Concept}) - The collection
         """
@@ -95,7 +248,7 @@ class Concept(Vertice):
 
     def descendants(self):
         """ Return a collection of child concepts linked to the current concept
-        
+
         Returns:
             descendants ({Concept}) - The collection of descendant concepts
         """
@@ -123,7 +276,7 @@ class Concept(Vertice):
         """
 
         if not issubclass(instance_class, Instance):
-            raise TypeError("Class passed to concept '{}' as new instance".format(self) + 
+            raise TypeError("Class passed to concept '{}' as new instance".format(self) +
                             " class does not extend Instance and is type {}".format(type(instance_class)))
 
         self._instance_class = instance_class
@@ -132,11 +285,11 @@ class Concept(Vertice):
             self._instance = self._instance_class(self, properties=self.properties)
 
     def instance(self, instance_name: str = None, properties: dict = None) -> Instance:
-        """ Generate an instance of this concept and return it. In the event that the concept is 
-        static, this function acts as a singlton and returns the single instance of this concept
-        
+        """ Generate an instance of this concept and return it. In the event that the concept is
+        static, this function acts as a singleton and returns the single instance of this concept
+
         Params:
-            instance_name (str): (dynamic only) An unique identifier for the instance - defaults to 
+            instance_name (str): (dynamic only) An unique identifier for the instance - defaults to
                 UUID in the event that it is not provided and needed
             properties (dict): (dynamic only) A collection of properties for this instance, overloads concept properties
 
@@ -159,7 +312,7 @@ class Concept(Vertice):
 
     def clone(self):
         """ Return an new partial concept with identical information but invalid concept connections
-        
+
         Returns:
             Clone (Concept) - A new partial concept
         """
@@ -176,13 +329,13 @@ class Concept(Vertice):
 
     def minimise(self) -> dict:
         """ Return only the information the concept represents
-        
+
         Returns:
             dict - The minimised version of the concept, encapsulates all the information
         """
 
         concept = {"name": self.name}
-        if self.parents: concept["parents"] = sorted([parent if isinstance(parent, str) else parent.name 
+        if self.parents: concept["parents"] = sorted([parent if isinstance(parent, str) else parent.name
             for parent in self.parents])
         if self.properties: concept["properties"] = self.properties
         if self.alias: concept["alias"] = sorted(list(self.alias))
@@ -216,11 +369,11 @@ class Concept(Vertice):
 
     @classmethod
     def minimiseConceptSet(cls, collection, ascending: bool = True):
-        """ Minimise a collection according to possible concepts within another. 
-        
+        """ Minimise a collection according to possible concepts within another.
+
         Params:
             collection (set): The collection that is being minimised
-        
+
         Returns:
             set: Minimised set
         """
@@ -236,17 +389,3 @@ class Concept(Vertice):
 
         log.debug("minimised set {} from {}".format([str(x) for x in minimised], [str(x) for x in collection]))
         return minimised
-
-    @staticmethod
-    def fuse(concept_one, concept_two):
-        """ Ensure that the provided concepts point to one another in the correct manner """
-
-        if concept_one in concept_two.parents or concept_two in concept_one.children:
-
-            concept_one.children = {concept_two}.union(concept_one.children)
-            concept_two.parents = {concept_one}.union(concept_two.parents)
-
-        if concept_one in concept_two.children or concept_two in concept_one.parents:
-
-            concept_one.parents = {concept_two}.union(concept_one.parents)
-            concept_two.children = {concept_one}.union(concept_two.children)
