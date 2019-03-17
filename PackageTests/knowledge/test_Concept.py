@@ -1,6 +1,7 @@
 import unittest, pytest
 
 from infogain.knowledge import Ontology, Concept, Instance
+from infogain.knowledge.concept import ConceptSet, FamilyConceptSet
 
 class Test_Concept(unittest.TestCase):
 
@@ -113,7 +114,7 @@ class Test_Concept(unittest.TestCase):
         self.assertEqual({c.name for c in Concept.minimiseConceptSet(Concept.expandConceptSet({x, y1}))}, {x, y1})
 
     def test_generation_of_concept_instance(self):
-        """ Test that a concept generates its instance correctly and that it has the behaviour that 
+        """ Test that a concept generates its instance correctly and that it has the behaviour that
         we would want """
 
         # Test that an abstract concept raises an type error when attempting to generate its instance
@@ -158,7 +159,7 @@ class Test_Concept(unittest.TestCase):
                 return 10
 
         self.assertTrue(issubclass(PersonInstance, Instance))
-            
+
         example = Concept("example", properties={"cool": 97})
 
         example.setInstanceClass(PersonInstance)
@@ -181,6 +182,129 @@ class Test_Concept(unittest.TestCase):
         self.assertEqual(collection2.get(example), 10)
         self.assertEqual(collection2.get("example"), 10)
 
+
+class Test_ConceptSet(unittest.TestCase):
+    """ These tests test the ConceptSet itself specifically """
+
+    def setUp(self):
+
+        self.c1 = Concept("1")
+        self.c2 = Concept("2")
+        self.c3 = Concept("3")
+
+        self.non_family = [self.c1, self.c2, self.c3]
+
+        self.f1 = Concept("a", children={"b"})
+        self.f2 = Concept("b", parents={self.f1})
+        self.f3 = Concept("c", parents={self.f2})
+
+        self.family = [self.f1, self.f2, self.f3]
+
+    def test_initialise(self):
+
+        # Created a set of concepts that do not have any family connect at all
+        cs = ConceptSet(self.non_family)
+        self.assertTrue(len(cs) == 3)
+        for e in cs: self.assertIn(e, self.non_family)
+
+        # Created another connection where they are all family connected
+        fs = ConceptSet(self.family)
+        self.assertTrue(len(cs) == 3)
+        for e in fs: self.assertIn(e, self.family)
+
+    def test_add(self):
+        """ Testing that the add function works as we intend it to """
+
+        group = ConceptSet()
+
+        # Show that it can allow str to be added
+        # Show that it can allow concepts to be added
+        # Show that it can allow Instances to be added
+        to_be_added = ["example", Concept("Example 2"), Instance("Example 3", "The intruder")]
+
+        for item in to_be_added:
+            group.add(item)
+
+        self.assertEqual(len(group), 3)
+        for item in group:
+            self.assertIn(item, to_be_added)
+
+    def test_add_partials(self):
+        """ Show that an item (that is a string) is added only partially, such that when you add the full concept, it is
+        replaced """
+
+        group = ConceptSet()
+        group.add(self.c1)
+        group.add("2")
+
+        self.assertEqual(len(group), 2)
+
+        group.add(self.c2)
+
+        self.assertEqual(len(group), 2)
+        for item in group:
+            self.assertTrue(isinstance(item, Concept))
+
+    def test_remove(self):
+        """ Test that removing an item correctly removes the item - plus that string or concepts being passed also
+        triggers a removal of the concepts
+        """
+        group = ConceptSet()
+
+        # Tested adding and removing a single item
+        group.add(self.c1)
+
+        self.assertTrue(group)
+        self.assertEqual(len(group), 1)
+
+        group.remove(self.c1)
+
+        self.assertFalse(group)
+        self.assertEqual(len(group), 0)
+
+        # Test the adding and removal of concepts and strings
+        group.add(Concept("Test"))
+        self.assertTrue(group)
+        group.remove("Test")
+        self.assertFalse(group)
+
+        group.add("Test")
+        self.assertTrue(group)
+        group.remove(Concept("Test"))
+        self.assertFalse(group)
+
+    def test_expand(self):
+        self.fail()
+
+    def test_expanded(self):
+        self.fail()
+
+    def test_minimise(self):
+        self.fail()
+
+    def test_minimised(self):
+        self.fail()
+
+    def test_toStringSet(self):
+        self.fail()
+
+    def test_union(self):
+        self.fail()
+
+    def test_intersection(self):
+        self.fail()
+
+    def test_difference(self):
+        self.fail()
+
+    def test_copy(self):
+        self.fail()
+
+class Test_FamilyConceptSet(unittest.TestCase):
+    """ """
+
+    def test_add(self):
+        self.fail()
 
 if __name__ == "__main__":
     unittest.main()

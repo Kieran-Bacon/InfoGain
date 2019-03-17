@@ -49,8 +49,8 @@ class Test_Relation(unittest.TestCase):
 
         relation = Relation({con3},"relates",{con2})
 
-        self.assertEqual(relation.domains, {con2,con3})
-        self.assertEqual(relation.targets, {con2})
+        self.assertEqual(relation.domains, {con1, con2,con3})
+        self.assertEqual(relation.targets, {con1, con2})
 
     def test_between(self):
 
@@ -93,7 +93,7 @@ class Test_Relation(unittest.TestCase):
 
     def test_subscribe(self):
 
-        # Test that a subscribed concept is currectly added to the shindig
+        # Test that a subscribed concept is currently added to the shindig
         con1, conA = Concept("1"), Concept("B")
         conB = Concept("B", parents={con1, conA})
 
@@ -118,12 +118,12 @@ class Test_Relation(unittest.TestCase):
         con3 = Concept("3", parents={con2})
 
         relation = Relation({con1},"relates",{con1})
-        
+
         relation.subscribe(con2)
         relation.subscribe(con3)
 
-        self.assertEqual(relation.domains, {con1, con3})
-        self.assertEqual(relation.targets, {con1, con3})
+        self.assertEqual(relation.domains, {con1, con2, con3})
+        self.assertEqual(relation.targets, {con1, con2, con3})
 
     def test_minimise(self):
 

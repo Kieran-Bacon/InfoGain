@@ -8,135 +8,6 @@ from ..exceptions import ConsistencyError
 import logging
 log = logging.getLogger(__name__)
 
-# class ConceptSet(MutableSet):
-
-#     def __init__(self, iterable: {Concept} = None):
-#         for con in iterable: self.add(con)
-#         self._partial = set()
-
-#     def expand(self, descending: bool = True) -> None:
-#         """ Expand a collection of concepts to include either their descendants or their ancestors when applicable
-
-#         Params:
-#             descending (bool): Dictate the direction of expansion
-#         """
-
-#         expansion = set()
-
-#         for concept in self:
-#             expansion.add(concept)
-#             if isinstance(concept, Concept):
-#                 group = concept.descendants() if descending else concept.ancestors()
-#                 for con in group:
-#                     if isinstance(con, str) or con.category is not Concept.ABSTRACT:
-#                         expansion.add(con)
-
-#         for concept in expansion: self.add(concept)
-
-#     def minimise(self, ascending: bool = True) -> None:
-#         """ Minimise a collection according to possible concepts within another.
-
-#         Params:
-#             collection (set): The collection that is being minimised
-#         """
-#         minimised = set()
-
-#         for con in self:
-#             if isinstance(con, Concept):
-#                 group = con.ancestors() if ascending else con.descendants()
-#                 if group.intersection(self): continue
-
-#             minimised.add(con)
-
-#         for c in self: self.remove(c)
-#         for c in minimised: self.add(c)
-
-#     def toStringSet(self):
-#         """ Generate a conventional set of concept names (str) from this concept set and return
-
-#         Returns:
-#             {str}: A set of concept names which are strings
-#         """
-#         return {c if isinstance(c, str) else c.name for c in self}
-
-class FamilyConceptSet(MutableSet):
-    """ A set to hold information of a family hierarchy. Concepts held in this set are the parents or children of the
-    concept that holds this set. The set is responsible for making consisten this relationship with the concepts in this
-    set.
-
-    Params:
-        iterable ({Concept}): A collection of concepts to act as the initial members of the set
-        ancestors (bool): Indicates whether this set holds the the parents or children of the class
-    """
-
-    def __init__(self, owner: Vertex = None, ancestors: bool = True):
-        self._elements = set()
-        self._owner = owner
-        self._ancestors = ancestors
-        self._partial = set()
-
-    def __iter__(self): return iter(self._elements)
-    def __len__(self): return len(self._elements)
-    def __contains__(self, x): return x in self._elements
-
-    def isAncestors(self): return self._ancestors
-
-    def add(self, concept: Vertex) -> None:
-        """ Add a concept into this set. If the concept is partial, store its information such that it can be replaced
-        at a later date. If this is the parent set, pull down relations that have been set up on the concepts within.
-
-        Params:
-            concept (Concept): The concept to be added into the set
-        """
-        if isinstance(concept, str):
-            self._elements.add(concept)
-            self._partial.add(concept)  # The concept is added, but it is also simply a partial concept
-            return
-
-        if concept in self._partial:
-            # This is a non partial element to replace the current partial element
-            self._elements.remove(concept)
-            self._partial.remove(concept)
-
-        # Add the concept into this FamilyConceptSet
-        self._elements.add(concept)
-
-        # Identify corresponding family concept set from new concept + pull down relations where applicable
-        if self._ancestors:
-            # Pull down relations from the new parent concept
-            for relation in concept._relationMembership:
-                self._owner._relationMembership.add(relation)
-                relation.subscribe(self._owner)
-
-            otherSet = concept.children
-
-        else:
-            otherSet = concept.parents
-
-        # Check whether the owning concept is correctly linked with the new concept from their perspective
-        if not otherSet.linked(self._owner):
-            otherSet.add(self._owner)
-
-    def discard(self, concept: Vertex) -> None:
-        """ Removing a concept from the family set shall remove the it and all of its does """
-        if concept in self._partial: self._partial.remove(concept)
-        if concept in self._elements: self._elements.remove(concept)
-
-    def linked(self, concept: Vertex):
-        """ Determine whether this concept is correctly linked inside this concept set. Linked if the concept is within
-        the set and isn't partial.
-
-        Params:
-            concept (Concept): The concept that is being checked if correctly a member
-        """
-        return concept not in self._partial and concept in self._elements
-
-    def partials(self):
-        """ Provide a set of the partial concepts within the set """
-        return self._partial.copy()
-
-    def copy(self): return self._elements.copy()
-
 class Concept(Vertex):
     """ A concept represents a "thing", an idea, an object, a place, anything.
 
@@ -200,7 +71,7 @@ class Concept(Vertex):
     def parents(self):
         return self._parents
     @parents.setter
-    def parents(self, conceptSet: FamilyConceptSet):
+    def parents(self, conceptSet: MutableSet):
         if isinstance(conceptSet, FamilyConceptSet) and conceptSet.isAncestors():
             self._parents = conceptSet
             conceptSet._owner = self
@@ -211,7 +82,7 @@ class Concept(Vertex):
     def children(self):
         return self._children
     @children.setter
-    def children(self, conceptSet: FamilyConceptSet):
+    def children(self, conceptSet: MutableSet):
         if isinstance(conceptSet, FamilyConceptSet) and not conceptSet.isAncestors():
             self._children = conceptSet
             conceptSet._owner = self
@@ -389,3 +260,244 @@ class Concept(Vertex):
 
         log.debug("minimised set {} from {}".format([str(x) for x in minimised], [str(x) for x in collection]))
         return minimised
+
+class ConceptSet(MutableSet):
+    """ The Concept set is a container for concepts that provides additional support for many of the operations that
+    require concepts. The ConceptSet intends to keep track of partial concepts that have been used as placeholders and
+    allow for easy updates to those concepts. Furthermore it helps expand and minimise a set of concepts via their
+    family hierarchy
+
+    Params:
+        iterable {Concept}: An initial iterable of the concept objects
+    """
+
+    def __init__(self, iterable: {Concept} = set()):
+        self._elements = set()
+        self._partial = set()
+
+        # Add the items into the ConceptSet
+        for con in iterable: self.add(con)
+
+    def __bool__(self): return bool(self._elements)
+    def __iter__(self): return iter(self._elements)
+    def __contains__(self, concept: Concept): return concept in self._elements
+    def __len__(self): return len(self._elements)
+    def __repr__(self): return "<ConceptSet{}>".format(self._elements)
+
+    def add(self, concept: Concept):
+        """ Add a concept (or partial concept) into the concept set.
+
+        Params:
+            concept (Concept): the concept to be added
+        """
+        if isinstance(concept, str):
+            if concept in self._elements: return  # Cannot add a partial if its already in elements
+            self._partial.add(concept)  # Record that this added concept is only partial
+        elif concept in self._partial:
+            # This is a non partial element to replace the current partial element
+            self._elements.remove(concept)  # Remove the partial element
+            self._partial.remove(concept)  # Remove the partial tag
+
+        # Add the element into the set
+        self._elements.add(concept)
+
+    def discard(self, concept: Concept) -> None:
+        """ Remove a concept from the ConceptSet
+
+        Params:
+            concept (Concept): The concept to be removed
+        """
+        if concept in self._elements: self._elements.remove(concept)
+        if concept in self._partial: self._partial.remove(concept)
+
+    def remove(self, concept: Concept) -> None:
+        """ Remove a concept from the ConceptSet
+
+        Params:
+            concept (Concept): The concept to be removed
+
+        Raises:
+            KeyError: In the event that the concept is not present within the ConceptSet
+        """
+        self._elements.remove(concept)
+        if concept in self._partial: self._partial.remove(concept)
+
+    def expand(self, descending: bool = True) -> None:
+        """ Expand a collection of concepts to include either their descendants or their ancestors when applicable
+
+        Params:
+            descending (bool): Dictate the direction of expansion
+        """
+        for concept in self._elements.copy():
+            if isinstance(concept, Concept):
+                group = concept.descendants() if descending else concept.ancestors()
+                for con in group:
+                    self.add(con)
+
+    def expanded(self, descending: bool = True) -> None:
+        """ Return a new ConceptSet that shall be a superset of this set, and contain the descendants / ancestors of
+        each member concept
+
+        Params:
+            descending (bool): Indicate whether the new set should be expanded to include the descendants or ancestors
+        """
+        copy = self.copy()
+        copy.expand(descending)
+        return copy
+
+    def minimise(self, ascending: bool = True) -> None:
+        """ Reduce this set to contain either the most generic concepts (higher) or the most specific (bottom) level
+        concepts of the member concepts by navigating the concept's family structure.
+
+        Params:
+            collection (set): The collection that is being minimised
+        """
+        minimised = set()
+
+        for con in self._elements:
+            if isinstance(con, Concept):
+                group = con.ancestors() if ascending else con.descendants()
+                if group.intersection(self): continue
+
+            minimised.add(con)
+
+        self._elements = minimised
+        self._partial = self._partial.intersection(self._elements)  # Reduce the partial set
+
+    def minimised(self, ascending: bool = True) -> None:
+        """ Return a Subset of this ConceptSet that contains either the highest/lowest level concepts
+
+        Params:
+            ascending (bool): An indicator that determines in which direction the reduction occurs
+        """
+        copy = self.copy()
+        copy.minimise(ascending)
+        return copy
+
+    def toStringSet(self) -> {str}:
+        """ Generate a conventional set of concept names (str) from this concept set and return
+
+        Returns:
+            {str}: A set of concept names which are strings
+        """
+        return {c if isinstance(c, str) else c.name for c in self}
+
+    def union(self, other: set) -> set:
+        """ Return a set that is the unification of the this set and the other set. This method shall prefer Concrete
+        concepts.
+
+        Params:
+            other (ConceptSet): The set for this set to union with
+
+        Returns:
+            ConceptSet: The concept set that contains all concepts in both this set and the other set
+        """
+        return ConceptSet([e for e in self._elements] + [e for e in other])
+
+    def intersection(self, other: set) -> set:
+        """ Find the concepts that appear in both this ConceptSet and the other ConceptSet, choosing the concrete
+        concepts as preference
+
+        Params:
+            other (ConceptSet): The other set to intersect with
+
+        Returns:
+            ConceptSet: The set of concepts found in both this set and the other set
+        """
+        group = ConceptSet()
+
+        # Add all elements intersected elements into the new set
+        for c in self:
+            if c in other:
+                group.add(c)
+
+        # Add the same intersected elements - to resolve any partial links
+        for c in other:
+            if c in self:
+                group.add(c)
+
+        return group
+
+    def difference(self, other: set) -> set:
+        """ Return a ConceptSet of the concepts from this set, that do not appear in the other set
+
+        Params:
+            other (ConceptSet): The set to query for membership, to not be found in
+
+        Returns:
+            ConceptSet: A set of all concepts from this set, that do not appear in the other set
+        """
+        return ConceptSet([e for e in self._elements if e not in other])
+
+    def copy(self):
+        """ Shallow copy this set """
+        return ConceptSet(self._elements)
+
+class FamilyConceptSet(ConceptSet):
+    """ A set to hold information of a family hierarchy. Concepts held in this set are the parents or children of the
+    concept that holds this set. The set is responsible for making consisten this relationship with the concepts in this
+    set.
+
+    Params:
+        owner (Concept): The concept that owns this Family Concept, the concept this instance is working for
+        ancestors (bool): Indicates whether this set holds the the parents or children for the owner
+    """
+
+    def __init__(self, owner: Concept = None, ancestors: bool = True):
+        self._elements = set()
+        self._partial = set()
+
+        self._owner = owner
+        self._ancestors = ancestors
+
+    def __repr__(self): return "<FamilyConceptSet{}>".format(self._elements)
+
+    def isAncestors(self):
+        """ Is this the parent ConceptSet for the owner? """
+        return self._ancestors
+
+    def add(self, concept: Concept) -> None:
+        """ Add a concept into this set. If the concept is partial, store its information such that it can be replaced
+        at a later date. If this is the parent set, pull down relations that have been set up on the concepts within.
+        Automatically link this relation with the added concept if they haven't already been linked with this concept.
+
+        Params:
+            concept (Concept): The concept to be added into the set
+        """
+
+        # Add the element into the set via ConceptSet method
+        super().add(concept)
+        if not isinstance(concept, Concept): return  # Do not attempt to connect family with partial concept
+
+        # Identify corresponding family concept set from new concept + pull down relations where applicable
+        if self._ancestors:
+            # Pull down relations from the new parent concept
+            for relation in concept._relationMembership:
+                self._owner._relationMembership.add(relation)
+                relation.subscribe(self._owner)
+
+            otherSet = concept.children
+
+        else:
+            otherSet = concept.parents
+
+        # Check whether the owning concept is correctly linked with the new concept from their perspective
+        if not otherSet.linked(self._owner):
+            otherSet.add(self._owner)
+
+    def linked(self, concept: Concept):
+        """ Determine whether this concept is correctly linked inside this concept set. Linked if the concept is within
+        the set and isn't partial.
+
+        Params:
+            concept (Concept): The concept that is being checked if correctly a member
+        """
+        return concept not in self._partial and concept in self._elements
+
+    def partials(self) -> {str}:
+        """ Provide a set of the partial concepts within the set
+
+        Returns:
+            {str}: A set of concept names yet to be linked correctly
+        """
+        return self._partial.copy()

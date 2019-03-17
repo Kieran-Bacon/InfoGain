@@ -11,9 +11,23 @@ A concept that is added to an ontology is then linked with any ontology member c
 
 This is simple, sorry about this, I am thinking about what happens when you remove a concept from a relation concept set... that shit gets weird real quick mudda
 
+If a concept is either of its parents of children removed, the relationships are not updated/informed of the change. They have not performed any caching that shall be inconsistent with the change made to the concept.
+
+However... The ConceptSets that the relationship holds, shall continue to contain all of the concepts that it used to. As in
+
+a - 1
+b   2
+
+|-------|
+b   a - 1
+        2
+
+
+is still true...
 ## Relations
 
-The concepts are wack yo
+Relations cascade down on both the domains and target concepts as potential targets. Abstract concepts are included to hold the hierarchy only, they cannot be member of a relationship, and they
+aren't returned when
 
 ### Adding concepts to the relation
 

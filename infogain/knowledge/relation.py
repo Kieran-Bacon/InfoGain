@@ -1,56 +1,12 @@
+import collections
+
 from ..exceptions import MissingConcept
-from .concept import Concept #, ConceptSet
+from .concept import Concept, ConceptSet
 from .instance import Instance
 from .rule import Rule
 
 import logging
 log = logging.getLogger(__name__)
-
-# class ConceptMapping:
-
-#     def __init__(self):
-#         # TODO: Fix this
-#         self._owner = Relation()
-#         self.domains = []
-#         self.targets = []
-
-#     def __getitem__(self, key):
-#         if not isinstance(key, int) or key >= len(self):
-#             raise ValueError("Invalid key provided to relation concept container: {}".format(key))
-#         return self.domains[key], self.targets[key]
-#     def __iter__(self): return zip(self.domains, self.targets)
-#     def __len__(self): return len(self.domains)
-#     @property
-#     def size(self):
-#         return len(
-#             {con for group in self.domains for con in group}.union({con for group in self.targets for con in group})
-#         )
-
-#     def addDomain(self, concept: Concept, index: int = None): self._add(self.domains, concept, index)
-#     def addTarget(self, concept: Concept, index: int = None): self._add(self.targets, concept, index)
-
-#     def _add(self, collection: [ConceptSet], concept: Concept, index: int):
-
-#         # Inform the concept that it is now a part of this relationship
-#         concept._relationMembership.add(self._owner)
-
-#         # Add each child of the concept into this relationship
-#         for child in concept.descendants(): self._add(collection, child, index)
-
-#         # If an index was given, add the concept into that index
-#         if index:
-#             if index >= len(self):
-#                 # The index is out of bounds, expand the concepts to include new sets that this index shall relate to
-#                 for _ in range(index - (len(self) - 1)):
-#                     self.domains.append(ConceptSet())
-#                     self.targets.append(ConceptSet())
-
-#             collection[index].add(concept)
-#         else:
-#             for group in collection: group.add(concept)
-
-#     def subscribe(self, concept: Concept):
-#         pass
 
 class Relation:
     """ A relation expresses a connection between concepts. It declares how particular concepts interact and informs
@@ -67,45 +23,19 @@ class Relation:
     def __init__(self, domains: {Concept}, name: str, targets: {Concept}, rules=[], differ: bool = False):
 
         self.name = name
-        self.domains = set()
-        self.targets = set()
+        self._concepts = RelationConceptManager(self, domains, targets)
         self.assignRules(rules)
-        self._between = {}
-
         self.differ = differ
 
-        example = next(iter(domains))
-        if isinstance(example, (str, Concept)):
-            # A single mapping from domains to targets
-
-            domains = Concept.expandConceptSet(domains)
-            targets = Concept.expandConceptSet(targets)
-
-            self.domains = domains
-            self.targets = targets
-
-            for dom in domains:
-                self._between[dom] = set(targets)
-
-        else:
-            # A collection of mappings from domains to targets
-            for doms, tars in zip(domains, targets):
-                doms = Concept.expandConceptSet(doms)
-                tars = Concept.expandConceptSet(tars)
-
-                self.domains = self.domains.union(doms)
-                self.targets = self.targets.union(tars)
-
-                for dom in doms:
-                    self._between[dom] = self._between.get(dom, set()).union(tars)
-
-        log.debug("Generated relation {}".format(self))
-
-        if not self.domains or not self.targets:
-            raise MissingConcept("Relation {} generated without domain and target pairings".format(self.name))
+    @property
+    def concepts(self): return self._concepts
+    @property
+    def domains(self): return ConceptSet([con for g in self.concepts.domains for con in g])
+    @property
+    def targets(self): return ConceptSet([con for g in self.concepts.targets for con in g])
 
     def __str__(self):
-        return " ".join([str({str(x) for x in self.domains}), self.name, str({str(x) for x in self.targets})])
+        return " ".join([str({str(x) for x in self.concepts.domains}), self.name, str({str(x) for x in self.concepts.targets})])
 
     def between(self, domain: Concept, target: Concept) -> bool:
         """ Verify if the relationship holds between two concepts.
@@ -122,16 +52,16 @@ class Relation:
         if self.differ and domain == target: return False
 
         if isinstance(domain, Concept):
+            # Ensure that the concepts can even be compared
             if Concept.ABSTRACT == (domain.category or target.category): return False
-            return target in self._between.get(domain, [])
-
         elif isinstance(domain, Instance):
-            group = self._between[domain.name] if domain.name in self._between else self._between.get(domain.concept)
-            if group is None: return False
-            else: return True if {target.concept, target.name}.intersection(group) else False
+            # Switch the instances for their parents
+            domain, target = domain.concept, target.concept
 
-        else: # Strings have been provided
-            return target in self._between.get(domain, [])
+        # Loop through the various sets to check, return once found or
+        for domains, targets in self.concepts:
+            if domain in domains and target in targets: return True
+        return False
 
     def subscribe(self, concept: Concept) -> None:
         """ Add the concept object into the relation, correctly mapping the concept to targets, or domains to the
@@ -141,32 +71,13 @@ class Relation:
             concept (Concept): the concept to be added
         """
 
-        if concept.category == Concept.ABSTRACT : return # Ensure concept is meant to be viewable
-
-        # Add the concept into the concept stores if one of its ancestors is present
+        # Get the ancestors of the concept
         ancestors = concept.ancestors()
 
-        # Check if the concept is a domain within the relation
-        if self.domains.intersection(ancestors):
-
-            # Determine the set of target concepts this concept will link to
-            targets = set()
-            for anc in self.domains.intersection(ancestors):
-                targets = targets.union(self._between[anc])
-            self._between[concept] = targets
-
-            self.domains.add(concept)  # Add the concept as a domain
-
-        # Check if the concept is a target of the relation
-        if self.targets.intersection(ancestors):
-
-            # Add concept to every target set where applicable
-            validParents = self.targets.intersection(ancestors)
-            for targetSet in self._between.values():
-                if validParents.intersection(targetSet):
-                    targetSet.add(concept)
-
-            self.targets.add(concept)  # Add the concept as a target
+        # For all the concept sets check where the concept should be added
+        for i, (domains, targets) in enumerate(self.concepts):
+            if ancestors.intersection(domains): self.concepts.addDomain(concept, i)
+            if ancestors.intersection(targets): self.concepts.addTarget(concept, i)
 
     def addRule(self, rule: Rule) -> None:
         """ Add a Rule object to the relation, order the rule correctly based on confidence
@@ -177,8 +88,11 @@ class Relation:
         if self._rules == []: return self._rules.append(rule)  # Empty collection
 
         for i, relRule in enumerate(self._rules):
-            if rule.confidence > relRule.confidence: break
-        self._rules = self._rules[:i] + [rule] + self._rules[i:]  # TODO: replace with self._rules.insert(i, rule)
+            if relRule.confidence >= rule.confidence: break
+        self._rules.insert(i, relRule)
+
+    def removeRule(self, rule: Rule) -> None:
+        self._rules.remove(rule)
 
     def rules(self, domain: Concept = None, target: Concept = None) -> [Rule]:
         """ Collect the rules within the relation, if domain and target is passed, collect together only rules that
@@ -204,51 +118,150 @@ class Relation:
         """
         self._rules = sorted(collection, key = lambda x: x.confidence)
 
-    def _collapse_domain_targets(self) -> (list, list):
-        """ Collapse the mappings between the domains and targets into their expressive initial state. Instead of having
-        a dictionary that links a single domain to a collection of targets, returned is a collection of collections of
-        domains that point to a collection of a collection of targets
-
-        Returns:
-            list: Ordered domains sets that link to
-            list: Ordered targets sets
-        """
-
-        minDoms, minTars = [], []  # The minimised relation sets
-
-        for domain, targets in self._between.items():
-
-            targets = frozenset(Concept.minimiseConceptSet(targets))
-
-            if targets in minTars:
-                minDoms[minTars.index(targets)].add(domain)
-            else:
-                minDoms.append({domain})
-                minTars.append(targets)
-
-        minDoms = [Concept.minimiseConceptSet(domSet) for domSet in minDoms]
-
-        return minDoms, minTars
-
     def minimise(self) -> dict:
         """ Return only the information the relation represents """
+        minimised = {
+            "domains": sorted([group.minimised().toStringSet() for group in self.concepts.domains]),
+            "name": self.name,
+            "targets": sorted([group.minimised().toStringSet() for group in self.concepts.targets])
+        }
 
-        minDoms, minTars = self._collapse_domain_targets()
-
-        # Form the relations and minimise the domains
-        minDoms = sorted([sorted([con if isinstance(con, str) else con.name for con in domSet]) for domSet in minDoms])
-        minTars = sorted([sorted([con if isinstance(con, str) else con.name for con in tarSet]) for tarSet in minTars])
-
-        minimised = {"domains": minDoms, "name": self.name, "targets": minTars}
-
-        # Collapse the rules down
-        rules = [rule.minimise() for rule in self._rules]
-
+        # Record non-default parameters
         if self.differ: minimised["differ"] = True
-        if rules: minimised["rules"] = rules
+        if self._rules: minimised["rules"] = [rule.minimise() for rule in self._rules]
 
         return minimised
 
     def clone(self):
-        domains, targets = self._collapse_domain_targets()
-        return Relation(domains, self.name, targets, [rule.clone() for rule in self._rules], self.differ)
+        return Relation(
+            self.concepts.domains,
+            self.name,
+            self.concepts.targets,
+            [rule.clone() for rule in self._rules],
+            self.differ
+        )
+
+class RelationConceptManager(collections.abc.MutableSequence):
+
+    def __init__(self, owner: Relation, domains: object = None, targets: object = None):
+        self._owner = owner
+        self.domains = []
+        self.targets = []
+
+        self._members = {}
+        self._memberCount = collections.Counter()
+
+        if domains and targets:
+            # Test for domain and target set up
+            example = next(iter(domains))
+            if isinstance(example, (str, Concept)):
+                # A single mapping from domains to targets
+                self.append((domains, targets))
+            else:
+                # A collection of mappings from domains to targets
+                for group in zip(domains, targets): self.append(group)
+
+    def _pad(self, index):
+        """ Ensure that the domain groups and target groups have content up to the provided index """
+        for _ in range(index - (len(self.domains)-1)):
+            self.domains.append(ConceptSet())
+            self.targets.append(ConceptSet())
+
+    def __getitem__(self, index: int):
+        self._pad(index)
+        return (self.domains[index], self.targets[index])
+    def __setitem__(self, index: int, conceptSetTuple: tuple):
+        """ Set a specific domain and target set. """
+        self.insert(index, conceptSetTuple)
+
+    def insert(self, index: int, conceptSetTuple: (ConceptSet, ConceptSet)):
+        self.domains.insert(index, ConceptSet())
+        self.targets.insert(index, ConceptSet())
+
+        domains, targets = conceptSetTuple
+        for con in domains: self.addDomain(con, index)
+        for con in targets: self.addTarget(con, index)
+
+    def append(self, conceptSetTuple: (ConceptSet, ConceptSet)):
+
+        index, (domains, targets) = len(self), conceptSetTuple
+        for con in domains: self.addDomain(con, index)
+        for con in targets: self.addTarget(con, index)
+
+    def __delitem__(self, index: int):
+        for dom in self.domains[index].copy(): self.removeDomain(dom, index)
+        for tar in self.targets[index].copy(): self.removeTarget(tar, index)
+
+        del self.domains[index]
+        del self.targets[index]
+
+    def __len__(self): return len(self.domains)
+    def __iter__(self): return zip(self.domains, self.targets)
+
+    def addDomain(self, concept: Concept, index: int = None): self._add(self.domains, concept, index)
+    def addTarget(self, concept: Concept, index: int = None): self._add(self.targets, concept, index)
+    def _add(self, collection: [ConceptSet], concept: Concept, index: int, include_descendants: bool = True):
+
+        if concept not in self._members:
+            if isinstance(concept, Concept):
+                # Add the concept as a member of this class
+                self._members[concept.name] = concept
+
+                # Inform the concept that it is now a part of this relationship
+                concept._relationMembership.add(self._owner)
+
+            elif isinstance(concept, str):
+                self._members[concept] = None
+            else:
+                raise ValueError("Invalid item passed to relation's conceptset - str or Concept only")
+
+        # Add each child of the concept into this relationship when applicable
+        if include_descendants and isinstance(concept, Concept):
+            for child in concept.descendants():
+                self._add(collection, child, index, False)
+
+        # If an index was given, add the concept into that index
+        if index is not None:
+            self._pad(index)
+            collection[index].add(concept)
+        else:
+            for group in collection: group.add(concept)
+
+    def removeDomain(self, concept: Concept, index: int = None): self._remove(self.domains, concept, index)
+    def removeTarget(self, concept: Concept, index: int = None): self._remove(self.targets, concept, index)
+    def _remove(self, collection: list, concept: Concept, index: int = None, include_ancestors: bool = True):
+
+        # If concept not known to concept, return immediately
+        if concept not in self._members: return
+
+        # Unpack the
+        if isinstance(concept, Concept):
+            name = concept.name
+
+            # Remove all parents of the concept at the same time for relation consistency
+            if include_ancestors:
+                for parent in concept.ancestors():
+                    self._remove(collection, parent, index, False)
+        else:
+            name = concept
+
+        if index is not None:
+            conceptSet = collection[index]
+
+            if concept in conceptSet:
+                conceptSet.discard(concept)
+
+                self._memberCount[name] -= 1
+        else:
+            for conceptSet in collection:
+                conceptSet.discard(concept)
+
+            self._memberCount[name] = 0
+
+        if self._memberCount[name] == 0:
+            del self._members[name]
+            del self._memberCount[name]
+
+            # Remove this relationship from the concept as it is no longer a member
+            if isinstance(concept, Concept):
+                concept._relationMembership.remove(self._owner)
