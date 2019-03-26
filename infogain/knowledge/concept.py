@@ -62,10 +62,7 @@ class Concept(Vertex):
 
     def __str__(self): return self.name
     def __repr__(self): return "<Concept: {}>".format(self.name)
-
-    def __hash__(self):
-        if not self.__dict__: return 0
-        return hash(self.name)
+    def __hash__(self): return hash(self.name)
 
     @property
     def parents(self):
@@ -88,7 +85,6 @@ class Concept(Vertex):
             conceptSet._owner = self
         else:
             raise ConsistencyError("Incorrect definition of {}'s children set. Passed {}".format(self, conceptSet))
-
 
     @property
     def category(self): return self._category

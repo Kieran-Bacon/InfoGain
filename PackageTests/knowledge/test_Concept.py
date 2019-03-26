@@ -274,37 +274,179 @@ class Test_ConceptSet(unittest.TestCase):
         self.assertFalse(group)
 
     def test_expand(self):
-        self.fail()
+        """ Show that expanding a conceptSet can only be done on the family path - and show that it can do eithe way """
+
+        # Expansion doesn't occur with concepts that do not have family links
+        s1 = ConceptSet([self.c1])
+        s1.expand(True)
+
+        self.assertEqual({self.c1}, s1)
+
+        s1.expand(False)
+
+        self.assertEqual({self.c1}, s1)
+
+        # Test for expansion with family set
+        s2 = ConceptSet([self.f2])
+
+        s2.expand(True)
+
+        self.assertEqual({self.f2, self.f3}, s2)
+
+        s2.expand(False)
+
+        self.assertEqual({*self.family}, s2)
 
     def test_expanded(self):
-        self.fail()
+        """ Assert that a concept set can provide a new set with the correct contents without affecting the old set """
+
+        s1 = ConceptSet([self.f2])
+
+        s2 = s1.expanded(True)
+
+        self.assertNotEqual(s1, s2)
+        self.assertEqual({self.f2, self.f3}, s2)
+
+        s3 = s1.expanded(False)
+
+        self.assertNotEqual(s1, s3)
+        self.assertNotEqual(s2, s3)
+
+        self.assertEqual({self.f1, self.f2}, s3)
 
     def test_minimise(self):
-        self.fail()
+        """ Assert that a concept set shall minimise along a given family line """
+
+        s1 = ConceptSet([self.f2, self.f3])
+
+        s1.minimise()
+
+        self.assertEqual({self.f2}, s1)
+
+        s2 = ConceptSet([self.f1, self.f2, self.f3])
+
+        s2.minimise(False)
+
+        self.assertEqual(s2, {self.f3})
 
     def test_minimised(self):
-        self.fail()
+
+        s1 = ConceptSet([*self.family, *self.non_family])
+
+        s2 = s1.minimised()
+
+        self.assertNotEqual(s1, s2)
+        self.assertEqual({self.f1, *self.non_family}, s2)
 
     def test_toStringSet(self):
-        self.fail()
+
+        self.assertEqual(ConceptSet([*self.family, *self.non_family]), {"1","2","3","a","b","c"})
 
     def test_union(self):
-        self.fail()
+        """ Test that the ConceptSet union shall return a new Concept with all unique concepts that appear in both """
+
+        #
+
+        a = ConceptSet(self.non_family)
+        b = ConceptSet(self.family)
+
+        c = a.union(b)
+
+        self.assertEqual(c,  {*self.non_family, *self.family})
+
+        # Test that partial concepts are still partial and that overwrites occur correctly
+
+        a = ConceptSet([self.c1, "2", "3"])
+        b = ConceptSet([self.c1, self.c2])
+
+        c = a.union(b)
+
+        self.assertEqual(a, {self.c1, self.c2, "3"})
 
     def test_intersection(self):
-        self.fail()
+
+        # Find the intersection of the sets
+        a = ConceptSet(self.non_family)
+        b = ConceptSet([self.c1, self.c2])
+        #c = a.intersection(b)
+
+        #self.assertEqual(c, {self.c1, self.c2})
+
+        # Works with partial items
+        a = ConceptSet([self.c1, "2", "3", "4"])
+        b = ConceptSet([self.c1, self.c2, "3"])
+        self.assertEqual(a.intersection(b), b.intersection(a))
+        c = a.intersection(b)
+
+        self.assertEqual(c, {self.c1, self.c2, "3"})
 
     def test_difference(self):
-        self.fail()
+        a = ConceptSet([*self.non_family, self.f2])
+        b = ConceptSet([*self.non_family, self.f1])
+
+        self.assertEqual(a.difference(b), {self.f2})
+        self.assertEqual(b.difference(a), {self.f1})
+
+        a = Concept([self.c1, "2"])
+        b = ConceptSet([self.c1, self.c3])
+
+        self.assertEqual(a.difference(b), {"2"})
+        self.assertEqual(b.difference(a), {self.c3})
 
     def test_copy(self):
-        self.fail()
+
+        a = ConceptSet(self.family)
+        a.add(self.c1)
+
+        self.assertEqual(a, {*self.family, self.c1})
 
 class Test_FamilyConceptSet(unittest.TestCase):
     """ """
 
+    def setUp(self):
+        """
+         A      E
+         B      F
+        C D     G
+        """
+
+        self.a, self.e = Concept("A"), Concept("E")
+        self.b, self.f = Concept("B", parents={self.a}), Concept("F", parents={self.e})
+        self.c, self.d= Concept("C", parents={self.b}), Concept("D", parents={self.b})
+        self.g = Concept("G", parents={self.f})
+
     def test_add(self):
-        self.fail()
+
+        family = FamilyConceptSet()
+        family.add(self.b)
+
+        self.assertEqual(family, {self.b, self.c, self.d})
+
+        family.add(self.f)
+
+        self.assertEqual(family, {self.f, self.g})
+
+    def test_linked(self):
+
+        family = FamilyConceptSet()
+
+        self.assertFalse(family.linked(self.a))
+        self.assertFalse(family.linked("A"))
+
+        family.add("A")
+
+        self.assertFalse(family.linked(self.a))
+        self.assertFalse(family.linked("A"))
+
+    def test_partials(self):
+
+        family  = FamilyConceptSet()
+
+        family.add(self.g)
+        family.add("G")
+        self.assertEqual(family.partials(), {"G"})
+
+
 
 if __name__ == "__main__":
     unittest.main()
