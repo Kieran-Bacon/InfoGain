@@ -79,17 +79,22 @@ class Relation:
             if ancestors.intersection(domains): self.concepts.addDomain(concept, i)
             if ancestors.intersection(targets): self.concepts.addTarget(concept, i)
 
+        # For each of the rules, pass the concept on as relevant
+        for rule in self._rules: rule.subscribe(concept)
+
     def addRule(self, rule: Rule) -> None:
         """ Add a Rule object to the relation, order the rule correctly based on confidence
 
         Params:
             rule (Rule): The rule
         """
-        if self._rules == []: return self._rules.append(rule)  # Empty collection
 
+        i = 0
         for i, relRule in enumerate(self._rules):
-            if relRule.confidence >= rule.confidence: break
-        self._rules.insert(i, relRule)
+            if rule.confidence >= relRule.confidence: break
+        else:
+            i += 1
+        self._rules.insert(i, rule)
 
     def removeRule(self, rule: Rule) -> None:
         self._rules.remove(rule)

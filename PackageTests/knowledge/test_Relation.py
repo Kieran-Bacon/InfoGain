@@ -1,7 +1,7 @@
 import unittest
 from itertools import product
 
-from infogain.knowledge import Concept, Relation
+from infogain.knowledge import Concept, Relation, Rule
 
 class Test_Relation(unittest.TestCase):
 
@@ -124,6 +124,22 @@ class Test_Relation(unittest.TestCase):
 
         self.assertEqual(relation.domains, {con1, con2, con3})
         self.assertEqual(relation.targets, {con1, con2, con3})
+
+    def test_RelationUpdateRuleOnConceptUpdate(self):
+        """ Assert that when a concept inherits the relation, that it is correctly linked with its rules """
+
+        a, b = Concept("A"), Concept("B")
+        a1, b1, = Concept("A1", parents={a}), Concept("B1", parents={b})
+
+        rel = Relation({a}, "test", {b1})
+        rule = Rule(a,  b1, 100)
+        rel.addRule(rule)
+
+        self.assertEqual(rule.domains, {a, a1})
+
+        a11 = Concept("A11", parents={a1})
+
+        self.assertEqual(rule.domains, {a, a1, a11})
 
     def test_minimise(self):
 
