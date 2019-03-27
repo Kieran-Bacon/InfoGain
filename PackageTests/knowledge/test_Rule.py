@@ -1,72 +1,192 @@
 import unittest, pytest
 from infogain import knowledge
+from infogain.knowledge import Concept
+from infogain.knowledge.rule import RuleConceptSet, ConditionManager
 
 class Test_Rule(unittest.TestCase):
 
     def setUp(self):
+        """ Concepts that form a complex structure of layers within an ontology - In a "W I" formation
 
-        # Concepts for the rules
-        self.country, self.language = knowledge.Concept("Country"), knowledge.Concept("Language")
-        self.england, self.english = self.country.instance("England"), self.language.instance("English")
+            A   E   I   J
+             B D F H    K
+              C   G     L
 
-        # Fact applying rule for two instances only
-        self.england_speaks_english = knowledge.Rule(self.england, self.english, 80)
+        """
 
-        # Condition based rule
-        conditions = [
-            knowledge.Condition("%.age.graph(x > 10)", 24)
-        ]
+        # Top row
+        self.a, self.e, self.i, self.j = Concept("A"), Concept("E"), Concept("I"), Concept("J")
 
-        self.country_speaks_language = knowledge.Rule(self.country, self.language, 80, conditions=conditions)
+        # Middle row
+        self.b, self.d  = Concept("B", parents={self.a}), Concept("D", parents={self.e})
+        self.f, self.h = Concept("F", parents={self.e}), Concept("H", parents={self.i})
+        self.k = Concept("K", parents={self.j})
 
-    def test_applies_raises_when_not_equal(self):
+        # Bottom row
+        self.c, self.g = Concept("C", parents={self.b, self.d}), Concept("G", parents={self.f, self.h})
+        self.l = Concept("L", parents={self.k})
 
-        with pytest.raises(ValueError):
-            self.country_speaks_language.applies("string", knowledge.Concept("A concept"))
+    def test_domains_targets_with_no_conditions(self):
+        """ Test that creating a rule with no conditions results in a rule that has as domains and targets, only the
+        concepts passed at initialisation
+        """
 
-        with pytest.raises(ValueError):
-            self.country_speaks_language.applies(knowledge.Concept(""), knowledge.Instance(""))
+        rule = knowledge.Rule({self.b, self.d}, self.k, 80)
 
-    def test_applies_works_for_rules_with_concepts(self):
+        self.assertEqual(rule.domains, {self.b, self.d, self.c})
+        self.assertEqual(rule.targets, {self.k, self.j})
 
-        self.assertTrue(self.country_speaks_language.applies(self.country, self.language))
-        self.assertTrue(self.country_speaks_language.applies(self.england, self.english))
+    def test_subscription_with_no_conditions(self):
+        """ Assert that when there are no conditions for the rule, that no concepts can subscribe to the rule """
 
-    def test_applies_works_for_rules_with_instances(self):
+        rule = knowledge.Rule(self.h, self.k, 20)
 
-        self.assertFalse(self.england_speaks_english.applies(self.country, self.language))
-        self.assertTrue(self.england_speaks_english.applies(self.england, self.english))
+        rule.subscribe(self.i)
+        rule.subscribe(self.a)
+        rule.subscribe(self.l)
 
-    def test_applies_works_with_strings(self):
+        self.assertEqual(rule.domains, {self.h, self.g})
+        self.assertEqual(rule.targets, {self.k, self.j})
 
-        self.assertTrue(self.country_speaks_language.applies("Country", "Language"))
-        self.assertFalse(self.country_speaks_language.applies("England", "English"))
-        self.assertTrue(self.england_speaks_english.applies("England", "English"))
-        self.assertFalse(self.england_speaks_english.applies("Country", "Language"))
+        g1 = Concept("G1", parents={self.g})
+        jStar = Concept("J*", children={self.j})
 
-    def test_hasConditions(self):
-        self.assertTrue(self.country_speaks_language.hasConditions())
+        rule.subscribe(g1)
+        rule.subscribe(jStar)
 
+        self.assertEqual(rule.domains, {self.h, self.g, g1})
+        self.assertEqual(rule.targets, {self.k, self.j, jStar})
 
-    def test_minimise(self):
+    def test_applies_with_no_conditions(self):
+        """ Assert that a rule only applies to domains and targets (and their instances) of the Rule """
 
-        
-        minimised = {
-            "domains": ["England"],
-            "targets": ["English"],
-            "confidence": 80,
-        }
+        rule = knowledge.Rule(self.k, self.g, 100)
 
-        self.assertEqual(minimised, self.england_speaks_english.minimise())
+        self.assertTrue(rule.applies(self.k, self.g))
+        self.assertTrue(rule.applies(self.k.instance(), self.g.instance()))
+        self.assertFalse(rule.applies(self.g, self.k))
+        self.assertFalse(rule.applies(self.j, self.h))
 
-        minimised = {
-            "domains": ["Country"],
-            "targets": ["Language"],
-            "confidence": 80,
-            "conditions":[
-                {"logic": "%.age.graph(x > 10)", "salience": 24}
+    def test_conditions_with_no_conditions(self):
+        """ Test that the conditions have the values we would expect from them given that they aren't present... """
+
+        rule = knowledge.Rule(self.k, self.g, 50)
+
+        self.assertFalse(rule.conditions)
+        for _ in rule.conditions:
+            self.fail("There were apparently conditions when there shouldn't have been")
+
+        self.assertFalse(rule.conditions.isConditionOnTarget())
+
+    def test_conditions_order(self):
+        """ Test that the order of the conditions is in line with their salience """
+
+        rule = knowledge.Rule(
+            self.k,
+            self.g,
+            100,
+            conditions = [
+                knowledge.Condition("10", salience=67),
+                knowledge.Condition("199", salience=99),
+                knowledge.Condition("asd", salience=70),
+                knowledge.Condition("sda", salience=40)
             ]
-        }
+        )
 
-        self.assertEqual(minimised, self.country_speaks_language.minimise())
+        for condition, salience in zip(rule.conditions, [99, 70, 67, 40]):
+            self.assertEqual(condition.salience, salience)
 
+    def test_minimised_with_no_conditions(self):
+        """ Test that the Rule is minimised correctly given that it doesn't have any conditions """
+
+        rule = knowledge.Rule(self.k, self.g, 100)
+
+        self.assertEqual(rule.minimise(), {
+            "domains": ["K"],
+            "targets": ["G"],
+            "confidence": 100
+        })
+
+        rule = knowledge.Rule(self.g, {self.k, self.a}, 88, supporting=False)
+
+        self.assertEqual(rule.minimise(), {
+            "domains": ["G"],
+            "targets": ["A", "K"],
+            "confidence": 88,
+            "supporting": False
+        })
+
+    def test_domains_targets_with_conditions_conditional_on_target(self):
+
+        rule = knowledge.Rule({self.b, self.d}, self.k, 80, conditions=[knowledge.Condition("@", 100)])
+
+        self.assertEqual(rule.domains, {self.b, self.d, self.c})
+        self.assertEqual(rule.targets, {self.k, self.j, self.l})
+
+    def test_subscribe_with_conditions_conditional_on_target(self):
+        rule = knowledge.Rule(self.h, self.k, 20, conditions=[knowledge.Condition("@", 100)])
+
+        rule.subscribe(self.i)
+        rule.subscribe(self.a)
+
+        self.assertEqual(rule.domains, {self.h, self.g})
+        self.assertEqual(rule.targets, {self.k, self.j, self.l})
+
+        g1 = Concept("G1", parents={self.g})
+        jStar = Concept("J*", children={self.j})
+        l1 = Concept("L1", parents={self.l})
+
+        rule.subscribe(g1)
+        rule.subscribe(jStar)
+        rule.subscribe(l1)
+
+        self.assertEqual(rule.domains, {self.h, self.g, g1})
+        self.assertEqual(rule.targets, {self.k, self.l, self.j, jStar, l1})
+
+    def test_applies_with_conditions_conditional_on_target(self):
+
+        rule = knowledge.Rule({self.b, self.d}, self.k, 80, conditions=[knowledge.Condition("@", 100)])
+
+
+        self.assertTrue(rule.applies(self.b, self.k))
+        self.assertTrue(rule.applies(self.c, self.j))
+
+
+    def test_minimised_with_conditions_conditional_on_target(self):
+
+        rule = knowledge.Rule(
+            self.k,
+            self.g,
+            100,
+            conditions = [
+                knowledge.Condition("@", salience=67),
+                knowledge.Condition("199", salience=99),
+            ]
+        )
+
+        self.assertEqual(rule.minimise(), {
+            "domains": ["K"],
+            "targets": ["G"],
+            "confidence": 100,
+            "conditions": [
+                {
+                    "logic": "199", "salience": 99
+                },
+                {
+                    "logic": "@", "salience": 67
+                }
+            ]
+        })
+
+class Test_RelationConceptSet(unittest.TestCase):
+
+    def test_failed(self):
+        self.fail()
+
+class Test_ConditionManager(unittest.TestCase):
+
+    def test_failed(self):
+        self.fail()
+
+if __name__ == "__main__":
+    unittest.main()
