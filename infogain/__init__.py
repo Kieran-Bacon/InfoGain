@@ -9,3 +9,4 @@ from . import artefact
 from . import extraction
 from . import cognition
 from . import resources
+from .serialisers import SerialiseFactory as Serialiser
