@@ -133,7 +133,7 @@ class Test_Relation(unittest.TestCase):
 
         rel = Relation({a}, "test", {b1})
         rule = Rule(a,  b1, 100)
-        rel.addRule(rule)
+        rel.rules.add(rule)
 
         self.assertEqual(rule.domains, {a, a1})
 

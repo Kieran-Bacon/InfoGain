@@ -225,6 +225,7 @@ class RuleConceptSet(collections.abc.MutableSet):
 
             # For each of the children of the base domains, add them in
             for concept in self._base:
+                if isinstance(concept, str): continue
                 for child in concept.descendants():
                     self._add(child)
 
@@ -232,12 +233,14 @@ class RuleConceptSet(collections.abc.MutableSet):
 
             # For each of the children of the base domains, add them in
             for concept in self._base:
+                if isinstance(concept, str): continue
                 for parent in concept.ancestors():
                     self._add(parent)
 
 
             if self._owner.conditions.isConditionOnTarget():
                 for concept in self._base:
+                    if isinstance(concept, str): continue
                     for child in concept.descendants():
                         self._add(child)
 
@@ -253,6 +256,14 @@ class RuleConceptSet(collections.abc.MutableSet):
 
         for concept in base:
             self._add(concept, True)
+
+    def partials(self) -> {str}:
+        """ Provide a set of the partial concepts within the set
+
+        Returns:
+            {str}: A set of concept names yet to be linked correctly
+        """
+        return self._partial.copy()
 
 class ConditionManager(collections.abc.MutableSequence):
     """ A list like object that houses Condition objects while providing useful convenient methods for interacting with

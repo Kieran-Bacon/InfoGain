@@ -22,7 +22,7 @@ class Test_Concept(unittest.TestCase):
 
         self.assertEqual(child.ancestors(), {grandfather, father})
 
-    def test_ancestores_partial_concepts(self):
+    def test_ancestors_partial_concepts(self):
 
         father = Concept("Father", parents={"Grand Father"})
         child = Concept("Child", parents={father})
@@ -368,9 +368,9 @@ class Test_ConceptSet(unittest.TestCase):
         # Find the intersection of the sets
         a = ConceptSet(self.non_family)
         b = ConceptSet([self.c1, self.c2])
-        #c = a.intersection(b)
+        c = a.intersection(b)
 
-        #self.assertEqual(c, {self.c1, self.c2})
+        self.assertEqual(c, {self.c1, self.c2})
 
         # Works with partial items
         a = ConceptSet([self.c1, "2", "3", "4"])
@@ -387,7 +387,7 @@ class Test_ConceptSet(unittest.TestCase):
         self.assertEqual(a.difference(b), {self.f2})
         self.assertEqual(b.difference(a), {self.f1})
 
-        a = Concept([self.c1, "2"])
+        a = ConceptSet([self.c1, "2"])
         b = ConceptSet([self.c1, self.c3])
 
         self.assertEqual(a.difference(b), {"2"})

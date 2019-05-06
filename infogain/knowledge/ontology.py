@@ -2,6 +2,8 @@ import os
 import uuid
 import json
 import better
+import collections
+import weakref
 
 from ..exceptions import MissingConcept
 from .concept import Concept
@@ -22,51 +24,12 @@ class Ontology:
 
     def __init__(self, name: str = None, filepath: str = None):
 
-        # Simply idenfitication of the ontology, no functional use
+        # Simply identification of the ontology, no functional use
         self.name = name
-        self._concepts = {}                     # Unique concept store
-        self._builtins = {}                     # Unique built in concept store
-        self._relations = {}                    # Unique relation store
 
-        self._missedConcepts = better.Dictset() # Mapping between incomplete concepts
 
-        self._importedmodules = []              # Keep track of the imported builtin modules
-
-        if filepath:
-
-            # Extract the information from the input ontology file
-            with open(filepath) as ontologyFile:
-                data = json.load(ontologyFile)
-
-            # Define the name
-            if "Name" in data: self.name = data["Name"]
-
-            # Create the concepts and add them to the ontology store without warnings
-            for name, rawConcept in data.get("Concepts", {}).items():
-                log.debug("adding concept {}".format(name))
-                concept = Concept(name, **rawConcept)
-                self.addConcept(concept)
-
-            # Create the relations within the system
-            for name, rawRelation in data.get("Relations", {}).items():
-                log.debug("adding relation {}".format(name))
-
-                rules = []
-                for desc in rawRelation.get("rules", []):
-                    if "conditions" in desc:
-                        # Replace all conditions with legitimate condition objects
-                        desc["conditions"] = [Condition(cond["logic"], cond["salience"]) for cond in desc["conditions"]]
-                    rules.append(Rule(**desc))
-
-                relation = Relation(
-                    rawRelation["domains"],
-                    name,
-                    rawRelation["targets"],
-                    rules,
-                    rawRelation.get("differ", False)
-                )
-
-                self.addRelation(relation)
+        self._concepts = OntologyConcepts(weakref.proxy(self))
+        self._relations = OntologyRelation(weakref.proxy(self))
 
     def importBuiltin(self, module_name: str) -> None:
         """ Import knowledge considered common (and required) in most applications. Add the
@@ -84,84 +47,15 @@ class Ontology:
             log.error(msg, exc_info=True)
             raise ImportError(msg)
 
-    def addConcept(self, concept: Concept) -> None:
-        """ Add concept object to ontology, overwrite previous concept if present.
-        Identifies the relation ships concepts parent objects are and becomes members to those
-        relations if applicable.
+    @property
+    def concepts(self):
+        """ MutableMapping Object for ontology concepts """
+        return self._concepts
 
-        Params:
-            concept (Concept) - The concept to add
-        """
-
-        # Record all partial links between this concept and external concepts
-        for family in [concept.parents, concept.children]:
-            for step in family.partials():
-                found = self.concept(step)
-                if found:
-                    family.add(found)  # Family member found, add to concept and connect (internally)
-                else:
-                    self._missedConcepts[step].add(concept)  # Record that concept is looking for this family member
-
-        if concept.name in self._missedConcepts:
-            for family in self._missedConcepts[concept.name]:
-                if concept in family.parents: family.parents.add(concept)
-                if concept in family.children: family.children.add(concept)
-            del self._missedConcepts[concept.name]
-
-        self._concepts[concept.name] = concept
-
-    def addRelation(self, relation: Relation) -> Relation:
-        """ Add a new relation object to the ontology, correctly link the relation concepts to the
-        ontology.
-
-        Params:
-            relation (Relation) - The relation object to add to the ontology
-
-        Returns:
-            Relation - The original relation or a newly generated relation with edits.
-        """
-        # Connect any incomplete concepts with the ontology
-        domains = {self.concept(d) for d in relation.domains if isinstance(d, str)}.union(relation.domains)
-        targets = {self.concept(t) for t in relation.targets if isinstance(t, str)}.union(relation.targets)
-
-        # Ask the relation to correctly allocate the domains and targets
-        for domain in Concept.expandConceptSet(domains): relation.subscribe(domain)
-        for target in Concept.expandConceptSet(targets): relation.subscribe(target)
-
-        # Connect any of the rules
-        for rule in relation.rules():
-            rule.domains = {self.concept(d) for d in rule.domains if isinstance(d, str)}.union(rule.domains)
-            rule.targets = {self.concept(t) for t in rule.targets if isinstance(t, str)}.union(rule.targets)
-            rule.domains = Concept.expandConceptSet(rule.domains)
-            rule.targets = Concept.expandConceptSet(rule.targets)
-
-        log.debug("Added Relation {}".format(str(relation)))
-        self._relations[relation.name] = relation
-        return relation
-
-    def concept(self, conceptName: str) -> Concept:
-        """ Collect the ontology concept with the name given, or None """
-        return self._concepts.get(conceptName)
-
-    def concepts(self) -> [Concept]:
-        """ Return a list of concepts found within the ontology, order is non deterministic """
-        return list(self._concepts.values())
-
-    def relation(self, relationName: str) -> Relation:
-        """ Collect the relation objects for name given, or None """
-        return self._relations.get(relationName)
-
-    def relations(self, names=False) -> [str]:
-        """ Return the ontology relations or the names of all the relations
-
-        Params:
-            keys (bool) - Toggle for the names of the relations or the relations themselves
-
-        Returns:
-            [str] - A list of names of the relations or a list of relation objects
-        """
-        if names: return list(self._relations.keys())
-        else:     return list(self._relations.values())
+    @property
+    def relations(self):
+        """ MutableMapping object for ontology relations """
+        return self._relations
 
     def findRelations(self, domain: str, target: str) -> [Relation]:
         """ Return a list of relations that could be formed between the domain and the target
@@ -172,12 +66,12 @@ class Ontology:
             target (str) - A concept that needs to match with the target of potential relations
         """
 
-        dom = self.concept(domain) if isinstance(domain, str) else domain
-        tar = self.concept(target) if isinstance(target, str) else target
+        dom = self.concepts(domain) if isinstance(domain, str) else domain
+        tar = self.concepts(target) if isinstance(target, str) else target
         if None in (dom, tar):
             raise Exception("Invalid concepts provided when looking for relations")
 
-        for relation in self.relations():
+        for relation in self._relations.values():
             if relation.between(dom, tar):
                 yield relation
 
@@ -188,12 +82,14 @@ class Ontology:
             clone (Ontology) - A deep copy of this ontology object
         """
 
+        # Create a new ontology object with the same name
         ontologyClone = Ontology(self.name)
 
-        # Clone concepts
-        [ontologyClone.addConcept(con.clone()) for con in self.concepts()]
-        [ontologyClone.addRelation(rel.clone()) for rel in self.relations()]
+        # Clone each item in the ontology and add the cloned item into the ontology clone
+        for concept in self.concepts(): ontologyClone.concepts.add(concept.clone())
+        for relation in self.relations(): ontologyClone.relations.add(relation.clone())
 
+        # return the cloned ontology
         return ontologyClone
 
     def toJson(self):
@@ -229,3 +125,106 @@ class Ontology:
 
         with open(os.path.abspath(os.path.join(folder, filename)), "w") as handler:
             handler.write(self.toJson())
+
+class OntologyConcepts(collections.abc.MutableMapping):
+    """ The container of member concepts of an ontology. Provides the interface to add, edit, and remove concepts from
+    the ontology
+
+    Params:
+        owner (Ontology): The ontology that this container belongs to
+    """
+
+    def __init__(self, owner: Ontology):
+        self._owner = owner
+        self._elements = {}
+
+        self._missedConcepts = collections.defaultdict(set)   # Mapping between incomplete concepts
+        self._missedRelations = collections.defaultdict(set)  # Mapping between incomplete concepts and relations
+
+    def __getitem__(self, name: str) -> Concept: return self._elements[name]
+    def __setitem__(self, name: str, concept: Concept) -> None: self._elements[name] = concept
+    def __delitem__(self, name: str) -> None:
+        """ Remove the concept from the ontology. Remove the concept from every relation/rule where applicable """
+        del self._elements[name]
+    def __iter__(self): return iter(self._elements)
+    def __len__(self): return len(self._elements)
+    def __call__(self, name: str = None) -> Concept:
+        """ Return the ontology concepts, or, the concept given by the name parameter
+
+        Params:
+            name (str) = None: If provided, return the concept with the given name, else all concepts
+        """
+        if name is not None: return self[name]
+        return set(self._elements.values())
+
+    def add(self, concept: Concept) -> None:
+        """ Add concept object to ontology, overwrite previous concept if present.
+        Identifies the relation ships concepts parent objects are and becomes members to those
+        relations if applicable.
+
+        Params:
+            concept (Concept) - The concept to add
+        """
+
+        # Record all partial links between this concept and external concepts
+        for family in [concept.parents, concept.children]:
+            for step in family.partials():
+                found = self[step]
+                if found:
+                    family.add(found)  # Family member found, add to concept and connect (internally)
+                else:
+                    self._missedConcepts[step].add(concept)  # Record that concept is looking for this family member
+
+        # Link wth concept with any concepts that reference this newly added concept partially
+        if concept.name in self._missedConcepts:
+            for family in self._missedConcepts[concept.name]:
+                # Determine what the relationship between the two concepts is by checking partial membership
+                if concept in family.parents: family.parents.add(concept)
+                elif concept in family.children: family.children.add(concept)
+            del self._missedConcepts[concept.name]
+
+        # Link with any relations that have a reference to this concept partially and require the full concept
+        if concept.name in self._missedRelations:
+            for relation in self._missedRelations[concept.name]:
+                relation.subscribe(concept)
+
+        self[concept.name] = concept
+
+class OntologyRelation(collections.abc.MutableMapping):
+
+    def __init__(self, owner: Ontology):
+        self._owner = owner
+        self._elements = {}
+
+    def __getitem__(self, name: str) -> Relation: return self._elements[name]
+    def __setitem__(self, name: str, relation: Relation) -> None: self._elements[name] = relation
+    def __delitem__(self, name: str) -> None:
+        del self._elements[name]
+    def __iter__(self): return iter(self._elements)
+    def __len__(self): return len(self._elements)
+    def __call__(self, name: str = None) -> Relation:
+        if name is not None: return self[name]
+        return set(self._elements.values())
+
+    def add(self, relation: Relation) -> Relation:
+        """ Add a new relation object to the ontology, correctly link the relation concepts to the
+        ontology.
+
+        Params:
+            relation (Relation) - The relation object to add to the ontology
+
+        Returns:
+            Relation - The original relation or a newly generated relation with edits.
+        """
+
+        # Resolve any partial concepts that exist within the relation - record missed concepts
+        for partial in relation.concepts.partials():
+            found = self._owner.concepts(partial)
+            if found:
+                relation.subscribe(found)
+            else:
+                self._owner.concepts._missedRelations[partial].add(relation)
+
+        log.debug("Added Relation {}".format(str(relation)))
+        self[relation.name] = relation
+        return relation

@@ -24,7 +24,7 @@ class Relation:
 
         self.name = name
         self._concepts = RelationConceptManager(self, domains, targets)
-        self.assignRules(rules)
+        self.rules = rules
         self.differ = differ
 
     @property
@@ -33,6 +33,11 @@ class Relation:
     def domains(self): return ConceptSet([con for g in self.concepts.domains for con in g])
     @property
     def targets(self): return ConceptSet([con for g in self.concepts.targets for con in g])
+    @property
+    def rules(self): return self._rules
+    @rules.setter
+    def rules(self, rules: [Rule]): self._rules = RuleManager(self, rules)
+
 
     def __str__(self):
         return " ".join([str({str(x) for x in self.concepts.domains}), self.name, str({str(x) for x in self.concepts.targets})])
@@ -81,47 +86,6 @@ class Relation:
 
         # For each of the rules, pass the concept on as relevant
         for rule in self._rules: rule.subscribe(concept)
-
-    def addRule(self, rule: Rule) -> None:
-        """ Add a Rule object to the relation, order the rule correctly based on confidence
-
-        Params:
-            rule (Rule): The rule
-        """
-
-        i = 0
-        for i, relRule in enumerate(self._rules):
-            if rule.confidence >= relRule.confidence: break
-        else:
-            i += 1
-        self._rules.insert(i, rule)
-
-    def removeRule(self, rule: Rule) -> None:
-        self._rules.remove(rule)
-
-    def rules(self, domain: Concept = None, target: Concept = None) -> [Rule]:
-        """ Collect the rules within the relation, if domain and target is passed, collect together only rules that
-        apply to those concepts. Perform a sanity check within the relation first to avoid unncessary checking.
-
-        Params:
-            domain (Concept) = None: Domain concept
-            target (Concept) = None: Target concept
-
-        Returns:
-            [Rule]: A list of rules of the relation or that apply to the scenario
-        """
-
-        if domain is None and target is None:
-            return list(self._rules)
-
-        if not self.between(domain, target): return []
-        return [rule for rule in self._rules if rule.applies(domain, target)]
-
-    def assignRules(self, collection: [Rule]) -> None:
-        """ Assign a collection of rules to the relation, overwritting the old rules during the
-        operation
-        """
-        self._rules = sorted(collection, key = lambda x: x.confidence)
 
     def minimise(self) -> dict:
         """ Return only the information the relation represents """
@@ -270,3 +234,56 @@ class RelationConceptManager(collections.abc.MutableSequence):
             # Remove this relationship from the concept as it is no longer a member
             if isinstance(concept, Concept):
                 concept._relationMembership.remove(self._owner)
+
+    def partials(self) -> {str}:
+        """ Provide a set of the partial concepts within the set
+
+        Returns:
+            {str}: A set of concept names yet to be linked correctly
+        """
+        partials = {con for rule in self._owner.rules for group in [rule.domains, rule.targets] for con in group.partials()}
+        return partials.union({con for group in self.domains + self.targets for con in group.partials()})
+
+class RuleManager(collections.abc.MutableSequence):
+
+    def __init__(self, owner: Relation, rules: list = []):
+        self._owner = owner
+        self._elements = rules.copy()
+
+    def __call__(self, domain: Concept, target: Concept):
+        """ Collect the rules within the relation, if domain and target is passed, collect together only rules that
+        apply to those concepts. Perform a sanity check within the relation first to avoid unnecessary checking.
+
+        Params:
+            domain (Concept) = None: Domain concept
+            target (Concept) = None: Target concept
+
+        Returns:
+            [Rule]: A list of rules of the relation or that apply to the scenario
+        """
+        if not self._owner.between(domain, target): return []
+        return [rule for rule in self._elements if rule.applies(domain, target)]
+
+    def __len__(self): return len(self._elements)
+    def __iter__(self): return iter(self._elements)
+    def __setitem__(self, index: int, rule: Rule): self.insert(index, rule)
+    def __getitem__(self, index: int): return self._elements[index]
+    def __delitem__(self, index: int): del self._elements[index]
+    def __contains__(self, rule: Rule): return rule in self._elements
+    def insert(self, index: int, rule: Rule): self._elements.insert(index, rule)
+
+    def add(self, rule: Rule):
+        """ Add a Rule object to the relation, order the rule correctly based on confidence
+
+        Params:
+            rule (Rule): The rule
+        """
+        i = 0
+        for i, relRule in enumerate(self._elements):
+            if rule.confidence >= relRule.confidence: break
+        else:
+            i += 1
+        self._elements.insert(i, rule)
+
+    def remove(self, rule: Rule):
+        self._elements.remove(rule)
