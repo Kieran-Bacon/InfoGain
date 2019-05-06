@@ -429,6 +429,14 @@ class ConceptSet(MutableSet):
         """ Shallow copy this set """
         return ConceptSet(self._elements)
 
+    def partials(self) -> {str}:
+        """ Provide a set of the partial concepts within the set
+
+        Returns:
+            {str}: A set of concept names yet to be linked correctly
+        """
+        return self._partial.copy()
+
 class FamilyConceptSet(ConceptSet):
     """ A set to hold information of a family hierarchy. Concepts held in this set are the parents or children of the
     concept that holds this set. The set is responsible for making consisten this relationship with the concepts in this
@@ -489,11 +497,3 @@ class FamilyConceptSet(ConceptSet):
             concept (Concept): The concept that is being checked if correctly a member
         """
         return concept not in self._partial and concept in self._elements
-
-    def partials(self) -> {str}:
-        """ Provide a set of the partial concepts within the set
-
-        Returns:
-            {str}: A set of concept names yet to be linked correctly
-        """
-        return self._partial.copy()
