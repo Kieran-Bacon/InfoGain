@@ -27,8 +27,8 @@ class BuiltInFunctionNode(EvalTree):
         "facts",
         "is",
         "isNot",
-        "approx", 
-        "eq", 
+        "approx",
+        "eq",
         "eqNot"
     ]
 
@@ -54,7 +54,7 @@ class BuiltInFunctionNode(EvalTree):
                                              "- filter {} doesn't reference target {}".format(f, target))
 
             elif isinstance(target, RelationNode):
-                
+
                 targetParameters = target.parameters()
 
                 for f in filters:
@@ -69,19 +69,19 @@ class BuiltInFunctionNode(EvalTree):
                                      "{} - Excepts Concepts or Relations only".format(type(target)))
 
             self.function = self.count
-        
+
         elif function_name == "f": self.function = self.f
         elif function_name == "facts":
-            
+
             if len(self.function_parameters) != 1:
                 raise IncorrectLogic("Builtin function 'fact' takes only 1 argument - {} provided".format(
                     len(self.function_parameters)))
-            
+
             if not isinstance(self.function_parameters[0], RelationNode):
                 raise IncorrectLogic("Builtin function 'fact' requires Relation - {} provided".format(
                     type(self.function_parameters[0])
                 ))
-            
+
             self.function = self.facts
         elif function_name == "is": self.function = self.isFunc
         elif function_name == "isNot": self.function = self.isNot
@@ -101,10 +101,10 @@ class BuiltInFunctionNode(EvalTree):
             return self.function(*self.function_parameters, **kwargs)
         except Exception as e:
             raise RuntimeError("Invalid logic evaluation for {}".format(self)) from e
-    
+
     @staticmethod
     def count(*args, **kwargs):
-        """ Count the number of instances/relationships given various criteria 
+        """ Count the number of instances/relationships given various criteria
 
         >>>count(#Person, #Person.age > 10)
         10
@@ -122,7 +122,7 @@ class BuiltInFunctionNode(EvalTree):
         filters = args[1:]  # The filter expressions
 
         def apply_filters(collection: [dict]):
-            
+
             # Apply the filters in order removing instances that do not pass
             temp = []
             for f in filters:
@@ -141,7 +141,7 @@ class BuiltInFunctionNode(EvalTree):
 
 
         if isinstance(countTarget, ConceptNode):
-            
+
             # Extract the concept and its representation in the logic
             parameter = countTarget.parameters().pop()
             concept = EvalTree.paramToConcept(parameter)
@@ -166,8 +166,8 @@ class BuiltInFunctionNode(EvalTree):
             target = EvalTree.paramToConcept(targetParam)
 
             # Ensure the relationship is valid for these concepts
-            relation = engine.relation(countTarget.relation)
-            if not relation.between(engine.concept(domain[0]), engine.concept(target[0])):
+            relation = engine.relations(countTarget.relation)
+            if not relation.between(engine.concepts(domain[0]), engine.concepts(target[0])):
                 log.warning("Attempting to count relations for invalid concept pairs: {}".format(countTarget))
                 return 0
 
@@ -203,7 +203,7 @@ class BuiltInFunctionNode(EvalTree):
 
             # Return the length of the remain collection
             return count
-        
+
     @staticmethod
     def f(*args, **kwargs):
         """ Perform a mathematical function taking arbitary numbers of arguments. Arguments replace
@@ -218,7 +218,7 @@ class BuiltInFunctionNode(EvalTree):
         args = [node.eval(**kwargs) for node in args]
 
         expression = args[-1].replace("'", "").replace('"', "")
-        
+
         function_list = []
         for char in expression:
             function_list.append(char)
@@ -238,7 +238,7 @@ class BuiltInFunctionNode(EvalTree):
     def facts(relation_node: EvalTree, **kwargs) -> float:
         """ Calculate the value for a relation using only the rules within any conditions. Calculate
         this value and return it
-        
+
         Params:
             relation_node (RelationNode): Relation container
 
@@ -250,11 +250,11 @@ class BuiltInFunctionNode(EvalTree):
 
     @staticmethod
     def isFunc(concept_one: EvalTree, concept_two: EvalTree, **kwargs) -> float:
-        """ Test to determine if any two instances are the same - As the language is defined, it 
-        would be possible to ensure this for named concepts, however, the domain and target are 
+        """ Test to determine if any two instances are the same - As the language is defined, it
+        would be possible to ensure this for named concepts, however, the domain and target are
         special.
 
-        Intended to be used to determine if a named concept is the same instance as one of the 
+        Intended to be used to determine if a named concept is the same instance as one of the
         domain and instance concepts. Can be used to differ two different named concepts of the same
         concept however - but likely shouldn't...
 
@@ -275,7 +275,7 @@ class BuiltInFunctionNode(EvalTree):
     @staticmethod
     def isNot(concept_one: EvalTree, concept_two, **kwargs) -> float:
         """ The opposite of the is built in function - Test whether two instances are not the same.
-        This would be useful when two named concepts are involved, the scenario implied that they 
+        This would be useful when two named concepts are involved, the scenario implied that they
         shouldn't be linked, but they can be.
 
         Returns

@@ -23,20 +23,20 @@ class InferenceEngine(Ontology):
             ont = ontology.clone()
             self.name = name if name else ont.name
             # Load in concepts
-            for concept in ont._concepts.values(): self.addConcept(concept)
+            for concept in ont._concepts.values(): self.concepts.add(concept)
             # Load in the relations
             for relation in ont._relations.values(): self.addRelation(relation)
 
         if filepath:
             Ontology.__init__(name, filepath=filepath)
 
-    def addConcept(self, concept: Concept) -> None:
+    def concepts(self, concept: Concept) -> None:
         """ Add a concept into the engine ontology
 
         Params:
             concept (Concept): The concept object to be added
         """
-        Ontology.addConcept(self, concept)  # Call the original add concept function
+        Ontology.concepts.add(self, concept)  # Call the original add concept function
 
         if concept.category is Concept.ABSTRACT: return
 
@@ -62,7 +62,7 @@ class InferenceEngine(Ontology):
 
     def relation(self, relation: (str, Relation)):
         if isinstance(relation, Relation): relation = relation.name
-        return Ontology.relation(self, relation)
+        return Ontology.relations(self, relation)
 
     def addInstance(self, instance: Instance) -> None:
         """ Add a concept instance - Only possible for dynamic concepts
@@ -75,9 +75,9 @@ class InferenceEngine(Ontology):
             TypeError: In the event that the concept is not suitable for additional instances
         """
 
-        concept = self.concept(instance.concept)
+        concept = self.concepts(instance.concept)
         if concept is None: raise ConsistencyError(
-            "{} is not an concept within the engine - Cannot add instance for missing concept".format(repr(instance))) 
+            "{} is not an concept within the engine - Cannot add instance for missing concept".format(repr(instance)))
         if concept.category is Concept.ABSTRACT or concept.category is Concept.STATIC:
             raise TypeError("{} is not suitable for additional instances.".format(concept.name))
 
@@ -98,7 +98,7 @@ class InferenceEngine(Ontology):
         return self._instances.get(instance_name)
 
     def instances(self, concept_name: str, descendants: bool = False) -> [Instance]:
-        """ Collect the instances for a concept identifier. If the concept is static then only its 
+        """ Collect the instances for a concept identifier. If the concept is static then only its
         single instance shall be returned. Or all the instances for a concept and its children.
 
         Params:
@@ -109,7 +109,7 @@ class InferenceEngine(Ontology):
             ConceptInstances: A ConceptInstance or a list of concept instances
         """
 
-        concept = self.concept(concept_name)
+        concept = self.concepts(concept_name)
 
         if descendants:
             expanded = Concept.expandConceptSet({concept})
@@ -135,9 +135,9 @@ class InferenceEngine(Ontology):
             for point in document.datapoints():
                 if point.prediction == 0: continue  # No information
 
-                domain = self.concept(point.domain["concept"])
-                relation = self.relation(point.relation)
-                target = self.concept(point.target["concept"])
+                domain = self.concepts(point.domain["concept"])
+                relation = self.relations(point.relation)
+                target = self.concepts(point.target["concept"])
 
                 if relation:
                     rule = EvalRule(
@@ -151,22 +151,22 @@ class InferenceEngine(Ontology):
                 else:
                     log.debug("Datapoint's relation {} missed during adding of world knowledge".format(point.relation))
 
-        self.reset()        
+        self.reset()
 
     def inferRelation(self, domain: Instance, relation: str, target: Instance, *, evaluate_conditions=True) -> float:
-        """ Determine the confidence of a relation between entities 
-        
+        """ Determine the confidence of a relation between entities
+
         Params:
             domain (ConceptInstance): A concept instance which is a domain of the relation
             relation (str/Relation): The string identifier of a relation, or the relation itself
             target (ConceptInstance): A concept instance of which is a target of the relation
-        
+
         Returns:
             float: The certainty of a relation which falls between the range(0, 100)
         """
 
-        if isinstance(relation, (str, Relation)): relation = self.relation(relation)
-        domConcept, tarConcept = self.concept(domain.concept), self.concept(target.concept)
+        if isinstance(relation, (str, Relation)): relation = self.relations(relation)
+        domConcept, tarConcept = self.concepts(domain.concept), self.concepts(target.concept)
 
         if None is (domConcept or tarConcept):
             raise Exception("Cannot infer relation between concepts unknown to the engine")

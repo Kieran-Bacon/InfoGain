@@ -11,7 +11,7 @@ class Test_RelationExtractor(unittest.TestCase):
     def setUpClass(self):
         self.extractor = RelationExtractor(ontology=language.ontology(), min_count=1)
         self.extractor.fit(language.training())
-    
+
     def test_add_relation(self):
         pass
 
@@ -39,8 +39,8 @@ class Test_RelationExtractor(unittest.TestCase):
             else:                       self.assertFalse(document.datapoints())
 
         # Expand the concepts text representations
-        self.extractor.concept("Luke").alias.add("Luke-san")
-        self.extractor.addConcept(Concept("Natasha", parents={"Person"}))
+        self.extractor.concepts("Luke").alias.add("Luke-san")
+        self.extractor.concepts.add(Concept("Natasha", parents={"Person"}))
 
         # Predict the documents again - assert that all documents now have datapoints - concepts found
         processed_set = self.extractor.predict(document_set)
@@ -51,7 +51,7 @@ class Test_RelationExtractor(unittest.TestCase):
         """ Test that an added relationship is generated correctly """
 
         # Creating the relationship friends with
-        person = self.extractor.concept("Person")  # Collecting the person concept for relation binding
+        person = self.extractor.concepts("Person")  # Collecting the person concept for relation binding
         Friends = Relation({person}, "friendsWith", {person})  # Creating the relation object
         self.extractor.addRelation(Friends)  # Adding the relationship to the relation extractor
 

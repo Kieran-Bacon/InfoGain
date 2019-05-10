@@ -7,12 +7,12 @@ from infogain.cognition.evaltrees import EvalTreeFactory
 from infogain.resources.ontologies import school as resouce
 
 class test_BuiltinNode_count(unittest.TestCase):
-    
+
     def setUp(self):
         self.school = InferenceEngine(ontology=resouce.ontology())
 
-        concept_person = self.school.concept("Person")
-        concept_class = self.school.concept("Class")
+        concept_person = self.school.concepts("Person")
+        concept_class = self.school.concepts("Class")
         inst_english = concept_class.instance("English", {"grade": 4})
         self.school.addInstance(inst_english)
 
@@ -24,7 +24,7 @@ class test_BuiltinNode_count(unittest.TestCase):
         ]
         for p in people: self.school.addInstance(p)
 
-        relation_enrolledOn = self.school.relation("enrolled_on")
+        relation_enrolledOn = self.school.relations("enrolled_on")
 
         relation_enrolledOn.addRule(EvalRule({self.school.instance("Kieran")}, {inst_english}, 100))
         relation_enrolledOn.addRule(EvalRule({self.school.instance("Luke")}, {inst_english}, 100))
@@ -58,7 +58,7 @@ class test_BuiltinNode_count(unittest.TestCase):
         self.assertEqual(node.eval(scenario={"%": self.school.instance("Zino")}), 0)
 
     def test_count_relations_with_filters(self):
-        
+
         node = self.factory.constructTree("count(#Person=enrolled_on=#Class, #Person.age < 20)")
         self.assertEqual(node.eval(), 1)
 

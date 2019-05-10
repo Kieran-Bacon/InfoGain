@@ -15,7 +15,7 @@ class Test_eval_trees(unittest.TestCase):
 
         self.example = Concept("example", category="static")
         self.example.properties["age"] = 24
-        self.engine.addConcept(self.example)
+        self.engine.concepts.add(self.example)
 
         self.maps_to = Relation({self.example}, "maps_to", {self.example})
         self.engine.addRelation(self.maps_to)
@@ -51,7 +51,7 @@ class Test_eval_trees(unittest.TestCase):
         scenario = {"#example": inst}
 
         logic = "#example.function()"
-    
+
         functionNode = self.factory.constructTree(logic)
 
         self.assertEqual(str(functionNode), logic)
@@ -60,7 +60,7 @@ class Test_eval_trees(unittest.TestCase):
 
         logic2 = "#example.function_with_arguments(1,3,4)"
 
-        functionNode = self.factory.constructTree(logic2)        
+        functionNode = self.factory.constructTree(logic2)
 
         self.assertEqual(str(functionNode), logic2)
         self.assertEqual(functionNode.eval(scenario=scenario), 8)

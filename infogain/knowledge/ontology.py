@@ -1,7 +1,4 @@
 import os
-import uuid
-import json
-import better
 import collections
 import weakref
 
@@ -22,12 +19,12 @@ class Ontology:
         filepath (str): The location of a saved ontology to expand
     """
 
-    def __init__(self, name: str = None, filepath: str = None):
+    def __init__(self, name: str = None):
 
         # Simply identification of the ontology, no functional use
         self.name = name
 
-
+        # The internal storage containers
         self._concepts = OntologyConcepts(weakref.proxy(self))
         self._relations = OntologyRelation(weakref.proxy(self))
 
@@ -41,7 +38,7 @@ class Ontology:
 
         try:
             module = importlib.import_module("infogain.knowledge.builtin_concepts.collection_{}".format(module_name))
-            [self.addConcept(con) for con in module.concepts()]
+            [self.concepts.add(con) for con in module.concepts()]
         except ImportError:
             msg = "ImportError - No builtin module by that name: {}".format(module_name)
             log.error(msg, exc_info=True)
@@ -92,40 +89,6 @@ class Ontology:
         # return the cloned ontology
         return ontologyClone
 
-    def toJson(self):
-        """ Save the file to the current working directory or the filename provided
-
-        Params:
-            folder (str) - The directory destination of the saved file
-            filename (str) - The name to be given to the saved file
-        """
-
-        ontology = {
-            "Name": self.name,
-            "Concepts": {},
-            "Relations": {}
-        }
-
-        for name, concept in self._concepts.items():
-            mini = concept.minimise()
-            del mini["name"]
-            ontology["Concepts"][name] = mini
-
-        for name, relation in self._relations.items():
-            mini = relation.minimise()
-            del mini["name"]
-            ontology["Relations"][name] = mini
-
-        return json.dumps(ontology, indent=4, sort_keys=True)
-
-    def save(self, folder: str = "./", filename: str = None) -> None:
-
-        if filename is None and self.name is None: filename = uuid.uuid4().hex
-        if self.name and not filename: filename = self.name
-
-        with open(os.path.abspath(os.path.join(folder, filename)), "w") as handler:
-            handler.write(self.toJson())
-
 class OntologyConcepts(collections.abc.MutableMapping):
     """ The container of member concepts of an ontology. Provides the interface to add, edit, and remove concepts from
     the ontology
@@ -154,7 +117,7 @@ class OntologyConcepts(collections.abc.MutableMapping):
         Params:
             name (str) = None: If provided, return the concept with the given name, else all concepts
         """
-        if name is not None: return self[name]
+        if name is not None: return self.get(name)
         return set(self._elements.values())
 
     def add(self, concept: Concept) -> None:
@@ -203,7 +166,7 @@ class OntologyRelation(collections.abc.MutableMapping):
     def __iter__(self): return iter(self._elements)
     def __len__(self): return len(self._elements)
     def __call__(self, name: str = None) -> Relation:
-        if name is not None: return self[name]
+        if name is not None: return self.get(name)
         return set(self._elements.values())
 
     def add(self, relation: Relation) -> Relation:

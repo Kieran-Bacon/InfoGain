@@ -9,31 +9,31 @@ from infogain.exceptions import IncorrectLogic, ConsistencyError
 
 class Test_InferenceEngine(unittest.TestCase):
 
-    def test_addConcept(self):
+    def test_concepts.add(self):
         """ Test that the adding of a new concept is done """
 
         engine = InferenceEngine()
-        
+
         # Test abstract adding
         instanceCollection = engine._conceptInstances.copy()
 
-        engine.addConcept(Concept("abstract", category="abstract"))
+        engine.concepts.add(Concept("abstract", category="abstract"))
 
-        self.assertIsNotNone(engine.concept("abstract"))
+        self.assertIsNotNone(engine.concepts("abstract"))
         self.assertEqual(engine._conceptInstances, instanceCollection) # No change
 
         # Test static adding
         static = Concept("static", category="static")
-        engine.addConcept(static)
+        engine.concepts.add(static)
 
-        self.assertIsNotNone(engine.concept("static"))
+        self.assertIsNotNone(engine.concepts("static"))
         self.assertEqual(static.instance(), engine.instance("static"))
 
         # Test dynamic adding
         dynamic = Concept("dynamic")
-        engine.addConcept(dynamic)
+        engine.concepts.add(dynamic)
 
-        self.assertIsNotNone(engine.concept("dynamic"))
+        self.assertIsNotNone(engine.concepts("dynamic"))
         self.assertEqual(engine.instances("dynamic"), [])
 
         # Test that the collection has been generated correctly
@@ -42,14 +42,14 @@ class Test_InferenceEngine(unittest.TestCase):
     def test_addRelation(self):
 
         engine = InferenceEngine()
-        engine.addConcept(Concept("x"))
-        engine.addConcept(Concept("y"))
+        engine.concepts.add(Concept("x"))
+        engine.concepts.add(Concept("y"))
 
         engine.addRelation(Relation("x", "simple", "y"))
         engine.addRelation(
             Relation("x", "soundlogic", "y", [Rule("x", "y", 100, conditions=[{"logic": "%", "salience": 100}])])
         )
-        
+
 
         with pytest.raises(IncorrectLogic):
             engine.addRelation(
@@ -64,7 +64,7 @@ class Test_InferenceEngine(unittest.TestCase):
         abstract = Concept("abstract", category=Concept.ABSTRACT)
 
         engine = InferenceEngine()
-        for con in [dynamic, static, abstract]: engine.addConcept(con)
+        for con in [dynamic, static, abstract]: engine.concepts.add(con)
 
         self.assertEqual(engine._conceptInstances, {"dynamic": [], "static": [static.instance()]})
 
@@ -101,7 +101,7 @@ class Test_InferenceEngine(unittest.TestCase):
         abstract = Concept("abstract", category=Concept.ABSTRACT)
 
         engine = InferenceEngine()
-        for con in [dynamic, static, abstract]: engine.addConcept(con)
+        for con in [dynamic, static, abstract]: engine.concepts.add(con)
 
         self.assertEqual(static.instance(), engine.instance("static"))
 
@@ -115,7 +115,7 @@ class Test_InferenceEngine(unittest.TestCase):
 
         assert(len(atob.rules()) == 1)
 
-        for con in [a, b]: engine.addConcept(con)
+        for con in [a, b]: engine.concepts.add(con)
         atob = engine.addRelation(atob)
 
         assert(len(atob.rules()) == 1)
@@ -133,7 +133,7 @@ class Test_InferenceEngine(unittest.TestCase):
             {"logic": "f(%.y, '(y == 14)*100')", "salience": 50}
         ]))
 
-        for con in [a, b]: engine.addConcept(con)
+        for con in [a, b]: engine.concepts.add(con)
         engine.addRelation(atob)
 
         self.assertAlmostEqual(engine.inferRelation(a.instance(), atob, b.instance()), 22.5)
@@ -150,7 +150,7 @@ class Test_InferenceEngine(unittest.TestCase):
             {"logic": "f(%.y, '(y == 14)*100')", "salience": 50}
         ]))
 
-        for con in [a, b]: engine.addConcept(con)
+        for con in [a, b]: engine.concepts.add(con)
         engine.addRelation(atob)
 
         self.assertAlmostEqual(engine.inferRelation(a.instance(), atob, b.instance(), evaluate_conditions=False), 55.0)
@@ -160,9 +160,9 @@ class Test_InferenceEngine(unittest.TestCase):
         engine = InferenceEngine(ontology=language.ontology())
 
         originalConfidence = engine.inferRelation(
-            engine.concept("Kieran").instance(),
+            engine.concepts("Kieran").instance(),
             "speaks",
-            engine.concept("English").instance()
+            engine.concepts("English").instance()
         )
 
         speaks = Datapoint({
@@ -180,9 +180,9 @@ class Test_InferenceEngine(unittest.TestCase):
         engine.addWorldKnowledge([world_knowledge])
 
         confidence = engine.inferRelation(
-            engine.concept("Kieran").instance(),
+            engine.concepts("Kieran").instance(),
             "speaks",
-            engine.concept("English").instance()
+            engine.concepts("English").instance()
         )
 
         # Ensure that the confidence relation has been affected by the world knowledge
@@ -209,10 +209,10 @@ class Test_InferenceEngine(unittest.TestCase):
 
         self.assertAlmostEqual(
             engine.inferRelation(
-                engine.concept("Kieran").instance(),
+                engine.concepts("Kieran").instance(),
                 "lives_in",
-                engine.concept("Germany").instance()
-            ), 
+                engine.concepts("Germany").instance()
+            ),
             69
         )
 
@@ -236,9 +236,9 @@ class Test_InferenceEngine(unittest.TestCase):
 
         self.assertAlmostEqual(
             engine.inferRelation(
-                engine.concept("Kieran").instance(),
+                engine.concepts("Kieran").instance(),
                 "lives_in",
-                engine.concept("Germany").instance()
+                engine.concepts("Germany").instance()
             ),
             31
         )

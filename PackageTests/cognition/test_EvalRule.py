@@ -14,8 +14,8 @@ class Test_EvalRule(unittest.TestCase):
         self.con1, self.con2 = Concept("Con1"), Concept("Con2")
         self.inst1, self.inst2 = self.con1.instance(), self.con2.instance()
 
-        self.engine.addConcept(self.con1)
-        self.engine.addConcept(self.con2)
+        self.engine.concepts.add(self.con1)
+        self.engine.concepts.add(self.con2)
 
         self.conceptRule = EvalRule({self.con1}, {self.con2}, 100)
         self.instanceRule = EvalRule({self.inst1}, {self.inst2}, 80)

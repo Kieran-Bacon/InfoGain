@@ -26,7 +26,6 @@ class Test_SerialiserFactory(unittest.TestCase):
         ontology.relations.add(a_x)
         self.ontology = ontology
 
-
     def test_JsonEncoder(self):
 
         jsonSerialiser = infogain.Serialiser("json")

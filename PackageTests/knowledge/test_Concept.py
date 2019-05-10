@@ -87,7 +87,7 @@ class Test_Concept(unittest.TestCase):
         y11 = Concept("y11", {y1})
 
         for concept in {x,x1,x11,x2,x12,y,y1,y11,y2}:
-            ont.addConcept(concept)
+            ont.concepts.add(concept)
 
         self.assertEqual(
             {con.name for con in Concept.expandConceptSet({x, y1})},
@@ -109,7 +109,7 @@ class Test_Concept(unittest.TestCase):
         y11 = Concept("y11", {y1})
 
         for concept in {x,x1,x11,x2,x12,y,y1,y11,y2}:
-            ont.addConcept(concept)
+            ont.concepts.add(concept)
 
         self.assertEqual({c.name for c in Concept.minimiseConceptSet(Concept.expandConceptSet({x, y1}))}, {x, y1})
 

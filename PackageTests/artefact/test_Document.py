@@ -41,7 +41,7 @@ class Test_Document(unittest.TestCase):
             content,
             ["When I generate a document in this manner, "+
             "I want to ensure that the document object is created correctly.",
-            "This is the initial test!", 
+            "This is the initial test!",
             "Fingers crossed!!!",
             "Testing sentence end."]
         )
@@ -50,7 +50,7 @@ class Test_Document(unittest.TestCase):
             "Luke can speak English rather well, but Luke doesn't live in England.",
             Document.SENTENCE
         )
-        
+
         self.assertEqual(content, ["Luke can speak English rather well, but Luke doesn't live in England."])
 
     def test_removeWhitespace(self):
@@ -61,13 +61,13 @@ class Test_Document(unittest.TestCase):
 
     def test_content_sentences(self):
         """ Generate a document with content that has been passed to the document """
-        
+
         document = Document(content=self.contents)
         self.assertEqual(
             document.sentences(),
             ["When I generate a document in this manner, "+
             "I want to ensure that the document object is created correctly.",
-            "This is the initial test!", 
+            "This is the initial test!",
             "Fingers crossed!!!",
             "Testing sentence end."]
         )
@@ -118,7 +118,7 @@ class Test_Document(unittest.TestCase):
         self.assertEqual(len(test.datapoints()), 0)
 
         # Add the alias
-        ontology.concept("Luke").alias.add("Luke-san")
+        ontology.concepts("Luke").alias.add("Luke-san")
         test.processKnowledge(ontology)
 
         # Assert alias is found
@@ -131,12 +131,12 @@ class Test_Document(unittest.TestCase):
         ontology = language.ontology()
 
         # Add an alias
-        ontology.concept("Kieran").alias.add(r"\d+:\d+:\d+ date")
+        ontology.concepts("Kieran").alias.add(r"\d+:\d+:\d+ date")
 
         # Generate the test string and process it
         document = Document(content="18:09:2018 date speaks English")
         document.processKnowledge(ontology)
-        
+
         # Assert that the regex works as expected
         self.assertEqual(len(document), 1)
         self.assertEqual(document.datapoints()[0].domain["text"], "18:09:2018 date")

@@ -20,7 +20,7 @@ class JsonSerialiser(AbstractSerialiser):
 
         # Load concept information
         for name, conceptData in data.get("Concepts", {}).items():
-            # Upack the concept data into the concept init
+            # Unpack the concept data into the concept init
             ontology.concepts.add(Concept(name, **conceptData))
 
         # Load relation information
@@ -50,7 +50,6 @@ class JsonSerialiser(AbstractSerialiser):
                 )
             )
 
-
         return ontology
 
     def dump(self, ontology: Ontology):
@@ -61,14 +60,62 @@ class JsonSerialiser(AbstractSerialiser):
             "Relations": {}
         }
 
-        # for name, concept in ontology._concepts.items():
-        #     mini = concept.minimise()
-        #     del mini["name"]
-        #     ontology_dict["Concepts"][name] = mini
+        # Minimise the ontology concepts
+        for concept in ontology.concepts():
 
-        # for name, relation in ontology._relations.items():
-        #     mini = relation.minimise()
-        #     del mini["name"]
-        #     ontology_dict["Relations"][name] = mini
+            # The minimised json serialisable concept data
+            minimised_concept = {}
+
+            if concept.parents:
+                minimised_concept["parents"] = sorted(
+                    [parent if isinstance(parent, str) else parent.name for parent in concept.parents]
+                )
+
+            if concept.properties:
+                minimised_concept["properties"] = concept.properties.copy()
+
+            if concept.alias:
+                minimised_concept["alias"] = sorted(concept.alias)
+
+            if concept.category is not Concept.DYNAMIC:
+                minimised_concept["category"] = concept.category
+
+            ontology_dict["Concepts"][concept.name] = minimised_concept
+
+        # Minimise the ontology relations into json serialisable objects
+        for relation in ontology.relations():
+
+
+            minimised_relations = {
+                "domains": sorted([group.minimised().toStringSet() for group in relation.concepts.domains]),
+                "targets": sorted([group.minimised().toStringSet() for group in relation.concepts.targets])
+            }
+
+            # Record non-default parameters
+            if relation.differ: minimised_relations["differ"] = True
+
+            if relation.rules:
+
+                rules = []
+                for rule in relation.rules:
+
+                    minimised_rule = {
+                        "domains": sorted(rule.domains.bases.toStringSet()),
+                        "targets": sorted(rule.targets.bases.toStringSet()),
+                        "confidence": rule.confidence
+                    }
+
+                    if rule.conditions:
+                        minimised_rule["conditions"] = [
+                            {"logic": condition.logic, "salience": condition.salience} for condition in rule.conditions
+                        ]
+
+                    if not rule.supporting: minimised_rule["supporting"] = rule.supporting
+
+                    rules.append(minimised_rule)
+
+                minimised_relations["rules"] = rules
+
+            ontology_dict["Relations"][relation.name] = minimised_relations
 
         return json.dumps(ontology_dict, indent=4, sort_keys=True)

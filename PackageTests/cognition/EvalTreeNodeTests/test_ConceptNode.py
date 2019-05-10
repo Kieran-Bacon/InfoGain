@@ -7,14 +7,14 @@ from infogain.cognition.evaltrees import EvalTreeFactory
 from infogain.cognition.treenodes.conceptnode import ConceptNode
 
 class Test_ConceptNode(unittest.TestCase):
-    
+
     def setUp(self):
 
         self.engine = InferenceEngine()
 
         self.example = Concept("example", category="static")
         self.example.properties["age"] = 24
-        self.engine.addConcept(self.example)
+        self.engine.concepts.add(self.example)
 
         self.maps_to = Relation({self.example}, "maps_to", {self.example})
         self.engine.addRelation(self.maps_to)

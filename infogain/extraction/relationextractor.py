@@ -13,9 +13,9 @@ log = logging.getLogger(__name__)
 class RelationExtractor(Ontology):
     """ This object represents a machine learning method of extracting relationships
     from provided corpora. The object maintains a collection of classifiers
-    which in turn provide evidence for various relationships. The class provides 
+    which in turn provide evidence for various relationships. The class provides
     a collection of useful methods for interacting with the model.
-    
+
     Params:
         name (str) - The name given to extractor
         filepath (str) - The path to an ontology file to load the extractor from
@@ -30,11 +30,11 @@ class RelationExtractor(Ontology):
 
     @classmethod
     def load(cls, filepath: str):
-        """ Load a pickled relation extractor file 
-        
+        """ Load a pickled relation extractor file
+
         Params:
             filepath (str) - path to the pickled file
-        
+
         Returns:
             RelationExtractor - A loaded pickled Relation Extractor object
         """
@@ -42,7 +42,7 @@ class RelationExtractor(Ontology):
         with open(filepath, "rb") as handler:
             return pickle.load(handler)
 
-    def __init__(self, name: str = None, 
+    def __init__(self, name: str = None,
         filepath: str = None,
         ontology: Ontology = None,
         word_embedding_model = None,
@@ -65,20 +65,20 @@ class RelationExtractor(Ontology):
             self._relations = ontologyClone._relations
 
         self.embedder = Embedder(word_embedding_model, embedding_size, min_count, workers)
-        
+
         # Record embedding information
         self.embeddingSize = self.embedder.size()
         self.MAXTHREADS = workers
 
         # Inform the relation model of its static parameters
         RelationModel.setParameters(alpha, (self.embeddingSize, *hidden_layers))
-    
+
         # Build relation model objects
         self.ensemble = {rel: RelationModel(rel) for rel in self.relations(names=True)}
 
     def addRelation(self, relation: Relation):
-        """ Add a new Relation to the extractor, overload the ontology's add relation. Adds to the 
-        ensemble with a new relation model represent it 
+        """ Add a new Relation to the extractor, overload the ontology's add relation. Adds to the
+        ensemble with a new relation model represent it
 
         Params:
             relation (Relation) - The relation model to be added to the extractor
@@ -88,7 +88,7 @@ class RelationExtractor(Ontology):
 
     def fit(self, training_documents: [Document]) -> None:
         """ Train the model on the collection of documents
-        
+
         Params:
             training_documents (Document) - A collection of training files to fit the model on.
         """
@@ -104,10 +104,10 @@ class RelationExtractor(Ontology):
 
             # Store the text representations for the concept store
             for concept_name, text_repr in document.concepts().items():
-                concept = self.concept(concept_name)
+                concept = self.concepts(concept_name)
                 concept.alias = concept.alias.union(text_repr)
 
-            # Collect the number of relations within set 
+            # Collect the number of relations within set
             for relation_name, counter in document.relations().items():
                 relation_counter[relation_name] = relation_counter.get(relation_name, 0) + counter
 
@@ -134,7 +134,7 @@ class RelationExtractor(Ontology):
             for point in document.datapoints():
                 point.embedContext(self.embedder.sentence)  # Embed the point so that it can be used to train the model
 
-                # Place into the relation training document 
+                # Place into the relation training document
                 with models_training_containter[point.relation]["lock"]:
                     models_training_containter[point.relation]["document"].addDatapoint(point)
         better.threading.tfor(processing_document, training_documents)
@@ -150,7 +150,7 @@ class RelationExtractor(Ontology):
 
     @staticmethod
     def _fit(relation_model: RelationModel, training_document: Document) -> RelationModel:
-        """ Taking a RelationModel, and a training document that contains only datapoints for that model. Train the 
+        """ Taking a RelationModel, and a training document that contains only datapoints for that model. Train the
         model with the datapoints and return the newly training RelationModel
 
         Params:
@@ -162,7 +162,7 @@ class RelationExtractor(Ontology):
 
     def predict(self, documents: [Document]) -> [Document]:
         """ Take a collection of documents and predict each of the extractable datapoints
-        found. The documents are paralised to provide a performance boost. Documents have 
+        found. The documents are paralised to provide a performance boost. Documents have
         datapoints classified and generated.
 
         Params:
@@ -171,7 +171,7 @@ class RelationExtractor(Ontology):
         Returns:
             [Document] - Initial document collection (order altered) process and predicted
         """
-        # Set up the environment such that a process exists for a particular relation 
+        # Set up the environment such that a process exists for a particular relation
         if isinstance(documents, Document): return self._predict(documents, self)
 
         predicted_documents = []
@@ -184,13 +184,13 @@ class RelationExtractor(Ontology):
 
     @staticmethod
     def _predict(document: Document, extractor) -> Document:
-        """ Processed a document according to the extractor, predict the datapoints of the 
+        """ Processed a document according to the extractor, predict the datapoints of the
         documents and return the processed documents. To be run within a multiprocessing environment.
-        
+
         Params:
             document (Document): The document to be predicted
             extractor (RelationExtractor): The extractor model that is to predict the document
-            
+
         Returns:
             Document: A document of the same type as the initial document, containing predicted datapoints
         """

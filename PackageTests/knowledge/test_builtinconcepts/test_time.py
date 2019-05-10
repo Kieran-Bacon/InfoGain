@@ -14,8 +14,8 @@ class Test_Time_Builtin(unittest.TestCase):
 
     def test_calls(self):
 
-        example = knowledge.Concept("example", properties={"date": datetime.date(2017, 2, 1)})
-        self.engine.addConcept(example)
+        example = knowledge.concepts("example", properties={"date": datetime.date(2017, 2, 1)})
+        self.engine.concepts.add(example)
 
 
         for logic in ["eq(#Date('01-02-2017'), #example.date)", "eq(#example.date, #Date('01-02-2017'))"]:
@@ -24,7 +24,7 @@ class Test_Time_Builtin(unittest.TestCase):
             self.assertEqual(
                 node.eval(
                     scenario = {
-                        "#Date": self.engine.concept("Date").instance(),
+                        "#Date": self.engine.concepts("Date").instance(),
                         "#example": example.instance()
                     }
                 ),
@@ -33,19 +33,19 @@ class Test_Time_Builtin(unittest.TestCase):
 
     def test_calls_return_instances_that_behave(self):
 
-        example = knowledge.Concept("example", properties={"date": datetime.date(2017, 2, 1)})
-        self.engine.addConcept(example)
+        example = knowledge.concepts("example", properties={"date": datetime.date(2017, 2, 1)})
+        self.engine.concepts.add(example)
 
         for logic, answer in {
             "#Date('02-02-2017').before(#example.date)": False,
-            "#Date('01-01-2017').before(#example.date)": True}.items(): 
+            "#Date('01-01-2017').before(#example.date)": True}.items():
 
             node = self.factory.constructTree(logic)
 
             self.assertEqual(
                 node.eval(
                     scenario = {
-                        "#Date": self.engine.concept("Date").instance(),
+                        "#Date": self.engine.concepts("Date").instance(),
                         "#example": example.instance()
                     }
                 ),
@@ -64,15 +64,15 @@ class Test_Time_Builtin(unittest.TestCase):
             self.assertEqual(
                 node.eval(
                     scenario = {
-                        "#Date": self.engine.concept("Date").instance(),
+                        "#Date": self.engine.concepts("Date").instance(),
                     }
                 ),
                 answer
             )
 
 
-        
 
-        
+
+
 
 
