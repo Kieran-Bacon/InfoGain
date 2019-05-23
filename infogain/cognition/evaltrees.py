@@ -9,9 +9,6 @@ class EvalTree:
     
     def __str__(self):
         raise NotImplementedError()
-
-    def _assignEngine(self, engine):
-        self.engine = engine
     
     def instance(self, *args) -> Instance:
         """ return the instance this node is linked too or None in the event the node does not
@@ -64,7 +61,6 @@ class EvalTreeFactory:
 
     def __init__(self, engine):
         self._depth = 0
-        self.engine = engine
 
     def constructTree(self, logic) -> EvalTree:
         """ Convert the provided logic into a EvalTree structure. The Eval tree is the root node of a tree who's
@@ -87,8 +83,6 @@ class EvalTreeFactory:
         if not self._depth and isinstance(node, StringNode): # Check run only for top of tree recursion
             raise IncorrectLogic("The logic provided shall only ever yield a string - {}".format(logic))
 
-        # Pass reference to the engine to each of the nodes within the tree   
-        node._assignEngine(self.engine)
         return node
 
     def _constructTree(self, logic):

@@ -9,7 +9,7 @@ from infogain.exceptions import IncorrectLogic, ConsistencyError
 
 class Test_InferenceEngine(unittest.TestCase):
 
-    def test_concepts.add(self):
+    def test_addConcepts(self):
         """ Test that the adding of a new concept is done """
 
         engine = InferenceEngine()

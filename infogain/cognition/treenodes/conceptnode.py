@@ -33,7 +33,7 @@ class ConceptNode(EvalTree):
         if self.callparameters:
             instance = instance(*self._evaluatedParameters(**kwargs))
             if not isinstance(instance, Instance) and kwargs.get("ignore") != True:
-                raise RuntimeError("Concept Node {} does not yeild an instance.".format(self))
+                raise RuntimeError("Concept Node {} does not yield an instance.".format(self))
 
         return instance
 

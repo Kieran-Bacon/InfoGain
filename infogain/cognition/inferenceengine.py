@@ -1,6 +1,11 @@
+import collections
+import weakref
+
 from ..exceptions import ConsistencyError
 from ..artefact import Document
-from ..knowledge import Ontology, Concept, Instance, Relation, Rule
+from ..knowledge.concept import Concept, ConceptSet
+from ..knowledge import Instance, Relation, Rule
+from ..knowledge.ontology import Ontology, OntologyConcepts, OntologyRelations
 
 from .evalrelation import EvalRelation
 from .evalrule import EvalRule
@@ -10,118 +15,52 @@ import logging
 log = logging.getLogger(__name__)
 
 class InferenceEngine(Ontology):
-    """ Through a collection of knowledge, infer information that is consitent with what is known
-    stating confidence in the inference as we produce it """
+    """ Running on top of an ontology, an interfence engine can infer the confidence in ontology relationships by
+    examining the current world view described by the ontology's member components.
 
-    def __init__(self, name:str = None, filepath:str=None, ontology:Ontology=None):
+    Params:
+        name (str) = None: The name given to describe this collection of knowledge
+        ontology (Ontology) = None: A starting point of knowledge, a base in which is infer
 
-        Ontology.__init__(self, name=name, filepath=filepath)
-        self._conceptInstances = {}  # Links concepts to their instances
-        self._instances = {}  # stores instances
+    Attr:
+        name (str): The name of the engine's collection of knowledg
+    """
+
+    def __init__(self, name: str = None, ontology: Ontology = None):
+
+        # Simply identification of the ontology, no functional use
+        self.name = name
+
+        # The internal storage containers
+        self._concepts = InferenceEngineConcepts(weakref.proxy(self))
+        self._instances = InferenceEngineInstances(weakref.proxy(self))
+        self._relations = InferenceEngineRelations(weakref.proxy(self))
 
         if ontology:
-            ont = ontology.clone()
-            self.name = name if name else ont.name
-            # Load in concepts
-            for concept in ont._concepts.values(): self.concepts.add(concept)
-            # Load in the relations
-            for relation in ont._relations.values(): self.addRelation(relation)
+            # Add each of the items of the provided ontology into the engine - clone elements to avoid coupling issues
+            if self.name is None and ontology.name is not None:
+                self.name = ontology.name
 
-        if filepath:
-            Ontology.__init__(name, filepath=filepath)
+            for concept in ontology.concepts():
+                self.concepts.add(concept.clone())
 
-    def concepts(self, concept: Concept) -> None:
-        """ Add a concept into the engine ontology
+            for relation in ontology.relations():
+                self.relations.add(relation.clone())
 
-        Params:
-            concept (Concept): The concept object to be added
-        """
-        Ontology.concepts.add(self, concept)  # Call the original add concept function
+    @property
+    def concepts(self) -> OntologyConcepts:
+        """ Inference engine concept container """
+        return self._concepts
 
-        if concept.category is Concept.ABSTRACT: return
+    @property
+    def instances(self) -> OntologyConcepts:
+        """ Inference engine instances container """
+        return self._instances
 
-        self._conceptInstances[concept.name] = []
-        if concept.category is Concept.STATIC:
-            instance = concept.instance()
-            self._conceptInstances[concept.name].append(instance)
-            self._instances[concept.name] = instance
-
-    def addRelation(self, relation: Relation):
-        """ Add a relationship into the engine - convert any rules within the relations to
-        evaluable rules according to the engine
-
-        Params:
-            relation (Relation): The relation to be added
-
-        Raises:
-            IncorrectLogic: A rule within the relation has malformed logic
-        """
-        evalRelation = EvalRelation.fromRelation(relation, self)
-        Ontology.addRelation(self, evalRelation)
-        return evalRelation
-
-    def relation(self, relation: (str, Relation)):
-        if isinstance(relation, Relation): relation = relation.name
-        return Ontology.relations(self, relation)
-
-    def addInstance(self, instance: Instance) -> None:
-        """ Add a concept instance - Only possible for dynamic concepts
-
-        Params:
-            concept_instance (ConceptInstance): The instance object to be added
-
-        Raises:
-            ConsistencyError: In the event that the concept is not already apart of the engine
-            TypeError: In the event that the concept is not suitable for additional instances
-        """
-
-        concept = self.concepts(instance.concept)
-        if concept is None: raise ConsistencyError(
-            "{} is not an concept within the engine - Cannot add instance for missing concept".format(repr(instance)))
-        if concept.category is Concept.ABSTRACT or concept.category is Concept.STATIC:
-            raise TypeError("{} is not suitable for additional instances.".format(concept.name))
-
-        self._conceptInstances[concept.name].append(instance)
-        self._instances[instance.name] = instance
-
-    def instance(self, instance_name: str) -> Instance:
-        """ Collect an instance with the provided name or return None in the event that no instance exists with that
-        name
-
-        Params:
-            instance_name (str): The instance name
-
-        Returns:
-            Instance: The instance object with the same name
-            None: The instance could not be found
-        """
-        return self._instances.get(instance_name)
-
-    def instances(self, concept_name: str, descendants: bool = False) -> [Instance]:
-        """ Collect the instances for a concept identifier. If the concept is static then only its
-        single instance shall be returned. Or all the instances for a concept and its children.
-
-        Params:
-            concept_name (str): The concept idenfitier
-            descendants (bool): Along with the concept gather the descendant concept's instances
-
-        Returns:
-            ConceptInstances: A ConceptInstance or a list of concept instances
-        """
-
-        concept = self.concepts(concept_name)
-
-        if descendants:
-            expanded = Concept.expandConceptSet({concept})
-            return [inst for con in expanded for inst in self._conceptInstances.get(con.name, [])]
-
-        if concept.category is Concept.ABSTRACT:
-            log.warning(
-                "Attempting to collect instances for an Abstract concept" +
-                " - Mistake to call instances on {}".format(concept_name))
-            return []
-
-        return self._conceptInstances.get(concept_name, [])
+    @property
+    def relations(self) -> OntologyRelations:
+        """ Inference engine relations container """
+        return self._relations
 
     def addWorldKnowledge(self, documents: [Document]) -> None:
         """ Add world knowledge into the inference engine via document datapoints, unmatched datapoints
@@ -205,3 +144,109 @@ class InferenceEngine(Ontology):
         for relation in self._relations.values():
             for rule in relation.rules():
                 rule.reset()
+
+class InferenceEngineConcepts(OntologyConcepts):
+
+    def add(self, concept: Concept) -> None:
+        """ Add a concept into the engine knowledge base and extend the containter for instances
+
+        Params:
+            concept (Concept): The concept to be added
+        """
+
+        super().add(concept)
+
+        if concept.category is Concept.STATIC:
+            self._owner.instances().add(concept.instance())
+
+    def remove(self, concept: Concept) -> None:
+        super().remove(concept)
+
+        self._owner.instances().remove(concept)
+
+class InferenceEngineInstances(collections.abc.MutableMapping):
+
+    def __init__(self, owner: weakref.ProxyType):
+        self._owner = owner
+        self._elements = {}
+        self._conceptMapping = collections.defaultdict(set)
+
+    def __len__(self): return len(self._elements)
+    def __setitem__(self, name: str, instance: Instance): self._elements[name] = instance
+    def __getitem__(self, name: str): return self._elements[name]
+    def __delitem__(self, name: str):
+        """ Remove an instance by its given name from the container """
+
+        instance = self[name]
+        if instance.concept is Concept.STATIC and instance.concept in self._owner.concepts():
+            raise ConsistencyError("You cannot remove the static instance of a concept - You must remove the concept")
+        del self._elements[name]
+        self._conceptMapping[instance.concept].remove(instance)
+        if not self._conceptMapping[instance.concept]: del self._conceptMapping[instance.concept]
+    
+    def __iter__(self): return iter(self._elements)
+
+    def add(self, instance: Instance) -> None:
+        """ Add a concept instance - Only possible for dynamic concepts
+
+        Params:
+            concept_instance (ConceptInstance): The instance object to be added
+
+        Raises:
+            ConsistencyError: In the event that the concept is not already apart of the engine
+            TypeError: In the event that the concept is not suitable for additional instances
+        """
+
+        concept = self.concepts(instance.concept)
+        if concept is None:
+            raise ConsistencyError(
+                "{} is not an concept within the engine - Invalid addition of instance".format(repr(instance))
+            )
+        if concept.category is (concept.ABSTRACT or concept.STATIC):
+            raise TypeError("{} is not suitable for additional instances.".format(concept.name))
+
+        self._conceptMapping[concept].add(instance)
+        self._elements[instance.name] = instance
+
+    def __call__(self, concept: Concept, descendants: bool = False)  -> (Instance, {Instance}):
+        """ Collect the instance who's namee has been specified, or collect the instances for a concept identifier. If
+        descendants is true, then in the event that a concept is passed, all instances of descendant concepts shall also
+        be returned.
+
+        Params:
+            concept (str/Concept): The name of the instance to be returned, or the concept idenfitier
+            descendants (bool): Along with the concept gather the descendant concept's instances
+
+        Returns:
+            ConceptInstances: A ConceptInstance or a list of concept instances
+        """
+        
+        if isinstance(concept, str):
+            return self.get(concept)  # Return the instance with the given name or None
+
+        elif isinstance(concept, Concept):
+
+            if descendants:
+                return {inst for con in ConceptSet({concept}).expanded() for inst in self._conceptMapping.get(con)}
+
+            if concept.category is Concept.ABSTRACT:
+                log.warning("Cannot collect instances of an Abstract concept {}".format(concept))
+                return set()
+
+            return self._conceptMapping.get(concept, set())
+        else:
+            raise TypeError("Incorrect type passed to Instance Container call method")
+
+class InferenceEngineRelations(OntologyRelations):
+
+    def add(self, relation: Relation):
+        """ Add a relationship into the engine - convert any rules within the relations to
+        evaluable rules according to the engine
+
+        Params:
+            relation (Relation): The relation to be added
+
+        Raises:
+            IncorrectLogic: A rule within the relation has malformed logic
+        """
+        return super().add(EvalRelation.fromRelation(relation))

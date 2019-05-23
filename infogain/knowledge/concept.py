@@ -1,5 +1,6 @@
 import uuid
-from collections.abc import MutableSet
+import weakref
+import collections
 
 from ..information import Vertex
 from .instance import Instance
@@ -29,29 +30,27 @@ class Concept(Vertex):
         name: str,
         parents: set = set(),
         children: set = set(),
-        alias: set = set(),
+        aliases: set = set(),
         properties: dict = {},
-        category: str = "dynamic",
-        json: dict = {}
+        category: str = "dynamic"
         ):
 
         self.name = name
+        self.category = category
 
-        # Relationships this concept is a part of
-        self._relationMembership = set()
+        # Set up concept container objects to manage various interactions of the concept
+        # Container of relationships this concept is a member of - weak to remove relations if ever they are deleted
+        self._relationMembership = weakref.WeakSet()  # Hold relations this concept is a member of
+        self._parents = FamilyConceptSet(owner=self, ancestors=True)  # Hold references to parent concepts
+        self._children = FamilyConceptSet(owner=self, ancestors=False)  # Hold references to child concepts
+        self._aliases = ConceptAliases(weakref.proxy(self))  # Hold the various ways concepts might be referenced
+        self._properties = ConceptProperties(weakref.proxy(self))  # Hold property information on a concept
 
-        # Family hierarchy structures
-        self.parents = FamilyConceptSet(owner=self, ancestors=True)
-        self.children = FamilyConceptSet(owner=self, ancestors=False)
+        # Add container information
         for con in parents: self.parents.add(con)
         for con in children: self.children.add(con)
-
-        # Concept aliases and properties
-        self.alias = alias
-        self.properties = properties.copy()
-
-        # Type of concept instance
-        self.category = category
+        for alias in aliases: self.aliases.add(alias)
+        self.properties.update(properties)
 
         # Set up the concept instance class
         if self.category is not Concept.ABSTRACT:
@@ -68,23 +67,41 @@ class Concept(Vertex):
     def parents(self):
         return self._parents
     @parents.setter
-    def parents(self, conceptSet: MutableSet):
-        if isinstance(conceptSet, FamilyConceptSet) and conceptSet.isAncestors():
-            self._parents = conceptSet
-            conceptSet._owner = self
-        else:
-            raise ConsistencyError("Incorrect definition of {}'s parent set. Passed {}".format(self, conceptSet))
+    def parents(self, conceptSet: collections.abc.MutableSet):
+
+        if any(not isinstance(concept, Concept) for concept in conceptSet):
+            raise ValueError("You cannot provide a non Concept as a parent of concept {}".format(self))
+
+        conceptSet = set(conceptSet)
+
+        toAdd = conceptSet.difference(self._parents)
+        toRemove = self._parents.difference(conceptSet)
+        
+        for rConcept in toRemove:
+            self._parents.remove(rConcept)
+
+        for aConcept in toAdd:
+            self._parents.add(aConcept)
 
     @property
     def children(self):
         return self._children
     @children.setter
-    def children(self, conceptSet: MutableSet):
-        if isinstance(conceptSet, FamilyConceptSet) and not conceptSet.isAncestors():
-            self._children = conceptSet
-            conceptSet._owner = self
-        else:
-            raise ConsistencyError("Incorrect definition of {}'s children set. Passed {}".format(self, conceptSet))
+    def children(self, conceptSet: collections.abc.MutableSet):
+
+        if any(not isinstance(concept, Concept) for concept in conceptSet):
+            raise ValueError("You cannot provide a non Concept as a child of concept {}".format(self))
+
+        conceptSet = set(conceptSet)
+
+        toAdd = conceptSet.difference(self._children)
+        toRemove = self._children.difference(conceptSet)
+        
+        for rConcept in toRemove:
+            self._children.remove(rConcept)
+
+        for aConcept in toAdd:
+            self._children.add(aConcept)
 
     @property
     def category(self): return self._category
@@ -94,6 +111,12 @@ class Concept(Vertex):
         elif category == self.STATIC: self._category = self.STATIC
         elif category == self.DYNAMIC: self._category = self.DYNAMIC
         else: raise ValueError("Invalid category '{}' provided to concept {} definition".format(category, self.name))
+
+    @property
+    def aliases(self): return self._aliases
+    
+    @property
+    def properties(self): return self._properties
 
     def ancestors(self):
         """ Return a collection of concepts, all of the concepts that can be linked via the parent
@@ -141,6 +164,8 @@ class Concept(Vertex):
         Raises:
             TypeError: In the event that the instance_class is does not extend ConceptInstance
         """
+        if self.category is Concept.STATIC:
+            raise ConsistencyError("An abstract concept cannot have an instance, nor a instance class set")
 
         if not issubclass(instance_class, Instance):
             raise TypeError("Class passed to concept '{}' as new instance".format(self) +
@@ -187,77 +212,14 @@ class Concept(Vertex):
             self.name,
             {p.name for p in self.parents},
             {c.name for c in self.children},
-            self.alias,
+            self.aliases,
             self.properties,
             self.category
             )
 
         return clone
 
-    def minimise(self) -> dict:
-        """ Return only the information the concept represents
-
-        Returns:
-            dict - The minimised version of the concept, encapsulates all the information
-        """
-
-        concept = {"name": self.name}
-        if self.parents: concept["parents"] = sorted([parent if isinstance(parent, str) else parent.name
-            for parent in self.parents])
-        if self.properties: concept["properties"] = self.properties
-        if self.alias: concept["alias"] = sorted(list(self.alias))
-        if self.category is not Concept.DYNAMIC: concept["category"] = self.category
-
-        return concept
-
-    @classmethod
-    def expandConceptSet(cls, collection, descending: bool = True):
-        """ Expand a collection of concepts to include all descendants when applicable
-
-        Params:
-            collection (set): The initial set of concepts, that are to be expanded
-
-        Returns:
-            set: A superset of the collection, includes children
-        """
-
-        expansion = set()
-
-        for concept in collection:
-            expansion.add(concept)
-            if isinstance(concept, cls):
-                group = concept.descendants() if descending else concept.ancestors()
-                for con in group:
-                    if isinstance(con, str) or con.category is not Concept.ABSTRACT:
-                        expansion.add(con)
-
-        log.debug("expanded set {} into {}".format([str(x) for x in collection], [str(x) for x in expansion]))
-        return expansion
-
-    @classmethod
-    def minimiseConceptSet(cls, collection, ascending: bool = True):
-        """ Minimise a collection according to possible concepts within another.
-
-        Params:
-            collection (set): The collection that is being minimised
-
-        Returns:
-            set: Minimised set
-        """
-        collection = set(collection)
-        minimised = set()
-
-        for con in collection:
-            if isinstance(con, cls):
-                group = con.ancestors() if ascending else con.descendants()
-                if group.intersection(collection): continue
-
-            minimised.add(con)
-
-        log.debug("minimised set {} from {}".format([str(x) for x in minimised], [str(x) for x in collection]))
-        return minimised
-
-class ConceptSet(MutableSet):
+class ConceptSet(collections.abc.MutableSet):
     """ The Concept set is a container for concepts that provides additional support for many of the operations that
     require concepts. The ConceptSet intends to keep track of partial concepts that have been used as placeholders and
     allow for easy updates to those concepts. Furthermore it helps expand and minimise a set of concepts via their
@@ -306,17 +268,17 @@ class ConceptSet(MutableSet):
         if concept in self._elements: self._elements.remove(concept)
         if concept in self._partial: self._partial.remove(concept)
 
-    def remove(self, concept: Concept) -> None:
-        """ Remove a concept from the ConceptSet
+    # def remove(self, concept: Concept) -> None:
+    #     """ Remove a concept from the ConceptSet
 
-        Params:
-            concept (Concept): The concept to be removed
+    #     Params:
+    #         concept (Concept): The concept to be removed
 
-        Raises:
-            KeyError: In the event that the concept is not present within the ConceptSet
-        """
-        self._elements.remove(concept)
-        if concept in self._partial: self._partial.remove(concept)
+    #     Raises:
+    #         KeyError: In the event that the concept is not present within the ConceptSet
+    #     """
+    #     self._elements.remove(concept)
+    #     if concept in self._partial: self._partial.remove(concept)
 
     def expand(self, descending: bool = True) -> None:
         """ Expand a collection of concepts to include either their descendants or their ancestors when applicable
@@ -423,7 +385,7 @@ class ConceptSet(MutableSet):
         Returns:
             ConceptSet: A set of all concepts from this set, that do not appear in the other set
         """
-        return ConceptSet([e for e in self._elements if e not in other])
+        return ConceptSet((e for e in self._elements if e not in other))
 
     def copy(self):
         """ Shallow copy this set """
@@ -454,7 +416,7 @@ class FamilyConceptSet(ConceptSet):
         self._owner = owner
         self._ancestors = ancestors
 
-    def __repr__(self): return "<FamilyConceptSet{}>".format(self._elements)
+    def __repr__(self): return "<FamilyConceptSet{}>".format(self._elements if self._elements else r"{}")
 
     def isAncestors(self):
         """ Is this the parent ConceptSet for the owner? """
@@ -497,3 +459,290 @@ class FamilyConceptSet(ConceptSet):
             concept (Concept): The concept that is being checked if correctly a member
         """
         return concept not in self._partial and concept in self._elements
+
+class ConceptAliases(collections.abc.MutableSet):
+
+    def __init__(self, owner: weakref.ProxyType):
+        self._owner = owner
+        self._elements = set()
+        self._inheritedCounter = collections.defaultdict(int)
+
+    def __len__(self): return len(self._elements)
+    def __iter__(self): return iter(self._elements)
+    def __contains__(self, name: str): return name in self._elements
+
+    def add(self, name: str):
+        if not isinstance(name, str): raise TypeError("Invalid type of alias given - aliases must be str not {}".format(type(name)))
+
+
+        if name in self._elements: return
+
+        self._elements.add(name)
+        for child in filter(lambda x: isinstance(x, Concept), self._owner.descendants()):
+            child.aliases._addInherited(name)
+    
+    def _addInherited(self, name: str):
+        self._elements.add(name)
+        self._inheritedCounter[name] += 1
+
+    def discard(self, name: str):
+
+        if (
+            not isinstance(name, str) or 
+            name not in self._elements or
+            (name in self._inheritedCounter and self._inheritedCounter[name])
+        ):
+            # Invalid item passed to discard to be removed
+            return False
+
+        if name not in self._elements or self._inheritedCounter[name]:
+            # The name doesn't exist or the name is inherited from another
+            return False
+
+        self._elements.remove(name)
+
+        for child in filter(lambda x: isinstance(x, Concept), self._owner.descendants()):
+            child.aliases._discardInherited(name)
+
+        return True
+
+    def _discardInherited(self, name: str):
+
+        if name not in self._inheritedCounter or not self._inheritedCounter[name]: return False
+
+        self._inheritedCounter[name] -= 1
+        
+        # If the counter had dropped to zero - remove the name from the alias pool
+        if not self._inheritedCounter[name]:
+            del self._inheritedCounter[name]
+            self._elements.remove(name)
+
+    def inherited(self):
+        return set(self._inheritedCounter.keys())
+
+    def specific(self):
+        return self._elements.difference(self.inherited())
+
+class MultiplePartProperty(collections.abc.MutableSet):
+
+    def __init__(self, iterable = None):
+        self._elements = collections.Counter(iterable)
+
+    def __repr__(self): return "<MultiPartProperty {}>".format(set(self._elements.keys()))
+    def __len__(self): return len(self._elements)
+    def __iter__(self): return iter(self._elements.keys())
+    def __contains__(self, item: object): return item in self._elements
+    def add(self, item: object, count = 1): self._elements[item] += max(1, count)
+
+    def discard(self, item: object):
+
+        if item not in self._elements: return False
+
+        self._elements[item] -= 1
+
+        if not self._elements[item]:
+            del self._elements[item]
+
+        return True 
+
+class ConceptProperties(collections.abc.MutableMapping):
+
+    def __init__(self, owner: weakref.ProxyType):
+        self._owner = owner
+        self._elements = {}
+        self._inheritedElements = {}
+        self._inheritedCounter = collections.defaultdict(int)
+
+    def __len__(self): return len(set(self._elements.keys()).union(set(self._inheritedElements.keys())))
+    def __iter__(self): return iter({**self._inheritedElements, **self._elements})
+
+    def __setitem__(self, key: str, value: object):
+        """ Set the value for a property value on the concept. There are three states a property can have: It can not be
+        set which results in a new property being added; It can be set and the new value is the same as the old, nothing
+        happens; propery was set and has now changed.
+
+        Set the correct value and desceminate if the value is new or changed
+
+        """
+        
+        if not isinstance(key, str): raise ValueError("Property name must be a `str` not `{}`".format(type(key)))
+        if value is None: raise ValueError("Cannot set concept property as None")
+
+        # Check to see if the value had already been set beforehand
+        if key in self._elements:
+            # The value has been set before
+            if value == self._elements[key]: return  # Nothing to do
+
+            
+            old_value, self._elements[key] = self._elements[key], value
+
+            for child in filter(lambda x: isinstance(x, Concept), self._owner.children):
+                child.properties._updateInherited(key, old_value, value)
+
+        else:
+            # The item is entirely new
+            self._elements[key] = value
+
+            if key in self._inheritedElements:
+                # The key was inherited before and therefore children already have an inherited property with this
+                # key. Update their key value to show this new one
+               for child in filter(lambda x: isinstance(x, Concept), self._owner.children):
+                    child.properties._updateInherited(key, self._inheritedElements[key], value)
+            
+            else:
+                # New for children too, set inherited value
+                for child in filter(lambda x: isinstance(x, Concept), self._owner.children):
+                    child.properties._setInherited(key, value)
+
+    def __getitem__(self, key: str):
+        if key in self._elements: return self._elements[key]
+        elif key in self._inheritedElements: return self._inheritedElements[key]
+        else: raise KeyError("{} doesn't have a property by that name {}".format(self._owner, key))
+
+    def __delitem__(self, key: str):
+        
+        # Deleting an property when there is another with the same key in your inherited, it must then be cascaded
+        # in the event that its value is not the same as the one you've just removed.
+
+        # Removing an item should trigger the children of this concept to remove this as an inherited item
+
+        # Remove the stored value from the elements
+        value = self._elements.pop(key)
+
+        # If there was an inherited value with the same value, and the value is not the same as specific value, cascade
+        if key in self._inheritedElements:
+            if self._inheritedElements[key] != value:  # If the value is the same, no need to do anything
+                for child in self._owner.children:
+                    child.attr._updateInherited(key, self._inheritedElements[key])
+
+        else:
+            # The value has been completely removed - remove this property from children where it may have cascaded
+            for child in filter(lambda x: isinstance(x, Concept), self._owner.children):
+                child.attr._removeInherited(key, value)
+
+    def _setInherited(self, key: str, value: object):
+        """ This is a key value that is being passed down by an unknown parent concept - the assumption is that the
+        parent concept that gives this attribute shall never give it twice, and shall call update if it would like to 
+        change its value. Given this, a count is used to record the number of parents that provide the said property.
+
+        If conflicting values for keys are givening by inheriting a value, both shall be recorded against the key. It 
+        will be up to the user to either select them at random or overload the inherited value with a specifc value for
+        the concept.
+
+        Params:
+            key (str): The string name of the property
+            value (object): What ever would like to be recorded against the key
+        """
+        if value is None: raise ValueError("Cannot set concept property as None")
+
+        if key in self._inheritedElements:
+            # Previously inherited something with that key
+
+            storedVal = self._inheritedElements[key]
+
+            if isinstance(storedVal, MultiplePartProperty):
+                # There have been multiple inherited conflicts, ading to the MultiPartProperty this addition
+                storedVal.add(value)
+
+            elif value != storedVal:
+                # There was an initial value that had no conflict - create multi prop and add original count times
+                mprop = MultiplePartProperty()
+                mprop.add(storedVal, count=self._inheritedCounter[key])
+                mprop.add(value)
+
+                self._inheritedElements[key] = mprop
+
+        else:
+            # New inherited item
+            self._inheritedElements[key] = value
+        
+        # Update counter for a key
+        self._inheritedCounter[key] += 1
+
+        if key not in self._elements:
+            # The inherited key wasn't overloaded by the concept so it needs to propagate
+            for child in self._owner.children:
+                child.properties._setInherited(key, value)
+
+    def _updateInherited(self, key: str, oldValue: object, value: object):
+        """ For the given inherited value key that this container shall already have, change the value if possible to
+        the newly provided value
+
+        Params:
+            key (str): the name of the property
+            value (object): the value of the property to replace to old one
+        """
+
+        if key not in self._inheritedElements:
+            raise ValueError("Properties don't have inherited property with given key {}".format(key))
+
+        inheritedProp = self._inheritedElements[key]
+
+        if isinstance(inheritedProp, MultiplePartProperty):
+            inheritedProp.remove(oldValue)
+            inheritedProp.add(value)
+
+            if len(inheritedProp) == 1:
+                # All the properties now agree with each other, no conflict
+                self._inheritedElements[key] = inheritedProp.pop()
+
+        elif inheritedProp == oldValue:
+            if self._inheritedCounter[key] == 1:
+                # The value being updated was the only value inherited, just switch it and end
+                self._inheritedElements[key] = value
+
+            else:
+                # Multiple parts provided the old value - now switching between properties so a multipart needed
+                multiprop = MultiplePartProperty()
+                multiprop.add(inheritedProp, count=self._inheritedCounter[key] - 1)
+                multiprop.add(value)
+
+        else:
+            raise ValueError("Original property value to be updated didn't match stored value - found {} not {}".format(
+                inheritedProp, oldValue
+            ))
+
+        if key not in self._elements and inheritedProp != value:
+            # The update needs to cascade down into the child concepts
+            for child in self._owner.children:
+                child.properties._updateInherited(key, oldValue, value)
+
+    def _removeInherited(self, key: str, value: object):
+        """ Remove an inherited key, value """
+
+        if key not in self._inheritedElements:
+            raise ValueError("Cannot remove inherited property not inherited - {}".format(key))
+
+
+        inheritedProp = self._inheritedElements[key]
+
+        if isinstance(inheritedProp, MultiplePartProperty):
+            inheritedProp.remove(value)
+
+            if len(inheritedProp) == 1:
+                self._inheritedElements[key] = inheritedProp.pop()
+
+        elif inheritedProp == value:
+
+            self._inheritedCounter[key] -= 1
+
+            if not self._inheritedCounter[key]:
+                del self._inheritedElements[key]
+                del self._inheritedCounter[key]
+
+        else:
+            raise ValueError(
+                "Cannot remove property when uncertainty about property value"
+                " - found {} when expected {}".format(inheritedProp, value)
+            )
+
+        self._inheritedCounter[key] -= 1
+
+        if key not in self._elements:
+            # The value had cascaded, need to remove from children
+
+            for child in self._owner.children:
+                child.properties._removeInherited(key, value)
+
+    def copy(self):
+        return dict(self.items())

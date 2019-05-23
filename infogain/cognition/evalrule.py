@@ -171,7 +171,7 @@ class EvalRule(Rule):
         self._evaluatedConfidences = {}
 
     @classmethod
-    def fromRule(cls, rule: Rule, engine: Ontology):
+    def fromRule(cls, rule: Rule):
         """ Convert a Rule onject from infogain.knowledge into an EvalRule object
         
         Params:
@@ -183,8 +183,7 @@ class EvalRule(Rule):
             rule.targets,
             rule.confidence,
             supporting=rule.supporting,
-            conditions=rule.conditions(),
-            ontology=engine
+            conditions=rule.conditions()
         )
 
     @staticmethod

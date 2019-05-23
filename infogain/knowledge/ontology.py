@@ -26,7 +26,7 @@ class Ontology:
 
         # The internal storage containers
         self._concepts = OntologyConcepts(weakref.proxy(self))
-        self._relations = OntologyRelation(weakref.proxy(self))
+        self._relations = OntologyRelations(weakref.proxy(self))
 
     def importBuiltin(self, module_name: str) -> None:
         """ Import knowledge considered common (and required) in most applications. Add the
@@ -153,7 +153,10 @@ class OntologyConcepts(collections.abc.MutableMapping):
 
         self[concept.name] = concept
 
-class OntologyRelation(collections.abc.MutableMapping):
+    def remove(self, concept: Concept) -> None:
+        del self[concept.name]
+
+class OntologyRelations(collections.abc.MutableMapping):
 
     def __init__(self, owner: Ontology):
         self._owner = owner

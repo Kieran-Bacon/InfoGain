@@ -6,6 +6,30 @@ A concept that is added to an ontology is then linked with any ontology member c
 
 ## Concepts
 
+### Concept attributes
+
+Concepts properties are inherited by child concepts as it should be true that a property of a type should be true for all concepts that are of that type. However, blindly inheriting properties can lead to inconsistencies in the ontology when it comes to multiple inheritance. Though it may be true that a concept is a type of something, it may have a property given by a different parent. It is impossible to discern which property should be choosen in these events, such that the choice is left up to the user. All conflicting attributes shall be kept and given when asking for these values. The intention is that in such events the user is to choose and give the correct value for the concept property.
+
+A multipart object shall be created for these properties to house the multiple values given. A user would be wise to set a specific value for the property on the concept itself to avoid any issues that this might cause.
+
+```python
+a = Concept("A", properties={"example": 1})
+b = Concept("B", properties={"example": 2})
+
+c = Concept("C", parents={a, b})
+
+c.properties["example"]
+>'<MultiPartProperty(1, 2)>'
+
+c.properties["example"] = 2
+
+c.properties["example"]
+>'2'
+```
+
+
+ A concept that inherits multiple concepts that have differing values for a property, discerning which one is the correct property to exhibit is rather difficult to .
+
 ### Removing a concept from a family set
 
 This is simple, sorry about this, I am thinking about what happens when you remove a concept from a relation concept set... that shit gets weird real quick mudda
