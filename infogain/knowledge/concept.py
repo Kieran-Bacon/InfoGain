@@ -41,8 +41,8 @@ class Concept(Vertex):
         # Set up concept container objects to manage various interactions of the concept
         # Container of relationships this concept is a member of - weak to remove relations if ever they are deleted
         self._relationMembership = weakref.WeakSet()  # Hold relations this concept is a member of
-        self._parents = FamilyConceptSet(owner=self, ancestors=True)  # Hold references to parent concepts
-        self._children = FamilyConceptSet(owner=self, ancestors=False)  # Hold references to child concepts
+        self._parents = FamilyConceptSet(weakref.proxy(self), ancestors=True)  # Hold references to parent concepts
+        self._children = FamilyConceptSet(weakref.proxy(self), ancestors=False)  # Hold references to child concepts
         self._aliases = ConceptAliases(weakref.proxy(self))  # Hold the various ways concepts might be referenced
         self._properties = ConceptProperties(weakref.proxy(self))  # Hold property information on a concept
 
@@ -164,7 +164,7 @@ class Concept(Vertex):
         Raises:
             TypeError: In the event that the instance_class is does not extend ConceptInstance
         """
-        if self.category is Concept.STATIC:
+        if self.category is Concept.ABSTRACT:
             raise ConsistencyError("An abstract concept cannot have an instance, nor a instance class set")
 
         if not issubclass(instance_class, Instance):
@@ -265,8 +265,18 @@ class ConceptSet(collections.abc.MutableSet):
         Params:
             concept (Concept): The concept to be removed
         """
-        if concept in self._elements: self._elements.remove(concept)
-        if concept in self._partial: self._partial.remove(concept)
+
+        isDiscarded = False
+        
+
+        if concept in self._elements:
+            self._elements.remove(concept)
+            isDiscarded = True
+        if concept in self._partial:
+            self._partial.remove(concept)
+            isDiscarded = True
+
+        return isDiscarded
 
     # def remove(self, concept: Concept) -> None:
     #     """ Remove a concept from the ConceptSet
@@ -409,11 +419,11 @@ class FamilyConceptSet(ConceptSet):
         ancestors (bool): Indicates whether this set holds the the parents or children for the owner
     """
 
-    def __init__(self, owner: Concept = None, ancestors: bool = True):
-        self._elements = set()
-        self._partial = set()
+    def __init__(self, owner: weakref.ProxyType, ancestors: bool = True):
 
         self._owner = owner
+        self._elements = set()
+        self._partial = set()
         self._ancestors = ancestors
 
     def __repr__(self): return "<FamilyConceptSet{}>".format(self._elements if self._elements else r"{}")
@@ -437,6 +447,16 @@ class FamilyConceptSet(ConceptSet):
 
         # Identify corresponding family concept set from new concept + pull down relations where applicable
         if self._ancestors:
+            # This set holds the ancestors of its owner
+
+            # Pull down aliases
+            for alias in self._owner.aliases:
+                self._owner.aliases._addInherited(alias)
+
+            # Pull down properties
+            for key, value in concept.properties.items():
+                self._owner.properties._setInherited(key, value)
+
             # Pull down relations from the new parent concept
             for relation in concept._relationMembership:
                 self._owner._relationMembership.add(relation)
@@ -445,13 +465,14 @@ class FamilyConceptSet(ConceptSet):
             otherSet = concept.children
 
         else:
+            # This set holds the descendants of the owner
             otherSet = concept.parents
 
         # Check whether the owning concept is correctly linked with the new concept from their perspective
-        if not otherSet.linked(self._owner):
+        if not otherSet._linked(self._owner):
             otherSet.add(self._owner)
 
-    def linked(self, concept: Concept):
+    def _linked(self, concept: Concept):
         """ Determine whether this concept is correctly linked inside this concept set. Linked if the concept is within
         the set and isn't partial.
 

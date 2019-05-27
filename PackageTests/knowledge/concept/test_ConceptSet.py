@@ -1,6 +1,7 @@
 import unittest
 
-from infogain.knowledge.concept import Concept, ConceptSet, FamilyConceptSet
+from infogain.knowledge import Concept, Instance
+from infogain.knowledge.concept import ConceptSet, FamilyConceptSet
 
 class Test_ConceptSet(unittest.TestCase):
     """ These tests test the ConceptSet itself specifically """

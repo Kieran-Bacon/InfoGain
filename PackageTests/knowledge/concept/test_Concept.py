@@ -197,8 +197,6 @@ class Test_ConceptInterface(unittest.TestCase):
         self.assertFalse("a" in instanceTwo.properties)
         self.assertFalse("a" in dynamic.properties)
 
-
-
     def test_clone(self):
 
         parent = Concept("Parent")
@@ -262,28 +260,6 @@ class Test_Concept(unittest.TestCase):
         person = Concept("Person",children={"Son"})
         self.assertEqual(person.descendants(), {"Son"})
 
-    def test_minimise(self):
-
-        concept = Concept("Name")
-        mini = concept.minimise()
-
-        self.assertEqual(mini["name"], "Name")
-        self.assertTrue(mini.get("parents", True))
-        self.assertTrue(mini.get("permeable", True))
-        self.assertTrue(mini.get("properties", True))
-        self.assertTrue(mini.get("alias", True))
-
-        concept = Concept("Name", parents={"Kieran"}, children={"What", "hey"})
-        concept.alias.add("Badass")
-        concept.properties["age"] = 24
-        mini = concept.minimise()
-
-        self.assertEqual(mini["name"], "Name")
-        self.assertEqual(mini["parents"], ["Kieran"])
-        self.assertFalse(mini.get("permeable", False))
-        self.assertEqual(mini["properties"], {"age": 24})
-        self.assertEqual(mini["alias"], ["Badass"])
-
     def test_expandConceptSet(self):
         """ Ensure that a concept is correct expanded into its children """
 
@@ -301,10 +277,10 @@ class Test_Concept(unittest.TestCase):
             ont.concepts.add(concept)
 
         self.assertEqual(
-            {con.name for con in Concept.expandConceptSet({x, y1})},
+            {con.name for con in ConceptSet({x, y1}).expanded()},
             {con.name for con in {x,x1,x2,x11,x12,y1,y11}}
         )
-        self.assertEqual(Concept.expandConceptSet({x2, y}), {x2, y, y1, y2, y11})
+        self.assertEqual(ConceptSet({x2, y}).expanded(), {x2, y, y1, y2, y11})
 
     def test_generation_of_concept_instance(self):
         """ Test that a concept generates its instance correctly and that it has the behaviour that
