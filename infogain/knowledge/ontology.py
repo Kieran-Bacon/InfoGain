@@ -132,7 +132,7 @@ class OntologyConcepts(collections.abc.MutableMapping):
         # Record all partial links between this concept and external concepts
         for family in [concept.parents, concept.children]:
             for step in family.partials():
-                found = self[step]
+                found = self.get(step)
                 if found:
                     family.add(found)  # Family member found, add to concept and connect (internally)
                 else:
@@ -154,7 +154,7 @@ class OntologyConcepts(collections.abc.MutableMapping):
         self[concept.name] = concept
 
     def remove(self, concept: Concept) -> None:
-        del self[concept.name]
+        raise NotImplementedError()
 
 class OntologyRelations(collections.abc.MutableMapping):
 
