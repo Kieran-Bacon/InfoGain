@@ -76,7 +76,7 @@ class Concept(Vertex):
 
         toAdd = conceptSet.difference(self._parents)
         toRemove = self._parents.difference(conceptSet)
-        
+
         for rConcept in toRemove:
             self._parents.remove(rConcept)
 
@@ -96,7 +96,7 @@ class Concept(Vertex):
 
         toAdd = conceptSet.difference(self._children)
         toRemove = self._children.difference(conceptSet)
-        
+
         for rConcept in toRemove:
             self._children.remove(rConcept)
 
@@ -114,7 +114,7 @@ class Concept(Vertex):
 
     @property
     def aliases(self): return self._aliases
-    
+
     @property
     def properties(self): return self._properties
 
@@ -267,7 +267,7 @@ class ConceptSet(collections.abc.MutableSet):
         """
 
         isDiscarded = False
-        
+
 
         if concept in self._elements:
             self._elements.remove(concept)
@@ -428,10 +428,6 @@ class FamilyConceptSet(ConceptSet):
 
     def __repr__(self): return "<FamilyConceptSet{}>".format(self._elements if self._elements else r"{}")
 
-    def isAncestors(self):
-        """ Is this the parent ConceptSet for the owner? """
-        return self._ancestors
-
     def add(self, concept: Concept) -> None:
         """ Add a concept into this set. If the concept is partial, store its information such that it can be replaced
         at a later date. If this is the parent set, pull down relations that have been set up on the concepts within.
@@ -440,6 +436,19 @@ class FamilyConceptSet(ConceptSet):
         Params:
             concept (Concept): The concept to be added into the set
         """
+
+        #TODO: Need to work out how to ensure that we can't add the same concept over and over again
+
+        # There are two types of input - Concept and string
+        # We want to add a full concept in the event that it doesn't exist or that the one that does exist is partial
+        # We want to add the string in the event that it doesn't exist
+
+        # empty, add concept
+        # empty add string
+        # concept, add concept - ignore
+        # concept, add string - ignore
+        # string, add concept
+        # string, add string - ignore
 
         # Add the element into the set via ConceptSet method
         super().add(concept)
@@ -483,6 +492,16 @@ class FamilyConceptSet(ConceptSet):
         """
         return concept not in self._partial and concept in self._elements
 
+    def discard(self, concept: Concept) -> bool:
+
+        isRemoved = super().discard(concept)
+
+        if isRemoved and isinstance(concept, Concept):
+            # The concept was present
+
+            #TODO need to ensure that the concepts are delinked, the inherited aliases, properties are removed - tested
+            raise NotImplementedError()
+
 class ConceptAliases(collections.abc.MutableSet):
 
     def __init__(self, owner: weakref.ProxyType):
@@ -503,7 +522,7 @@ class ConceptAliases(collections.abc.MutableSet):
         self._elements.add(name)
         for child in filter(lambda x: isinstance(x, Concept), self._owner().descendants()):
             child.aliases._addInherited(name)
-    
+
     def _addInherited(self, name: str):
         self._elements.add(name)
         self._inheritedCounter[name] += 1
@@ -511,7 +530,7 @@ class ConceptAliases(collections.abc.MutableSet):
     def discard(self, name: str):
 
         if (
-            not isinstance(name, str) or 
+            not isinstance(name, str) or
             name not in self._elements or
             (name in self._inheritedCounter and self._inheritedCounter[name])
         ):
@@ -534,7 +553,7 @@ class ConceptAliases(collections.abc.MutableSet):
         if name not in self._inheritedCounter or not self._inheritedCounter[name]: return False
 
         self._inheritedCounter[name] -= 1
-        
+
         # If the counter had dropped to zero - remove the name from the alias pool
         if not self._inheritedCounter[name]:
             del self._inheritedCounter[name]
@@ -566,7 +585,7 @@ class MultiplePartProperty(collections.abc.MutableSet):
         if not self._elements[item]:
             del self._elements[item]
 
-        return True 
+        return True
 
 class ConceptProperties(collections.abc.MutableMapping):
 
@@ -587,7 +606,7 @@ class ConceptProperties(collections.abc.MutableMapping):
         Set the correct value and desceminate if the value is new or changed
 
         """
-        
+
         if not isinstance(key, str): raise ValueError("Property name must be a `str` not `{}`".format(type(key)))
         if value is None: raise ValueError("Cannot set concept property as None")
 
@@ -599,7 +618,7 @@ class ConceptProperties(collections.abc.MutableMapping):
             # The value has been set before
             if value == self._elements[key]: return  # Nothing to do
 
-            
+
             old_value, self._elements[key] = self._elements[key], value
 
             for child in filter(lambda x: isinstance(x, Concept), owner.children):
@@ -614,7 +633,7 @@ class ConceptProperties(collections.abc.MutableMapping):
                 # key. Update their key value to show this new one
                for child in filter(lambda x: isinstance(x, Concept), owner.children):
                     child.properties._updateInherited(key, self._inheritedElements[key], value)
-            
+
             else:
                 # New for children too, set inherited value
                 for child in filter(lambda x: isinstance(x, Concept), owner.children):
@@ -626,7 +645,7 @@ class ConceptProperties(collections.abc.MutableMapping):
         else: raise KeyError("{} doesn't have a property by that name {}".format(self._owner(), key))
 
     def __delitem__(self, key: str):
-        
+
         # Deleting an property when there is another with the same key in your inherited, it must then be cascaded
         # in the event that its value is not the same as the one you've just removed.
 
@@ -650,10 +669,10 @@ class ConceptProperties(collections.abc.MutableMapping):
 
     def _setInherited(self, key: str, value: object):
         """ This is a key value that is being passed down by an unknown parent concept - the assumption is that the
-        parent concept that gives this attribute shall never give it twice, and shall call update if it would like to 
+        parent concept that gives this attribute shall never give it twice, and shall call update if it would like to
         change its value. Given this, a count is used to record the number of parents that provide the said property.
 
-        If conflicting values for keys are givening by inheriting a value, both shall be recorded against the key. It 
+        If conflicting values for keys are givening by inheriting a value, both shall be recorded against the key. It
         will be up to the user to either select them at random or overload the inherited value with a specifc value for
         the concept.
 
@@ -683,7 +702,7 @@ class ConceptProperties(collections.abc.MutableMapping):
         else:
             # New inherited item
             self._inheritedElements[key] = value
-        
+
         # Update counter for a key
         self._inheritedCounter[key] += 1
 
