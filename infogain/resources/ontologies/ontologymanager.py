@@ -1,4 +1,5 @@
 import os
+from ...serialisers import SerialiseFactory
 from ...knowledge import Ontology
 from ...artefact import Document
 
@@ -25,7 +26,7 @@ class OntologyManager:
             Ontology - the ontology object of the domain
             str - The path, may be returned
             """
-        return Ontology(filepath=self.path_ontology)
+        return SerialiseFactory("json").load(self.path_ontology)
 
     def training(self, num_of_docs: int = None) -> [Document]:
         """ Load and store training documents for the domain
