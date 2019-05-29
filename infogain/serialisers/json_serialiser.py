@@ -74,8 +74,8 @@ class JsonSerialiser(AbstractSerialiser):
             if concept.properties:
                 minimised_concept["properties"] = concept.properties.copy()
 
-            if concept.alias:
-                minimised_concept["alias"] = sorted(concept.alias)
+            if concept.aliases:
+                minimised_concept["alias"] = sorted(concept.aliases)
 
             if concept.category is not Concept.DYNAMIC:
                 minimised_concept["category"] = concept.category
