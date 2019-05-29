@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 with open(os.path.abspath(os.path.join(os.path.dirname(__file__), "README.md")), "r") as handler:
       README = handler.read()
-requires = ["sklearn", "matplotlib", "gensim", "mock"]
+requires = ["sklearn", "matplotlib", "gensim", "mock", "tqdm"]
 
 setup(name='infogain',
       install_requires=requires,
