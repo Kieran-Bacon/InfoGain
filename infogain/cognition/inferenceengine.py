@@ -48,19 +48,9 @@ class InferenceEngine(Ontology):
                 self.relations.add(relation.clone())
 
     @property
-    def concepts(self) -> OntologyConcepts:
-        """ Inference engine concept container """
-        return self._concepts
-
-    @property
     def instances(self) -> OntologyConcepts:
         """ Inference engine instances container """
         return self._instances
-
-    @property
-    def relations(self) -> OntologyRelations:
-        """ Inference engine relations container """
-        return self._relations
 
     def addWorldKnowledge(self, documents: [Document]) -> None:
         """ Add world knowledge into the inference engine via document datapoints, unmatched datapoints
@@ -172,21 +162,8 @@ class InferenceEngineInstances(collections.abc.MutableMapping):
         self._conceptMapping = collections.defaultdict(set)
 
     def __len__(self): return len(self._elements)
-    def __setitem__(self, name: str, instance: Instance): self._elements[name] = instance
-    def __getitem__(self, name: str): return self._elements[name]
-    def __delitem__(self, name: str):
-        """ Remove an instance by its given name from the container """
 
-        instance = self[name]
-        if instance.concept is Concept.STATIC and instance.concept in self._owner.concepts():
-            raise ConsistencyError("You cannot remove the static instance of a concept - You must remove the concept")
-        del self._elements[name]
-        self._conceptMapping[instance.concept].remove(instance)
-        if not self._conceptMapping[instance.concept]: del self._conceptMapping[instance.concept]
-    
-    def __iter__(self): return iter(self._elements)
-
-    def add(self, instance: Instance) -> None:
+    def __setitem__(self, name: str, instance: Instance):
         """ Add a concept instance - Only possible for dynamic concepts
 
         Params:
@@ -197,16 +174,33 @@ class InferenceEngineInstances(collections.abc.MutableMapping):
             TypeError: In the event that the concept is not suitable for additional instances
         """
 
-        concept = self.concepts(instance.concept)
+        # Ensure that the owning concept is a member of the engine
+        concept = self._owner.concepts(instance.concept)
         if concept is None:
             raise ConsistencyError(
-                "{} is not an concept within the engine - Invalid addition of instance".format(repr(instance))
+                "{} is not an concept within the engine - it's instance cannot be added".format(repr(instance))
             )
-        if concept.category is (concept.ABSTRACT or concept.STATIC):
+
+        # Ensure that the owning concept is capable of having instances
+        if concept.category is (Concept.ABSTRACT or Concept.STATIC):
             raise TypeError("{} is not suitable for additional instances.".format(concept.name))
 
-        self._conceptMapping[concept].add(instance)
         self._elements[instance.name] = instance
+        self._conceptMapping[instance.concept].add(instance)
+        
+    def __getitem__(self, name: str): return self._elements[name]
+
+    def __delitem__(self, name: str):
+        """ Remove an instance by its given name from the container """
+
+        instance = self._elements[name]
+        if instance.concept is Concept.STATIC and instance.concept in self._owner.concepts():
+            raise ConsistencyError("You cannot remove the static instance of a concept - You must remove the concept")
+        del self._elements[name]
+        self._conceptMapping[instance.concept].remove(instance)
+        if not self._conceptMapping[instance.concept]: del self._conceptMapping[instance.concept]
+    
+    def __iter__(self): return iter(self._elements)
 
     def __call__(self, concept: Concept, descendants: bool = False)  -> (Instance, {Instance}):
         """ Collect the instance who's namee has been specified, or collect the instances for a concept identifier. If
@@ -237,7 +231,43 @@ class InferenceEngineInstances(collections.abc.MutableMapping):
         else:
             raise TypeError("Incorrect type passed to Instance Container call method")
 
+    def add(self, instance: Instance) -> None:
+        """ Add a concept instance - Only possible for dynamic concepts
+
+        Params:
+            concept_instance (ConceptInstance): The instance object to be added
+
+        Raises:
+            ConsistencyError: In the event that the concept is not already apart of the engine
+            TypeError: In the event that the concept is not suitable for additional instances
+        """
+
+        concept = self._owner.concepts(instance.concept)
+        if concept is None:
+            raise ConsistencyError(
+                "{} is not an concept within the engine - Invalid addition of instance".format(repr(instance))
+            )
+        if concept.category is (concept.ABSTRACT or concept.STATIC):
+            raise TypeError("{} is not suitable for additional instances.".format(concept.name))
+
+        self._conceptMapping[concept].add(instance)
+        self._elements[instance.name] = instance
+
 class InferenceEngineRelations(OntologyRelations):
+
+    def __call__(self, relation: Relation) -> Relation:
+        """ Collect the member relationship with the given name in the ontology. If relation passed, return relation
+        from ontology that has the same name
+
+        Params:
+            relation (str/Relation): The name of the relation ship to collect, or a relation object who's name is to be
+                collected
+
+        Returns:
+            Relation: The relation object present within the engine
+        """
+        if isinstance(relation, Relation): relation = relation.name
+        return super().__getitem__(relation)
 
     def add(self, relation: Relation):
         """ Add a relationship into the engine - convert any rules within the relations to
