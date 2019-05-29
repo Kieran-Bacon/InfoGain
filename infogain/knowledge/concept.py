@@ -41,10 +41,10 @@ class Concept(Vertex):
         # Set up concept container objects to manage various interactions of the concept
         # Container of relationships this concept is a member of - weak to remove relations if ever they are deleted
         self._relationMembership = weakref.WeakSet()  # Hold relations this concept is a member of
-        self._parents = FamilyConceptSet(weakref.proxy(self), ancestors=True)  # Hold references to parent concepts
-        self._children = FamilyConceptSet(weakref.proxy(self), ancestors=False)  # Hold references to child concepts
-        self._aliases = ConceptAliases(weakref.proxy(self))  # Hold the various ways concepts might be referenced
-        self._properties = ConceptProperties(weakref.proxy(self))  # Hold property information on a concept
+        self._parents = FamilyConceptSet(weakref.ref(self), ancestors=True)  # Hold references to parent concepts
+        self._children = FamilyConceptSet(weakref.ref(self), ancestors=False)  # Hold references to child concepts
+        self._aliases = ConceptAliases(weakref.ref(self))  # Hold the various ways concepts might be referenced
+        self._properties = ConceptProperties(weakref.ref(self))  # Hold property information on a concept
 
         # Add container information
         for con in parents: self.parents.add(con)
@@ -445,22 +445,24 @@ class FamilyConceptSet(ConceptSet):
         super().add(concept)
         if not isinstance(concept, Concept): return  # Do not attempt to connect family with partial concept
 
+        owner = self._owner()  # Get the true concept object
+
         # Identify corresponding family concept set from new concept + pull down relations where applicable
         if self._ancestors:
             # This set holds the ancestors of its owner
 
             # Pull down aliases
-            for alias in self._owner.aliases:
-                self._owner.aliases._addInherited(alias)
+            for alias in concept.aliases:
+                owner.aliases._addInherited(alias)
 
             # Pull down properties
             for key, value in concept.properties.items():
-                self._owner.properties._setInherited(key, value)
+                owner.properties._setInherited(key, value)
 
             # Pull down relations from the new parent concept
             for relation in concept._relationMembership:
-                self._owner._relationMembership.add(relation)
-                relation.subscribe(self._owner)
+                owner._relationMembership.add(relation)
+                relation.subscribe(owner)
 
             otherSet = concept.children
 
@@ -469,8 +471,8 @@ class FamilyConceptSet(ConceptSet):
             otherSet = concept.parents
 
         # Check whether the owning concept is correctly linked with the new concept from their perspective
-        if not otherSet._linked(self._owner):
-            otherSet.add(self._owner)
+        if not otherSet._linked(owner):
+            otherSet.add(owner)
 
     def _linked(self, concept: Concept):
         """ Determine whether this concept is correctly linked inside this concept set. Linked if the concept is within
@@ -493,13 +495,13 @@ class ConceptAliases(collections.abc.MutableSet):
     def __contains__(self, name: str): return name in self._elements
 
     def add(self, name: str):
-        if not isinstance(name, str): raise TypeError("Invalid type of alias given - aliases must be str not {}".format(type(name)))
-
+        if not isinstance(name, str):
+            raise TypeError("Invalid type of alias given - aliases must be str not {}".format(type(name)))
 
         if name in self._elements: return
 
         self._elements.add(name)
-        for child in filter(lambda x: isinstance(x, Concept), self._owner.descendants()):
+        for child in filter(lambda x: isinstance(x, Concept), self._owner().descendants()):
             child.aliases._addInherited(name)
     
     def _addInherited(self, name: str):
@@ -522,7 +524,7 @@ class ConceptAliases(collections.abc.MutableSet):
 
         self._elements.remove(name)
 
-        for child in filter(lambda x: isinstance(x, Concept), self._owner.descendants()):
+        for child in filter(lambda x: isinstance(x, Concept), self._owner().descendants()):
             child.aliases._discardInherited(name)
 
         return True
@@ -589,6 +591,9 @@ class ConceptProperties(collections.abc.MutableMapping):
         if not isinstance(key, str): raise ValueError("Property name must be a `str` not `{}`".format(type(key)))
         if value is None: raise ValueError("Cannot set concept property as None")
 
+        # Collect the owning concept
+        owner = self._owner()
+
         # Check to see if the value had already been set beforehand
         if key in self._elements:
             # The value has been set before
@@ -597,7 +602,7 @@ class ConceptProperties(collections.abc.MutableMapping):
             
             old_value, self._elements[key] = self._elements[key], value
 
-            for child in filter(lambda x: isinstance(x, Concept), self._owner.children):
+            for child in filter(lambda x: isinstance(x, Concept), owner.children):
                 child.properties._updateInherited(key, old_value, value)
 
         else:
@@ -607,18 +612,18 @@ class ConceptProperties(collections.abc.MutableMapping):
             if key in self._inheritedElements:
                 # The key was inherited before and therefore children already have an inherited property with this
                 # key. Update their key value to show this new one
-               for child in filter(lambda x: isinstance(x, Concept), self._owner.children):
+               for child in filter(lambda x: isinstance(x, Concept), owner.children):
                     child.properties._updateInherited(key, self._inheritedElements[key], value)
             
             else:
                 # New for children too, set inherited value
-                for child in filter(lambda x: isinstance(x, Concept), self._owner.children):
+                for child in filter(lambda x: isinstance(x, Concept), owner.children):
                     child.properties._setInherited(key, value)
 
     def __getitem__(self, key: str):
         if key in self._elements: return self._elements[key]
         elif key in self._inheritedElements: return self._inheritedElements[key]
-        else: raise KeyError("{} doesn't have a property by that name {}".format(self._owner, key))
+        else: raise KeyError("{} doesn't have a property by that name {}".format(self._owner(), key))
 
     def __delitem__(self, key: str):
         
@@ -630,15 +635,17 @@ class ConceptProperties(collections.abc.MutableMapping):
         # Remove the stored value from the elements
         value = self._elements.pop(key)
 
+        owner = self._owner()
+
         # If there was an inherited value with the same value, and the value is not the same as specific value, cascade
         if key in self._inheritedElements:
             if self._inheritedElements[key] != value:  # If the value is the same, no need to do anything
-                for child in self._owner.children:
+                for child in owner.children:
                     child.attr._updateInherited(key, self._inheritedElements[key])
 
         else:
             # The value has been completely removed - remove this property from children where it may have cascaded
-            for child in filter(lambda x: isinstance(x, Concept), self._owner.children):
+            for child in filter(lambda x: isinstance(x, Concept), owner.children):
                 child.attr._removeInherited(key, value)
 
     def _setInherited(self, key: str, value: object):
@@ -682,7 +689,7 @@ class ConceptProperties(collections.abc.MutableMapping):
 
         if key not in self._elements:
             # The inherited key wasn't overloaded by the concept so it needs to propagate
-            for child in self._owner.children:
+            for child in self._owner().children:
                 child.properties._setInherited(key, value)
 
     def _updateInherited(self, key: str, oldValue: object, value: object):
@@ -725,7 +732,7 @@ class ConceptProperties(collections.abc.MutableMapping):
 
         if key not in self._elements and inheritedProp != value:
             # The update needs to cascade down into the child concepts
-            for child in self._owner.children:
+            for child in self._owner().children:
                 child.properties._updateInherited(key, oldValue, value)
 
     def _removeInherited(self, key: str, value: object):
@@ -733,7 +740,6 @@ class ConceptProperties(collections.abc.MutableMapping):
 
         if key not in self._inheritedElements:
             raise ValueError("Cannot remove inherited property not inherited - {}".format(key))
-
 
         inheritedProp = self._inheritedElements[key]
 
@@ -762,7 +768,7 @@ class ConceptProperties(collections.abc.MutableMapping):
         if key not in self._elements:
             # The value had cascaded, need to remove from children
 
-            for child in self._owner.children:
+            for child in self._owner().children:
                 child.properties._removeInherited(key, value)
 
     def copy(self):
