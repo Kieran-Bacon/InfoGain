@@ -65,6 +65,33 @@ class Test_ConceptSet(unittest.TestCase):
         for item in group:
             self.assertTrue(isinstance(item, Concept))
 
+    def test_discard(self):
+        # Test the discard function works as expected
+
+
+        group = ConceptSet([self.c1, "2", self.f1, "example"])
+
+        self.assertIn(self.c1, group)
+        self.assertEqual(group.partials(), {"2", "example"})
+
+        self.assertFalse(group.discard("3"))
+        self.assertFalse(group.discard(self.c3))
+
+        # True as concept 2 shall be equivalent to the partial "2"
+        self.assertTrue(group.discard(self.c2))
+        self.assertEqual(group.partials(), {"example"})
+
+        # True as string is equivalent to concept
+        self.assertTrue(group.discard("1"))
+        self.assertEqual(group, {self.f1, "example"})
+
+
+        self.assertTrue(group.discard(self.f1))
+        self.assertTrue(group.discard("example"))
+
+        self.assertEqual(group, set())
+
+
     def test_remove(self):
         """ Test that removing an item correctly removes the item - plus that string or concepts being passed also
         triggers a removal of the concepts
@@ -213,6 +240,19 @@ class Test_ConceptSet(unittest.TestCase):
         self.assertEqual(a.difference(b), {"2"})
         self.assertEqual(b.difference(a), {self.c3})
 
+    def test_partials(self):
+
+        a = ConceptSet(self.family)
+        a.add("1")
+        a.add("2")
+
+        self.assertEqual(a.partials(), {"1", "2"})
+
+        a.add(self.c1)
+
+        self.assertEqual(a.partials(), {"2"})
+
+
     def test_copy(self):
 
         a = ConceptSet(self.family)
@@ -236,33 +276,22 @@ class Test_FamilyConceptSet(unittest.TestCase):
         self.g = Concept("G", parents={self.f})
 
     def test_add(self):
+        # Test the adding of concepts to a family set provided the expected value
 
-        family = FamilyConceptSet()
-        family.add(self.b)
+        self.assertEqual(self.b.parents, {self.a})
+        self.assertEqual(self.b.children, {self.c, self.d})
+        self.assertEqual(self.b.descendants(), {self.c, self.d})
 
-        self.assertEqual(family, {self.b, self.c, self.d})
+        self.b.children.add(self.f)
 
-        family.add(self.f)
+        self.assertEqual(self.b.children, {self.c, self.d, self.f})
+        self.assertEqual(self.b.descendants(), {self.c, self.d, self.f, self.g})
 
-        self.assertEqual(family, {self.f, self.g})
+    def test_multipleAdds(self):
+        # Ensure that multiple adds don't lead to unwanted behaviour with other items
+        # If you inherited from a concept twice because you added it twice, when you remove the concept, it shall not
+        # correct itself.
+        self.fail()
 
-    def test_linked(self):
-
-        family = FamilyConceptSet()
-
-        self.assertFalse(family.linked(self.a))
-        self.assertFalse(family.linked("A"))
-
-        family.add("A")
-
-        self.assertFalse(family.linked(self.a))
-        self.assertFalse(family.linked("A"))
-
-    def test_partials(self):
-
-        family  = FamilyConceptSet()
-
-        family.add(self.g)
-        family.add("G")
-        self.assertEqual(family.partials(), {"G"})
-
+    def test_discard(self):
+        self.fail()
