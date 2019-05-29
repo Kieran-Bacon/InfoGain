@@ -25,3 +25,5 @@ examples/**/*.json
 # Ignore pypi files
 dist
 build
+
+env
