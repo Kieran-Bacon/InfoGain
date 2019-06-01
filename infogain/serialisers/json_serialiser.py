@@ -21,6 +21,8 @@ class JsonSerialiser(AbstractSerialiser):
         # Load concept information
         for name, conceptData in data.get("Concepts", {}).items():
             # Unpack the concept data into the concept init
+            #TODO Remove this when the serialised ontology is changed to work with this
+            conceptData["aliases"] = conceptData.pop("alias", [])
             ontology.concepts.add(Concept(name, **conceptData))
 
         # Load relation information
@@ -87,8 +89,8 @@ class JsonSerialiser(AbstractSerialiser):
 
 
             minimised_relations = {
-                "domains": sorted([group.minimised().toStringSet() for group in relation.concepts.domains]),
-                "targets": sorted([group.minimised().toStringSet() for group in relation.concepts.targets])
+                "domains": [sorted(group.minimised().toStringSet()) for group in relation.concepts.domains],
+                "targets": [sorted(group.minimised().toStringSet()) for group in relation.concepts.targets]
             }
 
             # Record non-default parameters
