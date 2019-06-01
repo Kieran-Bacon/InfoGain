@@ -1,5 +1,52 @@
 {
-    "Concepts": {},
+    "Concepts": {
+        "A": {},
+        "B": {
+            "parents": [
+                "A"
+            ]
+        },
+        "C": {
+            "parents": [
+                "B"
+            ]
+        },
+        "X": {},
+        "Y": {
+            "parents": [
+                "X"
+            ]
+        },
+        "Z": {
+            "parents": [
+                "Y"
+            ]
+        }
+    },
     "Name": null,
-    "Relations": {}
+    "Relations": {
+        "to": {
+            "domains": [
+                [
+                    "A"
+                ]
+            ],
+            "rules": [
+                {
+                    "confidence": 100,
+                    "domains": [
+                        "B"
+                    ],
+                    "targets": [
+                        "Y"
+                    ]
+                }
+            ],
+            "targets": [
+                [
+                    "X"
+                ]
+            ]
+        }
+    }
 }
