@@ -1,6 +1,7 @@
 import unittest, pytest, os, json
 
 from infogain.knowledge import Ontology, Concept, Relation
+from infogain import Serialiser
 from infogain.resources.ontologies import language as Language
 
 
@@ -38,7 +39,7 @@ class Test_Ontology_Creation(unittest.TestCase):
         with open(Language.path_ontology, "r") as handler:
             content = handler.read()
 
-        self.assertEqual(content, ont.toJson())
+        self.assertEqual(content, Serialiser("json").dump(ont))
 
     def test_Concepts_Ontology(self):
 
@@ -58,7 +59,7 @@ class Test_Ontology_Creation(unittest.TestCase):
         for concept in [self.kieran, self.person, self.english, self.language]:
             ontology.concepts.add(concept)
 
-        ontology.addRelation(self.speaks)
+        ontology.relations.add(self.speaks)
 
         self.assertEqual(ontology.relations("speaks"), self.speaks)
         self.assertEqual(ontology.relations("placeholder"), None)
@@ -80,7 +81,7 @@ class Test_Ontology_Creation(unittest.TestCase):
 
         rel = Relation([[x1], [x2]], "rel", [[y1], [y2]])
 
-        ontology.addRelation(rel)
+        ontology.relations.add(rel)
 
         self.assertEqual(rel.domains, {x1,x2,x11,x12})
         self.assertEqual({z.name for z in rel.targets}, {z.name for z in {y1, y11, y2}})
@@ -199,7 +200,7 @@ class Test_Ontology_Creation(unittest.TestCase):
         # Check that text representations are loaded correctly
         ont = Language.ontology()
         kieran = ont.concepts("Kieran")
-        self.assertEqual(kieran.alias, {"Legend", "Champ", "Badass"})
+        self.assertEqual(kieran.aliases, {"Legend", "Champ", "Badass"})
 
     def test_ontology_pickle_able(self):
         import pickle

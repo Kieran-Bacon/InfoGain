@@ -14,7 +14,7 @@ class Test_Time_Builtin(unittest.TestCase):
 
     def test_calls(self):
 
-        example = knowledge.concepts("example", properties={"date": datetime.date(2017, 2, 1)})
+        example = knowledge.Concept("example", properties={"date": datetime.date(2017, 2, 1)})
         self.engine.concepts.add(example)
 
 
@@ -33,7 +33,7 @@ class Test_Time_Builtin(unittest.TestCase):
 
     def test_calls_return_instances_that_behave(self):
 
-        example = knowledge.concepts("example", properties={"date": datetime.date(2017, 2, 1)})
+        example = knowledge.Concept("example", properties={"date": datetime.date(2017, 2, 1)})
         self.engine.concepts.add(example)
 
         for logic, answer in {

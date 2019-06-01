@@ -470,7 +470,6 @@ class FamilyConceptSet(ConceptSet):
 
             # Pull down relations from the new parent concept
             for relation in concept._relationMembership:
-                owner._relationMembership.add(relation)
                 relation.subscribe(owner)
 
             otherSet = concept.children
@@ -494,13 +493,35 @@ class FamilyConceptSet(ConceptSet):
 
     def discard(self, concept: Concept) -> bool:
 
+        # Remove the object from the concept set
         isRemoved = super().discard(concept)
 
-        if isRemoved and isinstance(concept, Concept):
-            # The concept was present
+        # if they were not removed or they were just a partial concept - return nothing else to do.
+        if not isRemoved or isinstance(concept, str): return
 
-            #TODO need to ensure that the concepts are delinked, the inherited aliases, properties are removed - tested
-            raise NotImplementedError()
+        owner = self._owner()
+
+        # The removed concept and remove the inherited attributes
+        if self._ancestors:
+
+            # Remove the inherited aliases - properties - relationships
+            for alias in concept.aliases:
+                owner.aliases._discardInherited(alias)
+
+            for key, value in concept.properties.items():
+                owner.properties._removeInherited(key, value)
+
+            for relation in concept._relationMembership:
+                relation.unsubscribe(owner)
+
+            otherSet = concept.children
+
+        else:
+            otherSet = concept.parents
+
+        # ensure that the corresponding set has removed our owner
+        if otherSet._linked(owner):
+            otherSet.discard(owner)
 
 class ConceptAliases(collections.abc.MutableSet):
 
