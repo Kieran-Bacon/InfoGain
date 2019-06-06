@@ -240,7 +240,7 @@ class ConceptSet(collections.abc.MutableSet):
     def __iter__(self): return iter(self._elements)
     def __contains__(self, concept: Concept): return concept in self._elements
     def __len__(self): return len(self._elements)
-    def __repr__(self): return "<ConceptSet{}>".format(self._elements)
+    def __repr__(self): return "<ConceptSet{}>".format(self._elements or r"{}")
 
     def add(self, concept: Concept):
         """ Add a concept (or partial concept) into the concept set.
@@ -437,18 +437,12 @@ class FamilyConceptSet(ConceptSet):
             concept (Concept): The concept to be added into the set
         """
 
-        #TODO: Need to work out how to ensure that we can't add the same concept over and over again
-
-        # There are two types of input - Concept and string
-        # We want to add a full concept in the event that it doesn't exist or that the one that does exist is partial
-        # We want to add the string in the event that it doesn't exist
-
-        # empty, add concept
-        # empty add string
-        # concept, add concept - ignore
-        # concept, add string - ignore
-        # string, add concept
-        # string, add string - ignore
+        # If the concept has been added before - don't go through the motions of adding it again
+        if (
+            (isinstance(concept, str) and concept in self) or
+            (isinstance(concept, Vertex) and concept in self._elements and concept not in self.partials())
+        ):
+            return
 
         # Add the element into the set via ConceptSet method
         super().add(concept)
@@ -470,7 +464,7 @@ class FamilyConceptSet(ConceptSet):
 
             # Pull down relations from the new parent concept
             for relation in concept._relationMembership:
-                relation.subscribe(owner)
+                relation._subscribe(owner)
 
             otherSet = concept.children
 
@@ -512,7 +506,7 @@ class FamilyConceptSet(ConceptSet):
                 owner.properties._removeInherited(key, value)
 
             for relation in concept._relationMembership:
-                relation.unsubscribe(owner)
+                relation._unsubscribe(owner)
 
             otherSet = concept.children
 
@@ -533,7 +527,7 @@ class ConceptAliases(collections.abc.MutableSet):
     def __len__(self): return len(self._elements)
     def __iter__(self): return iter(self._elements)
     def __contains__(self, name: str): return name in self._elements
-
+    def __repr__(self): return "<ConceptAliases{}>".format(self._elements)
     def add(self, name: str):
         if not isinstance(name, str):
             raise TypeError("Invalid type of alias given - aliases must be str not {}".format(type(name)))

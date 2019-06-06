@@ -38,6 +38,8 @@ class Relation:
     @rules.setter
     def rules(self, rules: [Rule]): self._rules = RuleManager(self, rules)
 
+    def __repr__(self):
+        return "<Relation {}: {} - {}>".format(self.name, self.concepts.domains, self.concepts.targets)
 
     def __str__(self):
         return " ".join([str({str(x) for x in self.concepts.domains}), self.name, str({str(x) for x in self.concepts.targets})])
@@ -68,7 +70,7 @@ class Relation:
             if domain in domains and target in targets: return True
         return False
 
-    def subscribe(self, concept: Concept) -> None:
+    def _subscribe(self, concept: Concept) -> None:
         """ Add the concept object into the relation, correctly mapping the concept to targets, or domains to the
         concept where applicable.
 
@@ -85,21 +87,20 @@ class Relation:
             if ancestors.intersection(targets): self.concepts.addTarget(concept, i)
 
         # For each of the rules, pass the concept on as relevant
-        for rule in self._rules: rule.subscribe(concept)
+        for rule in self._rules: rule._subscribe(concept)
 
-    def minimise(self) -> dict:
-        """ Return only the information the relation represents """
-        minimised = {
-            "domains": sorted([group.minimised().toStringSet() for group in self.concepts.domains]),
-            "name": self.name,
-            "targets": sorted([group.minimised().toStringSet() for group in self.concepts.targets])
-        }
+    def _unsubscribe(self, concept: Concept):
+        """ """
 
-        # Record non-default parameters
-        if self.differ: minimised["differ"] = True
-        if self._rules: minimised["rules"] = [rule.minimise() for rule in self._rules]
+        # Collect the ancestors of this concept
+        ancestors = concept.ancestors()
 
-        return minimised
+        # For all the concept sets check whether they are
+        for i, (domains, targets) in enumerate(self.concepts):
+            if concept in domains and not ancestors.intersection(domains): self.concepts.removeDomain(concept, i)
+            if concept in targets and not ancestors.intersection(targets): self.concepts.removeTarget(concept, i)
+
+        for rule in self._rules: rule._unsubscribe(concept)
 
     def clone(self):
         return Relation(
@@ -118,7 +119,7 @@ class RelationConceptManager(collections.abc.MutableSequence):
         self.targets = []
 
         self._members = {}
-        self._memberCount = collections.Counter()
+        self._memberCount = collections.defaultdict(int)
 
         if domains and targets:
             # Test for domain and target set up
@@ -175,6 +176,7 @@ class RelationConceptManager(collections.abc.MutableSequence):
             if isinstance(concept, Concept):
                 # Add the concept as a member of this class
                 self._members[concept.name] = concept
+                self._memberCount[concept.name] += 1
 
                 # Inform the concept that it is now a part of this relationship
                 concept._relationMembership.add(self._owner)
@@ -215,13 +217,16 @@ class RelationConceptManager(collections.abc.MutableSequence):
             name = concept
 
         if index is not None:
+            # The concept is to be removed from a selected collection - grab collection
             conceptSet = collection[index]
 
             if concept in conceptSet:
                 conceptSet.discard(concept)
 
                 self._memberCount[name] -= 1
+
         else:
+            # Remove the concept from every collection
             for conceptSet in collection:
                 conceptSet.discard(concept)
 

@@ -1,6 +1,6 @@
 import unittest
 
-from infogain.knowledge import Concept, Instance
+from infogain.knowledge import Concept, Instance, Relation, Rule
 from infogain.knowledge.concept import ConceptSet, FamilyConceptSet
 
 class Test_ConceptSet(unittest.TestCase):
@@ -260,38 +260,87 @@ class Test_ConceptSet(unittest.TestCase):
 
         self.assertEqual(a, {*self.family, self.c1})
 
-class Test_FamilyConceptSet(unittest.TestCase):
+class Test_FamilyConceptSetInterface(unittest.TestCase):
     """ """
 
     def setUp(self):
-        """
-         A      E
-         B      F
-        C D     G
-        """
 
-        self.a, self.e = Concept("A"), Concept("E")
-        self.b, self.f = Concept("B", parents={self.a}), Concept("F", parents={self.e})
-        self.c, self.d= Concept("C", parents={self.b}), Concept("D", parents={self.b})
+        self.a = Concept("A", aliases=["Big A"], properties={"number": 10})
+        self.b = Concept("B", parents={self.a})
+        self.c = Concept("C", parents={self.b})
+        self.d = Concept("D", parents={self.b})
+
+        self.e = Concept("E")
+        self.f = Concept("F", parents={self.e})
         self.g = Concept("G", parents={self.f})
+
+        self.example_rel = Relation((self.a,), "example relation", (self.e,))
 
     def test_add(self):
         # Test the adding of concepts to a family set provided the expected value
 
+        self.c.aliases.add("Big C")
+        self.c.properties["key"] = "value"
+
+        newChild = Concept("x", parents={self.c})
+
+        self.assertEqual(newChild.parents, {self.c})
+        self.assertEqual(newChild.ancestors(), {self.c, self.b, self.a})
+        self.assertIn(newChild, self.a.descendants())
+
+        self.assertEqual(newChild.aliases, {"Big A", "Big C"})
+        self.assertEqual(newChild.properties, {"number": 10, "key": "value"})
+        self.assertIn(self.example_rel, newChild._relationMembership)
+
         self.assertEqual(self.b.parents, {self.a})
         self.assertEqual(self.b.children, {self.c, self.d})
-        self.assertEqual(self.b.descendants(), {self.c, self.d})
+        self.assertEqual(self.b.descendants(), {self.c, self.d, newChild})
 
         self.b.children.add(self.f)
 
         self.assertEqual(self.b.children, {self.c, self.d, self.f})
-        self.assertEqual(self.b.descendants(), {self.c, self.d, self.f, self.g})
-
-    def test_multipleAdds(self):
-        # Ensure that multiple adds don't lead to unwanted behaviour with other items
-        # If you inherited from a concept twice because you added it twice, when you remove the concept, it shall not
-        # correct itself.
-        self.fail()
+        self.assertEqual(self.b.descendants(), {self.c, self.d, self.f, self.g, newChild})
 
     def test_discard(self):
-        self.fail()
+        # Ensure that things are discarded correctly
+
+        self.c.aliases.add("Big C")
+        self.c.properties["key"] = "value"
+
+        newChild = Concept("x", parents={self.c})
+
+        self.b.parents.remove(self.a)
+
+        self.assertNotIn(self.a, self.b.parents)
+        self.assertNotIn(self.example_rel, newChild._relationMembership)
+        self.assertEqual(newChild.aliases, {"Big C"})
+        self.assertEqual(newChild.properties, {"key": "value"})
+
+        self.c.children.discard(newChild)
+
+        self.assertEqual(newChild.parents, set())
+        self.assertEqual(newChild.aliases, set())
+        self.assertEqual(newChild.properties, {})
+
+class Test_FamilyConceptSet(unittest.TestCase):
+
+    def setUp(self):
+
+        self.parent = Concept("Parent", properties={"a": 1}, aliases=["hello"])
+
+        self.child = Concept("Child")
+
+    def test_multipleConceptsAdds(self):
+        # Add a concept a multiple times to ensure that properties and aliases don't get inherited multiple times
+
+        self.child.parents.add(self.parent)
+        self.child.parents.add(self.parent)
+
+        self.assertEqual(self.child.aliases, {"hello"})
+        self.assertEqual(self.child.properties, {"a": 1})
+
+        self.child.parents.remove(self.parent)
+
+        self.assertEqual(self.child.aliases, set())
+        self.assertEqual(self.child.properties, {})
+
