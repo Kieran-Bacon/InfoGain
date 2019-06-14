@@ -278,18 +278,6 @@ class ConceptSet(collections.abc.MutableSet):
 
         return isDiscarded
 
-    # def remove(self, concept: Concept) -> None:
-    #     """ Remove a concept from the ConceptSet
-
-    #     Params:
-    #         concept (Concept): The concept to be removed
-
-    #     Raises:
-    #         KeyError: In the event that the concept is not present within the ConceptSet
-    #     """
-    #     self._elements.remove(concept)
-    #     if concept in self._partial: self._partial.remove(concept)
-
     def expand(self, descending: bool = True) -> None:
         """ Expand a collection of concepts to include either their descendants or their ancestors when applicable
 
