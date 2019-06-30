@@ -17,11 +17,11 @@ class OntologyManager:
 
     def ontology(self) -> Ontology:
         """ Load and return the language ontology, keep the ontology loaded for quick return if
-        promted again 
-        
+        promted again
+
         Params:
             get_path (str) - A toggle to inform where the path to the ontology should be returned
-        
+
         Returns:
             Ontology - the ontology object of the domain
             str - The path, may be returned
@@ -33,14 +33,14 @@ class OntologyManager:
 
         Params:
             num_of_documents (int) - The number of training documents to be returned
-        
+
         Returns:
             [Document] - A collection of training documents for this domain
         """
 
         trainingFiles = os.listdir(os.path.join(self.directory, "training"))
         trainingFiles.remove("__init__.py")
-        trainingFiles.remove("__pycache__")
+        if "__pycache__" in trainingFiles: trainingFiles.remove("__pycache__")
 
         if num_of_docs: trainingFiles = trainingFiles[:num_of_docs]
 
@@ -53,14 +53,14 @@ class OntologyManager:
 
         Params:
             num_of_docs (int) - The number of documents to return from the collection
-        
+
         Returns:
             [Document] - The collection of documents to predict upon
         """
 
         testingFiles = os.listdir(os.path.join(self.directory, "testing"))
         testingFiles.remove("__init__.py")
-        testingFiles.remove("__pycache__")
+        if "__pycache__" in testingFiles: testingFiles.remove("__pycache__")
 
         if num_of_docs: testingFiles = testingFiles[:num_of_docs]
 
