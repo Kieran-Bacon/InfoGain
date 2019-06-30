@@ -38,9 +38,10 @@ class Concept(Vertex):
         self.name = name
         self.category = category
 
+        # Keeping track of the number of relations this concept is a member of - Mapping relation to count of membership
+        self._relationMembership = weakref.WeakKeyDictionary()
+
         # Set up concept container objects to manage various interactions of the concept
-        # Container of relationships this concept is a member of - weak to remove relations if ever they are deleted
-        self._relationMembership = weakref.WeakSet()  # Hold relations this concept is a member of
         self._parents = FamilyConceptSet(weakref.ref(self), ancestors=True)  # Hold references to parent concepts
         self._children = FamilyConceptSet(weakref.ref(self), ancestors=False)  # Hold references to child concepts
         self._aliases = ConceptAliases(weakref.ref(self))  # Hold the various ways concepts might be referenced
@@ -268,7 +269,6 @@ class ConceptSet(collections.abc.MutableSet):
 
         isDiscarded = False
 
-
         if concept in self._elements:
             self._elements.remove(concept)
             isDiscarded = True
@@ -488,6 +488,7 @@ class FamilyConceptSet(ConceptSet):
 
             # Remove the inherited aliases - properties - relationships
             for alias in concept.aliases:
+
                 owner.aliases._discardInherited(alias)
 
             for key, value in concept.properties.items():
@@ -506,6 +507,12 @@ class FamilyConceptSet(ConceptSet):
             otherSet.discard(owner)
 
 class ConceptAliases(collections.abc.MutableSet):
+    """ Hold the various aliases for a concept and the aliases of its parents. Ensure consistency of a concepts aliases
+    by removing inherited aliases when hierarchy changes would effect them.
+
+    Params:
+        owner (weakref.ref): The owning concept
+    """
 
     def __init__(self, owner: weakref.ProxyType):
         self._owner = owner
@@ -517,6 +524,12 @@ class ConceptAliases(collections.abc.MutableSet):
     def __contains__(self, name: str): return name in self._elements
     def __repr__(self): return "<ConceptAliases{}>".format(self._elements)
     def add(self, name: str):
+        """ Add an alias for the concept and cascade it down the concept hierarchy to child concepts
+
+        Params:
+            name (str): the aliases string
+        """
+
         if not isinstance(name, str):
             raise TypeError("Invalid type of alias given - aliases must be str not {}".format(type(name)))
 
@@ -524,11 +537,22 @@ class ConceptAliases(collections.abc.MutableSet):
 
         self._elements.add(name)
         for child in filter(lambda x: isinstance(x, Concept), self._owner().descendants()):
-            child.aliases._addInherited(name)
+            child.aliases._addInherited(name, cascade = False)
 
-    def _addInherited(self, name: str):
+    def _addInherited(self, name: str, cascade: bool = True):
+        """ Add an aliases as an inherited aliases and cascade the alias down to child concepts
+
+        Params:
+            name (str): the alias/alternate name for the concept
+            cascade (str): indicates whether or not the function should cascade
+        """
+
         self._elements.add(name)
         self._inheritedCounter[name] += 1
+
+        if cascade:
+            for child in filter(lambda x: isinstance(x, Concept), self._owner().descendants()):
+                child.aliases._addInherited(name, cascade = False)
 
     def discard(self, name: str):
 
@@ -547,11 +571,11 @@ class ConceptAliases(collections.abc.MutableSet):
         self._elements.remove(name)
 
         for child in filter(lambda x: isinstance(x, Concept), self._owner().descendants()):
-            child.aliases._discardInherited(name)
+            child.aliases._discardInherited(name, cascade = False)
 
         return True
 
-    def _discardInherited(self, name: str):
+    def _discardInherited(self, name: str, cascade: bool = True):
 
         if name not in self._inheritedCounter or not self._inheritedCounter[name]: return False
 
@@ -561,6 +585,10 @@ class ConceptAliases(collections.abc.MutableSet):
         if not self._inheritedCounter[name]:
             del self._inheritedCounter[name]
             self._elements.remove(name)
+
+            if cascade:
+                for child in filter(lambda x: isinstance(x, Concept), self._owner().descendants()):
+                    child.aliases._discardInherited(name, cascade = False)
 
     def inherited(self):
         return set(self._inheritedCounter.keys())

@@ -4,7 +4,7 @@ import pytest
 from infogain.knowledge.concept import Concept
 
 class Test_ConceptAliasesInterface(unittest.TestCase):
-    
+
     def setUp(self):
 
         self.alone = Concept("Alone")
@@ -21,7 +21,7 @@ class Test_ConceptAliasesInterface(unittest.TestCase):
 
         self.assertEqual(len(self.alone.aliases), 2)
 
-        # Hiearchy
+        # Hierarchy
 
         self.assertEqual(len(self.parent.aliases), 0)
         self.assertEqual(len(self.child.aliases), 0)
@@ -170,3 +170,21 @@ class Test_ConceptAliasesInterface(unittest.TestCase):
 
         self.assertEqual(self.parent.aliases.specific(), {"a", "b"})
         self.assertEqual(self.child.aliases.specific(), set())
+
+class Test_ConceptAliases(unittest.TestCase):
+
+    def setUp(self):
+
+        self.parent = Concept("Parent")
+        self.child = Concept("Child", parents={self.parent})
+        self.grandchild = Concept("GrandChild", parents={self.child})
+
+    def test_aliasesRemovedThroughHierarchy(self):
+
+        self.parent.aliases.add("Parent")
+
+        self.assertEqual(self.grandchild.aliases, {"Parent"})
+
+        self.child.parents.remove(self.parent)
+
+        self.assertEqual(self.grandchild.aliases, set())
