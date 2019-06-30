@@ -31,6 +31,7 @@ class Test_Ontology_Creation(unittest.TestCase):
         with pytest.raises(ImportError):
             emptyOnt.importBuiltin("NotAModule")
 
+    @unittest.skip("Saving is going to change soon")
     def test_load_and_save(self):
         """ Test that saving and ontology returns it to the same state as it was before """
 

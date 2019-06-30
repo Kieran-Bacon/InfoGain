@@ -14,7 +14,7 @@ class test_BuiltinNode_count(unittest.TestCase):
         concept_person = self.school.concepts("Person")
         concept_class = self.school.concepts("Class")
         inst_english = concept_class.instance("English", {"grade": 4})
-        self.school.addInstance(inst_english)
+        self.school.instances.add(inst_english)
 
         people = [
             concept_person.instance("Kieran", {"age": 15}),
@@ -22,7 +22,7 @@ class test_BuiltinNode_count(unittest.TestCase):
             concept_person.instance("Steven", {"age": 14}),
             concept_person.instance("Zino", {"age": 27})
         ]
-        for p in people: self.school.addInstance(p)
+        for p in people: self.school.instances.add(p)
 
         relation_enrolledOn = self.school.relations("enrolled_on")
 

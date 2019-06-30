@@ -18,11 +18,11 @@ class Test_eval_trees(unittest.TestCase):
         self.engine.concepts.add(self.example)
 
         self.maps_to = Relation({self.example}, "maps_to", {self.example})
-        self.engine.addRelation(self.maps_to)
+        self.engine.relations.add(self.maps_to)
 
         self.scenario = {"#example": self.example.instance()}
 
-        self.factory = evaltrees.EvalTreeFactory(self.engine)
+        self.factory = evaltrees.EvalTreeFactory()
 
     def test_ConceptNode_functions(self):
 

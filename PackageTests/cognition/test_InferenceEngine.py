@@ -45,14 +45,14 @@ class Test_InferenceEngine(unittest.TestCase):
         engine.concepts.add(Concept("x"))
         engine.concepts.add(Concept("y"))
 
-        engine.addRelation(Relation("x", "simple", "y"))
-        engine.addRelation(
+        engine.relations.add(Relation("x", "simple", "y"))
+        engine.relations.add(
             Relation("x", "soundlogic", "y", [Rule("x", "y", 100, conditions=[{"logic": "%", "salience": 100}])])
         )
 
 
         with pytest.raises(IncorrectLogic):
-            engine.addRelation(
+            engine.relations.add(
                 Relation("x", "wrong", "y", [Rule("x", "y", 100, conditions=[{"logic": "graph()()", "salience": 100}])])
             )
 
@@ -68,14 +68,14 @@ class Test_InferenceEngine(unittest.TestCase):
 
         self.assertEqual(engine._conceptInstances, {"dynamic": [], "static": [static.instance()]})
 
-        engine.addInstance(dynamic.instance())
+        engine.instances.add(dynamic.instance())
 
         self.assertTrue(engine.instances("dynamic"), 1)
 
         instance = dynamic.instance()
         instance.properties["dynamic_prop"] = True
 
-        engine.addInstance(instance)
+        engine.instances.add(instance)
 
         self.assertTrue(engine.instances("dynamic"), 2)
 
@@ -85,13 +85,13 @@ class Test_InferenceEngine(unittest.TestCase):
                 self.assertTrue(inst.dynamic_prop)
 
         with pytest.raises(ConsistencyError):
-            engine.addInstance(Instance("Not a concept"))
+            engine.instances.add(Instance("Not a concept"))
 
         with pytest.raises(TypeError):
-            engine.addInstance(static.instance())
+            engine.instances.add(static.instance())
 
         with pytest.raises(TypeError):
-            engine.addInstance(abstract.instance())
+            engine.instances.add(abstract.instance())
 
     def test_instances(self):
         """ Test the collection of instances """
@@ -116,7 +116,7 @@ class Test_InferenceEngine(unittest.TestCase):
         assert(len(atob.rules()) == 1)
 
         for con in [a, b]: engine.concepts.add(con)
-        atob = engine.addRelation(atob)
+        atob = engine.relations.add(atob)
 
         assert(len(atob.rules()) == 1)
 
@@ -134,7 +134,7 @@ class Test_InferenceEngine(unittest.TestCase):
         ]))
 
         for con in [a, b]: engine.concepts.add(con)
-        engine.addRelation(atob)
+        engine.relations.add(atob)
 
         self.assertAlmostEqual(engine.inferRelation(a.instance(), atob, b.instance()), 22.5)
 
@@ -151,7 +151,7 @@ class Test_InferenceEngine(unittest.TestCase):
         ]))
 
         for con in [a, b]: engine.concepts.add(con)
-        engine.addRelation(atob)
+        engine.relations.add(atob)
 
         self.assertAlmostEqual(engine.inferRelation(a.instance(), atob, b.instance(), evaluate_conditions=False), 55.0)
 

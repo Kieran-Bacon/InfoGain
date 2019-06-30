@@ -10,7 +10,7 @@ class Test_Time_Builtin(unittest.TestCase):
         self.engine = cognition.InferenceEngine()
         self.engine.importBuiltin("time")
 
-        self.factory = cognition.evaltrees.EvalTreeFactory(self.engine)
+        self.factory = cognition.evaltrees.EvalTreeFactory()
 
     def test_calls(self):
 
