@@ -118,7 +118,7 @@ class Test_Document(unittest.TestCase):
         self.assertEqual(len(test.datapoints()), 0)
 
         # Add the alias
-        ontology.concepts("Luke").alias.add("Luke-san")
+        ontology.concepts("Luke").aliases.add("Luke-san")
         test.processKnowledge(ontology)
 
         # Assert alias is found
@@ -131,7 +131,7 @@ class Test_Document(unittest.TestCase):
         ontology = language.ontology()
 
         # Add an alias
-        ontology.concepts("Kieran").alias.add(r"\d+:\d+:\d+ date")
+        ontology.concepts("Kieran").aliases.add(r"\d+:\d+:\d+ date")
 
         # Generate the test string and process it
         document = Document(content="18:09:2018 date speaks English")
