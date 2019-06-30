@@ -73,8 +73,8 @@ class JsonSerialiser(AbstractSerialiser):
                     [parent if isinstance(parent, str) else parent.name for parent in concept.parents]
                 )
 
-            if concept.properties:
-                minimised_concept["properties"] = concept.properties.copy()
+            if concept.properties._elements:
+                minimised_concept["properties"] = concept.properties._elements.copy()
 
             if concept.aliases:
                 minimised_concept["alias"] = sorted(concept.aliases)
@@ -89,8 +89,8 @@ class JsonSerialiser(AbstractSerialiser):
 
 
             minimised_relations = {
-                "domains": [sorted(group.minimised().toStringSet()) for group in relation.concepts.domains],
-                "targets": [sorted(group.minimised().toStringSet()) for group in relation.concepts.targets]
+                "domains": [sorted(group.minimised().toStringSet()) for group in relation.domains],
+                "targets": [sorted(group.minimised().toStringSet()) for group in relation.targets]
             }
 
             # Record non-default parameters
@@ -108,9 +108,10 @@ class JsonSerialiser(AbstractSerialiser):
                     }
 
                     if rule.conditions:
-                        minimised_rule["conditions"] = [
-                            {"logic": condition.logic, "salience": condition.salience} for condition in rule.conditions
-                        ]
+                        minimised_rule["conditions"] = sorted(
+                            [{"logic": cond.logic, "salience": cond.salience} for cond in rule.conditions],
+                            key = lambda x: (x["salience"], x["logic"])
+                        )
 
                     if not rule.supporting: minimised_rule["supporting"] = rule.supporting
 
