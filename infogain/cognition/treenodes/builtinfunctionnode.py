@@ -96,7 +96,6 @@ class BuiltInFunctionNode(EvalTree):
         return {param for params in self.function_parameters for param in params.parameters()}
 
     def eval(self, **kwargs):
-        kwargs["__engine__"] = self.engine
         try:
             return self.function(*self.function_parameters, **kwargs)
         except Exception as e:
