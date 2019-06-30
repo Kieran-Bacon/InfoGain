@@ -45,8 +45,8 @@ class Rule:
 
         # Create the domains and target sets
         self._conditions = ConditionManager(self)
-        self._domains = RuleConceptSet(self, domains, domains=True)
-        self._targets = RuleConceptSet(self, targets, domains=False)
+        self._domains = RuleConceptSet(self, domains, isDomain=True)
+        self._targets = RuleConceptSet(self, targets, isDomain=False)
 
         self.confidence = confidence
         self.supporting = supporting
@@ -70,8 +70,15 @@ class Rule:
     def conditions(self): return self._conditions
 
     def subscribe(self, concept: Concept) -> None:
-        self.domains.subscribe(concept)
-        self.targets.subscribe(concept)
+        self._subscribe(concept)
+
+    def _subscribe(self, concept: Concept) -> None:
+        self.domains._subscribe(concept)
+        self.targets._subscribe(concept)
+
+    def _unsubscribe(self, concept: Concept) -> None:
+        self.domains._unsubscribe(concept)
+        self.targets._unsubscribe(concept)
 
     def applies(self, domain: (Concept), target: (Concept)) -> bool:
         """ Determine if the rule applies to the the domain and target pairing that has been
@@ -105,25 +112,6 @@ class Rule:
         # Final search of items
         return domain in self.domains and target in self.targets
 
-    def minimise(self) -> dict:
-        """ Reduce the rule down to a dictionary object that defines the rule
-
-        Returns:
-            dict: keys {"domains", "targets", "confidence", "supporting", "conditions"}
-        """
-
-        minimised = {
-            "domains": sorted(self.domains.bases.toStringSet()),
-            "targets": sorted(self.targets.bases.toStringSet()),
-            "confidence": self.confidence
-        }
-
-        if self.conditions:
-            minimised["conditions"] = [condition.minimise() for condition in self.conditions]
-        if not self.supporting: minimised["supporting"] = self.supporting
-
-        return minimised
-
     def clone(self):
         """ Generate a deep copy of this Rule - All references to concepts are replaced with strings
 
@@ -131,139 +119,104 @@ class Rule:
             Rule: A new Rule emblematic of the original
         """
         return Rule(
-            self.domains.bases,
-            self.targets.bases,
+            self.domains.bases.toStringSet(),
+            self.targets.bases.toStringSet(),
             self.confidence,
             supporting=self.supporting,
             conditions=[condition.clone() for condition in self._conditions]
         )
 
-class RuleConceptSet(collections.abc.MutableSet):
+class RuleConceptSet(ConceptSet):
 
-    def __init__(self, owner: Rule, iterable: {Concept} = set(), domains: bool = True):
+    def __init__(self, owner: Rule, iterable: {Concept} = set(), isDomain: bool = True):
+
         self._owner = owner
+        self._isDomain = isDomain
 
-        self._base = set()
-        self._elements = set()
-        self._partial = set()
-
-        self._isDomain = domains
+        self._bases = set()
+        super().__init__(self)  # Initialise the internal variables of the concept set
 
         if isinstance(iterable, (str, Concept, Instance)):
             self.add(iterable)
         else:
             for con in iterable: self.add(con)
 
-    def __len__(self): return len(self._elements)
-    def __bool__(self): return bool(self._base)
-    def __iter__(self): return iter(self._elements)
-    def __contains__(self, concept: Concept): return concept in self._elements
-
-    def __repr__(self): return "<RuleConceptSet{}>".format(self._elements)
-
     @property
-    def bases(self): return ConceptSet(self._base)
+    def bases(self): return self._bases.copy()
 
-    def add(self, concept: Concept) -> None:
+    def add(self, concept: Concept):
+        """ Add a concept to the rule set
+
+        Params:
+            concept (Concept): Works
+
         """
 
-        """
-        return self._add(concept, True)
-    def _add(self, concept: Concept, base: bool = False) -> None:
+        #TODO: Ensure that the base isn't expressed by bases of the rule already - paying attention to domain/target
 
-        if isinstance(concept, str):
-            if concept in self._elements: return  # Cannot add a partial if its already in elements
-            self._partial.add(concept)  # Record that this added concept is only partial
-        elif concept in self._partial:
-            # This is a non partial element to replace the current partial element
-            if base: self._base.remove(concept)
-            self._elements.remove(concept)  # Remove the partial element
-            self._partial.remove(concept)  # Remove the partial tag
+        self._bases.add(concept)
+        super().add(concept)
 
-        # Add the element into the set
-        if base: self._base.add(concept)
-        self._elements.add(concept)
-        if isinstance(concept, str): return
-
-        if base:
-            # If the Rule has conditions, we need to cascade this set of concepts
+        if not isinstance(concept, str):
             if self._isDomain:
-                # We are the Rule's domains so all descendants of this Concept are applicable
-                for dom in concept.descendants(): self._add(dom)
+                for child in concept.descendants(): super().add(child)
             else:
-                # We are the Rule's targets so all ancestors of this concept are applicable
-                for tar in concept.ancestors(): self._add(tar)
+                for parent in concept.ancestors(): super().add(parent)
 
-                # The Rule is conditional on the target, include target descendants
                 if self._owner.conditions.isConditionOnTarget():
-                    for tar in concept.descendants(): self._add(tar)
+                    for child in concept.descendants(): super().add(child)
 
-    def discard(self, concept: Concept) -> None:
+    def discard(self, concept: Concept):
 
-        if concept not in self._base: return
+        if concept not in self._bases: return
 
-        self._base.remove(concept)
-        self.minimise()
+        self._bases.remove(concept)
+        super().discard(concept)
 
-    def subscribe(self, concept: Concept) -> None:
+        # For children of the bases, check whether they should also be discarded
+        isDiscard = list(concept.children)
+
+        while isDiscard:
+            concept = isDiscard.pop()
+
+            if not concept.ancestors().intersection(self._bases):
+                # Concept not expressed - remove and add its children for checking
+                super().discard(concept)
+                isDiscard += list(concept.children)
+
+    def _subscribe(self, concept: Concept, cascade: bool = True):
+
+        # Check with the concept is already expressed
+        if isinstance(concept, str) and concept in self._elements: return
+        if concept not in self._partial and concept in self._elements: return
+
         if self._isDomain:
             # We are the Rule's domains so all descendants of this Concept are applicable
-            if concept.ancestors().intersection(self._base):
-                self._add(concept)
-        else:
-            # We are the Rule's targets so all ancestors of this concept are applicable
-            if (concept.descendants().intersection(self._base) or
-                (self._owner.conditions.isConditionOnTarget() and
-                concept.ancestors().intersection(self._base))
-                ):
-                self._add(concept)
+            if concept.ancestors().intersection(self._bases):
+                super().add(concept)
 
-    def expand(self):
-        """ We are to expand the set to include required concepts given that the conditions are present"""
-
-        if self._isDomain:
-
-            # For each of the children of the base domains, add them in
-            for concept in self._base:
-                if isinstance(concept, str): continue
-                for child in concept.descendants():
-                    self._add(child)
+                if cascade:
+                    for child in concept.descendants(): self._subscribe(child, cascade = False)
 
         else:
 
-            # For each of the children of the base domains, add them in
-            for concept in self._base:
-                if isinstance(concept, str): continue
-                for parent in concept.ancestors():
-                    self._add(parent)
+            cascadeUp = bool(concept.descendants().intersection(self._bases))
+            cascadeDown = self._owner.conditions.isConditionOnTarget() and concept.ancestors().intersection(self.bases)
+
+            if cascadeUp or cascadeDown:
+                super().add(concept)
+
+                if cascade:
+                    if cascadeUp:
+                        for parent in concept.ancestors(): self._subscribe(parent, False)
+
+                    if cascadeDown:
+                        for child in concept.descendants(): self._subscribe(child, False)
 
 
-            if self._owner.conditions.isConditionOnTarget():
-                for concept in self._base:
-                    if isinstance(concept, str): continue
-                    for child in concept.descendants():
-                        self._add(child)
-
-    def minimise(self):
-        """ Reduce the rule to its minimum. If there are still conditions that shall expand concepts then it shall bloat
-        back to its enlarged size
-        """
-
-        base = self._base
-        self._base = set()
-        self._elements = set()
-        self._partial = set()
-
-        for concept in base:
-            self._add(concept, True)
-
-    def partials(self) -> {str}:
-        """ Provide a set of the partial concepts within the set
-
-        Returns:
-            {str}: A set of concept names yet to be linked correctly
-        """
-        return self._partial.copy()
+    def _unsubscribe(self, concept: Concept):
+        #TODO
+        pass
 
 class ConditionManager(collections.abc.MutableSequence):
     """ A list like object that houses Condition objects while providing useful convenient methods for interacting with

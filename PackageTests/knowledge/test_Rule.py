@@ -96,26 +96,6 @@ class Test_Rule(unittest.TestCase):
         for condition, salience in zip(rule.conditions, [99, 70, 67, 40]):
             self.assertEqual(condition.salience, salience)
 
-    def test_minimised_with_no_conditions(self):
-        """ Test that the Rule is minimised correctly given that it doesn't have any conditions """
-
-        rule = knowledge.Rule(self.k, self.g, 100)
-
-        self.assertEqual(rule.minimise(), {
-            "domains": ["K"],
-            "targets": ["G"],
-            "confidence": 100
-        })
-
-        rule = knowledge.Rule(self.g, {self.k, self.a}, 88, supporting=False)
-
-        self.assertEqual(rule.minimise(), {
-            "domains": ["G"],
-            "targets": ["A", "K"],
-            "confidence": 88,
-            "supporting": False
-        })
-
     def test_domains_targets_with_conditions_conditional_on_target(self):
 
         rule = knowledge.Rule({self.b, self.d}, self.k, 80, conditions=[knowledge.Condition("@", 100)])
@@ -150,33 +130,6 @@ class Test_Rule(unittest.TestCase):
 
         self.assertTrue(rule.applies(self.b, self.k))
         self.assertTrue(rule.applies(self.c, self.j))
-
-
-    def test_minimised_with_conditions_conditional_on_target(self):
-
-        rule = knowledge.Rule(
-            self.k,
-            self.g,
-            100,
-            conditions = [
-                knowledge.Condition("@", salience=67),
-                knowledge.Condition("199", salience=99),
-            ]
-        )
-
-        self.assertEqual(rule.minimise(), {
-            "domains": ["K"],
-            "targets": ["G"],
-            "confidence": 100,
-            "conditions": [
-                {
-                    "logic": "199", "salience": 99
-                },
-                {
-                    "logic": "@", "salience": 67
-                }
-            ]
-        })
 
 class Test_RelationConceptSet(unittest.TestCase):
 
