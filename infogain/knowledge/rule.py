@@ -154,7 +154,7 @@ class RuleConceptSet(ConceptSet):
         self._bases.add(concept)
         super().add(concept)
 
-        if not isinstance(concept, str):
+        if not isinstance(concept, (str, Instance)):
             if self._isDomain:
                 for child in concept.descendants(): super().add(child)
             else:
