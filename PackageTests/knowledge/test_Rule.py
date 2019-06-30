@@ -1,7 +1,6 @@
 import unittest, pytest
 from infogain import knowledge
-from infogain.knowledge import Concept
-from infogain.knowledge.rule import RuleConceptSet, ConditionManager
+from infogain.knowledge import Concept, Relation, Rule, Condition
 
 class Test_Rule(unittest.TestCase):
 
@@ -36,27 +35,6 @@ class Test_Rule(unittest.TestCase):
         self.assertEqual(rule.domains, {self.b, self.d, self.c})
         self.assertEqual(rule.targets, {self.k, self.j})
 
-    def test_subscription_with_no_conditions(self):
-        """ Assert that when there are no conditions for the rule, that no concepts can subscribe to the rule """
-
-        rule = knowledge.Rule(self.h, self.k, 20)
-
-        rule.subscribe(self.i)
-        rule.subscribe(self.a)
-        rule.subscribe(self.l)
-
-        self.assertEqual(rule.domains, {self.h, self.g})
-        self.assertEqual(rule.targets, {self.k, self.j})
-
-        g1 = Concept("G1", parents={self.g})
-        jStar = Concept("J*", children={self.j})
-
-        rule.subscribe(g1)
-        rule.subscribe(jStar)
-
-        self.assertEqual(rule.domains, {self.h, self.g, g1})
-        self.assertEqual(rule.targets, {self.k, self.j, jStar})
-
     def test_applies_with_no_conditions(self):
         """ Assert that a rule only applies to domains and targets (and their instances) of the Rule """
 
@@ -76,7 +54,7 @@ class Test_Rule(unittest.TestCase):
         for _ in rule.conditions:
             self.fail("There were apparently conditions when there shouldn't have been")
 
-        self.assertFalse(rule.conditions.isConditionOnTarget())
+        self.assertFalse(rule.conditions.isConditionalOnTarget())
 
     def test_conditions_order(self):
         """ Test that the order of the conditions is in line with their salience """
@@ -103,26 +81,6 @@ class Test_Rule(unittest.TestCase):
         self.assertEqual(rule.domains, {self.b, self.d, self.c})
         self.assertEqual(rule.targets, {self.k, self.j, self.l})
 
-    def test_subscribe_with_conditions_conditional_on_target(self):
-        rule = knowledge.Rule(self.h, self.k, 20, conditions=[knowledge.Condition("@", 100)])
-
-        rule.subscribe(self.i)
-        rule.subscribe(self.a)
-
-        self.assertEqual(rule.domains, {self.h, self.g})
-        self.assertEqual(rule.targets, {self.k, self.j, self.l})
-
-        g1 = Concept("G1", parents={self.g})
-        jStar = Concept("J*", children={self.j})
-        l1 = Concept("L1", parents={self.l})
-
-        rule.subscribe(g1)
-        rule.subscribe(jStar)
-        rule.subscribe(l1)
-
-        self.assertEqual(rule.domains, {self.h, self.g, g1})
-        self.assertEqual(rule.targets, {self.k, self.l, self.j, jStar, l1})
-
     def test_applies_with_conditions_conditional_on_target(self):
 
         rule = knowledge.Rule({self.b, self.d}, self.k, 80, conditions=[knowledge.Condition("@", 100)])
@@ -133,13 +91,168 @@ class Test_Rule(unittest.TestCase):
 
 class Test_RelationConceptSet(unittest.TestCase):
 
-    def test_failed(self):
-        self.fail()
+    def setUp(self):
+
+        self.domain = Concept("Domain")
+        self.target = Concept("Target")
+
+        self.a = Concept("A")
+        self.b = Concept("B", parents={self.a})
+        self.c = Concept("C", parents={self.b})
+
+        self.x = Concept("X")
+        self.y = Concept("Y", parents={self.x})
+        self.z = Concept("Z", parents={self.y})
+
+        self.relation = Relation({self.a}, "example", {self.x})
+
+    def test_add(self):
+
+        rule = Rule(self.domain, self.target, 67)
+
+        self.assertEqual(rule.domains, {self.domain})
+        self.assertEqual(rule.targets, {self.target})
+
+        rule.domains.add(self.b)
+        rule.targets.add(self.y)
+
+        self.assertEqual(rule.domains, {self.domain, self.b, self.c})
+        self.assertEqual(rule.targets, {self.target, self.x, self.y})
+
+    def test_addWhileConditional(self):
+
+        rule = Rule(self.domain, self.target, 67)
+        rule.conditions.add(Condition("@", 8))
+
+        self.assertEqual(rule.domains, {self.domain})
+        self.assertEqual(rule.targets, {self.target})
+
+        rule.domains.add(self.b)
+        rule.targets.add(self.y)
+
+        self.assertEqual(rule.domains, {self.domain, self.b, self.c})
+        self.assertEqual(rule.targets, {self.target, self.x, self.y, self.z})
+
+    def test_discard(self):
+
+        rule = Rule({self.domain, self.b}, {self.target, self.y}, 89)
+
+        self.assertEqual(rule.domains, {self.domain, self.b, self.c})
+        self.assertEqual(rule.targets, {self.target, self.x, self.y})
+
+        rule.domains.discard(self.b)
+        rule.targets.discard(self.y)
+
+        self.assertEqual(rule.domains, {self.domain})
+        self.assertEqual(rule.targets, {self.target})
+
+    def test_discardWhileConditional(self):
+
+        rule = Rule({self.domain, self.b}, {self.target, self.y}, 89)
+        rule.conditions.add(Condition("@", 8))
+
+        self.assertEqual(rule.domains, {self.domain, self.b, self.c})
+        self.assertEqual(rule.targets, {self.target, self.x, self.y, self.z})
+
+        rule.domains.discard(self.b)
+        rule.targets.discard(self.y)
+
+        self.assertEqual(rule.domains, {self.domain})
+        self.assertEqual(rule.targets, {self.target})
 
 class Test_ConditionManager(unittest.TestCase):
 
-    def test_failed(self):
-        self.fail()
+    def setUp(self):
+
+        self.a = Concept("A")
+        self.b = Concept("B", parents={self.a})
+        self.c = Concept("C", parents={self.b})
+
+        self.x = Concept("X")
+        self.y = Concept("Y", parents={self.x})
+        self.z = Concept("Z", parents={self.y})
+
+        self.relation = Relation({self.a}, "example", {self.x})
+
+        self.rule = Rule(self.b, self.y, 67)
+
+        self.relation.rules.add(self.rule)
+
+    def test_add(self):
+        # Test that adding a condition (and the other forms of add) add in the order of salience
+
+        con1 = Condition("%", 78.)
+        con2 = Condition("%", 50.)
+        con3 = Condition("%", 62.)
+
+        self.assertEqual(list(self.rule.conditions), [])
+
+        self.rule.conditions.add(con1)
+
+        self.assertEqual(list(self.rule.conditions), [con1])
+
+        self.rule.conditions.add(con2)
+        self.rule.conditions.add(con3)
+
+        self.assertEqual(list(self.rule.conditions), [con1, con3, con2])
+
+    def test_addingTargetDependentCondition(self):
+        # Test that adding the target dependent condition that it causes the targets to cascade
+
+        # Target dependant condition
+        con1 = Condition("@", 68.)
+
+        self.assertEqual(self.rule.targets, {self.y, self.x})
+
+        self.rule.conditions.add(con1)
+
+        self.assertEqual(self.rule.targets, {self.x, self.y, self.z})
+
+    def test_cannotAddConditionTwice(self):
+        # Assert that a condition cannot be added twice
+
+        condition = Condition("@")
+
+        self.rule.conditions.add(condition)
+
+        with pytest.raises(ValueError):
+            self.rule.conditions.add(condition)
+
+        self.assertEqual(len(self.rule.conditions), 1)
+
+    def test_remove(self):
+
+        con1 = Condition("%", 78.)
+        con2 = Condition("%", 50.)
+        con3 = Condition("%", 62.)
+
+        self.rule.conditions.add(con1)
+        self.rule.conditions.add(con2)
+        self.rule.conditions.add(con3)
+
+        self.rule.conditions.remove(con2)
+        del self.rule.conditions[1]
+
+        self.assertEqual(list(self.rule.conditions), [con1])
+
+    def test_removeLastTargetDependentCondition(self):
+
+        con1 = Condition("@", 68.)
+        con2 = Condition("@", 54.)
+
+        self.rule.conditions.add(con1)
+
+        self.assertEqual(self.rule.targets, {self.x, self.y, self.z})
+
+        self.rule.conditions.add(con2)
+        self.rule.conditions.remove(con1)
+
+        self.assertEqual(self.rule.targets, {self.x, self.y, self.z})
+
+        self.rule.conditions.remove(con2)
+
+        self.assertEqual(self.rule.targets, {self.x, self.y})
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -69,9 +69,6 @@ class Rule:
     @property
     def conditions(self): return self._conditions
 
-    def subscribe(self, concept: Concept) -> None:
-        self._subscribe(concept)
-
     def _subscribe(self, concept: Concept) -> None:
         self.domains._subscribe(concept)
         self.targets._subscribe(concept)
@@ -163,7 +160,7 @@ class RuleConceptSet(ConceptSet):
             else:
                 for parent in concept.ancestors(): super().add(parent)
 
-                if self._owner.conditions.isConditionOnTarget():
+                if self._owner.conditions.isConditionalOnTarget():
                     for child in concept.descendants(): super().add(child)
 
     def discard(self, concept: Concept):
@@ -173,16 +170,48 @@ class RuleConceptSet(ConceptSet):
         self._bases.remove(concept)
         super().discard(concept)
 
-        # For children of the bases, check whether they should also be discarded
-        isDiscard = list(concept.children)
+        if not self._isDomain:
+            # If we are targets - remove ancestor concepts that have been added
 
-        while isDiscard:
-            concept = isDiscard.pop()
+            discard = list(concept.parents)
 
-            if not concept.ancestors().intersection(self._bases):
-                # Concept not expressed - remove and add its children for checking
-                super().discard(concept)
-                isDiscard += list(concept.children)
+            while discard:
+                parent = discard.pop()
+
+                if not parent.descendants().intersection(self._bases):
+                    super().discard(parent)
+                    discard += list(parent.parents)
+
+            # Check whether we are condition on the target and have cascaded down too - if so continue to remove kids
+            if not self._owner.conditions.isConditionalOnTarget(): return
+
+        discard = list(concept.children)
+
+        while discard:
+            child = discard.pop()
+
+            if not child.ancestors().intersection(self._bases):
+                super().discard(child)
+                discard += list(child.children)
+
+    def expand(self): raise NotImplementedError("")
+    def _expand(self):
+        """ If a target set and conditions conditional on targets, expand set to include descendants
+        """
+
+        if not self._isDomain and self._owner.conditions.isConditionalOnTarget():
+            # If we are the target set and the conditions are conditional on the target
+            for concept in self._bases:
+                # For each target base, subscribe their children
+                for child in concept.descendants(): self._subscribe(child, False)
+
+    def minimise(self): raise NotImplementedError("")
+    def _minimise(self):
+
+        if not self._isDomain and not self._owner.conditions.isConditionalOnTarget():
+
+            for concept in self._bases:
+                for child in concept.descendants(): self._unsubscribe(child, False)
 
     def _subscribe(self, concept: Concept, cascade: bool = True):
 
@@ -201,7 +230,7 @@ class RuleConceptSet(ConceptSet):
         else:
 
             cascadeUp = bool(concept.descendants().intersection(self._bases))
-            cascadeDown = self._owner.conditions.isConditionOnTarget() and concept.ancestors().intersection(self.bases)
+            cascadeDown = self._owner.conditions.isConditionalOnTarget() and concept.ancestors().intersection(self.bases)
 
             if cascadeUp or cascadeDown:
                 super().add(concept)
@@ -214,11 +243,46 @@ class RuleConceptSet(ConceptSet):
                         for child in concept.descendants(): self._subscribe(child, False)
 
 
-    def _unsubscribe(self, concept: Concept):
-        #TODO
-        pass
+    def _unsubscribe(self, concept: Concept, cascade: bool = True):
 
-class ConditionManager(collections.abc.MutableSequence):
+        if (
+            concept in self._bases or
+            concept not in self._elements
+        ):
+            return
+
+        if isinstance(concept, str):
+
+            if concept in self._partial:
+                return super().discard(concept)
+
+            else:
+                concept = self._elements.intersection({concept}).pop() # Extract the saved item
+
+        if self._isDomain:
+
+            if not concept.ancestors().intersection(self._bases):
+                super().discard(concept)
+
+                if cascade:
+                    for child in concept.descendants(): self._unsubscribe(child, cascade = False)
+
+        else:
+
+            cascadeUp = bool(concept.descendants().intersection(self._bases))
+            cascadeDown = self._owner.conditions.isConditionalOnTarget() and concept.ancestors().intersection(self.bases)
+
+            if not (cascadeUp or cascadeDown):
+                super().discard(concept)
+
+                if cascade:
+                    if not cascadeUp:
+                        for parent in concept.ancestors(): self._unsubscribe(parent, False)
+
+                    if not cascadeDown:
+                        for child in concept.descendants(): self._unsubscribe(child, False)
+
+class ConditionManager:
     """ A list like object that houses Condition objects while providing useful convenient methods for interacting with
     them
 
@@ -230,15 +294,13 @@ class ConditionManager(collections.abc.MutableSequence):
         self._owner = owner
         self._elements = []
 
-        self._isConditionOnTargets = False
+        self._isConditionalOnTargets = False
 
     def __bool__(self): return bool(self._elements)
     def __iter__(self): return iter(self._elements)
     def __len__(self): return len(self._elements)
     def __getitem__(self, index: int): return self._elements[index]
-    def __setitem__(self, index: int, condition: Condition): self.add(condition)
-    def __delitem__(self, index: int): self.remove(self[index])
-    def insert(self, index: int, condition: Condition): self.add(condition)
+    def __delitem__(self, index: int): self.remove(self._elements[index])
 
     def add(self, condition: Condition) -> None:
         """ Add a condition object into this condition Manager, order the conditions relative to its salience
@@ -249,15 +311,16 @@ class ConditionManager(collections.abc.MutableSequence):
 
         i = 0  # Assign 0 in case the elements list is empty
         for i, cond in enumerate(self._elements):
+            if condition is cond: raise ValueError("Cannot add a condition to a rule twice")
             if condition.salience >= cond.salience: break
         else:
             i += 1
         self._elements.insert(i, condition)  # Insert the rule into the collection
 
         # If the condition is conditional on the target, expand the targets to include descendants
-        if condition.containsTarget() and not self._isConditionOnTargets:
-            self._isConditionOnTargets = True
-            self._owner.targets.expand()
+        if condition.containsTarget() and not self._isConditionalOnTargets:
+            self._isConditionalOnTargets = True
+            self._owner.targets._expand()
 
     def remove(self, condition: Condition) -> None:
         """ Remove a condition object from this Condition Manager and subsequently the Rule
@@ -268,12 +331,12 @@ class ConditionManager(collections.abc.MutableSequence):
         self._elements.remove(condition)
 
         # If we have just the last condition that contains the target, minimise the targets
-        if (self._isConditionOnTargets and
+        if (self._isConditionalOnTargets and
             condition.containsTarget() and
-            not any((condition.containsTarget() in self._elements))):
+            not any((condition.containsTarget() for condition in self._elements))):
 
-            self._isConditionOnTargets = False
-            self._owner.targets.minimise()
+            self._isConditionalOnTargets = False
+            self._owner.targets._minimise()
 
-    def isConditionOnTarget(self):
-        return self._isConditionOnTargets
+    def isConditionalOnTarget(self):
+        return self._isConditionalOnTargets
