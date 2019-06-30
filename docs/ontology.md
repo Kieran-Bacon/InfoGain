@@ -55,23 +55,31 @@ aren't returned when
 ### Adding concepts to the relation
 
 ```python
-relation.concepts.addDomain(Concept("Kieran"))  # This shall add "Kieran" to all domains groups
-relation.concepts.addDomain(Concept("Bacon"), 1)  # This shall add "Bacon to the second domain group
-relation.concepts.addDomain(Concept("stop..."), 100000) # This shall create a ton of sets and add this concept to the end of it...
 
-relation.concepts.add(domain, target)  # Add this domain and range to all groups
-relation.concepts.add(domain, target, 1)  # Add this domain and target to this set
-```
+Relation([[x],[y]], "name", [[x,y],[z]])
 
-```python
+rel.between(x, z) # False
+
+relation.domain.add(x, 1)
+
+relation.domains()
+
+relation.domains.add(Concept())
+relation.domains.add(Concept(), 1)
 
 for domains, targets in relation.concepts:
-    do_stuff()
 
-domains, targets = relation.concepts[0]
+for domains in
 
-domains = relation.concepts.domains[0]
+
+
+
+for domain, targets in relation.concepts:
+    if x < y:
+        domain.add(Concept("what"))
+
 ```
+
 
 ```python
 
@@ -87,6 +95,8 @@ domains = relation.concepts.domains[0]
 
 
 ```
+
+Though it is possible to add partial concepts to the relation - it cannot have partial concepts as a member which are inherited by parent concepts. These concepts must be resolved before hand.
 
 ## Rule
 
