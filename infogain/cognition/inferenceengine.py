@@ -147,7 +147,7 @@ class InferenceEngineConcepts(OntologyConcepts):
         super().add(concept)
 
         if concept.category is Concept.STATIC:
-            self._owner.instances().add(concept.instance())
+            self._owner.instances.add(concept.instance())
 
     def remove(self, concept: Concept) -> None:
         super().remove(concept)
@@ -187,7 +187,7 @@ class InferenceEngineInstances(collections.abc.MutableMapping):
 
         self._elements[instance.name] = instance
         self._conceptMapping[instance.concept].add(instance)
-        
+
     def __getitem__(self, name: str): return self._elements[name]
 
     def __delitem__(self, name: str):
@@ -199,7 +199,7 @@ class InferenceEngineInstances(collections.abc.MutableMapping):
         del self._elements[name]
         self._conceptMapping[instance.concept].remove(instance)
         if not self._conceptMapping[instance.concept]: del self._conceptMapping[instance.concept]
-    
+
     def __iter__(self): return iter(self._elements)
 
     def __call__(self, concept: Concept, descendants: bool = False)  -> (Instance, {Instance}):
@@ -214,7 +214,7 @@ class InferenceEngineInstances(collections.abc.MutableMapping):
         Returns:
             ConceptInstances: A ConceptInstance or a list of concept instances
         """
-        
+
         if isinstance(concept, str):
             return self.get(concept)  # Return the instance with the given name or None
 

@@ -6,10 +6,10 @@ from ..knowledge import Instance
 class EvalTree:
 
     concept_syntax = re.compile(r"\%|\@|#(\[[\w_]+\])?([A-Za-z][\w_]*)")  # The concept syntax in the logic
-    
+
     def __str__(self):
         raise NotImplementedError()
-    
+
     def instance(self, *args) -> Instance:
         """ return the instance this node is linked too or None in the event the node does not
         relate """
@@ -31,11 +31,11 @@ class EvalTree:
         Params:
             concept_name (str): The potential concept name to be tested
         """
-        return concept_name in ["%", "@"] 
+        return concept_name in ["%", "@"]
 
     @classmethod
     def paramToConcept(cls, concept_name: str) -> (str, bool):
-        """ Convert a parameter name into a valid concept string 
+        """ Convert a parameter name into a valid concept string
 
         Params:
             concept_name (str): String that expresses a concept
@@ -54,12 +54,12 @@ class EvalTreeFactory:
     """ Evaluable logic tree factory - Converts a logical string into a complex tree structure
     that may be evaluated. Tree's can be comprised of EvalNodes that all inherit from EvalTree. Each
     Node descripts how the language of the logic is used.
-    
+
     Params:
         engine (InferenceEngine): Reference to the inference engine - the scope of the logic
     """
 
-    def __init__(self, engine):
+    def __init__(self):
         self._depth = 0
 
     def constructTree(self, logic) -> EvalTree:
@@ -68,7 +68,7 @@ class EvalTreeFactory:
 
         Params:
             logic (str): The logic to be parsed
-        
+
         Returns:
             EvalTree: Root of a complex tree structure
 
@@ -109,7 +109,7 @@ class EvalTreeFactory:
             match = PropertyNode.expression.search(tll)
             if match:
 
-                # Split by the inflection point, 
+                # Split by the inflection point,
                 left, _ = self._reformSplit(tll, segments, match.span("flection_point"))
 
                 parameters = None
@@ -138,13 +138,13 @@ class EvalTreeFactory:
             if tll.strip() in BuiltInFunctionNode.functionList:
                 if len(segments) != 1: raise IncorrectLogic("No arguments passed to builtin function {}".format(tll))
                 return BuiltInFunctionNode(tll.strip(), self._buildParameters(segments[0][1]))
-            
+
             raise IncorrectLogic("Could not match logic with any node type: '{}'".format(tll))
         except IncorrectLogic as e:
             raise IncorrectLogic("Could not parse sub logic for '{}'".format(logic)) from e
 
     def _buildParameters(self, logic: str) -> [EvalTree]:
-        """ Convert a logic string that represents a tuple of arguments into a list of Evaltrees for each element in 
+        """ Convert a logic string that represents a tuple of arguments into a list of Evaltrees for each element in
         the same original order. These shall form the parameters of a EvalTree node in the logic.
 
         Params:
@@ -174,7 +174,7 @@ class EvalTreeFactory:
         """
 
         # The currently openned parenthesis index + the number of inner open parenthesis before its close
-        indexOfOpenned, ignoreCount = None, 0  
+        indexOfOpenned, ignoreCount = None, 0
         segments = []
 
         parenthesisError = IncorrectLogic("Parenthesis miss match while examining logic: {}".format(logic))
