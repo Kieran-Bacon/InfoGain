@@ -9,7 +9,7 @@ from infogain.cognition.treenodes.conceptnode import ConceptNode
 class Test_OperatorNode(unittest.TestCase):
 
     def setUp(self):
-        self.factory = EvalTreeFactory(None)
+        self.factory = EvalTreeFactory()
 
     def test_equal_operator(self):
 
@@ -30,4 +30,4 @@ class Test_OperatorNode(unittest.TestCase):
         node = self.factory.constructTree("20 != 20")
 
         self.assertEqual(node.eval(scenario={}), False)
-    
+

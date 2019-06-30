@@ -17,11 +17,11 @@ class Test_PropertyNode(unittest.TestCase):
         self.engine.concepts.add(self.example)
 
         self.maps_to = Relation({self.example}, "maps_to", {self.example})
-        self.engine.addRelation(self.maps_to)
+        self.engine.relations.add(self.maps_to)
 
         self.scenario = {"#example": self.example.instance()}
 
-        self.factory = EvalTreeFactory(self.engine)
+        self.factory = EvalTreeFactory()
 
     def test_get_property(self):
 
