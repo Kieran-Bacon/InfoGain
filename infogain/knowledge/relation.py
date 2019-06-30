@@ -97,6 +97,23 @@ class RelationConceptSet(ConceptSet):
 
         #! Partial concepts that are added as children to concepts shall not inherit of become part of this concept
 
+        if concept in self._partial:
+            # A base partial concept being replaced - Remove the partial concept from everywhere
+
+            super().discard(concept)
+            del self._derivedPartial[concept.name]
+            self._derivedElements.remove(concept)
+
+            self.add(concept)
+
+        if concept in self._derivedPartial:
+            # A derived partial concept - remove partial and add derived concept
+
+            del self._derivedPartial[concept.name]
+            self._derivedElements.remove(concept)
+
+            self._add(concept)
+
         if concept not in self._derivedElements and concept.ancestors().intersection(self._elements):
             self._add(concept)
 
@@ -187,6 +204,7 @@ class RelationConceptManager(collections.abc.MutableSequence):
                 for group in concepts:
                     self._elements.append(RelationConceptSet(self._owner, group))
 
+    def __repr__(self): return "<RelationConceptGroups[{}]>".format(",".join(self._elements))
     def __len__(self): return len(self._elements)
     def __iter__(self): return iter(self._elements)
     def __getitem__(self, index: int): return self._elements[index]
@@ -268,7 +286,6 @@ class RuleManager(collections.abc.MutableSequence):
 
     def remove(self, rule: Rule):
         self._elements.remove(rule)
-
 
 class Relation:
     """ A relation expresses a connection between concepts. It declares how particular concepts interact and informs
@@ -356,8 +373,8 @@ class Relation:
 
         # For all the concept sets check where the concept should be added
         for domains, targets in zip(self.domains, self.targets):
-            if ancestors.intersection(domains): domains._subscribe(concept)
-            if ancestors.intersection(targets): targets._subscribe(concept)
+            if ancestors.intersection(domains) or concept in domains.partials(): domains._subscribe(concept)
+            if ancestors.intersection(targets) or concept in targets.partials(): targets._subscribe(concept)
 
         # For each of the rules, pass the concept on as relevant
         for rule in self._rules: rule._subscribe(concept)
