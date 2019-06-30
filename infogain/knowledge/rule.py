@@ -139,7 +139,7 @@ class RuleConceptSet(ConceptSet):
             for con in iterable: self.add(con)
 
     @property
-    def bases(self): return self._bases.copy()
+    def bases(self): return ConceptSet(self._bases)
 
     def add(self, concept: Concept):
         """ Add a concept to the rule set
@@ -202,6 +202,7 @@ class RuleConceptSet(ConceptSet):
         if not self._isDomain and self._owner.conditions.isConditionalOnTarget():
             # If we are the target set and the conditions are conditional on the target
             for concept in self._bases:
+                if isinstance(concept, str): continue
                 # For each target base, subscribe their children
                 for child in concept.descendants(): self._subscribe(child, False)
 
@@ -211,6 +212,7 @@ class RuleConceptSet(ConceptSet):
         if not self._isDomain and not self._owner.conditions.isConditionalOnTarget():
 
             for concept in self._bases:
+                if isinstance(concept, str): continue
                 for child in concept.descendants(): self._unsubscribe(child, False)
 
     def _subscribe(self, concept: Concept, cascade: bool = True):

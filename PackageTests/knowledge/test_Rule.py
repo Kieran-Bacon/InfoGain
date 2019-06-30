@@ -254,5 +254,25 @@ class Test_ConditionManager(unittest.TestCase):
         self.assertEqual(self.rule.targets, {self.x, self.y})
 
 
+class Test_RulesWithPartials(unittest.TestCase):
+
+    def setUp(self):
+
+        self.a = Concept("A")
+        self.b = Concept("B", parents={self.a})
+        self.c = Concept("C", parents={self.b})
+
+        self.x = Concept("X")
+        self.y = Concept("Y", parents={self.x})
+        self.z = Concept("Z", parents={self.y})
+
+
+    def test_expandingConceptSet(self):
+
+        rule = Rule(self.b, {self.y, "partial"}, 70)
+        rule.conditions.add(Condition("@", 20))
+
+        self.assertEqual(rule.targets, {self.x, self.y, self.z, "partial"})
+
 if __name__ == "__main__":
     unittest.main()
