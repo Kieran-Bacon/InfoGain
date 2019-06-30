@@ -16,12 +16,7 @@ class EvalRelation(Relation):
             relation.name,
             relation.targets,
             rules = [
-                EvalRule.fromRule(rule) for rule in relation.rules()
+                EvalRule.fromRule(rule) for rule in relation.rules
             ],
             differ = relation.differ
         )
-
-        rules = [EvalRule.fromRule(rule, engine) for rule in relation.rules()]
-        evalRelation = EvalRelation(relation.domains, relation.name, relation.targets, rules, relation.differ)
-        evalRelation.assignEngine(engine)
-        return evalRelation
