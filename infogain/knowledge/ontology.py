@@ -184,10 +184,11 @@ class OntologyRelations(collections.abc.MutableMapping):
         """
 
         # Resolve any partial concepts that exist within the relation - record missed concepts
-        for partial in relation.concepts.partials():
+        for partial in {p for c in (relation.domains, relation.targets) for g in c for p in g.partials()}:
+
             found = self._owner.concepts(partial)
             if found:
-                relation.subscribe(found)
+                relation._subscribe(found)
             else:
                 self._owner.concepts._missedRelations[partial].add(relation)
 

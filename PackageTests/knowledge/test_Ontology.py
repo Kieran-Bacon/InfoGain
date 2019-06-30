@@ -83,8 +83,8 @@ class Test_Ontology_Creation(unittest.TestCase):
 
         ontology.relations.add(rel)
 
-        self.assertEqual(rel.domains, {x1,x2,x11,x12})
-        self.assertEqual({z.name for z in rel.targets}, {z.name for z in {y1, y11, y2}})
+        self.assertEqual(rel.domains(), {x1,x2,x11,x12})
+        self.assertEqual({z.name for z in rel.targets()}, {z.name for z in {y1, y11, y2}})
 
         for dom in {x1, x11, x12}:
             [self.assertTrue(rel.between(dom, tar)) for tar in {y1, y11}]
@@ -95,8 +95,8 @@ class Test_Ontology_Creation(unittest.TestCase):
         clonedOntology = ontology.clone()
         rel = clonedOntology.relations("rel")
 
-        self.assertEqual({z.name for z in rel.domains}, {z.name for z in {x1,x2,x11,x12}})
-        self.assertEqual({z for z in rel.targets}, {z.name for z in {y1, y11, y2}})
+        self.assertEqual({z.name for z in rel.domains()}, {z.name for z in {x1,x2,x11,x12}})
+        self.assertEqual({z for z in rel.targets()}, {z.name for z in {y1, y11, y2}})
 
         for dom in {x1, x11, x12}:
             for tar in {y1, y11}:
@@ -201,15 +201,6 @@ class Test_Ontology_Creation(unittest.TestCase):
         ont = Language.ontology()
         kieran = ont.concepts("Kieran")
         self.assertEqual(kieran.aliases, {"Legend", "Champ", "Badass"})
-
-    def test_ontology_pickle_able(self):
-        import pickle
-
-        ontology = Language.ontology()
-        reloaded = pickle.loads(pickle.dumps(ontology))
-
-        self.assertTrue(reloaded.concepts("Kieran") is not None)
-        self.assertEqual(reloaded.concepts("Kieran"), ontology.concepts("Kieran"))
 
 if __name__ == "__main__":
     unittest.main()
