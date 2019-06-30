@@ -10,120 +10,6 @@ from .rule import Rule
 import logging
 log = logging.getLogger(__name__)
 
-class Relation:
-    """ A relation expresses a connection between concepts. It declares how particular concepts interact and informs
-    other system functionality.
-
-    Params:
-        domains (set): A collection of concepts
-        name (str): The name to identify the relation object
-        targets (set): A collection of concepts
-        rules ([Rule]): Rules that determine when the relation holds between concepts
-        differ (bool): toggle for where a relation holds between a concept and itself
-
-    Raises:
-        AssertionError: In the event that the domains and targets aren't consistent with each other how they are
-            instantiated. Either both a iterable of concepts, or both an iterable of iterables of concepts.
-    """
-
-    def __init__(self, domains: {Concept}, name: str, targets: {Concept}, rules=[], differ: bool = False):
-
-        self.name = name
-        self._domains = RelationConceptManager(self, domains, isDomain = True)
-        self._targets = RelationConceptManager(self, targets, isDomain = False)
-        assert len(self._domains) == len(self._targets), "Inconsistent types of domains and targets passed"
-        self.rules = rules
-        self.differ = differ
-
-    @property
-    def domains(self) -> ConceptSet: return self._domains
-    @property
-    def targets(self) -> ConceptSet: return self._targets
-    @property
-    def rules(self) -> list: return self._rules
-    @rules.setter
-    def rules(self, rules: [Rule]): self._rules = RuleManager(self, rules)
-
-    def __repr__(self):
-        return "<Relation {}: {} - {}>".format(self.name, self._domains, self._targets)
-
-    def __str__(self):
-        return " ".join([str({str(x) for x in self._domains}), self.name, str({str(x) for x in self._targets})])
-
-    def appendConceptPairing(self, domains: ConceptSet, targets: ConceptSet) -> int:
-
-        index = self._domains.append(domains)
-        self._targets[index] = targets
-
-        return index
-
-    def between(self, domain: Concept, target: Concept) -> bool:
-        """ Verify if the relationship holds between two concepts.
-
-        Params:
-            domain (Concept): A potential domain of the relation
-            target (Concept): A potential target of the relation
-
-        Returns:
-            bool: True if relation holds between the domain and target provided
-        """
-        if type(domain) is not type(target):
-            raise ValueError("Passed incompatible types - domain: '{}' target: '{}'".format(repr(domain), repr(target)))
-        if self.differ and domain == target: return False
-
-        if isinstance(domain, Concept):
-            # Ensure that the concepts can even be compared
-            if Concept.ABSTRACT == (domain.category or target.category): return False
-        elif isinstance(domain, Instance):
-            # Switch the instances for their parents
-            domain, target = domain.concept, target.concept
-
-        # Loop through the various sets to check, return once found or
-        for domains, targets in zip(self.domains, self.targets):
-            if domain in domains and target in targets: return True
-        return False
-
-    def _subscribe(self, concept: Concept) -> None:
-        """ Add the concept object into the relation, correctly mapping the concept to targets, or domains to the
-        concept where applicable.
-
-        Params:
-            concept (Concept): the concept to be added
-        """
-
-        # Get the ancestors of the concept
-        ancestors = concept.ancestors()
-
-        # For all the concept sets check where the concept should be added
-        for domains, targets in zip(self.domains, self.targets):
-            if ancestors.intersection(domains): domains._subscribe(concept)
-            if ancestors.intersection(targets): targets._subscribe(concept)
-
-        # For each of the rules, pass the concept on as relevant
-        for rule in self._rules: rule._subscribe(concept)
-
-    def _unsubscribe(self, concept: Concept):
-        """ """
-
-        # Collect the ancestors of this concept
-        ancestors = concept.ancestors()
-
-        # For all the concept sets check whether they are
-        for domains, targets in zip(self.domains, self.targets):
-            if concept in domains and not ancestors.intersection(domains): domains._unsubscribe(concept)
-            if concept in targets and not ancestors.intersection(targets): targets._unsubscribe(concept)
-
-        for rule in self._rules: rule._unsubscribe(concept)
-
-    def clone(self):
-        return Relation(
-            self.domains,
-            self.name,
-            self.targets,
-            [rule.clone() for rule in self._rules],
-            self.differ
-        )
-
 
 class RelationConceptSet(ConceptSet):
     """ Concept Set
@@ -134,7 +20,7 @@ class RelationConceptSet(ConceptSet):
     #? hold a relation counter so that when we remove concepts the counter goes down
     #?
 
-    def __init__(self, owner: Relation, iterable: collections.abc.Iterable):
+    def __init__(self, owner: weakref.ref, iterable: collections.abc.Iterable):
 
         self._owner = owner
 
@@ -272,11 +158,6 @@ class RelationConceptSet(ConceptSet):
             self._derivedElements.discard(partial)
             del self._derivedPartial[partial]
 
-
-
-
-
-
 class RelationConceptManager(collections.abc.MutableSequence):
     """ Manage a collection of RelationConceptSets whose order matters. The index of a RelationConceptSet relates to
     another RelationConceptSet stored in another RelationConceptSet, it indicated what concepts out of the pairs can
@@ -287,7 +168,7 @@ class RelationConceptManager(collections.abc.MutableSequence):
         isDomain (bool): Indicates whether or not this manager is managing the domains or targets for the relation
     """
 
-    def __init__(self, owner: Relation, concepts: list, isDomain: bool = True):
+    def __init__(self, owner: weakref.ref, concepts: list, isDomain: bool = True):
 
         self._owner = owner
         self._elements = []
@@ -346,7 +227,7 @@ class RelationConceptManager(collections.abc.MutableSequence):
 
 class RuleManager(collections.abc.MutableSequence):
 
-    def __init__(self, owner: Relation, rules: list = []):
+    def __init__(self, owner: weakref.ref, rules: list = []):
         self._owner = owner
         self._elements = rules.copy()
 
@@ -387,3 +268,118 @@ class RuleManager(collections.abc.MutableSequence):
 
     def remove(self, rule: Rule):
         self._elements.remove(rule)
+
+
+class Relation:
+    """ A relation expresses a connection between concepts. It declares how particular concepts interact and informs
+    other system functionality.
+
+    Params:
+        domains (set): A collection of concepts
+        name (str): The name to identify the relation object
+        targets (set): A collection of concepts
+        rules ([Rule]): Rules that determine when the relation holds between concepts
+        differ (bool): toggle for where a relation holds between a concept and itself
+
+    Raises:
+        AssertionError: In the event that the domains and targets aren't consistent with each other how they are
+            instantiated. Either both a iterable of concepts, or both an iterable of iterables of concepts.
+    """
+
+    def __init__(self, domains: {Concept}, name: str, targets: {Concept}, rules=[], differ: bool = False):
+
+        self.name = name
+        self._domains = RelationConceptManager(self, domains, isDomain = True)
+        self._targets = RelationConceptManager(self, targets, isDomain = False)
+        assert len(self._domains) == len(self._targets), "Inconsistent types of domains and targets passed"
+        self.rules = rules
+        self.differ = differ
+
+    @property
+    def domains(self) -> ConceptSet: return self._domains
+    @property
+    def targets(self) -> ConceptSet: return self._targets
+    @property
+    def rules(self) -> list: return self._rules
+    @rules.setter
+    def rules(self, rules: [Rule]) -> RuleManager: self._rules = RuleManager(self, rules)
+
+    def __repr__(self):
+        return "<Relation {}: {} - {}>".format(self.name, self._domains, self._targets)
+
+    def __str__(self):
+        return " ".join([str({str(x) for x in self._domains}), self.name, str({str(x) for x in self._targets})])
+
+    def appendConceptPairing(self, domains: ConceptSet, targets: ConceptSet) -> int:
+
+        index = self._domains.append(domains)
+        self._targets[index] = targets
+
+        return index
+
+    def between(self, domain: Concept, target: Concept) -> bool:
+        """ Verify if the relationship holds between two concepts.
+
+        Params:
+            domain (Concept): A potential domain of the relation
+            target (Concept): A potential target of the relation
+
+        Returns:
+            bool: True if relation holds between the domain and target provided
+        """
+        if type(domain) is not type(target):
+            raise ValueError("Passed incompatible types - domain: '{}' target: '{}'".format(repr(domain), repr(target)))
+        if self.differ and domain == target: return False
+
+        if isinstance(domain, Concept):
+            # Ensure that the concepts can even be compared
+            if Concept.ABSTRACT == (domain.category or target.category): return False
+        elif isinstance(domain, Instance):
+            # Switch the instances for their parents
+            domain, target = domain.concept, target.concept
+
+        # Loop through the various sets to check, return once found or
+        for domains, targets in zip(self.domains, self.targets):
+            if domain in domains and target in targets: return True
+        return False
+
+    def _subscribe(self, concept: Concept) -> None:
+        """ Add the concept object into the relation, correctly mapping the concept to targets, or domains to the
+        concept where applicable.
+
+        Params:
+            concept (Concept): the concept to be added
+        """
+
+        # Get the ancestors of the concept
+        ancestors = concept.ancestors()
+
+        # For all the concept sets check where the concept should be added
+        for domains, targets in zip(self.domains, self.targets):
+            if ancestors.intersection(domains): domains._subscribe(concept)
+            if ancestors.intersection(targets): targets._subscribe(concept)
+
+        # For each of the rules, pass the concept on as relevant
+        for rule in self._rules: rule._subscribe(concept)
+
+    def _unsubscribe(self, concept: Concept):
+        """ """
+
+        # Collect the ancestors of this concept
+        ancestors = concept.ancestors()
+
+        # For all the concept sets check whether they are
+        for domains, targets in zip(self.domains, self.targets):
+            if concept in domains and not ancestors.intersection(domains): domains._unsubscribe(concept)
+            if concept in targets and not ancestors.intersection(targets): targets._unsubscribe(concept)
+
+        for rule in self._rules: rule._unsubscribe(concept)
+
+    def clone(self):
+        return Relation(
+            self.domains,
+            self.name,
+            self.targets,
+            [rule.clone() for rule in self._rules],
+            self.differ
+        )
