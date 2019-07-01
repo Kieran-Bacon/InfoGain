@@ -115,7 +115,7 @@ class BuiltInFunctionNode(EvalTree):
 
         Person and person overlay so they connect.
         """
-        engine = kwargs["__engine__"]
+        engine = kwargs["engine"]
 
         countTarget = args[0]  # The expression that needs to be counted
         filters = args[1:]  # The filter expressions

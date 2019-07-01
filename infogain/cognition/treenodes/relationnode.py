@@ -8,7 +8,7 @@ from .decorators import scenario_consistent
 class RelationNode(EvalTree): #TODO: Document class
 
     expression = re.compile(r"({0})=([\w_]+)=({0})|({0})-([\w_]+)-({0})".format(EvalTree.concept_syntax.pattern))
-    
+
     def __init__(self, domain: ConceptNode, relation: str, target: ConceptNode, isPositive: bool):
         self.domain = domain
         self.relation = relation
@@ -24,7 +24,7 @@ class RelationNode(EvalTree): #TODO: Document class
 
     @scenario_consistent
     def eval(self, **kwargs):
-        confidence = self.engine.inferRelation(
+        confidence = kwargs["engine"].inferRelation(
             self.domain.instance(**kwargs),
             self.relation,
             self.target.instance(**kwargs),

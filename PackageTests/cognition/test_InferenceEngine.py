@@ -2,7 +2,7 @@ import unittest, pytest
 
 from infogain.artefact import Document, Datapoint
 from infogain.cognition import InferenceEngine
-from infogain.knowledge import Concept, Instance, Relation, Rule
+from infogain.knowledge import Concept, Instance, Relation, Rule, Condition
 from infogain.resources.ontologies import language
 
 from infogain.exceptions import IncorrectLogic, ConsistencyError
@@ -15,19 +15,19 @@ class Test_InferenceEngine(unittest.TestCase):
         engine = InferenceEngine()
 
         # Test abstract adding
-        instanceCollection = engine._conceptInstances.copy()
+        #instanceCollection = engine._conceptInstances.copy()
 
         engine.concepts.add(Concept("abstract", category="abstract"))
 
         self.assertIsNotNone(engine.concepts("abstract"))
-        self.assertEqual(engine._conceptInstances, instanceCollection) # No change
+        #self.assertEqual(engine._conceptInstances, instanceCollection) # No change
 
         # Test static adding
         static = Concept("static", category="static")
         engine.concepts.add(static)
 
         self.assertIsNotNone(engine.concepts("static"))
-        self.assertEqual(static.instance(), engine.instance("static"))
+        self.assertEqual(static.instance(), engine.instances("static"))
 
         # Test dynamic adding
         dynamic = Concept("dynamic")
@@ -37,7 +37,7 @@ class Test_InferenceEngine(unittest.TestCase):
         self.assertEqual(engine.instances("dynamic"), [])
 
         # Test that the collection has been generated correctly
-        self.assertEqual(engine._conceptInstances.keys(), {"static", "dynamic"})
+        #self.assertEqual(engine._conceptInstances.keys(), {"static", "dynamic"})
 
     def test_addRelation(self):
 
@@ -66,7 +66,7 @@ class Test_InferenceEngine(unittest.TestCase):
         engine = InferenceEngine()
         for con in [dynamic, static, abstract]: engine.concepts.add(con)
 
-        self.assertEqual(engine._conceptInstances, {"dynamic": [], "static": [static.instance()]})
+        #self.assertEqual(engine._conceptInstances, {"dynamic": [], "static": [static.instance()]})
 
         engine.instances.add(dynamic.instance())
 
@@ -103,7 +103,7 @@ class Test_InferenceEngine(unittest.TestCase):
         engine = InferenceEngine()
         for con in [dynamic, static, abstract]: engine.concepts.add(con)
 
-        self.assertEqual(static.instance(), engine.instance("static"))
+        self.assertEqual(static.instance(), engine.instances("static"))
 
     def test_inferRelation_no_conditions(self):
 
@@ -111,7 +111,7 @@ class Test_InferenceEngine(unittest.TestCase):
 
         a, b = Concept("A", category="static"), Concept("B", category="static")
         atob = Relation({a}, "atob", {b})
-        atob.addRule(Rule(a, b, 45.0))
+        atob.rules.add(Rule(a, b, 45.0))
 
         assert(len(atob.rules()) == 1)
 
@@ -128,9 +128,9 @@ class Test_InferenceEngine(unittest.TestCase):
 
         a, b = Concept("A", properties={"x": 10, "y": 15}, category="static"), Concept("B", category="static")
         atob = Relation({a}, "atob", {b})
-        atob.addRule(Rule(a, b, 45.0, conditions=[
-            {"logic": "f(%.x, '(x == 10)*100')", "salience": 100},
-            {"logic": "f(%.y, '(y == 14)*100')", "salience": 50}
+        atob.rules.add(Rule(a, b, 45.0, conditions=[
+            Condition("f(%.x, '(x == 10)*100')", 100),
+            Condition("f(%.y, '(y == 14)*100')",50)
         ]))
 
         for con in [a, b]: engine.concepts.add(con)
@@ -144,10 +144,10 @@ class Test_InferenceEngine(unittest.TestCase):
 
         a, b = Concept("A", properties={"x": 10, "y": 15}, category="static"), Concept("B", category="static")
         atob = Relation({a}, "atob", {b})
-        atob.addRule(Rule(a, b, 55.0))
-        atob.addRule(Rule(a, b, 45.0, conditions=[
-            {"logic": "f(%.x, '(x == 10)*100')", "salience": 100},
-            {"logic": "f(%.y, '(y == 14)*100')", "salience": 50}
+        atob.rules.add(Rule(a, b, 55.0))
+        atob.rules.add(Rule(a, b, 45.0, conditions=[
+            Condition("f(%.x, '(x == 10)*100')", 100),
+            Condition("f(%.y, '(y == 14)*100')",50)
         ]))
 
         for con in [a, b]: engine.concepts.add(con)

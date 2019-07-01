@@ -148,18 +148,17 @@ class EvalRule(Rule):
             scenario = {param: scenario_instances[i] for i, param in enumerate(params)}
             scenario["%"] = domain
             scenario["@"] = target
-            scenario["__engine__"] = engine
             log.debug("Evaluating rule scenario - {}".format({k: str(v) for k,v in scenario.items()}))
 
             # Evaluate the scenario against all the conditions
-            ruleConfidence *= (1.0-(self.evalScenario(scenario)/100))
+            ruleConfidence *= (1.0-(self.evalScenario(engine, scenario)/100))
 
         # Store the evaluation pairs outcome and return it
         pairing_key_confidence = (1.0 - ruleConfidence)*100
         self._evaluatedConfidences[pairing_key] = pairing_key_confidence
         return pairing_key_confidence
 
-    def evalScenario(self, scenario: dict) -> float:
+    def evalScenario(self, engine: Ontology, scenario: dict) -> float:
         """ Evaluate a particular scenario for the rule - given that the conditions contain unbound instance references,
         evaluate a particular scenario for the domain, target and the unbound instances
 
@@ -175,7 +174,7 @@ class EvalRule(Rule):
         for condition, conditionEvalTree in self.conditions.evalTrees():
 
             log.debug("Evaluating condition of the rule - {}".format(conditionEvalTree))
-            confidence = conditionEvalTree.eval(scenario=scenario)/100  # Apply scenario
+            confidence = conditionEvalTree.eval(engine = engine, scenario = scenario)/100  # Apply scenario
 
             scenarioConfidence += (1 - confidence)*(condition.salience/100)
             log.debug("Condition evaluated with confidence {}. Sum of error: {}".format(confidence, scenarioConfidence))
