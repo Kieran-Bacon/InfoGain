@@ -43,15 +43,18 @@ class Rule:
         supporting: bool = True,
         conditions: [Condition] = []):
 
-        # Create the domains and target sets
-        self._conditions = ConditionManager(self)
+        # As conditions have not yet been added, the rule is not yet conditional on targets
+        self._isConditionalOnTargets = False
+
+        # Setup the domain and target container sets
         self._domains = RuleConceptSet(self, domains, isDomain=True)
         self._targets = RuleConceptSet(self, targets, isDomain=False)
 
+        # Set the conditions of the rule
+        self.conditions = conditions
+
         self.confidence = confidence
         self.supporting = supporting
-
-        for condition in conditions: self._conditions.add(condition)
 
     def __repr__(self):
         confidence = self.confidence if self.supporting else self.confidence*-1
@@ -66,8 +69,11 @@ class Rule:
     def domains(self): return self._domains
     @property
     def targets(self): return self._targets
+
     @property
     def conditions(self): return self._conditions
+    @conditions.setter
+    def conditions(self, conditions: list) -> None: self._conditions = ConditionManager(self, conditions)
 
     def _subscribe(self, concept: Concept) -> None:
         self.domains._subscribe(concept)
@@ -99,7 +105,8 @@ class Rule:
             ))
 
         # Quick check before search whether or not the concepts are viable
-        if isinstance(domain, Concept) and (Concept.ABSTRACT is (domain.category or target.category)): return False
+        if isinstance(domain, Concept) and domain.category is Concept.ABSTRACT or target.category is Concept.ABSTRACT:
+            return False
 
         # Expanded search for instances
         if isinstance(domain, Instance):
@@ -160,7 +167,7 @@ class RuleConceptSet(ConceptSet):
             else:
                 for parent in concept.ancestors(): super().add(parent)
 
-                if self._owner.conditions.isConditionalOnTarget():
+                if self._owner._isConditionalOnTargets:
                     for child in concept.descendants(): super().add(child)
 
     def discard(self, concept: Concept):
@@ -183,7 +190,7 @@ class RuleConceptSet(ConceptSet):
                     discard += list(parent.parents)
 
             # Check whether we are condition on the target and have cascaded down too - if so continue to remove kids
-            if not self._owner.conditions.isConditionalOnTarget(): return
+            if not self._owner._isConditionalOnTargets: return
 
         discard = list(concept.children)
 
@@ -199,7 +206,7 @@ class RuleConceptSet(ConceptSet):
         """ If a target set and conditions conditional on targets, expand set to include descendants
         """
 
-        if not self._isDomain and self._owner.conditions.isConditionalOnTarget():
+        if not self._isDomain and self._owner._isConditionalOnTargets:
             # If we are the target set and the conditions are conditional on the target
             for concept in self._bases:
                 if isinstance(concept, str): continue
@@ -209,7 +216,7 @@ class RuleConceptSet(ConceptSet):
     def minimise(self): raise NotImplementedError("")
     def _minimise(self):
 
-        if not self._isDomain and not self._owner.conditions.isConditionalOnTarget():
+        if not self._isDomain and not self._owner._isConditionalOnTargets:
 
             for concept in self._bases:
                 if isinstance(concept, str): continue
@@ -220,6 +227,9 @@ class RuleConceptSet(ConceptSet):
         # Check with the concept is already expressed
         if isinstance(concept, str) and concept in self._elements: return
         if concept not in self._partial and concept in self._elements: return
+
+        # This is a concept to replace the partial base - add and return
+        if concept in self._partial and concept in self._bases: return self.add(concept)
 
         if self._isDomain:
             # We are the Rule's domains so all descendants of this Concept are applicable
@@ -232,7 +242,7 @@ class RuleConceptSet(ConceptSet):
         else:
 
             cascadeUp = bool(concept.descendants().intersection(self._bases))
-            cascadeDown = self._owner.conditions.isConditionalOnTarget() and concept.ancestors().intersection(self.bases)
+            cascadeDown = self._owner._isConditionalOnTargets and concept.ancestors().intersection(self.bases)
 
             if cascadeUp or cascadeDown:
                 super().add(concept)
@@ -272,7 +282,7 @@ class RuleConceptSet(ConceptSet):
         else:
 
             cascadeUp = bool(concept.descendants().intersection(self._bases))
-            cascadeDown = self._owner.conditions.isConditionalOnTarget() and concept.ancestors().intersection(self.bases)
+            cascadeDown = self._owner._isConditionalOnTargets and concept.ancestors().intersection(self.bases)
 
             if not (cascadeUp or cascadeDown):
                 super().discard(concept)
@@ -292,11 +302,13 @@ class ConditionManager:
 
     """
 
-    def __init__(self, owner: Rule):
+    def __init__(self, owner: Rule, conditions: list):
         self._owner = owner
         self._elements = []
 
-        self._isConditionalOnTargets = False
+        # Add in each condition object
+        for condition in conditions:
+            self.add(condition)
 
     def __bool__(self): return bool(self._elements)
     def __iter__(self): return iter(self._elements)
@@ -320,8 +332,8 @@ class ConditionManager:
         self._elements.insert(i, condition)  # Insert the rule into the collection
 
         # If the condition is conditional on the target, expand the targets to include descendants
-        if condition.containsTarget() and not self._isConditionalOnTargets:
-            self._isConditionalOnTargets = True
+        if condition.containsTarget() and not self._owner._isConditionalOnTargets:
+            self._owner._isConditionalOnTargets = True
             self._owner.targets._expand()
 
     def remove(self, condition: Condition) -> None:
@@ -333,12 +345,12 @@ class ConditionManager:
         self._elements.remove(condition)
 
         # If we have just the last condition that contains the target, minimise the targets
-        if (self._isConditionalOnTargets and
+        if (self._owner._isConditionalOnTargets and
             condition.containsTarget() and
             not any((condition.containsTarget() for condition in self._elements))):
 
-            self._isConditionalOnTargets = False
+            self._owner._isConditionalOnTargets = False
             self._owner.targets._minimise()
 
     def isConditionalOnTarget(self):
-        return self._isConditionalOnTargets
+        return self._owner._isConditionalOnTargets

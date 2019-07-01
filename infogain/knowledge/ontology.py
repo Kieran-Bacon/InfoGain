@@ -63,12 +63,12 @@ class Ontology:
             target (str) - A concept that needs to match with the target of potential relations
         """
 
-        dom = self.concepts(domain) if isinstance(domain, str) else domain
-        tar = self.concepts(target) if isinstance(target, str) else target
+        dom = self.concepts.get(domain) if isinstance(domain, str) else domain
+        tar = self.concepts.get(target) if isinstance(target, str) else target
         if None in (dom, tar):
             raise Exception("Invalid concepts provided when looking for relations")
 
-        for relation in self._relations.values():
+        for relation in self.relations():
             if relation.between(dom, tar):
                 yield relation
 
@@ -104,21 +104,12 @@ class OntologyConcepts(collections.abc.MutableMapping):
         self._missedConcepts = collections.defaultdict(set)   # Mapping between incomplete concepts
         self._missedRelations = collections.defaultdict(set)  # Mapping between incomplete concepts and relations
 
-    def __getitem__(self, name: str) -> Concept: return self._elements[name]
-    def __setitem__(self, name: str, concept: Concept) -> None: self._elements[name] = concept
-    def __delitem__(self, name: str) -> None:
-        """ Remove the concept from the ontology. Remove the concept from every relation/rule where applicable """
-        del self._elements[name]
-    def __iter__(self): return iter(self._elements)
     def __len__(self): return len(self._elements)
-    def __call__(self, name: str = None) -> Concept:
-        """ Return the ontology concepts, or, the concept given by the name parameter
-
-        Params:
-            name (str) = None: If provided, return the concept with the given name, else all concepts
-        """
-        if name is not None: return self.get(name)
-        return set(self._elements.values())
+    def __iter__(self): return iter(self._elements)
+    def __getitem__(self, name: str) -> Concept: return self._elements[name]
+    def __setitem__(self, name: str, concept: Concept) -> None: self.add(concept)
+    def __delitem__(self, name: str) -> None: self.remove(self._elements[name])
+    def __call__(self) -> Concept: return set(self._elements.values())
 
     def add(self, concept: Concept) -> None:
         """ Add concept object to ontology, overwrite previous concept if present.
@@ -151,7 +142,7 @@ class OntologyConcepts(collections.abc.MutableMapping):
             for relation in self._missedRelations[concept.name]:
                 relation.subscribe(concept)
 
-        self[concept.name] = concept
+        self._elements[concept.name] = concept
 
     def remove(self, concept: Concept) -> None:
         raise NotImplementedError()
@@ -162,15 +153,12 @@ class OntologyRelations(collections.abc.MutableMapping):
         self._owner = owner
         self._elements = {}
 
+    def __len__(self): return len(self._elements)
+    def __iter__(self): return iter(self._elements)
     def __getitem__(self, name: str) -> Relation: return self._elements[name]
     def __setitem__(self, name: str, relation: Relation) -> None: self._elements[name] = relation
-    def __delitem__(self, name: str) -> None:
-        del self._elements[name]
-    def __iter__(self): return iter(self._elements)
-    def __len__(self): return len(self._elements)
-    def __call__(self, name: str = None) -> Relation:
-        if name is not None: return self.get(name)
-        return set(self._elements.values())
+    def __delitem__(self, name: str) -> None: self.remove(self._elements[name])
+    def __call__(self, name: str = None) -> Relation: return set(self._elements.values())
 
     def add(self, relation: Relation) -> Relation:
         """ Add a new relation object to the ontology, correctly link the relation concepts to the
@@ -186,7 +174,7 @@ class OntologyRelations(collections.abc.MutableMapping):
         # Resolve any partial concepts that exist within the relation - record missed concepts
         for partial in {p for c in (relation.domains, relation.targets) for g in c for p in g.partials()}:
 
-            found = self._owner.concepts(partial)
+            found = self._owner.concepts.get(partial)
             if found:
                 relation._subscribe(found)
             else:
@@ -195,3 +183,6 @@ class OntologyRelations(collections.abc.MutableMapping):
         log.debug("Added Relation {}".format(str(relation)))
         self[relation.name] = relation
         return relation
+
+    def remove(self, relation: Relation):
+        raise NotImplementedError()

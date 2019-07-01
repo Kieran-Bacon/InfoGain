@@ -16,7 +16,7 @@ class Test_EvalTreeBuiltins(unittest.TestCase):
         self.example = Concept("example", category="static")
         self.example2 = Concept("example2", category="static")
 
-        self.factory = evaltrees.EvalTreeFactory(self.engine)
+        self.factory = evaltrees.EvalTreeFactory()
 
     def test_graph(self):
 
@@ -33,7 +33,7 @@ class Test_EvalTreeBuiltins(unittest.TestCase):
         isNone = self.factory.constructTree(logic)
 
         inst = self.example.instance()
-        inst2 = self.engine.concepts("Kieran").instance()
+        inst2 = self.engine.concepts["Kieran"].instance()
 
         self.assertEqual(isNone.eval(scenario={"%": inst, "@": inst}), 100)
         self.assertEqual(isNone.eval(scenario={"%": inst, "@": inst2}), 0)
@@ -44,7 +44,7 @@ class Test_EvalTreeBuiltins(unittest.TestCase):
         isNot = self.factory.constructTree(logic)
 
         inst = self.example.instance()
-        inst2 = self.engine.concepts("Kieran").instance()
+        inst2 = self.engine.concepts["Kieran"].instance()
 
         self.assertEqual(isNot.eval(scenario={"%": inst, "@": inst}), 0)
         self.assertEqual(isNot.eval(scenario={"%": inst, "@": inst2}), 100)
@@ -54,10 +54,10 @@ class Test_EvalTreeBuiltins(unittest.TestCase):
 
         factNode = self.factory.constructTree(logic)
 
-        inst = self.engine.concepts("Kieran").instance()
-        inst2 = self.engine.concepts("England").instance()
+        inst = self.engine.concepts["Kieran"].instance()
+        inst2 = self.engine.concepts["England"].instance()
 
-        self.assertEqual(factNode.eval(scenario={"#Kieran": inst, "#England": inst2}), 50)
+        self.assertEqual(factNode.eval(engine=self.engine, scenario={"#Kieran": inst, "#England": inst2}), 50)
 
     def test_negative_facts(self):
         logic = "facts(#Kieran-lives_in-#Germany)"
@@ -80,9 +80,10 @@ class Test_EvalTreeBuiltins(unittest.TestCase):
 
         self.assertAlmostEqual(
             factsNode.eval(
+                engine = self.engine,
                 scenario={
-                    "#Kieran": self.engine.concepts("Kieran").instance(),
-                    "#Germany": self.engine.concepts("Germany").instance()
+                    "#Kieran": self.engine.concepts["Kieran"].instance(),
+                    "#Germany": self.engine.concepts["Germany"].instance()
                 }
             ),
             31
@@ -109,9 +110,10 @@ class Test_EvalTreeBuiltins(unittest.TestCase):
 
         self.assertEqual(
             factsNode.eval(
+                engine = self.engine,
                 scenario={
-                    "#Kieran": self.engine.concepts("Kieran").instance(),
-                    "#Germany": self.engine.concepts("Germany").instance()
+                    "#Kieran": self.engine.concepts["Kieran"].instance(),
+                    "#Germany": self.engine.concepts["Germany"].instance()
                 }
             ),
             69

@@ -80,7 +80,7 @@ class Test_eval_trees(unittest.TestCase):
 
         self.assertEqual(str(relationNode), logic)
         self.assertEqual(relationNode.parameters(), {"#example"})
-        self.assertEqual(relationNode.eval(scenario=self.scenario), 0)
+        self.assertEqual(relationNode.eval(engine = self.engine, scenario=self.scenario), 0)
 
     def test_PropertyNode_function(self):
         """ Test that the extraction of a concept property """
@@ -113,5 +113,5 @@ class Test_eval_trees(unittest.TestCase):
 
         tree = self.factory.constructTree(logic)
 
-        self.assertEqual(tree.eval(scenario=self.scenario), 424.0)
+        self.assertEqual(tree.eval(engine = self.engine, scenario=self.scenario), 424.0)
 

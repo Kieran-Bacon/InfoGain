@@ -135,8 +135,8 @@ class test_RelationInterface(unittest.TestCase):
         cloned = self.singleRelation.clone()
 
         self.assertEqual(cloned.name, "example")
-        self.assertEqual(cloned.domains(), {"A", "B", "C"})
-        self.assertEqual(cloned.targets(), {"X", "Y", "Z"})
+        self.assertEqual(cloned.domains(), {"A"})
+        self.assertEqual(cloned.targets(), {"X"})
 
         cloned = self.groupRelation.clone()
 

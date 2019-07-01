@@ -15,15 +15,15 @@ class EvalConditionManager(ConditionManager):
     """ Extend the Condition manager to look after Eval trees """
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
         self._conditionTrees = {}
+        super().__init__(*args, **kwargs)
 
     def parameters(self) -> dict:
         return {
             param: EvalTree.paramToConcept(param)
-            for tree in self._conditionTrees
+            for tree in self._conditionTrees.values()
             for param in tree.parameters()
+            if param not in ("%", "@")
         }
 
     def add(self, condition: Condition) -> None:
@@ -63,24 +63,34 @@ class EvalRule(Rule):
         ontology (Ontology): The inference engine refer needed for the evaluation of some logic
     """
 
-    def __init__(self,
-        domains: {Vertex},
-        targets: {Vertex},
-        confidence: float,
-        *,
-        supporting: bool = True,
-        conditions: [Condition] = []
-    ):
-        self._conditions = EvalConditionManager(self)
-        self._domains = RuleConceptSet(self, domains, isDomain=True)
-        self._targets = RuleConceptSet(self, targets, isDomain=False)
-
-        self.confidence = confidence
-        self.supporting = supporting
-
-        for condition in conditions: self._conditions.add(condition)
-
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self._evaluatedConfidences = {}
+
+    @property
+    def conditions(self): return self._conditions
+    @conditions.setter
+    def conditions(self, conditions: list): self._conditions = EvalConditionManager(self, conditions)
+
+
+    # def __init__(self,
+    #     domains: {Vertex},
+    #     targets: {Vertex},
+    #     confidence: float,
+    #     *,
+    #     supporting: bool = True,
+    #     conditions: [Condition] = []
+    # ):
+    #     self._conditions = EvalConditionManager(self)
+    #     self._domains = RuleConceptSet(self, domains, isDomain=True)
+    #     self._targets = RuleConceptSet(self, targets, isDomain=False)
+
+    #     self.confidence = confidence
+    #     self.supporting = supporting
+
+    #     for condition in conditions: self._conditions.add(condition)
+
+    #     self._evaluatedConfidences = {}
 
 
     def __repr__(self):

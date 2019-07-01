@@ -35,6 +35,9 @@ class RelationConceptSet(ConceptSet):
         # Add in the concepts from the iterable
         for concept in iterable: self.add(concept)
 
+    @property
+    def bases(self) -> ConceptSet: return ConceptSet(self._elements)
+
     def __len__(self): return len(self._derivedElements)
     def __iter__(self): return iter(self._derivedElements)
     def __contains__(self, concept: Concept): return concept in self._derivedElements
@@ -104,7 +107,7 @@ class RelationConceptSet(ConceptSet):
             del self._derivedPartial[concept.name]
             self._derivedElements.remove(concept)
 
-            self.add(concept)
+            return self.add(concept)
 
         if concept in self._derivedPartial:
             # A derived partial concept - remove partial and add derived concept
@@ -112,7 +115,7 @@ class RelationConceptSet(ConceptSet):
             del self._derivedPartial[concept.name]
             self._derivedElements.remove(concept)
 
-            self._add(concept)
+            return self._add(concept)
 
         if concept not in self._derivedElements and concept.ancestors().intersection(self._elements):
             self._add(concept)
@@ -394,9 +397,9 @@ class Relation:
 
     def clone(self):
         return Relation(
-            self.domains,
+            [domain.bases.toStringSet() for domain in self.domains],
             self.name,
-            self.targets,
+            [target.bases.toStringSet() for target in self.targets],
             [rule.clone() for rule in self._rules],
             self.differ
         )

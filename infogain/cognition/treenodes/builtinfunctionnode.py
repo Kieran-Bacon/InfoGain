@@ -165,8 +165,8 @@ class BuiltInFunctionNode(EvalTree):
             target = EvalTree.paramToConcept(targetParam)
 
             # Ensure the relationship is valid for these concepts
-            relation = engine.relations(countTarget.relation)
-            if not relation.between(engine.concepts(domain[0]), engine.concepts(target[0])):
+            relation = engine.relations[countTarget.relation]
+            if not relation.between(engine.concepts[domain[0]], engine.concepts[target[0]]):
                 log.warning("Attempting to count relations for invalid concept pairs: {}".format(countTarget))
                 return 0
 

@@ -4,6 +4,22 @@
 
 A concept that is added to an ontology is then linked with any ontology member concept that the concept has a partial connection too. The added concept doesn't have its concrete parent/children checked for membership to the ontology. It is assumed that only one concept shall ever be created with that name. The ontology does not protect against poor coding interweaves two ontologies together simultaneously.
 
+```python
+
+language = Ontology("Language")
+
+language.concepts.add(Concept())
+
+language.concepts["name"].parents
+language.concepts.get("name")
+language.concepts() <- get all concepts
+
+language.remove(Concept())
+del language.concepts["name"]
+
+
+```
+
 ## Concepts
 
 ### Concept attributes
@@ -121,3 +137,11 @@ rule.addCondition(Condition("this is a condition"))
 
 rule.conditions
 ```
+
+## Rules
+
+### ConditionManager + RuleConceptSet
+
+There is a tight relationship between the ConditionManager and the rule concept set. They both require the other to already be formed before they are act as they please. As the condition manager is looking at conditions to inform it on whether it should expand/minimise the target concept set, it holds a reference to the owner and cannot have conditions added to it until after both the domain and targets of the rule have been set. Inversely the targets of the rule want to check when adding a concept whether it should include the children of the concept as the conditions are dependant on the targets.
+
+This does make me feel that the only requirement for the ConceptSet to require the condition manager is the a single variable that is being checked. This could be moved out of the condition manager and back into the owner.

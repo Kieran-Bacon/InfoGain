@@ -26,7 +26,7 @@ class Test_Ontology_Creation(unittest.TestCase):
 
         emptyOnt.importBuiltin("time")
 
-        self.assertIsNotNone(emptyOnt.concepts("Time"))
+        self.assertIsNotNone(emptyOnt.concepts["Time"])
 
         with pytest.raises(ImportError):
             emptyOnt.importBuiltin("NotAModule")
@@ -49,9 +49,9 @@ class Test_Ontology_Creation(unittest.TestCase):
         ontology.concepts.add(self.kieran)
         ontology.concepts.add(self.person)
 
-        self.assertEqual(ontology.concepts("Person"), self.person)
-        self.assertEqual(ontology.concepts("Kieran"), self.kieran)
-        self.assertEqual(ontology.concepts("Dave"), None)
+        self.assertEqual(ontology.concepts["Person"], self.person)
+        self.assertEqual(ontology.concepts["Kieran"], self.kieran)
+        self.assertEqual(ontology.concepts.get("Dave"), None)
 
     def test_Relations_Ontology(self):
 
@@ -62,8 +62,8 @@ class Test_Ontology_Creation(unittest.TestCase):
 
         ontology.relations.add(self.speaks)
 
-        self.assertEqual(ontology.relations("speaks"), self.speaks)
-        self.assertEqual(ontology.relations("placeholder"), None)
+        self.assertEqual(ontology.relations["speaks"], self.speaks)
+        self.assertEqual(ontology.relations.get("placeholder"), None)
 
     def test_Relations_Clone_Ontology(self):
 
@@ -94,7 +94,7 @@ class Test_Ontology_Creation(unittest.TestCase):
         self.assertFalse(rel.between(x2, y1))
 
         clonedOntology = ontology.clone()
-        rel = clonedOntology.relations("rel")
+        rel = clonedOntology.relations["rel"]
 
         self.assertEqual({z.name for z in rel.domains()}, {z.name for z in {x1,x2,x11,x12}})
         self.assertEqual({z for z in rel.targets()}, {z.name for z in {y1, y11, y2}})
@@ -111,10 +111,10 @@ class Test_Ontology_Creation(unittest.TestCase):
 
         ontology = Language.ontology()
 
-        relation = ontology.relations("informs")
+        relation = ontology.relations["informs"]
 
-        self.assertTrue(relation.between(ontology.concepts("Kieran"), ontology.concepts("Luke")))
-        self.assertFalse(relation.between(ontology.concepts("Luke"), ontology.concepts("Luke")))
+        self.assertTrue(relation.between(ontology.concepts["Kieran"], ontology.concepts["Luke"]))
+        self.assertFalse(relation.between(ontology.concepts["Luke"], ontology.concepts["Luke"]))
 
     def test_ontology_find_relation(self):
 
@@ -129,7 +129,7 @@ class Test_Ontology_Creation(unittest.TestCase):
 
         # Get a relation from the ontology
         ontology = Language.ontology()
-        rel_speaks = ontology.relations("speaks")
+        rel_speaks = ontology.relations["speaks"]
 
         # Steve doesn't exist within the ontology
         self.assertFalse("Steve" in rel_speaks.domains)
@@ -137,7 +137,7 @@ class Test_Ontology_Creation(unittest.TestCase):
 
         # Define concepts to be added
         steve = Concept("Steve", parents={"Person"}, category="static")
-        joe  = Concept("Joe", parents={ontology.concepts("Person")}, category="static")
+        joe  = Concept("Joe", parents={ontology.concepts["Person"]}, category="static")
         ontology.concepts.add(steve)
         ontology.concepts.add(joe)
 
@@ -151,7 +151,7 @@ class Test_Ontology_Creation(unittest.TestCase):
 
         # Get a relation from the ontology
         ontology = Language.ontology()
-        rel_speaks = ontology.relations("speaks")
+        rel_speaks = ontology.relations["speaks"]
 
         # Steve doesn't exist within the ontology
         self.assertFalse(rel_speaks.between("Steve", "English"))
@@ -169,7 +169,7 @@ class Test_Ontology_Creation(unittest.TestCase):
         ontology = Language.ontology()
 
         for relation in ontology.findRelations("Kieran", "English"):
-            self.assertEqual(relation, ontology.relations("speaks"))
+            self.assertEqual(relation, ontology.relations["speaks"])
 
         for relation in ontology.findRelations("Kieran", "England"):
             self.assertIn(relation.name, ["born_in", "lives_in"])
@@ -182,25 +182,25 @@ class Test_Ontology_Creation(unittest.TestCase):
         ont = Language.ontology()
 
         # Ensure all concepts are loaded
-        self.assertNotEqual(ont.concepts("Person"), None)
-        self.assertNotEqual(ont.concepts("Kieran"), None)
-        self.assertNotEqual(ont.concepts("Luke"), None)
-        self.assertNotEqual(ont.concepts("Charlie"), None)
+        self.assertNotEqual(ont.concepts["Person"], None)
+        self.assertNotEqual(ont.concepts["Kieran"], None)
+        self.assertNotEqual(ont.concepts["Luke"], None)
+        self.assertNotEqual(ont.concepts["Charlie"], None)
 
-        self.assertNotEqual(ont.concepts("Language"), None)
-        self.assertNotEqual(ont.concepts("English"), None)
-        self.assertNotEqual(ont.concepts("German"), None)
-        self.assertNotEqual(ont.concepts("French"), None)
+        self.assertNotEqual(ont.concepts["Language"], None)
+        self.assertNotEqual(ont.concepts["English"], None)
+        self.assertNotEqual(ont.concepts["German"], None)
+        self.assertNotEqual(ont.concepts["French"], None)
 
-        self.assertNotEqual(ont.concepts("Country"), None)
-        self.assertNotEqual(ont.concepts("England"), None)
-        self.assertNotEqual(ont.concepts("France"), None)
-        self.assertNotEqual(ont.concepts("Germany"), None)
+        self.assertNotEqual(ont.concepts["Country"], None)
+        self.assertNotEqual(ont.concepts["England"], None)
+        self.assertNotEqual(ont.concepts["France"], None)
+        self.assertNotEqual(ont.concepts["Germany"], None)
 
     def test_loadOntology_Concepts_textRepresentations(self):
         # Check that text representations are loaded correctly
         ont = Language.ontology()
-        kieran = ont.concepts("Kieran")
+        kieran = ont.concepts["Kieran"]
         self.assertEqual(kieran.aliases, {"Legend", "Champ", "Badass"})
 
 if __name__ == "__main__":

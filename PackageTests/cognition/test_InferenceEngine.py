@@ -14,30 +14,31 @@ class Test_InferenceEngine(unittest.TestCase):
 
         engine = InferenceEngine()
 
-        # Test abstract adding
-        #instanceCollection = engine._conceptInstances.copy()
 
+        # Test the adding of an abstract concept to the inference engine
         engine.concepts.add(Concept("abstract", category="abstract"))
 
-        self.assertIsNotNone(engine.concepts("abstract"))
-        #self.assertEqual(engine._conceptInstances, instanceCollection) # No change
+        self.assertIsNotNone(engine.concepts.get("abstract"))
+        self.assertEqual(engine.instances("abstract"), set())  # Assert that there are no abstract instances
 
         # Test static adding
         static = Concept("static", category="static")
         engine.concepts.add(static)
 
-        self.assertIsNotNone(engine.concepts("static"))
-        self.assertEqual(static.instance(), engine.instances("static"))
+        self.assertIsNotNone(engine.concepts.get("static"))
+        self.assertEqual({static.instance()}, engine.instances("static"))  # Assert that static instance shall have one
 
         # Test dynamic adding
         dynamic = Concept("dynamic")
         engine.concepts.add(dynamic)
 
-        self.assertIsNotNone(engine.concepts("dynamic"))
-        self.assertEqual(engine.instances("dynamic"), [])
+        self.assertIsNotNone(engine.concepts.get("dynamic"))
+        self.assertEqual(engine.instances("dynamic"), set())
 
-        # Test that the collection has been generated correctly
-        #self.assertEqual(engine._conceptInstances.keys(), {"static", "dynamic"})
+        engine.instances.add(dynamic.instance("first"))
+        engine.instances.add(dynamic.instance("second", {"frequency": "60Hz"}))
+
+        self.assertEqual({instance.name for instance in engine.instances("dynamic")}, {"first", "second"})
 
     def test_addRelation(self):
 
@@ -47,13 +48,13 @@ class Test_InferenceEngine(unittest.TestCase):
 
         engine.relations.add(Relation("x", "simple", "y"))
         engine.relations.add(
-            Relation("x", "soundlogic", "y", [Rule("x", "y", 100, conditions=[{"logic": "%", "salience": 100}])])
+            Relation("x", "soundlogic", "y", [Rule("x", "y", 100, conditions=[Condition("%", 100)])])
         )
 
 
         with pytest.raises(IncorrectLogic):
             engine.relations.add(
-                Relation("x", "wrong", "y", [Rule("x", "y", 100, conditions=[{"logic": "graph()()", "salience": 100}])])
+                Relation("x", "wrong", "y", [Rule("x", "y", 100, conditions=[Condition("graph()()", 100)])])
             )
 
     def test_addInstance(self):
@@ -65,8 +66,6 @@ class Test_InferenceEngine(unittest.TestCase):
 
         engine = InferenceEngine()
         for con in [dynamic, static, abstract]: engine.concepts.add(con)
-
-        #self.assertEqual(engine._conceptInstances, {"dynamic": [], "static": [static.instance()]})
 
         engine.instances.add(dynamic.instance())
 
@@ -87,10 +86,11 @@ class Test_InferenceEngine(unittest.TestCase):
         with pytest.raises(ConsistencyError):
             engine.instances.add(Instance("Not a concept"))
 
-        with pytest.raises(TypeError):
-            engine.instances.add(static.instance())
+        #TODO: Test for warning?
+        engine.instances.add(static.instance())
 
         with pytest.raises(TypeError):
+            # Type error as in trying to make an instance of an abstract concept - it is set off
             engine.instances.add(abstract.instance())
 
     def test_instances(self):
@@ -103,7 +103,7 @@ class Test_InferenceEngine(unittest.TestCase):
         engine = InferenceEngine()
         for con in [dynamic, static, abstract]: engine.concepts.add(con)
 
-        self.assertEqual(static.instance(), engine.instances("static"))
+        self.assertEqual(static.instance(), engine.instances["static"])
 
     def test_inferRelation_no_conditions(self):
 
@@ -113,12 +113,12 @@ class Test_InferenceEngine(unittest.TestCase):
         atob = Relation({a}, "atob", {b})
         atob.rules.add(Rule(a, b, 45.0))
 
-        assert(len(atob.rules()) == 1)
+        assert(len(atob.rules) == 1)
 
         for con in [a, b]: engine.concepts.add(con)
         atob = engine.relations.add(atob)
 
-        assert(len(atob.rules()) == 1)
+        assert(len(atob.rules) == 1)
 
         self.assertAlmostEqual(engine.inferRelation(a.instance(), atob, b.instance()), 45.0)
 
@@ -129,8 +129,8 @@ class Test_InferenceEngine(unittest.TestCase):
         a, b = Concept("A", properties={"x": 10, "y": 15}, category="static"), Concept("B", category="static")
         atob = Relation({a}, "atob", {b})
         atob.rules.add(Rule(a, b, 45.0, conditions=[
-            Condition("f(%.x, '(x == 10)*100')", 100),
-            Condition("f(%.y, '(y == 14)*100')",50)
+            Condition("f(%.x, '(x == 10)*100')", 100.),
+            Condition("f(%.y, '(y == 14)*100')", 50.)
         ]))
 
         for con in [a, b]: engine.concepts.add(con)
@@ -160,9 +160,9 @@ class Test_InferenceEngine(unittest.TestCase):
         engine = InferenceEngine(ontology=language.ontology())
 
         originalConfidence = engine.inferRelation(
-            engine.concepts("Kieran").instance(),
+            engine.concepts["Kieran"].instance(),
             "speaks",
-            engine.concepts("English").instance()
+            engine.concepts["English"].instance()
         )
 
         speaks = Datapoint({
@@ -180,9 +180,9 @@ class Test_InferenceEngine(unittest.TestCase):
         engine.addWorldKnowledge([world_knowledge])
 
         confidence = engine.inferRelation(
-            engine.concepts("Kieran").instance(),
+            engine.concepts["Kieran"].instance(),
             "speaks",
-            engine.concepts("English").instance()
+            engine.concepts["English"].instance()
         )
 
         # Ensure that the confidence relation has been affected by the world knowledge
@@ -209,9 +209,9 @@ class Test_InferenceEngine(unittest.TestCase):
 
         self.assertAlmostEqual(
             engine.inferRelation(
-                engine.concepts("Kieran").instance(),
+                engine.concepts["Kieran"].instance(),
                 "lives_in",
-                engine.concepts("Germany").instance()
+                engine.concepts["Germany"].instance()
             ),
             69
         )
@@ -236,9 +236,9 @@ class Test_InferenceEngine(unittest.TestCase):
 
         self.assertAlmostEqual(
             engine.inferRelation(
-                engine.concepts("Kieran").instance(),
+                engine.concepts["Kieran"].instance(),
                 "lives_in",
-                engine.concepts("Germany").instance()
+                engine.concepts["Germany"].instance()
             ),
             31
         )

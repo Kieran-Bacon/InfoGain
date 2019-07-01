@@ -11,8 +11,8 @@ class test_BuiltinNode_count(unittest.TestCase):
     def setUp(self):
         self.school = InferenceEngine(ontology=resouce.ontology())
 
-        concept_person = self.school.concepts("Person")
-        concept_class = self.school.concepts("Class")
+        concept_person = self.school.concepts["Person"]
+        concept_class = self.school.concepts["Class"]
         inst_english = concept_class.instance("English", {"grade": 4})
         self.school.instances.add(inst_english)
 

@@ -24,7 +24,7 @@ class Test_Time_Builtin(unittest.TestCase):
             self.assertEqual(
                 node.eval(
                     scenario = {
-                        "#Date": self.engine.concepts("Date").instance(),
+                        "#Date": self.engine.concepts["Date"].instance(),
                         "#example": example.instance()
                     }
                 ),
@@ -45,7 +45,7 @@ class Test_Time_Builtin(unittest.TestCase):
             self.assertEqual(
                 node.eval(
                     scenario = {
-                        "#Date": self.engine.concepts("Date").instance(),
+                        "#Date": self.engine.concepts["Date"].instance(),
                         "#example": example.instance()
                     }
                 ),
@@ -64,7 +64,7 @@ class Test_Time_Builtin(unittest.TestCase):
             self.assertEqual(
                 node.eval(
                     scenario = {
-                        "#Date": self.engine.concepts("Date").instance(),
+                        "#Date": self.engine.concepts["Date"].instance(),
                     }
                 ),
                 answer
