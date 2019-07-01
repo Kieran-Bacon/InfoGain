@@ -1,3 +1,5 @@
+import weakref
+
 from ..knowledge import Ontology, Relation, Rule
 from ..knowledge.relation import RuleManager
 
@@ -26,7 +28,7 @@ class EvalRelation(Relation):
     @property
     def rules(self): return self._rules
     @rules.setter
-    def rules(self, rules: list): self._rules = EvalRuleManager(self, rules)
+    def rules(self, rules: list): self._rules = EvalRuleManager(weakref.ref(self), rules)
 
 
     @classmethod

@@ -12,13 +12,10 @@ log = logging.getLogger(__name__)
 
 
 class RelationConceptSet(ConceptSet):
-    """ Concept Set
+    """ Concept Set #TODO DOCUMENT
 
     """
 
-    #? The ConceptSet shall own a reference to the relation, the concept shall
-    #? hold a relation counter so that when we remove concepts the counter goes down
-    #?
 
     def __init__(self, owner: weakref.ref, iterable: collections.abc.Iterable):
 
@@ -35,6 +32,8 @@ class RelationConceptSet(ConceptSet):
         # Add in the concepts from the iterable
         for concept in iterable: self.add(concept)
 
+    @property
+    def owner(self): return self._owner()
     @property
     def bases(self) -> ConceptSet: return ConceptSet(self._elements)
 
@@ -92,7 +91,7 @@ class RelationConceptSet(ConceptSet):
             else:
                 if query not in self._derivedElements:
                     self._derivedElements.add(query)
-                    query._relationMembership[self._owner] = query._relationMembership.get(self._owner, 0) + 1
+                    query._relationMembership[self.owner] = query._relationMembership.get(self.owner, 0) + 1
 
                     queryGroup += list(query.children)
 
@@ -154,17 +153,17 @@ class RelationConceptSet(ConceptSet):
 
                 self._derivedElements.discard(concept)
                 self._delink(concept)
-                concept._relationMembership[self._owner] = concept._relationMembership.get(self._owner, 1) - 1
-                if concept._relationMembership[self._owner] == 0: del concept._relationMembership[self._owner]
+                concept._relationMembership[self.owner] = concept._relationMembership.get(self.owner, 1) - 1
+                if concept._relationMembership[self.owner] == 0: del concept._relationMembership[self.owner]
 
                 concepts += list(concept.children)
 
         return True
 
     def _delink(self, concept: Concept):
-        concept._relationMembership[self._owner] -= 1
-        if concept._relationMembership[self._owner] == 0:
-            del concept._relationMembership[self._owner]
+        concept._relationMembership[self.owner] -= 1
+        if concept._relationMembership[self.owner] == 0:
+            del concept._relationMembership[self.owner]
 
     def _decrementDerivedPartial(self, partial: str):
         """
@@ -200,12 +199,12 @@ class RelationConceptManager(collections.abc.MutableSequence):
 
             if isinstance(firstItem, (Vertex, str)):
                 # The input in a single iterable of concepts
-                self._elements.append(RelationConceptSet(self._owner, concepts))
+                self._elements.append(RelationConceptSet(owner, concepts))
 
             else:
                 # The inputs is a list of concept iterables
                 for group in concepts:
-                    self._elements.append(RelationConceptSet(self._owner, group))
+                    self._elements.append(RelationConceptSet(owner, group))
 
     def __repr__(self): return "<RelationConceptGroups[{}]>".format(",".join(self._elements))
     def __len__(self): return len(self._elements)
@@ -224,14 +223,17 @@ class RelationConceptManager(collections.abc.MutableSequence):
     def __contains__(self, concept: Concept): return any(concept in group for group in self._elements)
     def __call__(self): return {concept for conceptset in self._elements for concept in conceptset}
 
+    @property
+    def owner(self): return self._owner()
+
     def insert(self, index: int, concepts: ConceptSet):
         self._elements.insert(index, RelationConceptSet(self._owner, concepts))
-        self._correspondingGroup()._elements.insert(index, RelationConceptSet(self._owner, []))
+        self._correspondingGroup()._elements.insert(index, RelationConceptSet(self.owner, []))
 
     def append(self, concepts: ConceptSet):
 
         self._elements.append(RelationConceptSet(self._owner, concepts))
-        self._correspondingGroup()._elements.append(RelationConceptSet(self._owner, []))
+        self._correspondingGroup()._elements.append(RelationConceptSet(self.owner, []))
 
         return len(self) - 1  # Index of newly added conceptset
 
@@ -244,13 +246,19 @@ class RelationConceptManager(collections.abc.MutableSequence):
         for group in self._elements:
             group.add(concept)
 
-    def _correspondingGroup(self): return self._owner.targets if self._isDomain else self._owner.domains
+    def _correspondingGroup(self): return self.owner.targets if self._isDomain else self.owner.domains
 
-class RuleManager(collections.abc.MutableSequence):
+class RuleManager:
 
     def __init__(self, owner: weakref.ref, rules: list = []):
         self._owner = owner
         self._elements = rules.copy()
+
+    def __len__(self): return len(self._elements)
+    def __iter__(self): return iter(self._elements)
+    def __getitem__(self, index: int): return self._elements[index]
+    def __delitem__(self, index: int): self.remove(self._elements[index])
+    def __contains__(self, rule: Rule): return rule in self._elements
 
     def __call__(self, domain: Concept, target: Concept):
         """ Collect the rules within the relation, if domain and target is passed, collect together only rules that
@@ -263,16 +271,14 @@ class RuleManager(collections.abc.MutableSequence):
         Returns:
             [Rule]: A list of rules of the relation or that apply to the scenario
         """
-        if not self._owner.between(domain, target): return []
+
+        #TODO Do we want this or do we want to have this as its own function like applies()
+        #for rule in relation.rules.applies(x, y) rather than for rule in relation.rules(x, y)
+        if not self.owner.between(domain, target): return []
         return [rule for rule in self._elements if rule.applies(domain, target)]
 
-    def __len__(self): return len(self._elements)
-    def __iter__(self): return iter(self._elements)
-    def __setitem__(self, index: int, rule: Rule): self.insert(index, rule)
-    def __getitem__(self, index: int): return self._elements[index]
-    def __delitem__(self, index: int): del self._elements[index]
-    def __contains__(self, rule: Rule): return rule in self._elements
-    def insert(self, index: int, rule: Rule): self._elements.insert(index, rule)
+    @property
+    def owner(self): return self._owner()
 
     def add(self, rule: Rule):
         """ Add a Rule object to the relation, order the rule correctly based on confidence
@@ -309,20 +315,20 @@ class Relation:
     def __init__(self, domains: {Concept}, name: str, targets: {Concept}, rules=[], differ: bool = False):
 
         self.name = name
-        self._domains = RelationConceptManager(self, domains, isDomain = True)
-        self._targets = RelationConceptManager(self, targets, isDomain = False)
+        self._domains = RelationConceptManager(weakref.ref(self), domains, isDomain = True)
+        self._targets = RelationConceptManager(weakref.ref(self), targets, isDomain = False)
         assert len(self._domains) == len(self._targets), "Inconsistent types of domains and targets passed"
         self.rules = rules
         self.differ = differ
 
     @property
-    def domains(self) -> ConceptSet: return self._domains
+    def domains(self) -> RelationConceptManager: return self._domains
     @property
-    def targets(self) -> ConceptSet: return self._targets
+    def targets(self) -> RelationConceptManager: return self._targets
     @property
-    def rules(self) -> list: return self._rules
+    def rules(self) -> RuleManager: return self._rules
     @rules.setter
-    def rules(self, rules: [Rule]) -> RuleManager: self._rules = RuleManager(self, rules)
+    def rules(self, rules: [Rule]): self._rules = RuleManager(weakref.ref(self), rules)
 
     def __repr__(self):
         return "<Relation {}: {} - {}>".format(self.name, self._domains, self._targets)
@@ -331,6 +337,9 @@ class Relation:
         return " ".join([str({str(x) for x in self._domains}), self.name, str({str(x) for x in self._targets})])
 
     def appendConceptPairing(self, domains: ConceptSet, targets: ConceptSet) -> int:
+
+        #TODO test and document
+        #todo this is something right
 
         index = self._domains.append(domains)
         self._targets[index] = targets
