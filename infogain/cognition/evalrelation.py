@@ -1,11 +1,33 @@
 from ..knowledge import Ontology, Relation, Rule
+from ..knowledge.relation import RuleManager
+
 from .evalrule import EvalRule
+
+class EvalRuleManager(RuleManager):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self._ruleMapper = {}
+
+    def add(self, rule: Rule):
+        if isinstance(rule, Rule):
+            self._ruleMapper[rule] = rule = EvalRule.fromRule(rule)
+
+        super().add(rule)
+
+    def remove(self, rule: Rule):
+        if isinstance(rule, Rule): rule = self._ruleMapper[rule]
+
+        super().remove(rule)
 
 class EvalRelation(Relation):
 
-    def addRule(self, rule: Rule) -> None:
-        if isinstance(rule, Rule): rule = EvalRule.fromRule(rule, self._engine)
-        Relation.addRule(self, rule)
+    @property
+    def rules(self): return self._rules
+    @rules.setter
+    def rules(self, rules: list): self._rules = EvalRuleManager(self, rules)
+
 
     @classmethod
     def fromRelation(cls, relation: Relation):
