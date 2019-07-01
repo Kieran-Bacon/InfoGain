@@ -9,217 +9,6 @@ from ..exceptions import ConsistencyError
 import logging
 log = logging.getLogger(__name__)
 
-class Concept(Vertex):
-    """ A concept represents a "thing", an idea, an object, a place, anything.
-
-    Args:
-        name (str): The name/representation for the concept
-        parents (set): A set of concepts/strings that represent parent concepts
-        children (set): A set of concepts/strings that represent child concepts
-        alias (set(str)): A set of string representations for the concept that maybe found in text
-        properties (dict): A property of a concept e.g "age": 20
-        category ("abstract"/"static"/"dynamic"): The class of the concept - defines behaviour
-        json (dict): The concept information in the form of a diction, expected from json
-    """
-
-    ABSTRACT = "abstract"
-    STATIC = "static"
-    DYNAMIC = "dynamic"
-
-    def __init__(self,
-        name: str,
-        parents: set = set(),
-        children: set = set(),
-        aliases: set = set(),
-        properties: dict = {},
-        category: str = "dynamic"
-        ):
-
-        self.name = name
-        self.category = category
-
-        # Keeping track of the number of relations this concept is a member of - Mapping relation to count of membership
-        self._relationMembership = weakref.WeakKeyDictionary()
-
-        # Set up concept container objects to manage various interactions of the concept
-        self._parents = FamilyConceptSet(weakref.ref(self), ancestors=True)  # Hold references to parent concepts
-        self._children = FamilyConceptSet(weakref.ref(self), ancestors=False)  # Hold references to child concepts
-        self._aliases = ConceptAliases(weakref.ref(self))  # Hold the various ways concepts might be referenced
-        self._properties = ConceptProperties(weakref.ref(self))  # Hold property information on a concept
-
-        # Add container information
-        for con in parents: self.parents.add(con)
-        for con in children: self.children.add(con)
-        for alias in aliases: self.aliases.add(alias)
-        self.properties.update(properties)
-
-        # Set up the concept instance class
-        if self.category is not Concept.ABSTRACT:
-            self._instance_class = Instance
-
-            if self.category is Concept.STATIC:
-                self._instance = self._instance_class(self.name, properties=self.properties)
-
-    def __str__(self): return self.name
-    def __repr__(self): return "<Concept: {}>".format(self.name)
-    def __hash__(self): return hash(self.name)
-
-    @property
-    def parents(self):
-        return self._parents
-    @parents.setter
-    def parents(self, conceptSet: collections.abc.MutableSet):
-
-        if any(not isinstance(concept, Concept) for concept in conceptSet):
-            raise ValueError("You cannot provide a non Concept as a parent of concept {}".format(self))
-
-        conceptSet = set(conceptSet)
-
-        toAdd = conceptSet.difference(self._parents)
-        toRemove = self._parents.difference(conceptSet)
-
-        for rConcept in toRemove:
-            self._parents.remove(rConcept)
-
-        for aConcept in toAdd:
-            self._parents.add(aConcept)
-
-    @property
-    def children(self):
-        return self._children
-    @children.setter
-    def children(self, conceptSet: collections.abc.MutableSet):
-
-        if any(not isinstance(concept, Concept) for concept in conceptSet):
-            raise ValueError("You cannot provide a non Concept as a child of concept {}".format(self))
-
-        conceptSet = set(conceptSet)
-
-        toAdd = conceptSet.difference(self._children)
-        toRemove = self._children.difference(conceptSet)
-
-        for rConcept in toRemove:
-            self._children.remove(rConcept)
-
-        for aConcept in toAdd:
-            self._children.add(aConcept)
-
-    @property
-    def category(self): return self._category
-    @category.setter
-    def category(self, category: str):
-        if   category == self.ABSTRACT: self._category = self.ABSTRACT
-        elif category == self.STATIC: self._category = self.STATIC
-        elif category == self.DYNAMIC: self._category = self.DYNAMIC
-        else: raise ValueError("Invalid category '{}' provided to concept {} definition".format(category, self.name))
-
-    @property
-    def aliases(self): return self._aliases
-
-    @property
-    def properties(self): return self._properties
-
-    def ancestors(self):
-        """ Return a collection of concepts, all of the concepts that can be linked via the parent
-        link. All the ancestor concepts are returned.
-
-        Returns:
-            ancestors ({Concept}) - The collection
-        """
-
-        ancestors = self.parents.copy()  # Add the parents of this concept as the initial set
-
-        for parent in self.parents:  # Recursively collect the parents of the collected concepts
-            if isinstance(parent, str):
-                ancestors.add(parent)
-            else:
-                ancestors = ancestors.union(parent.ancestors())
-
-        return ancestors
-
-    def descendants(self):
-        """ Return a collection of child concepts linked to the current concept
-
-        Returns:
-            descendants ({Concept}) - The collection of descendant concepts
-        """
-
-        decendants = self.children.copy()
-
-        for child in self.children:
-            if isinstance(child, str):
-                decendants.add(child)
-            else:
-                decendants = decendants.union(child.descendants())
-
-        return decendants
-
-    def setInstanceClass(self, instance_class: Instance) -> None:
-        """ Overload the default ConceptInstance with another that extends ConceptInstance such that
-        when new instances of this class are generated they shall be instances of the new class. In
-        the event that the concept is static, the concept instance is replaced.
-
-        Params:
-            instance_class (ConceptInstance): The class object
-
-        Raises:
-            TypeError: In the event that the instance_class is does not extend ConceptInstance
-        """
-        if self.category is Concept.ABSTRACT:
-            raise ConsistencyError("An abstract concept cannot have an instance, nor a instance class set")
-
-        if not issubclass(instance_class, Instance):
-            raise TypeError("Class passed to concept '{}' as new instance".format(self) +
-                            " class does not extend Instance and is type {}".format(type(instance_class)))
-
-        self._instance_class = instance_class
-
-        if self.category is Concept.STATIC:
-            self._instance = self._instance_class(self, properties=self.properties)
-
-    def instance(self, instance_name: str = None, properties: dict = None) -> Instance:
-        """ Generate an instance of this concept and return it. In the event that the concept is
-        static, this function acts as a singleton and returns the single instance of this concept
-
-        Params:
-            instance_name (str): (dynamic only) An unique identifier for the instance - defaults to
-                UUID in the event that it is not provided and needed
-            properties (dict): (dynamic only) A collection of properties for this instance, overloads concept properties
-
-        Raises:
-            TypeError: In the event that the concept is abstract - no instance can be created
-        """
-
-        if self.category is Concept.ABSTRACT:
-            raise TypeError("Concept {} is abstract - No instances can be generated for this concept")
-
-        if self.category is Concept.STATIC:
-            if instance_name is not None:
-                log.warning("{} concept is static yet instance called for with an identifier".format(self.name))
-            return self._instance
-
-        if instance_name is None: instance_name = str(uuid.uuid4())
-        props = self.properties.copy() if properties is None else properties
-
-        return self._instance_class(self.name, instance_name, props)  # Generate a new instance of this class
-
-    def clone(self):
-        """ Return an new partial concept with identical information but invalid concept connections
-
-        Returns:
-            Clone (Concept) - A new partial concept
-        """
-        clone = Concept(
-            self.name,
-            {p.name for p in self.parents},
-            {c.name for c in self.children},
-            self.aliases,
-            self.properties,
-            self.category
-            )
-
-        return clone
-
 class ConceptSet(collections.abc.MutableSet):
     """ The Concept set is a container for concepts that provides additional support for many of the operations that
     require concepts. The ConceptSet intends to keep track of partial concepts that have been used as placeholders and
@@ -230,7 +19,7 @@ class ConceptSet(collections.abc.MutableSet):
         iterable {Concept}: An initial iterable of the concept objects
     """
 
-    def __init__(self, iterable: {Concept} = set()):
+    def __init__(self, iterable: {Vertex} = set()):
         self._elements = set()
         self._partial = set()
 
@@ -239,11 +28,11 @@ class ConceptSet(collections.abc.MutableSet):
 
     def __bool__(self): return bool(self._elements)
     def __iter__(self): return iter(self._elements)
-    def __contains__(self, concept: Concept): return concept in self._elements
+    def __contains__(self, concept: Vertex): return concept in self._elements
     def __len__(self): return len(self._elements)
     def __repr__(self): return "<ConceptSet{}>".format(self._elements or r"{}")
 
-    def add(self, concept: Concept):
+    def add(self, concept: Vertex):
         """ Add a concept (or partial concept) into the concept set.
 
         Params:
@@ -260,7 +49,7 @@ class ConceptSet(collections.abc.MutableSet):
         # Add the element into the set
         self._elements.add(concept)
 
-    def discard(self, concept: Concept) -> None:
+    def discard(self, concept: Vertex) -> None:
         """ Remove a concept from the ConceptSet
 
         Params:
@@ -407,7 +196,7 @@ class FamilyConceptSet(ConceptSet):
         ancestors (bool): Indicates whether this set holds the the parents or children for the owner
     """
 
-    def __init__(self, owner: weakref.ProxyType, ancestors: bool = True):
+    def __init__(self, owner: weakref.ref, ancestors: bool = True):
 
         self._owner = owner
         self._elements = set()
@@ -416,7 +205,10 @@ class FamilyConceptSet(ConceptSet):
 
     def __repr__(self): return "<FamilyConceptSet{}>".format(self._elements if self._elements else r"{}")
 
-    def add(self, concept: Concept) -> None:
+    @property
+    def owner(self) -> Vertex: return self._owner()
+
+    def add(self, concept: Vertex) -> None:
         """ Add a concept into this set. If the concept is partial, store its information such that it can be replaced
         at a later date. If this is the parent set, pull down relations that have been set up on the concepts within.
         Automatically link this relation with the added concept if they haven't already been linked with this concept.
@@ -436,23 +228,21 @@ class FamilyConceptSet(ConceptSet):
         super().add(concept)
         if not isinstance(concept, Concept): return  # Do not attempt to connect family with partial concept
 
-        owner = self._owner()  # Get the true concept object
-
         # Identify corresponding family concept set from new concept + pull down relations where applicable
         if self._ancestors:
             # This set holds the ancestors of its owner
 
             # Pull down aliases
             for alias in concept.aliases:
-                owner.aliases._addInherited(alias)
+                self.owner.aliases._addInherited(alias)
 
             # Pull down properties
             for key, value in concept.properties.items():
-                owner.properties._setInherited(key, value)
+                self.owner.properties._setInherited(key, value)
 
             # Pull down relations from the new parent concept
             for relation in concept._relationMembership:
-                relation._subscribe(owner)
+                relation._subscribe(self.owner)
 
             otherSet = concept.children
 
@@ -461,10 +251,10 @@ class FamilyConceptSet(ConceptSet):
             otherSet = concept.parents
 
         # Check whether the owning concept is correctly linked with the new concept from their perspective
-        if not otherSet._linked(owner):
-            otherSet.add(owner)
+        if not otherSet._linked(self.owner):
+            otherSet.add(self.owner)
 
-    def _linked(self, concept: Concept):
+    def _linked(self, concept: Vertex):
         """ Determine whether this concept is correctly linked inside this concept set. Linked if the concept is within
         the set and isn't partial.
 
@@ -473,7 +263,7 @@ class FamilyConceptSet(ConceptSet):
         """
         return concept not in self._partial and concept in self._elements
 
-    def discard(self, concept: Concept) -> bool:
+    def discard(self, concept: Vertex) -> bool:
 
         # Remove the object from the concept set
         isRemoved = super().discard(concept)
@@ -481,21 +271,19 @@ class FamilyConceptSet(ConceptSet):
         # if they were not removed or they were just a partial concept - return nothing else to do.
         if not isRemoved or isinstance(concept, str): return
 
-        owner = self._owner()
-
         # The removed concept and remove the inherited attributes
         if self._ancestors:
 
             # Remove the inherited aliases - properties - relationships
             for alias in concept.aliases:
 
-                owner.aliases._discardInherited(alias)
+                self.owner.aliases._discardInherited(alias)
 
             for key, value in concept.properties.items():
-                owner.properties._removeInherited(key, value)
+                self.owner.properties._removeInherited(key, value)
 
             for relation in concept._relationMembership:
-                relation._unsubscribe(owner)
+                relation._unsubscribe(self.owner)
 
             otherSet = concept.children
 
@@ -503,8 +291,8 @@ class FamilyConceptSet(ConceptSet):
             otherSet = concept.parents
 
         # ensure that the corresponding set has removed our owner
-        if otherSet._linked(owner):
-            otherSet.discard(owner)
+        if otherSet._linked(self.owner):
+            otherSet.discard(self.owner)
 
 class ConceptAliases(collections.abc.MutableSet):
     """ Hold the various aliases for a concept and the aliases of its parents. Ensure consistency of a concepts aliases
@@ -514,7 +302,7 @@ class ConceptAliases(collections.abc.MutableSet):
         owner (weakref.ref): The owning concept
     """
 
-    def __init__(self, owner: weakref.ProxyType):
+    def __init__(self, owner: weakref.ref):
         self._owner = owner
         self._elements = set()
         self._inheritedCounter = collections.defaultdict(int)
@@ -523,6 +311,10 @@ class ConceptAliases(collections.abc.MutableSet):
     def __iter__(self): return iter(self._elements)
     def __contains__(self, name: str): return name in self._elements
     def __repr__(self): return "<ConceptAliases{}>".format(self._elements)
+
+    @property
+    def owner(self) -> Vertex: return self._owner()
+
     def add(self, name: str):
         """ Add an alias for the concept and cascade it down the concept hierarchy to child concepts
 
@@ -536,7 +328,7 @@ class ConceptAliases(collections.abc.MutableSet):
         if name in self._elements: return
 
         self._elements.add(name)
-        for child in filter(lambda x: isinstance(x, Concept), self._owner().descendants()):
+        for child in filter(lambda x: isinstance(x, Concept), self.owner.descendants()):
             child.aliases._addInherited(name, cascade = False)
 
     def _addInherited(self, name: str, cascade: bool = True):
@@ -551,7 +343,7 @@ class ConceptAliases(collections.abc.MutableSet):
         self._inheritedCounter[name] += 1
 
         if cascade:
-            for child in filter(lambda x: isinstance(x, Concept), self._owner().descendants()):
+            for child in filter(lambda x: isinstance(x, Concept), self.owner.descendants()):
                 child.aliases._addInherited(name, cascade = False)
 
     def discard(self, name: str):
@@ -570,7 +362,7 @@ class ConceptAliases(collections.abc.MutableSet):
 
         self._elements.remove(name)
 
-        for child in filter(lambda x: isinstance(x, Concept), self._owner().descendants()):
+        for child in filter(lambda x: isinstance(x, Concept), self.owner.descendants()):
             child.aliases._discardInherited(name, cascade = False)
 
         return True
@@ -587,7 +379,7 @@ class ConceptAliases(collections.abc.MutableSet):
             self._elements.remove(name)
 
             if cascade:
-                for child in filter(lambda x: isinstance(x, Concept), self._owner().descendants()):
+                for child in filter(lambda x: isinstance(x, Concept), self.owner.descendants()):
                     child.aliases._discardInherited(name, cascade = False)
 
     def inherited(self):
@@ -620,7 +412,7 @@ class MultiplePartProperty(collections.abc.MutableSet):
 
 class ConceptProperties(collections.abc.MutableMapping):
 
-    def __init__(self, owner: weakref.ProxyType):
+    def __init__(self, owner: weakref.ref):
         self._owner = owner
         self._elements = {}
         self._inheritedElements = {}
@@ -641,9 +433,6 @@ class ConceptProperties(collections.abc.MutableMapping):
         if not isinstance(key, str): raise ValueError("Property name must be a `str` not `{}`".format(type(key)))
         if value is None: raise ValueError("Cannot set concept property as None")
 
-        # Collect the owning concept
-        owner = self._owner()
-
         # Check to see if the value had already been set beforehand
         if key in self._elements:
             # The value has been set before
@@ -652,7 +441,7 @@ class ConceptProperties(collections.abc.MutableMapping):
 
             old_value, self._elements[key] = self._elements[key], value
 
-            for child in filter(lambda x: isinstance(x, Concept), owner.children):
+            for child in filter(lambda x: isinstance(x, Concept), self.owner.children):
                 child.properties._updateInherited(key, old_value, value)
 
         else:
@@ -662,18 +451,18 @@ class ConceptProperties(collections.abc.MutableMapping):
             if key in self._inheritedElements:
                 # The key was inherited before and therefore children already have an inherited property with this
                 # key. Update their key value to show this new one
-               for child in filter(lambda x: isinstance(x, Concept), owner.children):
+               for child in filter(lambda x: isinstance(x, Concept), self.owner.children):
                     child.properties._updateInherited(key, self._inheritedElements[key], value)
 
             else:
                 # New for children too, set inherited value
-                for child in filter(lambda x: isinstance(x, Concept), owner.children):
+                for child in filter(lambda x: isinstance(x, Concept), self.owner.children):
                     child.properties._setInherited(key, value)
 
     def __getitem__(self, key: str):
         if key in self._elements: return self._elements[key]
         elif key in self._inheritedElements: return self._inheritedElements[key]
-        else: raise KeyError("{} doesn't have a property by that name {}".format(self._owner(), key))
+        else: raise KeyError("{} doesn't have a property by that name {}".format(self.owner, key))
 
     def __delitem__(self, key: str):
 
@@ -685,18 +474,19 @@ class ConceptProperties(collections.abc.MutableMapping):
         # Remove the stored value from the elements
         value = self._elements.pop(key)
 
-        owner = self._owner()
-
         # If there was an inherited value with the same value, and the value is not the same as specific value, cascade
         if key in self._inheritedElements:
             if self._inheritedElements[key] != value:  # If the value is the same, no need to do anything
-                for child in owner.children:
+                for child in self.owner.children:
                     child.attr._updateInherited(key, self._inheritedElements[key])
 
         else:
             # The value has been completely removed - remove this property from children where it may have cascaded
-            for child in filter(lambda x: isinstance(x, Concept), owner.children):
+            for child in filter(lambda x: isinstance(x, Concept), self.owner.children):
                 child.attr._removeInherited(key, value)
+
+    @property
+    def owner(self) -> Vertex: return self._owner()
 
     def _setInherited(self, key: str, value: object):
         """ This is a key value that is being passed down by an unknown parent concept - the assumption is that the
@@ -724,11 +514,11 @@ class ConceptProperties(collections.abc.MutableMapping):
 
             elif value != storedVal:
                 # There was an initial value that had no conflict - create multi prop and add original count times
-                mprop = MultiplePartProperty()
-                mprop.add(storedVal, count=self._inheritedCounter[key])
-                mprop.add(value)
+                mProp = MultiplePartProperty()
+                mProp.add(storedVal, count=self._inheritedCounter[key])
+                mProp.add(value)
 
-                self._inheritedElements[key] = mprop
+                self._inheritedElements[key] = mProp
 
         else:
             # New inherited item
@@ -739,7 +529,7 @@ class ConceptProperties(collections.abc.MutableMapping):
 
         if key not in self._elements:
             # The inherited key wasn't overloaded by the concept so it needs to propagate
-            for child in self._owner().children:
+            for child in self.owner.children:
                 child.properties._setInherited(key, value)
 
     def _updateInherited(self, key: str, oldValue: object, value: object):
@@ -782,7 +572,7 @@ class ConceptProperties(collections.abc.MutableMapping):
 
         if key not in self._elements and inheritedProp != value:
             # The update needs to cascade down into the child concepts
-            for child in self._owner().children:
+            for child in self.owner.children:
                 child.properties._updateInherited(key, oldValue, value)
 
     def _removeInherited(self, key: str, value: object):
@@ -818,8 +608,217 @@ class ConceptProperties(collections.abc.MutableMapping):
         if key not in self._elements:
             # The value had cascaded, need to remove from children
 
-            for child in self._owner().children:
+            for child in self.owner.children:
                 child.properties._removeInherited(key, value)
 
     def copy(self):
         return dict(self.items())
+
+class Concept(Vertex):
+    """ A concept represents a "thing", an idea, an object, a place, anything.
+
+    Args:
+        name (str): The name/representation for the concept
+        parents (set): A set of concepts/strings that represent parent concepts
+        children (set): A set of concepts/strings that represent child concepts
+        alias (set(str)): A set of string representations for the concept that maybe found in text
+        properties (dict): A property of a concept e.g "age": 20
+        category ("abstract"/"static"/"dynamic"): The class of the concept - defines behaviour
+        json (dict): The concept information in the form of a diction, expected from json
+    """
+
+    ABSTRACT = "abstract"
+    STATIC = "static"
+    DYNAMIC = "dynamic"
+
+    def __init__(self,
+        name: str,
+        parents: set = set(),
+        children: set = set(),
+        aliases: set = set(),
+        properties: dict = {},
+        category: str = "dynamic"
+        ):
+
+        self.name = name
+        self.category = category
+
+        # Keeping track of the number of relations this concept is a member of - Mapping relation to count of membership
+        self._relationMembership = weakref.WeakKeyDictionary()
+
+        # Set up concept container objects to manage various interactions of the concept
+        self._parents = FamilyConceptSet(weakref.ref(self), ancestors=True)  # Hold references to parent concepts
+        self._children = FamilyConceptSet(weakref.ref(self), ancestors=False)  # Hold references to child concepts
+        self._aliases = ConceptAliases(weakref.ref(self))  # Hold the various ways concepts might be referenced
+        self._properties = ConceptProperties(weakref.ref(self))  # Hold property information on a concept
+
+        # Add container information
+        for con in parents: self.parents.add(con)
+        for con in children: self.children.add(con)
+        for alias in aliases: self.aliases.add(alias)
+        self.properties.update(properties)
+
+        # Set up the concept instance class
+        if self.category is not Concept.ABSTRACT:
+            self._instance_class = Instance
+
+            if self.category is Concept.STATIC:
+                self._instance = self._instance_class(self.name, properties=self.properties)
+
+    def __str__(self): return self.name
+    def __repr__(self): return "<Concept: {}>".format(self.name)
+    def __hash__(self): return hash(self.name)
+
+    @property
+    def parents(self) -> FamilyConceptSet: return self._parents
+    @parents.setter
+    def parents(self, conceptSet: ConceptSet):
+
+        if any(not isinstance(concept, Concept) for concept in conceptSet):
+            raise ValueError("You cannot provide a non Concept as a parent of concept {}".format(self))
+
+        conceptSet = set(conceptSet)
+
+        toAdd = conceptSet.difference(self._parents)
+        toRemove = self._parents.difference(conceptSet)
+
+        for rConcept in toRemove:
+            self._parents.remove(rConcept)
+
+        for aConcept in toAdd:
+            self._parents.add(aConcept)
+
+    @property
+    def children(self) -> FamilyConceptSet: return self._children
+    @children.setter
+    def children(self, conceptSet: ConceptSet):
+
+        if any(not isinstance(concept, Concept) for concept in conceptSet):
+            raise ValueError("You cannot provide a non Concept as a child of concept {}".format(self))
+
+        conceptSet = set(conceptSet)
+
+        toAdd = conceptSet.difference(self._children)
+        toRemove = self._children.difference(conceptSet)
+
+        for rConcept in toRemove:
+            self._children.remove(rConcept)
+
+        for aConcept in toAdd:
+            self._children.add(aConcept)
+
+    @property
+    def category(self) -> str: return self._category
+    @category.setter
+    def category(self, category: str):
+        if   category == self.ABSTRACT: self._category = self.ABSTRACT
+        elif category == self.STATIC: self._category = self.STATIC
+        elif category == self.DYNAMIC: self._category = self.DYNAMIC
+        else: raise ValueError("Invalid category '{}' provided to concept {} definition".format(category, self.name))
+
+    @property
+    def aliases(self) -> ConceptAliases: return self._aliases
+
+    @property
+    def properties(self) -> ConceptProperties: return self._properties
+
+    def ancestors(self) -> ConceptSet:
+        """ Return a collection of concepts, all of the concepts that can be linked via the parent
+        link. All the ancestor concepts are returned.
+
+        Returns:
+            ancestors ({Concept}) - The collection
+        """
+
+        ancestors = self.parents.copy()  # Add the parents of this concept as the initial set
+
+        for parent in self.parents:  # Recursively collect the parents of the collected concepts
+            if isinstance(parent, str):
+                ancestors.add(parent)
+            else:
+                ancestors = ancestors.union(parent.ancestors())
+
+        return ancestors
+
+    def descendants(self) -> ConceptSet:
+        """ Return a collection of child concepts linked to the current concept
+
+        Returns:
+            descendants ({Concept}) - The collection of descendant concepts
+        """
+
+        decendants = self.children.copy()
+
+        for child in self.children:
+            if isinstance(child, str):
+                decendants.add(child)
+            else:
+                decendants = decendants.union(child.descendants())
+
+        return decendants
+
+    def setInstanceClass(self, instance_class: Instance) -> None:
+        """ Overload the default ConceptInstance with another that extends ConceptInstance such that
+        when new instances of this class are generated they shall be instances of the new class. In
+        the event that the concept is static, the concept instance is replaced.
+
+        Params:
+            instance_class (ConceptInstance): The class object
+
+        Raises:
+            TypeError: In the event that the instance_class is does not extend ConceptInstance
+        """
+        if self.category is Concept.ABSTRACT:
+            raise ConsistencyError("An abstract concept cannot have an instance, nor a instance class set")
+
+        if not issubclass(instance_class, Instance):
+            raise TypeError("Class passed to concept '{}' as new instance".format(self) +
+                            " class does not extend Instance and is type {}".format(type(instance_class)))
+
+        self._instance_class = instance_class
+
+        if self.category is Concept.STATIC:
+            self._instance = self._instance_class(self, properties=self.properties)
+
+    def instance(self, instance_name: str = None, properties: dict = None) -> Instance:
+        """ Generate an instance of this concept and return it. In the event that the concept is
+        static, this function acts as a singleton and returns the single instance of this concept
+
+        Params:
+            instance_name (str): (dynamic only) An unique identifier for the instance - defaults to
+                UUID in the event that it is not provided and needed
+            properties (dict): (dynamic only) A collection of properties for this instance, overloads concept properties
+
+        Raises:
+            TypeError: In the event that the concept is abstract - no instance can be created
+        """
+
+        if self.category is Concept.ABSTRACT:
+            raise TypeError("Concept {} is abstract - No instances can be generated for this concept")
+
+        if self.category is Concept.STATIC:
+            if instance_name is not None:
+                log.warning("{} concept is static yet instance called for with an identifier".format(self.name))
+            return self._instance
+
+        if instance_name is None: instance_name = str(uuid.uuid4())
+        props = self.properties.copy() if properties is None else properties
+
+        return self._instance_class(self.name, instance_name, props)  # Generate a new instance of this class
+
+    def clone(self) -> Vertex:
+        """ Return an new partial concept with identical information but invalid concept connections
+
+        Returns:
+            Clone (Concept) - A new partial concept
+        """
+        clone = Concept(
+            self.name,
+            {p.name for p in self.parents},
+            {c.name for c in self.children},
+            self.aliases,
+            self.properties,
+            self.category
+            )
+
+        return clone
