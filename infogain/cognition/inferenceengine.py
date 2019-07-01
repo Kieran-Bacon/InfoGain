@@ -74,7 +74,6 @@ class InferenceEngine(Ontology):
                         target,
                         point.probability*100,
                         supporting = point.prediction == point.POSITIVE,
-                        ontology=self
                     )
                     relation.addRule(rule)
                 else:
@@ -110,7 +109,7 @@ class InferenceEngine(Ontology):
             if not evaluate_conditions and rule.hasConditions(domain, target):
                 continue  # Avoid condition rules
 
-            ruleValue = (1.0 - rule.eval(domain, target)/100)
+            ruleValue = (1.0 - rule.eval(self, domain, target)/100)
             if rule.supporting:
                 rulePositive = True
                 confidence *= ruleValue
@@ -203,12 +202,12 @@ class InferenceEngineInstances(collections.abc.MutableMapping):
     def __iter__(self): return iter(self._elements)
 
     def __call__(self, concept: Concept, descendants: bool = False)  -> (Instance, {Instance}):
-        """ Collect the instance who's namee has been specified, or collect the instances for a concept identifier. If
+        """ Collect the instance who's name has been specified, or collect the instances for a concept identifier. If
         descendants is true, then in the event that a concept is passed, all instances of descendant concepts shall also
         be returned.
 
         Params:
-            concept (str/Concept): The name of the instance to be returned, or the concept idenfitier
+            concept (str/Concept): The name of the instance to be returned, or the concept identifier
             descendants (bool): Along with the concept gather the descendant concept's instances
 
         Returns:
@@ -216,12 +215,13 @@ class InferenceEngineInstances(collections.abc.MutableMapping):
         """
 
         if isinstance(concept, str):
-            return self.get(concept)  # Return the instance with the given name or None
+            concept = self._owner.concepts(concept)
+            #return self.get(concept)  # Return the instance with the given name or None
 
-        elif isinstance(concept, Concept):
+        if isinstance(concept, Concept):
 
             if descendants:
-                return {inst for con in ConceptSet({concept}).expanded() for inst in self._conceptMapping.get(con)}
+                return {inst for con in ConceptSet({concept}).expanded() for inst in self._conceptMapping.get(con, [])}
 
             if concept.category is Concept.ABSTRACT:
                 log.warning("Cannot collect instances of an Abstract concept {}".format(concept))

@@ -2,7 +2,7 @@ from ..information import Vertex
 
 class Instance(Vertex):
     """ An instance of a concept. The concept an instance represents is responsible for
-    generating its instance - the responsiblity of ensuring correctness within the instance is
+    generating its instance - the responsibility of ensuring correctness within the instance is
     therefore handled by the concept.
 
     No abstract concept will have a instance
