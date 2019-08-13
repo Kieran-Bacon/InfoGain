@@ -1,3 +1,3 @@
-from .relationextractor import RelationExtractor
-from .relationmodel import RelationModel
+from .extrationengine import ExtractionEngine
+from .extractionrelation import ExtractionRelation
 from .embedder import Embedder
