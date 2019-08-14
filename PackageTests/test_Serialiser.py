@@ -1,3 +1,4 @@
+import os
 import unittest
 
 import infogain
@@ -5,6 +6,14 @@ from infogain.knowledge import Concept, Relation, Rule, Condition
 
 class Test_SerialiserFactory(unittest.TestCase):
     """ Test that the Serialiser Factory behaves as expected """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.path = './serialised.json'
+
+    @classmethod
+    def tearDownClass(cls):
+        os.remove(cls.path)
 
     def setUp(self):
         """ Define a basic ontology to save and load """
@@ -30,4 +39,5 @@ class Test_SerialiserFactory(unittest.TestCase):
 
         jsonSerialiser = infogain.Serialiser("json")
 
-        jsonSerialiser.save(self.ontology, "./serialised.json")
+        jsonSerialiser.save(self.ontology, self.path)
+
