@@ -4,6 +4,7 @@ import weakref
 import collections
 import re
 from tqdm import tqdm
+import itertools
 
 from ..artefact import Datapoint, Document
 from ..knowledge import Concept, Relation
@@ -50,6 +51,19 @@ class ExtractionEngine(Ontology):
         self._concepts = OntologyConcepts(weakref.ref(self))
         self._relations = ExtractionRelations(weakref.ref(self), relation_class)
 
+        self._embedder = embedder
+
+        if ontology:
+            # Add each of the items of the provided ontology into the engine - clone elements to avoid coupling issues
+            if self.name is None and ontology.name is not None:
+                self.name = ontology.name
+
+            for concept in ontology.concepts():
+                self.concepts.add(concept.clone())
+
+            for relation in ontology.relations():
+                self.relations.add(relation.clone())
+
     def fit(self, documents: [Document]):
         """ Train the model on the collection of documents (InfoGain documents)
 
@@ -66,9 +80,9 @@ class ExtractionEngine(Ontology):
 
                 # Train the entity detection with the datapoint entities
                 for entity in (datapoint.domain, datapoint.target):
-                    concept = self.concepts.get(entity)
+                    concept = self.concepts.get(entity['concept'])
                     if concept is not None:
-                        concept.aliases.add(entity.text)
+                        concept.aliases.add(entity['text'])
 
                 # Split out the datapoints for training relations
                 relation = self.relations.get(datapoint.relation)
@@ -76,9 +90,11 @@ class ExtractionEngine(Ontology):
                     relation_datapoints[relation].append(datapoint)
 
             # Train the embedder
-            self.embedder.train(document.words(cleaned=True))
+            self._embedder.train(document.words(cleaned=True))
+
 
         for relation, datapoints in relation_datapoints.items():
+            for point in datapoints: point.embedContext(self._embedder.sentence)
             relation.fit(datapoints)
 
     def predict(self, document: Document):
@@ -90,7 +106,7 @@ class ExtractionEngine(Ontology):
 
         # A store mapping aliases to concepts
         aliases = collections.defaultdict(set)
-        for concept in self.concepts:
+        for concept in self.concepts():
             if concept.category is Concept.ABSTRACT: continue
 
             aliases[concept.name].add(concept.name)
@@ -128,10 +144,10 @@ class ExtractionEngine(Ontology):
 
                 while scenarioEntities:
                     # Remove an entity to compare with others - reduce the entities list
-                    represention_1, matchObj_1, concept_1 = scenarioEntities.pop()
+                    _, matchObj_1, concept_1 = scenarioEntities.pop()
 
                     # Comparing with remaining entities
-                    for represention_2, matchObj_2, concept_2 in scenarioEntities:
+                    for _, matchObj_2, concept_2 in scenarioEntities:
 
                         # Determine sentence context - due to finder iter and pop, obj 1 always behind obj 2
                         context = {
@@ -140,27 +156,27 @@ class ExtractionEngine(Ontology):
                             "right": sentence[matchObj_2.span()[1]:],
                         }
                         embeddings = {
-                            key: self.embedder.sentence(Document.clean(value))
-                            for key, value in context
+                            key: self._embedder.sentence(Document.clean(value))
+                            for key, value in context.items()
                         }
 
-                        wrapper_1, wrapper_2 = (con_1, matchObj_1), (con_2, matchObj_2)
+                        wrapper_1, wrapper_2 = (concept_1, matchObj_1), (concept_2, matchObj_2)
 
                         # The entities can be in either order for relations - look at both orientations
-                        for dc, dm, tc, tm in [(wrapper_1, wrapper_2), (wrapper_2, wrapper_1)]:
+                        for (dc, dm), (tc, tm) in [(wrapper_1, wrapper_2), (wrapper_2, wrapper_1)]:
 
                             # Create a datapoint for each relationship found
                             for relation in self.findRelations(dc, tc):
                                 point = Datapoint({
                                     "domain": {"concept": dc, "text": dm.group(0).strip()},
-                                    "target": {"concept": tarCon, "text": tm.group(0).strip()},
+                                    "target": {"concept": tc, "text": tm.group(0).strip()},
                                     "relation": relation.name,
                                     "text": sentence,
                                     "context": context,
                                     "embedding": embeddings
                                 })
 
-                                self.relations[relation].predict(point)
+                                relation.predict(point)
 
                                 scenarioDatapoints.append(point)
 
@@ -169,7 +185,7 @@ class ExtractionEngine(Ontology):
                 datapoints.append(scenarioDatapoints)
 
             # Compare the different scenarios
-            if datapoints:
+            if any(len(points) for points in datapoints):
 
                 # Ensure that all scenarios have some datapoints - order them by probability for comparison
                 datapoints = [
@@ -201,3 +217,5 @@ class ExtractionEngine(Ontology):
                 # A selected Scenario has been chosen - add it to the document
                 for datapoint in selected:
                     document.addDatapoint(datapoint)
+
+        return document

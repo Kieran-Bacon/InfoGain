@@ -11,6 +11,7 @@ class ExtractionRelation(Relation):
 
     def __init__(self, *args, **kwargs):
         self.classifier = MLPClassifier(hidden_layer_sizes=(900, 50, 20))
+        self.fitted = False
         super().__init__(*args, **kwargs)
 
     def fit(self, datapoints: [Datapoint]) -> None:
@@ -61,6 +62,6 @@ class ExtractionRelation(Relation):
             relation.domains,
             relation.name,
             relation.targets,
-            rules = relation.rules,
+            rules = [rule for rule in relation.rules],
             differ = relation.differ
         )
