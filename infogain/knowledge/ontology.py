@@ -23,7 +23,7 @@ class OntologyConcepts(collections.abc.MutableMapping):
         self._elements = {}
 
         self._missedConcepts = collections.defaultdict(set)   # Mapping between incomplete concepts
-        self._missedRelations = collections.defaultdict(set)  # Mapping between incomplete concepts and relations
+        self._missedSubscriptions = collections.defaultdict(set) # Mapping between partial concepts and components
 
     def __len__(self): return len(self._elements)
     def __iter__(self): return iter(self._elements)
@@ -62,9 +62,9 @@ class OntologyConcepts(collections.abc.MutableMapping):
             del self._missedConcepts[concept.name]
 
         # Link with any relations that have a reference to this concept partially and require the full concept
-        if concept.name in self._missedRelations:
-            for relation in self._missedRelations[concept.name]:
-                relation.subscribe(concept)
+        if concept.name in self._missedSubscriptions:
+            for component in self._missedSubscriptions[concept.name]:
+                component._subscribe(concept)
 
         self._elements[concept.name] = concept
 
@@ -98,6 +98,14 @@ class OntologyRelations(collections.abc.MutableMapping):
             Relation - The original relation or a newly generated relation with edits.
         """
 
+        for rule in relation.rules:
+            for partial in {p for g in (rule.domains, rule.targets) for p in g.partials()}:
+                found = self.owner.concepts.get(partial)
+                if found:
+                    rule._subscribe(found)
+                else:
+                    self.owner.concepts._missedSubscriptions[partial].add(rule)
+
         # Resolve any partial concepts that exist within the relation - record missed concepts
         for partial in {p for c in (relation.domains, relation.targets) for g in c for p in g.partials()}:
 
@@ -105,7 +113,7 @@ class OntologyRelations(collections.abc.MutableMapping):
             if found:
                 relation._subscribe(found)
             else:
-                self.owner.concepts._missedRelations[partial].add(relation)
+                self.owner.concepts._missedSubscriptions[partial].add(relation)
 
         log.debug("Added Relation {}".format(str(relation)))
         self[relation.name] = relation
