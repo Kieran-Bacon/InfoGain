@@ -8,6 +8,8 @@ examples/**/*.json
 .cache/*
 *.pdf
 **/.pytest_cache/*
+.coverage*
+coverage/
 
 # Tex ignore
 *.aux
@@ -25,5 +27,3 @@ examples/**/*.json
 # Ignore pypi files
 dist
 build
-
-env
