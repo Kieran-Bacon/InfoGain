@@ -41,3 +41,27 @@ class Test_SerialiserFactory(unittest.TestCase):
 
         jsonSerialiser.save(self.ontology, self.path)
 
+        loadedOntology = jsonSerialiser.load(self.path)
+
+        for concept in self.ontology.concepts():
+            loadedConcept = loadedOntology.concepts[concept.name]
+
+            self.assertEqual(set(con.name for con in concept.parents), set(con.name for con in loadedConcept.parents))
+            self.assertEqual(set(con.name for con in concept.children), set(con.name for con in loadedConcept.children))
+
+        for relation in self.ontology.relations():
+            loadedRelation = loadedOntology.relations[relation.name]
+
+            for group_1, group_2 in zip(relation.domains, loadedRelation.domains):
+                self.assertEqual(set(con.name for con in group_1), set(con.name for con in group_2))
+
+            for group_1, group_2 in zip(relation.targets, loadedRelation.targets):
+                self.assertEqual(set(con.name for con in group_1), set(con.name for con in group_2))
+
+            for rule, loaded in zip(relation.rules, loadedRelation.rules):
+                self.assertEqual(rule.domains.toStringSet(), loaded.domains.toStringSet())
+                self.assertEqual(rule.targets.toStringSet(), loaded.targets.toStringSet())
+
+                self.assertEqual(rule.confidence, loaded.confidence)
+
+

@@ -62,9 +62,6 @@ class SerialiseFactory(AbstractSerialiser):
             and from
     """
 
-    def __init__(self, encoding: str = "python", classtype: Ontology = Ontology):
-        pass
-
     def __new__(cls, encoding: str = "python", classtype: Ontology = Ontology):
         """ Generate a new Serialiser object for the encoding type that has been
         provided to load/save infogain components
@@ -79,5 +76,4 @@ class SerialiseFactory(AbstractSerialiser):
         if encoding in _SERIALENCODERS:
             return _SERIALENCODERS[encoding](classtype)
         else:
-            print(_SERIALENCODERS)
             raise ValueError("Encoding type {} for knowledge serialiser is unrecognised".format(encoding))
