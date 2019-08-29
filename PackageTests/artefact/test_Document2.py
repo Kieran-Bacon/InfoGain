@@ -170,4 +170,71 @@ class Test_Document(unittest.TestCase):
         document = Document(content=content)
         document.split(r"SEPARATOR", key=backwardCheck, forward=False)
 
-    def test_document
+    def test_documentJoin(self):
+
+        content = (
+            "A line to be split by a SEPARATOR test to see the side the separator goes to"
+        )
+
+        # Basic separator
+        document = Document(content=content)
+        document.split(r"SEPARATOR")
+
+        document.join(" JOINING STRING ")
+
+        self.assertEqual(
+            document.content,
+            "A line to be split by a JOINING STRING test to see the side the separator goes to"
+        )
+
+        # Complex separator
+        document = Document(content=content)
+        document.split(r"SEPARATOR")
+
+        def joining(document1, document2):
+            content = document1.content + " " + document2.breaktext + str(len(document2.content)) + " " + document2.content
+            return Document(content)
+
+        document.join(joining)
+
+        self.assertEqual(
+            document.content,
+            "A line to be split by a SEPARATOR42 test to see the side the separator goes to"
+        )
+
+    def test_documentJoinDoubleDown(self):
+
+        content = (
+            "section 1:\nmorning:\nThis is the morning passage.\nevening:\nAnother passage.\n\n"
+            "section 2:\nmorning:\nSecond morning passage.\nevening:\nSecond evening passage."
+        )
+
+        document = Document(content=content)
+        document.split(r"section \d:")
+        document.split("(morning|evening):")
+
+        # Join bottom level
+        document.join("\n")
+
+        sections = [
+            "This is the morning passage.\nAnother passage.",
+            "Second morning passage.\nSecond evening passage."
+        ]
+
+        for docSec, sec in zip(iter(document), sections):
+            self.assertEqual(docSec, sec)
+
+        # Join top level with function
+        def joining(doc1, doc2):
+            content = doc1.breaktext + "\n" if doc1.breaktext else ""
+            content += doc1.content + "\n\n" + doc2.breaktext + "\n" + doc2.content
+            return Document(content)
+
+        document.join(joining)
+
+        remade = (
+            "section 1:\nThis is the morning passage.\nAnother passage.\n\n"
+            "section 2:\nSecond morning passage.\nSecond evening passage."
+        )
+
+        self.assertEqual(document.content, remade)

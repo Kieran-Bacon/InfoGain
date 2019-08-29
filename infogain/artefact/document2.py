@@ -132,7 +132,6 @@ class Document:
         "shouldn't": "should not",
         "wouldn't": "would not"
     }
-    _APOSTROPHES_RGX = re.compile(r"({})".format("|".join(_APOSTROPHESMAPPER.keys())))
 
     def __init__(self, content: str = None, *, name: str = None, text_break: str = "", processed: bool = False):
 
@@ -141,7 +140,6 @@ class Document:
         self._content = self._processContent(content) if not processed else content.strip()
         self._break = text_break
 
-        self._isForward = None
         self._sub_documents = []
 
         self._yieldedSection = None  # Record the index of the subdocument that the entity is to exist in
@@ -182,10 +180,7 @@ class Document:
 
         else:
             # Combine the sub-documents in the direction they were broken with inserting the break-text indicator
-            if self._isForward:
-                return "".join([doc.breaktext + doc.content for doc in self._sub_documents])
-            else:
-                return "".join([doc.content + doc.breaktext for doc in self._sub_documents])
+            return "".join([doc.content for doc in self._sub_documents])
 
     @content.setter
     def content(self, content: str):
@@ -313,15 +308,49 @@ class Document:
         # Un-assign document variables to act as container now
         self._content = None
 
-    def join(self, joining: (str, callable), forward= True, callback=callable ):
-        # Join the bottom level of splits by some value, which can be callable for the first or second text block
-        # to determine how its to be joined
-        # Callback at the end to work on the completed joined sections.
-        pass
+    def join(self, joining: (str, callable)):
 
+        # Perform no action if there is nothing to join within the document
+        if self._content is not None:
+            log.warning("Join called on a top level document - no action taken")
 
-    def clone(self):
-        pass
+        # If the sub documents within the document have sub documents, pass on the joining to them to join their level
+        elif self._sub_documents[0]._content is None:
+            for document in self._sub_documents:
+                document.join(joining)
+
+        else:
+            # Join the documents below - extract the first document and prepare queue of remaining sub documents
+            document = self._sub_documents[0]
+            documents = self._sub_documents[1:]
+
+            # Convert a string joining into a basic join method
+            if isinstance(joining, str):
+                joiningMethod = lambda x, y: Document(x.content + joining + y.content)
+            else:
+                joiningMethod = joining
+
+            # Loop over the sub-documents and join their contents
+            while documents:
+                nextDocument = documents.pop(0)
+                document = joiningMethod(document, nextDocument)
+
+            # Update the documents internal state
+            self._content = document.content
+            self._sub_documents = None
+
+    def clone(self, *, meta_only: bool = False):
+
+        if meta_only:
+            return Document("", name=self.name, text_break=self.breaktext)
+        else:
+            if self._content:
+                return Document(self._content, name=self.name, text_break=self.breaktext, processed=True)
+            else:
+                document = Document("", name=self.name, text_break=self.breaktext, processed=True)
+                document._content = None
+                document._sub_documents = [document.clone() for document in self._sub_documents]
+                return document
 
     def _processContent(self, content):
 
