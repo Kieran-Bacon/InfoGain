@@ -3,34 +3,86 @@ import collections
 import re
 import uuid
 
+from .entity import Entity
+from .annotation import Annotation
+
 import logging
 log = logging.getLogger(__name__)
 
-class Entity:
 
-    def __init__(self, classType: str, surfaceForm: str, confidence: float = 1.):
-        self.classType = classType
-        self.surfaceForm = surfaceForm
-        self.confidence = confidence
+class EntitySet:
+    """ An entity container for a document, keeping entities and linking them to the surfact forms within the documents
+    content. For nested documents, the container acts as a pass through to child elements
 
-class Annotation:
-
-    def __init__(self):
-        self.domain = Entity()
-        self.type = "Name"
-        self.target = Entity()
-
-        self.prediction = 0.0
-        self.confidence = 0.0
-        self.annotation = None
-
-class EntitySet: #(collections.abc.MutableSequence):
+    Params:
+        owner (weakref.ref): A weak reference back to the owning document
+    """
 
     def __init__(self, owner: weakref.ref):
         self._owner = owner
-        self._elements = {}
+
+        # Hold the character indexes of the respective entity elements
+        self._indexes = []
+        self._entities = []
+
+    def __len__(self):
+        if self._entities is not None: return len(self._entities)
+        else: return sum(len(doc.entities) for doc in self._owner()._sub_documents)
+
+    def __iter__(self):
+        if self._entities is not None:
+            return iter(self._entities)
+        else:
+            return (entity for doc in self._owner()._sub_documents for entity in doc.entities)
+
+    def __contains__(self, entity: Entity):
+        if self._entities: return entity in self._entities
+
+    def _insert(self, index: int, entity: Entity):
+        """ Record the entity at the given location, insert the index and the entity into the two internal stores and
+        keep consistency. Can (should) only be called on a bottom level entities container.
+
+        Params:
+            index (int): The index of the starting character of the entity in the owning document content
+            entity (Entity): The entity that is found at that location
+
+        Raises:
+            RuntimeError: In the event that the container is not bottom level
+        """
+        if self._indexes is None or self._entities is None:
+            raise RuntimeError("Calling _insert on non-bottom level entity container")
+
+        for i, idx in enumerate(self._indexes):
+            if index < idx:
+                self._indexes.insert(index, max(0, i-1))
+                self._entities.insert(entity, max(0, i-1))
+                break
+
+        else:
+            self._indexes.append(index)
+            self._entities.append(entity)
+
+    def index(self, entity: Entity) -> int:
+        #TODO: Make this work for non bottom level containers
+        return self._indexes[self._entities.index(entity)]
 
     def add(self, entity: Entity, index: int = 0):
+        """ Add an entity into the entity container at the given index. Ensure that the entity is valid for the proposed
+        location and take advantage of the yielded context to be able to provided a relative index rather than a global
+        context.
+
+        If adding an entity within the iter, sentence, word scope of the document, provide an index that is relative to
+        that block
+
+        Params:
+            entity (Entity): The entity to be added
+            index (int): The start char within the document content (or section/sentence/word content)
+
+        Raises:
+            ValueError: The location's surfaceForm doesn't agree with the entities
+            ValueError: The index is out of bounds for the document
+            RuntimeError: Though the index was valid, a section couldn't be found that contains it
+        """
 
         # Get reference to the owning document
         owner = self._owner()
@@ -40,10 +92,17 @@ class EntitySet: #(collections.abc.MutableSequence):
 
         if not owner._sub_documents:
             # The document hasn't been split - check that its applicable and add the entity
-            assert owner.content[index:index + len(entity.surfaceForm)] == entity.surfaceForm
+            if not owner.content[index:index + len(entity.surfaceForm)] == entity.surfaceForm:
+                raise ValueError("Entity couldn't be found (\"{}'{}'{}\") != '{}'".format(
+                        owner.content[max(0, index - 10): index],
+                        owner.content[index:index + len(entity.surfaceForm)],
+                        owner.content[index + len(entity.surfaceForm): index + len(entity.surfaceForm) + 10],
+                        entity.surfaceForm
+                    )
+                )
 
             # Record the entity against the index
-            self._elements[index] = entity
+            self._insert(index, entity)
 
         else:
 
@@ -52,43 +111,121 @@ class EntitySet: #(collections.abc.MutableSequence):
                 owner._sub_documents[owner._yieldedSection].entities.add(entity, index)
 
             else:
-                # The user has added the entity at the top level for a subsection - expensive search
+                # The user has added the entity at the top level for a subsection
 
+                # Ensure valid add
+                if index >= len(owner): raise ValueError("Entity index out of range - length {}".format(len(owner)))
+
+                # Set up search variables
                 searchedSpace = 0
                 searchPile = iter(owner._sub_documents)
+                separatorLength = len(owner._CONTENTJOIN)
 
-                while True:
+                for doc in searchPile:
+                    # Find the length of the sub document
+                    docLength = len(doc) if not searchPile else len(doc) + separatorLength
 
-                    # Extract a document - determine it's length
-                    doc = next(searchPile)
-                    docLength = len(doc.content) + len(doc.breaktext) if owner._isForward else len(doc.content)
-
-                    if searchedSpace + docLength < index:
+                    if searchedSpace + docLength > index:
                         # Found document that shall contain the entity
                         return doc.entities.add(entity, index - searchedSpace)
 
                     # Add the document length to the searched space - ensure that the break text has been counted
-                    searchedSpace += docLength if owner._isForward else docLength + len(doc.breaktext)
+                    searchedSpace += docLength
+
+                else:
+                    raise RuntimeError("index out of range")
 
     def filter(self, key: callable):
+        #TODO MAKE THIS WORK FOR SPLIT DOCUMENTS
+        filtered = []
+        for i, e in  zip(self._indexes, self._entities):
+            if key(i, e): filtered.append(e)
 
-        for index, entity in self._entities:
-            pass
-            #Allow for filtering on the index of the entity (the start char number)
+        return e
 
+    def indexes(self):
+        for ie in zip(self._indexes, self._entities):
+            yield ie
 
-        pass
+    def _pushTo(self, entitySet, lo: int = None, hi: int = None):
+        """ Push the entities out of this set and into another (a descendant entity set) """
 
-    def indexes(self) -> (int, Entity):
-        """ Return iterable with index of entity and entity in the content of the document """
-        pass
+        # Calculate the difference in the segment for the entity set given that white space is stripped out
+        if isinstance(lo, int) and isinstance(hi, int):
+            assert lo < hi
+            segment = self._owner().content[lo: hi]
+            diff = (hi - lo) - len(segment.lstrip())
+
+        elif isinstance(lo, int):
+            diff = lo - len(self._owner().content[lo:].lstrip())
+
+        else:
+            diff = 0
+
+        for i, e in self.indexes():
+            if isinstance(lo, int) and i < lo: continue
+            if isinstance(hi, int) and hi < i: break
+            entitySet.add(e, i - lo - diff)
+
+    def _clear(self):
+        self._indexes = None
+        self._entities = None
+
+    def _pullFrom(self, entitySet):
+
+        if self._indexes is None:
+            self._indexes = []
+            self._entities = []
+
+        for i, e in entitySet.indexes():
+            self.add(e, i)
 
 class AnnotationSet: #(collections.abc.MutableSet):
 
     def __init__(self, owner: weakref.ref):
         self._owner = owner
 
-    def filter(key: callable):
+        self._breakpoints = [m.span()[0] for m in re.finditer(r"[^\.$]", self._owner().content)]
+
+    def add(self, annotation: Annotation):
+
+        # Sort the annotation entities into their appearance order and return their index
+        i, e, j, e2 = sorted(
+            [(self._owner.entities.index(e), e) for e in [annotation.domain, annotation.target]],
+            key = lambda x: x[0]
+        )
+
+        # Find the sentence breakpoints for the entities in the annotations
+        start = self._findbreakpoints(i)
+        end = self._findbreakpoints(j)
+
+        if start == end:
+            # The annotation is within the same sentence
+            context = (
+                (start[0], i),
+                (i + len(e.surfaceForm), j),
+                (j + len(e2.surfaceForm), start[1])
+            )
+
+        else:
+            # TODO: Consider co-referencing
+            raise NotImplementedError("Currently don't support annotations that form across multiple sentences")
+
+        annotation._owner = self
+        annotation.context = context
+
+    def _findbreakpoints(self, i):
+
+        previous = None
+        for point in self._breakpoints:
+            if i < point:
+                return (previous, i)
+
+            previous = point
+
+        raise ValueError("Annotation entity index out of range {} - {}".format(self._breakpoints, i))
+
+    def filter(self, key: callable):
         pass
 
 class Document:
@@ -103,6 +240,8 @@ class Document:
         text_break (str) - The string that broke the content from another document's content
         processed (bool) - Indicate that the current content has already been processed - don't process again
     """
+
+    _CONTENTJOIN = '. '
 
     _SENTENCE_RGX = re.compile(r"[^\.\?\!]\n|((\.|\?|\!)+\s*)|$")
     _WHITESPACE_RGX = re.compile(r"[ \t]+")  # Match sections of multiple while space characters
@@ -138,6 +277,7 @@ class Document:
         self.name = name if name else uuid.uuid4().hex
 
         self._content = self._processContent(content) if not processed else content.strip()
+        self._length = len(self._content)
         self._break = text_break
 
         self._sub_documents = []
@@ -148,6 +288,10 @@ class Document:
 
         self._entities = EntitySet(weakref.ref(self))
         self._annotations = AnnotationSet(weakref.ref(self))
+
+    def __len__(self):
+        if self._content is not None: return self._length
+        return sum(len(doc) for doc in self._sub_documents) + len(self._CONTENTJOIN)*(len(self._sub_documents) - 1)
 
     def __iter__(self):
         # Iterate over the paragraphs that the document has been broken into and return their text
@@ -166,11 +310,10 @@ class Document:
 
     @property
     def breaktext(self): return self._break
-
     @property
-    def entities(self): return self._entities
+    def entities(self) -> EntitySet: return self._entities
     @property
-    def annotations(self): return self._annotations
+    def annotations(self) -> AnnotationSet: return self._annotations
 
     @property
     def content(self):
@@ -180,13 +323,13 @@ class Document:
 
         else:
             # Combine the sub-documents in the direction they were broken with inserting the break-text indicator
-            return "".join([doc.content for doc in self._sub_documents])
+            return self._CONTENTJOIN.join([doc.content for doc in self._sub_documents])
 
     @content.setter
     def content(self, content: str):
         self.__init__(content, name = self.name)
 
-    def sentences(self):
+    def sentences(self) -> str:
         """ Generator for the content of a document, yielding each lines. The yielder records information about yielded
         lines such that entity addition and annotation addition can be in respect to the yielded information.
         """
@@ -200,7 +343,6 @@ class Document:
                 start, end = match.span()
                 sentence = section[self._yieldedSentence: start]
 
-                print("Sentence:", sentence, bool(sentence))
                 if sentence: yield sentence
 
                 self._yieldedSentence = end
@@ -211,7 +353,7 @@ class Document:
 
         self._yieldedSentence = 0
 
-    def words(self):
+    def words(self) -> str:
         """ Return all the words of the document ensuring that they are valid. Words that contain non alphabetical
         characters shall not be yielded from this function
         """
@@ -249,11 +391,13 @@ class Document:
             # The document doesn't contain any break points - as other documents might - descend current document
             log.warning("document {} could not be split by break-indicator {}".format(self.name, break_indicator))
 
+            # Create a new sub document - the only at the new level (to be consistent with documents of this level)
             subDocument = Document(self._content, name=self.name, processed=True)
-            # for i, e in self.entities.indexes(): sub_document.entities.add(e, i)
+            self.entities._pushTo(subDocument.entities)
             # for annotation in self.annotations: sub_document.annotations.add(annotation)
 
-            key(subDocument)
+            # Run the split function on the document and
+            if key: key(subDocument)
             self._sub_documents.append(subDocument)
 
         else:
@@ -285,6 +429,9 @@ class Document:
                     # The break indicator follows the section
                     subDocument = Document(content=subContent, text_break=breakString, processed=True)
 
+                # Extract the entities for that sub-document
+                self.entities._pushTo(subDocument.entities, previousIndex, start)
+
                 # Update iteration variables
                 previousIndex = end
                 previousBreakString = breakString
@@ -293,7 +440,6 @@ class Document:
                 if key: key(subDocument)
                 self._sub_documents.append(subDocument)
 
-
             # Process the final snippet of text that follows the last break indicator
             subContent = self._content[end:]
 
@@ -301,12 +447,17 @@ class Document:
             if forward:     subDocument = Document(content=subContent, text_break=breakString, processed=True)
             else:           subDocument = Document(content=subContent, processed=True)
 
+            # Extract the entities for that sub-document
+            self.entities._pushTo(subDocument.entities, end)
+
             # Add the final sub document section
             if key: key(subDocument)
             self._sub_documents.append(subDocument)
 
         # Un-assign document variables to act as container now
         self._content = None
+        self._length = None
+        self.entities._clear()
 
     def join(self, joining: (str, callable)):
 
@@ -320,15 +471,26 @@ class Document:
                 document.join(joining)
 
         else:
-            # Join the documents below - extract the first document and prepare queue of remaining sub documents
-            document = self._sub_documents[0]
-            documents = self._sub_documents[1:]
 
             # Convert a string joining into a basic join method
             if isinstance(joining, str):
-                joiningMethod = lambda x, y: Document(x.content + joining + y.content)
+                def joiningMethod(document1, document2):
+
+                    documentLength = len(document1) + len(joining)
+                    document1._content = document1.content + joining + document2.content
+                    document1._length = len(document.content)
+
+                    for i, e in document2.entities.indexes():
+                        document1.entities.add(e, documentLength+ i)
+
+                    return document1
+
             else:
                 joiningMethod = joining
+
+            # Join the documents below - extract the first document and prepare queue of remaining sub documents
+            document = self._sub_documents[0]
+            documents = self._sub_documents[1:]
 
             # Loop over the sub-documents and join their contents
             while documents:
@@ -336,8 +498,12 @@ class Document:
                 document = joiningMethod(document, nextDocument)
 
             # Update the documents internal state
-            self._content = document.content
             self._sub_documents = None
+
+            self._content = document.content
+            self._length = len(document.content)
+
+            self._entities._pullFrom(document.entities)
 
     def clone(self, *, meta_only: bool = False):
 

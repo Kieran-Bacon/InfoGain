@@ -1,6 +1,7 @@
 import unittest
+import pytest
 
-from infogain.artefact.document2 import Document
+from infogain.artefact.document2 import Document, Entity, Annotation
 
 class Test_DocumentPreProcessing(unittest.TestCase):
 
@@ -61,6 +62,19 @@ class Test_DocumentPreProcessing(unittest.TestCase):
 
 class Test_Document(unittest.TestCase):
 
+    def test_DocumentLength(self):
+
+        document = Document("I am a document that has some content. This string length should not change.")
+
+        self.assertEqual(len(document), len(document.content))
+
+        document.split(r"\.")
+
+        self.assertEqual(len(document), len(document.content))
+
+        document.join(" SEPARATOR ")
+
+        self.assertEqual(len(document), len(document.content))
 
     def test_documentSentences(self):
 
@@ -238,3 +252,97 @@ class Test_Document(unittest.TestCase):
         )
 
         self.assertEqual(document.content, remade)
+
+class Test_DocumentEntities(unittest.TestCase):
+
+    def setUp(self):
+        self.document = Document("This is a document with two sentences. With lots of content.")
+
+        self.documentEntity = Entity("Artefact", "document")
+        self.sentencesEntity = Entity("Artefact", "sentences")
+        self.contentEntity = Entity("Artefact", "content")
+
+    def test_addEntities(self):
+
+        # Add entity to the document with the index of the word
+        self.document.entities.add(self.documentEntity, 10)
+
+        self.assertEqual(len(self.document.entities), 1)
+        self.assertIs(next(iter(self.document.entities)), self.documentEntity)
+
+        with pytest.raises(ValueError):
+            self.document.entities.add(Entity("Fake", "not Present"))
+
+    def test_addSentenceEntities(self):
+
+        for sentence in self.document.sentences():
+            if sentence.find("sentences") > -1:
+                self.document.entities.add(self.sentencesEntity, sentence.find("sentences"))
+
+            else:
+                self.document.entities.add(self.contentEntity, sentence.find("content"))
+
+        self.assertEqual(len(self.document.entities), 2)
+        self.assertEqual(list(self.document.entities), [self.sentencesEntity, self.contentEntity])
+
+    def test_addWordEntities(self):
+
+        for word in self.document.words():
+            if word == "document":
+                self.document.entities.add(self.documentEntity)
+            elif word == 'sentences':
+                self.document.entities.add(self.sentencesEntity)
+            elif word == 'content':
+                self.document.entities.add(self.contentEntity)
+
+        self.assertEqual(len(self.document.entities), 3)
+        self.assertEqual(list(self.document.entities), [self.documentEntity, self.sentencesEntity, self.contentEntity])
+
+    def test_addEntityToSub(self):
+
+        self.document.split(r"\.")
+
+        self.document.entities.add(self.documentEntity, 10)
+        self.document.entities.add(self.contentEntity, 52)
+
+        with pytest.raises(ValueError):
+            self.document.entities.add(Entity("Fake", "Fake"), 30)
+
+        self.assertEqual(len(self.document.entities), 2)
+        self.assertEqual(list(self.document.entities), [self.documentEntity, self.contentEntity])
+
+    def test_entitiesOnSplit(self):
+
+        self.document.entities.add(self.documentEntity, 10)
+        self.document.entities.add(self.contentEntity, 52)
+
+        data = iter([
+            ("This is a document with two sentences", self.documentEntity),
+            ("With lots of content", self.contentEntity)
+        ])
+
+        def entityTester(document):
+            try:
+                content, entity = next(data)
+            except:
+                return # Last document has 0 content - just return for it
+            self.assertEqual(document.content, content)
+            self.assertEqual(len(document.entities), 1)
+            self.assertIs(next(iter(document.entities)), entity)
+
+        self.document.split(r"\.", key = entityTester)
+
+        self.assertEqual(len(self.document.entities), 2)
+        self.assertEqual(list(self.document.entities), [self.documentEntity, self.contentEntity])
+
+    def test_entitiesOnJoin(self):
+
+        self.document.split(r"\.")
+
+        self.document.entities.add(self.documentEntity, 10)
+        self.document.entities.add(self.contentEntity, 52)
+
+        self.document.join(" SEPARATOR ")
+
+        self.assertEqual(len(self.document.entities), 2)
+        self.assertEqual(list(self.document.entities), [self.documentEntity, self.contentEntity])

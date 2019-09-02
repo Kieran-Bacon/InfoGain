@@ -1,6 +1,9 @@
 class EmptyDocument(Exception): pass
 class IncompleteDatapoint(Exception): pass
 
+from .entity import Entity
+from .annotation import Annotation
+
 from .document import Document
 from .datapoint import Datapoint
 
@@ -20,9 +23,9 @@ def score(ontology, documents: [Document], pprint: bool=False)->(dict, dict):
         print (bool) - A toggle to allow the output to be printed nicely to the screen
 
     Returns:
-        corpus scores (dict) - A dictionary where the keys are the metrics, and the 
+        corpus scores (dict) - A dictionary where the keys are the metrics, and the
             value is the collection averages
-        document scores (dict) -  A dictionary where the keys are the documents, and 
+        document scores (dict) -  A dictionary where the keys are the documents, and
             the values are a dictionary of the metric values for that document
     """
 
@@ -31,7 +34,7 @@ def score(ontology, documents: [Document], pprint: bool=False)->(dict, dict):
 
     corpus = {"precision": 0, "recall": 0, "f1": 0}
     scores = {}
-    total_datapoint_count = 0 
+    total_datapoint_count = 0
 
     for document in documents:
         if not len(document.datapoints()): continue
@@ -43,7 +46,7 @@ def score(ontology, documents: [Document], pprint: bool=False)->(dict, dict):
         precision = sum([point.annotation == point.prediction for point in document.datapoints()])/len(document.datapoints())
         corpus["precision"] += precision*len(document.datapoints())
 
-        # Recall 
+        # Recall
         tempDoc = Document(content=document.text())
         tempDoc.processKnowledge(ontology)
 
@@ -145,7 +148,7 @@ def annotate(ontology, documents: [Document]):
 
         xtr = Document(name=filename, content=document.text())
         xtr.datapoints(annotated)
-        
+
         if filename: xtr.save(filename=filename)
 
         return xtr
