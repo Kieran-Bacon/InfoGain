@@ -9,7 +9,6 @@ from .annotation import Annotation
 import logging
 log = logging.getLogger(__name__)
 
-
 class EntitySet:
     """ An entity container for a document, keeping entities and linking them to the surfact forms within the documents
     content. For nested documents, the container acts as a pass through to child elements
@@ -30,13 +29,12 @@ class EntitySet:
         else: return sum(len(doc.entities) for doc in self._owner()._sub_documents)
 
     def __iter__(self):
-        if self._entities is not None:
-            return iter(self._entities)
-        else:
-            return (entity for doc in self._owner()._sub_documents for entity in doc.entities)
+        if self._entities is not None: return iter(self._entities)
+        else: return (entity for doc in self._owner()._sub_documents for entity in doc.entities)
 
     def __contains__(self, entity: Entity):
-        if self._entities: return entity in self._entities
+        if self._entities is not None: return entity in self._entities
+        else: return any(entity in doc.entities for doc in self._owner()._sub_documents)
 
     def _insert(self, index: int, entity: Entity):
         """ Record the entity at the given location, insert the index and the entity into the two internal stores and
@@ -63,10 +61,27 @@ class EntitySet:
             self._entities.append(entity)
 
     def index(self, entity: Entity) -> int:
-        #TODO: Make this work for non bottom level containers
-        return self._indexes[self._entities.index(entity)]
+        """ Return the index of an entity within the document content
 
-    def add(self, entity: Entity, index: int = 0):
+        Params:
+            entity (Entity): The entity to be found within the document, and whose index is to be returned
+
+        Returns:
+            int: the entities start char index within the document content
+        """
+        if self._entities is not None: return self._indexes[self._entities.index(entity)]
+        else:
+            index = 0
+            for document in self._owner()._sub_documents:
+                if entity in document:
+                    return index + document.entities.index(entity)
+                else:
+                    index += len(document)
+
+            else:
+                raise ValueError("Entity does not exist within the document - {}".format(entity))
+
+    def add(self, entity: Entity, index: int = 0) -> None:
         """ Add an entity into the entity container at the given index. Ensure that the entity is valid for the proposed
         location and take advantage of the yielded context to be able to provided a relative index rather than a global
         context.
@@ -136,28 +151,64 @@ class EntitySet:
                     raise RuntimeError("index out of range")
 
     def filter(self, key: callable):
-        #TODO MAKE THIS WORK FOR SPLIT DOCUMENTS
+        """ Filter the entities within the document according to the key function given and return them in order of
+        their appearance
+
+        Params:
+            key (callable e.g. f(index, entity)): A function which takes the index of the entity and the entity itself
+                and returns a bool as to whether the entity is to be collected or not
+
+        Returns:
+            [Entity]: A list of entities in order of their appearance, which meant the requirements set by filter
+        """
         filtered = []
-        for i, e in  zip(self._indexes, self._entities):
-            if key(i, e): filtered.append(e)
+        if self._entities is not None:
+            # Loop over this containers entities
+            for i, e in zip(self._indexes, self._entities):
+                if key(i, e): filtered.append(e)
 
-        return e
+        else:
+            # Loop over sub document entities
+            index = 0  # Record document length for sub documents to not have to expensively work out index
+            for document in self._owner()._sub_documents:
+                for entity in document.entities:
+                    if key(index + document.index(entity), entity): filtered.append(entity)
 
-    def indexes(self):
-        for ie in zip(self._indexes, self._entities):
-            yield ie
+                index += len(document) + len(document._CONTENTJOIN)
+
+        return filtered
+
+    def indexes(self) -> ((int, Entity)):
+        """ Generate function that yields the index-entity pairs, in respect to the documents content
+
+        Returns:
+            (int, Entity): Generator yielding index of the entity and the entity object for all entities within the
+                document
+        """
+        if self._entities is not None:
+            for ie in zip(self._indexes, self._entities):
+                yield ie
+
+        else:
+            # Loop over sub document entities
+            index = 0  # Record document length for sub documents to not have to expensively work out index
+            for document in self._owner()._sub_documents:
+                for entity in document.entities:
+                    yield (index + document.index(entity), entity)
+
+                index += len(document) + len(document._CONTENTJOIN)
 
     def _pushTo(self, entitySet, lo: int = None, hi: int = None):
         """ Push the entities out of this set and into another (a descendant entity set) """
 
-        # Calculate the difference in the segment for the entity set given that white space is stripped out
-        if isinstance(lo, int) and isinstance(hi, int):
-            assert lo < hi
-            segment = self._owner().content[lo: hi]
-            diff = (hi - lo) - len(segment.lstrip())
-
-        elif isinstance(lo, int):
-            diff = lo - len(self._owner().content[lo:].lstrip())
+        if isinstance(lo, int):
+            if isinstance(hi, int):
+                assert lo < hi
+                segment = self._owner().content[lo: hi]
+                diff = (hi - lo) - len(segment.lstrip())
+            else:
+                segment = self._owner().content[lo:]
+                diff = len(segment) - len(segment.lstrip())
 
         else:
             diff = 0
@@ -167,31 +218,66 @@ class EntitySet:
             if isinstance(hi, int) and hi < i: break
             entitySet.add(e, i - lo - diff)
 
+    def _init(self):
+        self._indexes = []
+        self._entities = []
+
     def _clear(self):
         self._indexes = None
         self._entities = None
 
     def _pullFrom(self, entitySet):
-
-        if self._indexes is None:
-            self._indexes = []
-            self._entities = []
-
+        self._init()
         for i, e in entitySet.indexes():
             self.add(e, i)
 
-class AnnotationSet: #(collections.abc.MutableSet):
+class AnnotationSet:
+    """ Annotation Container for a document that provides utilities for interacting with the annotations and performing
+    validation steps for the document to ensure that the annotation objects are valid against the source and with
+    respect to the entities they contain.
+
+    Params:
+        owner (weakref.ref): The owning document object in weak form to allow for the container to interact with the doc
+    """
 
     def __init__(self, owner: weakref.ref):
         self._owner = owner
+        self._elements = set()
 
-        self._breakpoints = [m.span()[0] for m in re.finditer(r"[^\.$]", self._owner().content)]
+    def __len__(self):
+        if self._elements is not None: return len(self._elements)
+        else: return sum(len(doc.annotations) for doc in self._owner()._sub_documents)
 
-    def add(self, annotation: Annotation):
+    def __iter__(self):
+        if self._elements is not None: return iter(self._elements)
+        return (annotation for doc in self._owner()._sub_documents for annotation in doc.annotations)
+
+    def __contains__(self, annotation: Annotation):
+        if self._elements is not None: return annotation in self._elements
+        else: return any(annotation in doc.annotations for doc in self._owner()._sub_documents)
+
+    def add(self, annotation: Annotation) -> None:
+        """ Add the annotation object to the document and ensure that entities of the annotation are present and a
+        annotation can be formed between them
+
+        Params:
+            annotation (Annotation): The annotation object to be added
+        """
+
+        if self._elements is None:
+            # Attempt to add annotation to a sub-document
+            for doc in self._owner()._sub_documents:
+                # Ensure that both the domain and target of the annotation is present within the document before adding
+                if annotation.domain in doc.entities and annotation.target in doc.entities:
+                    return doc.annotations.add(annotation)
+
+            else:
+                # Either the entities didn't exist, or they weren't in the same sub-document - can't add annotation
+                raise ValueError("Invalid annotation object - could not form annotation between those entities")
 
         # Sort the annotation entities into their appearance order and return their index
-        i, e, j, e2 = sorted(
-            [(self._owner.entities.index(e), e) for e in [annotation.domain, annotation.target]],
+        (i, e), (j, e2) = sorted(
+            [(self._owner().entities.index(e), e) for e in [annotation.domain, annotation.target]],
             key = lambda x: x[0]
         )
 
@@ -211,22 +297,73 @@ class AnnotationSet: #(collections.abc.MutableSet):
             # TODO: Consider co-referencing
             raise NotImplementedError("Currently don't support annotations that form across multiple sentences")
 
-        annotation._owner = self
+        annotation._owner = self._owner
         annotation.context = context
+        self._elements.add(annotation)
 
-    def _findbreakpoints(self, i):
+    def _findbreakpoints(self, i) -> (int, int):
+        """ Find within the document places where the sentences split the text, return the encompassing break point
+        indexes for the index provided
 
+        Params:
+            i (int): The index who is being encapsulated
+
+        Returns:
+            (int, int): int <= i <= int - The indexes of before and after i of break points
+        """
+
+        # Identify all the breakpoint locations
+        breakpoints = [m.span()[0] for m in re.finditer(r"^|\.|$", self._owner().content)]
+
+        # Iterate through breakpoints to find location
         previous = None
-        for point in self._breakpoints:
+        for point in breakpoints:
             if i < point:
-                return (previous, i)
+                return (previous, point)
 
             previous = point
 
-        raise ValueError("Annotation entity index out of range {} - {}".format(self._breakpoints, i))
+        # Index falls outside the content of the document
+        raise ValueError("Annotation entity index out of range {} - {}".format(breakpoints, i))
 
     def filter(self, key: callable):
-        pass
+        """ Filter the annotations within a document.
+
+        Params:
+            key (callable): Function that takes an annotation object and indicates if it is to be returned
+        """
+
+        if self._elements is not None:
+            return [ann for ann in self._elements if key(ann)]
+
+        else:
+            return [ann for doc in self._owner()._sub_documents for ann in doc.filter(key)]
+
+    def _pushTo(self, annotationSet):
+
+        toRemove = set()
+        entities = annotationSet._owner().entities
+
+        for annotation in self._elements:
+            if annotation.domain in entities and annotation.target in entities:
+                annotationSet.add(annotation)
+                toRemove.add(annotation)
+
+            elif annotation.domain in entities or annotation.target in entities:
+                # Only one of the entities are within the set: annotation is not valid anymore
+                toRemove.add(annotation)
+
+        # Reduce the relations within this set
+        self._elements = self._elements.difference(toRemove)
+
+    def _pullFrom(self, annotationSet):
+        if self._elements is None: self._elements = set()
+        for annotation in annotationSet: self.add(annotation)
+
+    def _clear(self):
+        """ Switch to being a pass through annotations container """
+        self._elements = None
+
 
 class Document:
     """ A document represents a textual source, a file, paper, etc. The document provides a method
@@ -394,7 +531,7 @@ class Document:
             # Create a new sub document - the only at the new level (to be consistent with documents of this level)
             subDocument = Document(self._content, name=self.name, processed=True)
             self.entities._pushTo(subDocument.entities)
-            # for annotation in self.annotations: sub_document.annotations.add(annotation)
+            self.annotations._pushTo(subDocument.annotations)
 
             # Run the split function on the document and
             if key: key(subDocument)
@@ -431,6 +568,7 @@ class Document:
 
                 # Extract the entities for that sub-document
                 self.entities._pushTo(subDocument.entities, previousIndex, start)
+                self.annotations._pushTo(subDocument.annotations)
 
                 # Update iteration variables
                 previousIndex = end
@@ -449,6 +587,7 @@ class Document:
 
             # Extract the entities for that sub-document
             self.entities._pushTo(subDocument.entities, end)
+            self.annotations._pushTo(subDocument.annotations)
 
             # Add the final sub document section
             if key: key(subDocument)
@@ -458,6 +597,7 @@ class Document:
         self._content = None
         self._length = None
         self.entities._clear()
+        self.annotations._clear()
 
     def join(self, joining: (str, callable)):
 
@@ -471,21 +611,23 @@ class Document:
                 document.join(joining)
 
         else:
-
-            # Convert a string joining into a basic join method
             if isinstance(joining, str):
+                # Convert a string joining into a basic join method
                 def joiningMethod(document1, document2):
 
+                    # Update the content of the document content
                     documentLength = len(document1) + len(joining)
                     document1._content = document1.content + joining + document2.content
                     document1._length = len(document.content)
 
-                    for i, e in document2.entities.indexes():
-                        document1.entities.add(e, documentLength+ i)
+                    # Update the entities and annotations of the document
+                    for i, e in document2.entities.indexes(): document1.entities.add(e, documentLength+ i)
+                    document1.annotations._pullFrom(document2.annotations)
 
                     return document1
 
             else:
+                # Reassign the user defined join method
                 joiningMethod = joining
 
             # Join the documents below - extract the first document and prepare queue of remaining sub documents
@@ -499,11 +641,10 @@ class Document:
 
             # Update the documents internal state
             self._sub_documents = None
-
             self._content = document.content
             self._length = len(document.content)
-
             self._entities._pullFrom(document.entities)
+            self._annotations._pullFrom(document.annotations)
 
     def clone(self, *, meta_only: bool = False):
 
