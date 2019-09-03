@@ -66,12 +66,18 @@ class Test_Annotation(unittest.TestCase):
 
         # Add annotation
         ann = Annotation(self.e1, "speaks", self.e2)
+
+        self.assertIs(ann.context, None)
+
         document.annotations.add(ann)
 
         self.assertEqual(ann.context,
             (
                 "",
                 "can speak",
-                "really well."
+                "really well"
             )
         )
+
+        with pytest.raises(ValueError):
+            ann.context = ("something", "else", "")

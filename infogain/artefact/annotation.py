@@ -73,10 +73,11 @@ class Annotation:
 
     @property
     def context(self):
+        if self._contextOwner is None: return None
         return (
-            self._contextOwner.content[slice(*self._context[0])],
-            self._contextOwner.content[slice(*self._context[1])],
-            self._contextOwner.content[slice(*self._context[2])]
+            self._contextOwner().content[slice(*self._context[0])].strip(),
+            self._contextOwner().content[slice(*self._context[1])].strip(),
+            self._contextOwner().content[slice(*self._context[2])].strip()
         )
 
     @context.setter
