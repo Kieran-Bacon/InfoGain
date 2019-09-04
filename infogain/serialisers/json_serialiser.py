@@ -21,8 +21,6 @@ class JsonSerialiser(AbstractSerialiser):
         # Load concept information
         for name, conceptData in data.get("Concepts", {}).items():
             # Unpack the concept data into the concept init
-            #TODO Remove this when the serialised ontology is changed to work with this
-            conceptData["aliases"] = conceptData.pop("alias", [])
             ontology.concepts.add(Concept(name, **conceptData))
 
         # Load relation information
