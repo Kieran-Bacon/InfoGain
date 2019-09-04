@@ -317,7 +317,6 @@ class AnnotationSet(collections.abc.MutableSet):
             )
 
         else:
-            # TODO: Consider co-referencing
             raise NotImplementedError("Currently don't support annotations that form across multiple sentences")
 
         annotation._owner = self._owner
@@ -721,7 +720,7 @@ class Document:
 
         # Replace all apostophe's in the document:
         for word, replacement in self._APOSTROPHESMAPPER.items():
-            content = re.sub(word, replacement, content) # TODO make case insensitive.
+            content = re.sub(word, replacement, content, flags=re.IGNORECASE)
 
         return content.strip()
 
