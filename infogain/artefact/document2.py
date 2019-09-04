@@ -9,7 +9,7 @@ from .annotation import Annotation
 import logging
 log = logging.getLogger(__name__)
 
-class EntitySet:
+class EntitySet(collections.abc.MutableSet):
     """ An entity container for a document, keeping entities and linking them to the surfact forms within the documents
     content. For nested documents, the container acts as a pass through to child elements
 
@@ -150,6 +150,29 @@ class EntitySet:
                 else:
                     raise RuntimeError("index out of range")
 
+    def discard(self, entity: Entity) -> bool:
+        """ Remove a member entity from the entity store
+
+        Params:
+            entity (Entity): The entity to be removed
+
+        Returns:
+            bool: True if the entity was discarded
+        """
+
+        if self._entities is not None:
+            if entity in self._entities:
+                idx = self._entities.index(entity)
+                del self._entities[idx]
+                del self._indexes[idx]
+
+                owner = self._owner()
+                for ann in owner.annotations.filter(lambda ann: entity is ann.domain or entity is ann.target):
+                    owner.annotations.remove(ann)
+
+        else:
+            return any(doc.entities.discard(entity) for doc in self._owner()._sub_documents)
+
     def filter(self, key: callable):
         """ Filter the entities within the document according to the key function given and return them in order of
         their appearance
@@ -231,7 +254,7 @@ class EntitySet:
         for i, e in entitySet.indexes():
             self.add(e, i)
 
-class AnnotationSet:
+class AnnotationSet(collections.abc.MutableSet):
     """ Annotation Container for a document that provides utilities for interacting with the annotations and performing
     validation steps for the document to ensure that the annotation objects are valid against the source and with
     respect to the entities they contain.
@@ -300,6 +323,26 @@ class AnnotationSet:
         annotation._owner = self._owner
         annotation.context = context
         self._elements.add(annotation)
+
+    def discard(self, annotation: Annotation) -> bool:
+        """ Remove an annotation from the document
+
+        Params:
+            annotation (Annotation): The annotation object to be removed
+
+        Raises:
+            KeyError: In the event that the annotation doesn't exist
+        """
+
+        if self._elements is not None:
+            if annotation in self._elements:
+                self._elements.remove(annotation)
+                annotation._owner = None
+                return True
+
+        else:
+            return any(doc.annotations.discard(annotation) for doc in self._owner()._sub_documents)
+
 
     def _findbreakpoints(self, i) -> (int, int):
         """ Find within the document places where the sentences split the text, return the encompassing break point
