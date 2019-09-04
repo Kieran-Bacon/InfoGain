@@ -5,7 +5,15 @@ from .conceptnode import ConceptNode
 
 from .decorators import scenario_consistent
 
-class RelationNode(EvalTree): #TODO: Document class
+class RelationNode(EvalTree):
+    """ Represent a relation instance between two concepts
+
+    Params:
+        domain (ConceptNode): A representation of the domain object
+        relation (str): The string representation for the relationship
+        target (ConceptNode): A representation of the target object
+
+    """
 
     expression = re.compile(r"({0})=([\w_]+)=({0})|({0})-([\w_]+)-({0})".format(EvalTree.concept_syntax.pattern))
 
