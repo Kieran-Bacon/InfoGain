@@ -1,8 +1,7 @@
 import unittest
 import pytest
 
-from infogain.artefact import Entity, Annotation
-from infogain.artefact.document2 import Document
+from infogain.artefact import Entity, Annotation, Document
 
 class Test_Annotation(unittest.TestCase):
 
@@ -16,7 +15,7 @@ class Test_Annotation(unittest.TestCase):
         ann = Annotation(self.e1, "speaks", self.e2, classification=Annotation.POSITIVE)
 
         self.assertEqual(ann.domain, self.e1)
-        self.assertEqual(ann.annotationType, "speaks")
+        self.assertEqual(ann.name, "speaks")
         self.assertEqual(ann.target, self.e2)
         self.assertEqual(ann.classification, Annotation.POSITIVE)
         self.assertEqual(ann.confidence, 1.)

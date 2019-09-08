@@ -1,8 +1,7 @@
 import unittest
 import pytest
 
-from infogain.artefact import Entity, Annotation
-from infogain.artefact.document2 import Document
+from infogain.artefact import Entity, Annotation, Document
 
 class Test_DocumentAnnotations(unittest.TestCase):
 
@@ -19,7 +18,7 @@ class Test_DocumentAnnotations(unittest.TestCase):
         self.e3 = Entity('Person', 'Kieran')
         self.e4 = Entity('Language', 'French')
 
-        for e, i in [(self.e0, 16), (self.e1, 35), (self.e2, 49), (self.e3, 57 + 36), (self.e4,57 + 80)]:
+        for e, i in [(self.e0, 16), (self.e1, 35), (self.e2, 49), (self.e3, 57 + 37), (self.e4,57 + 81)]:
             self.document.entities.add(e, i)
 
 

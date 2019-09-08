@@ -1,183 +1,255 @@
-import os, unittest
+import unittest
+import pytest
 
-from infogain.knowledge import Ontology
-from infogain.artefact import Document, score
-from infogain import resources
-from infogain.resources.ontologies import language
+from infogain.artefact import Document, Entity, Annotation
+
+class Test_DocumentPreProcessing(unittest.TestCase):
+
+    def test_removalOfUnwantedCharacters(self):
+
+        x, y = "this is a @£$%^*() string that shall produce =>", "this is a @£$% string that shall produce"
+
+        self.assertEqual(Document(x).content, y)
+
+    def test_conversionOfEndLineCharacters(self):
+
+        x = "Imagining... A sentence with unexpected twists!? and turns. simple. yet affective!"
+        y = "Imagining. A sentence with unexpected twists. and turns. simple. yet affective."
+
+        self.assertEqual(Document(x).content, y)
+
+    def test_directLinkingRemovalWhenApplicable(self):
+
+        x = "Dolphins are not fish: they are warm blooded animals"
+        y = "Dolphins are not fish; they are warm blooded animals"
+
+        self.assertEqual(Document(x).content, y)
+
+        x = "Countries I shall visit: London, England; Paris, France; LA, America."
+
+        self.assertEqual(Document(x).content, x)
+
+    def test_replaceSymbolShorthand(self):
+
+        x, y = "I shall get some doritos & dip", "I shall get some doritos and dip"
+        self.assertEqual(Document(x).content, y)
+
+    def test_whitespaceReduction(self):
+
+        x = "Something with a  lot of    spaces in every    now             and             again."
+        y = "Something with a lot of spaces in every now and again."
+
+        self.assertEqual(Document(x).content, y)
+
+    def test_apostrophesMapper(self):
+
+        x = "This is something that I don't like having to do, but they're making me do it."
+        y = "This is something that I do not like having to do, but they are making me do it."
+
+        self.assertEqual(Document(x).content, y)
+
+    def test_stripingWhiteSpace(self):
+
+        x, y = "    something amazing. \t\n", "something amazing."
+        self.assertEqual(Document(x).content, y)
+
+    def test_newlineStructionPreserved(self):
+
+        x = "Given a passage that a that talks for a bit.\n\nAnd then another section which is apart."
+        self.assertEqual(Document(x).content, x)
+
+
 
 class Test_Document(unittest.TestCase):
-    """ Test the functionality and inner workings of the generic prediction document """
 
-    def setUp(self):
-        self.contents = "When I generate a document in this manner, I want to ensure that the document "+\
-        "object is created correctly. This is the initial test! Fingers crossed!!! Testing sentence end."
+    def test_DocumentLength(self):
 
-    def test_clean(self):
+        document = Document("I am a document that has some content. This string length should not change.")
 
-        sentenceMapping = {"Well this should work, I mean, I really hope that it does.":
-            "well this should work i mean i really hope that it does"}
+        self.assertEqual(len(document), len(document.content))
 
-        for dirty, clean in sentenceMapping.items():
-            self.assertEqual(Document.clean(dirty), clean)
+        document.split(r"\.")
 
-        self.assertEqual(
-            Document.clean(self.contents),
-            "when i generate a document in this manner i want to ensure that the document object is created correctly "+
-            "this is the initial test fingers crossed testing sentence end"
+        self.assertEqual(len(document), len(document.content))
+
+        document.join(" SEPARATOR ")
+
+        self.assertEqual(len(document), len(document.content))
+
+    def test_documentSentences(self):
+
+        document = Document("""
+        A passage about a king. The king was going about his day. The king didn't have any responsibilities
+        """)
+
+        sentences = [
+            "A passage about a king",
+            "The king was going about his day",
+            "The king didn't have any responsibilities"
+        ]
+
+        for sentence, target in zip(document.sentences(), sentences):
+            self.assertEqual(sentence, target)
+
+    def test_documentWords(self):
+        document = Document(content="A small document so smaller test.")
+
+        words = ["A", "small", "document", "so", "smaller", "test"]
+
+        for word, target in zip(document.words(), words):
+            self.assertEqual(word, target)
+
+    def test_documentSplit(self):
+
+        content = (
+            "The document content is long and erratic. There are a few sentences in the first section. And then "
+            "some sentences in the second section.\n\nSection two was separated from section one by two new line "
+            "characters."
+        )
+        sections = [
+            (
+                "The document content is long and erratic. There are a few sentences in the first section. And then"
+                " some sentences in the second section."
+            ),
+            (
+                "Section two was separated from section one by two new line "
+                "characters."
+            )
+        ]
+        sentences = [
+            "The document content is long and erratic",
+            "There are a few sentences in the first section",
+            "And then some sentences in the second section",
+            "Section two was separated from section one by two new line characters"
+        ]
+        words = [w for sentence in sentences for w in sentence.split()]
+
+        document = Document(content)
+        document.split("\n\n")
+
+        self.assertEqual(list(iter(document)), sections)
+        self.assertEqual(list(document.sentences()), sentences)
+        self.assertEqual(list(document.words()), words)
+
+    def test_splitDoubleDown(self):
+
+        content = (
+            "section 1:\nmorning:\nThis is the morning passage.\nevening:\nAnother passage.\n\n"
+            "section 2:\nmorning:\nSecond morning passage.\nevening:\nSecond evening passage."
         )
 
-        self.assertEqual(Document.clean("Couldn't"), "could not")
+        sections = [
+            "This is the morning passage.",
+            "Another passage.",
+            "Second morning passage.",
+            "Second evening passage."
+        ]
+        sentences = [s[:-1] for s in sections]
+        words = [w for s in sentences for w in s.split()]
 
-        wordMapping = {"Kieran's": "kieran", "un-holy": "un holy", "word_spagetti": "word_spagetti",
-                       "is": "is", "the": "the", "WORST": "worst", "Couldn't": "could not"}
+        document = Document(content=content)
+        document.split(r"section \d:")
+        document.split("(morning|evening):")
 
-        for dirty, clean in wordMapping.items():
-            self.assertEqual(Document.clean(dirty), clean)
+        self.assertEqual(list(iter(document)), sections)
+        self.assertEqual(list(document.sentences()), sentences)
+        self.assertEqual(list(document.words()), words)
 
-    def test_split(self):
-        content = Document.split(self.contents, Document.SENTENCE)
+    def test_documentSplitForwordBackward(self):
 
-        self.assertEqual(
-            content,
-            ["When I generate a document in this manner, "+
-            "I want to ensure that the document object is created correctly.",
-            "This is the initial test!",
-            "Fingers crossed!!!",
-            "Testing sentence end."]
+        content = (
+            "A line to be split by a SEPARATOR test to see the side the separator goes to"
         )
 
-        content = Document.split(
-            "Luke can speak English rather well, but Luke doesn't live in England.",
-            Document.SENTENCE
+        sections = [
+            "A line to be split by a",
+            "test to see the side the separator goes to",
+        ]
+
+        def forwardCheck(document):
+            if document.breaktext == "":
+                self.assertEqual(document.content, sections[0])
+            else:
+                self.assertEqual(document.content, sections[1])
+
+        document = Document(content=content)
+        document.split(r"SEPARATOR", key=forwardCheck)
+
+        def backwardCheck(document):
+            if document.breaktext == "":
+                self.assertEqual(document.content, sections[1])
+            else:
+                self.assertEqual(document.content, sections[0])
+
+        document = Document(content=content)
+        document.split(r"SEPARATOR", key=backwardCheck, forward=False)
+
+    def test_documentJoin(self):
+
+        content = (
+            "A line to be split by a SEPARATOR test to see the side the separator goes to"
         )
 
-        self.assertEqual(content, ["Luke can speak English rather well, but Luke doesn't live in England."])
+        # Basic separator
+        document = Document(content=content)
+        document.split(r"SEPARATOR")
 
-    def test_removeWhitespace(self):
+        document.join(" JOINING STRING ")
+
         self.assertEqual(
-            Document.removeWhiteSpace("content     like this ? Should be fixed.. right   !"),
-            "content like this? Should be fixed.. right!"
+            document.content,
+            "A line to be split by a JOINING STRING test to see the side the separator goes to"
         )
 
-    def test_content_sentences(self):
-        """ Generate a document with content that has been passed to the document """
+        # Complex separator
+        document = Document(content=content)
+        document.split(r"SEPARATOR")
 
-        document = Document(content=self.contents)
+        def joining(document1, document2):
+            content = document1.content + " " + document2.breaktext + str(len(document2.content)) + " " + document2.content
+            return Document(content)
+
+        document.join(joining)
+
         self.assertEqual(
-            document.sentences(),
-            ["When I generate a document in this manner, "+
-            "I want to ensure that the document object is created correctly.",
-            "This is the initial test!",
-            "Fingers crossed!!!",
-            "Testing sentence end."]
+            document.content,
+            "A line to be split by a SEPARATOR42 test to see the side the separator goes to"
         )
 
+    def test_documentJoinDoubleDown(self):
 
-    def test_content_words(self):
-        """ Test that a generated document correctly provides the words """
+        content = (
+            "section 1:\nmorning:\nThis is the morning passage.\nevening:\nAnother passage.\n\n"
+            "section 2:\nmorning:\nSecond morning passage.\nevening:\nSecond evening passage."
+        )
 
-        document = Document(content=self.contents)
-        self.assertEqual(
-            document.words(),
-            [["When","I","generate","a","document","in","this","manner,",
-            "I","want","to","ensure","that","the","document","object","is","created","correctly."],
-            ["This", "is", "the", "initial", "test!"],
-            ["Fingers", "crossed!!!"],
-            ["Testing", "sentence", "end."]])
+        document = Document(content=content)
+        document.split(r"section \d:")
+        document.split("(morning|evening):")
 
-    def test_document_processKnowledge(self):
-        """ Set that the datapoints are generated correctly. """
+        # Join bottom level
+        document.join("\n")
 
-        language_content = "Luke has been living in England for about 10 years. When he first arrived he didn't know "+\
-        "much English. Luke has been studying French, German and Spanish in a local community college."
+        sections = [
+            "This is the morning passage.\nAnother passage.",
+            "Second morning passage.\nSecond evening passage."
+        ]
 
-        languages = language.ontology()
-        doc = Document(content=language_content)
+        for docSec, sec in zip(iter(document), sections):
+            self.assertEqual(docSec, sec)
 
-        doc.processKnowledge(languages)
+        # Join top level with function
+        def joining(doc1, doc2):
+            content = doc1.breaktext + "\n" if doc1.breaktext else ""
+            content += doc1.content + "\n\n" + doc2.breaktext + "\n" + doc2.content
+            return Document(content)
 
-        # Check the total sum of datapoints
-        self.assertEqual(len(doc), 5)
+        document.join(joining)
 
-        document = Document(content="Luke can speak English rather well, but Luke doesn't live in England.")
-        document.processKnowledge(languages)
+        remade = (
+            "section 1:\nThis is the morning passage.\nAnother passage.\n\n"
+            "section 2:\nSecond morning passage.\nSecond evening passage."
+        )
 
-        self.assertEqual(len(document), 7)
+        self.assertEqual(document.content, remade)
 
-    def test_alias_process_knowledge(self):
-        """ Check that the document doesn't match on alias when it shouldn't and does when it should """
-
-        # Collect an ontology
-        ontology = language.ontology()
-
-        # Generate a document and process the knowledge
-        test = Document(content="Luke-san speaks English")
-        test.processKnowledge(ontology)
-
-        # Assert that no datapoints were produced
-        self.assertEqual(len(test.datapoints()), 0)
-
-        # Add the alias
-        ontology.concepts["Luke"].aliases.add("Luke-san")
-        test.processKnowledge(ontology)
-
-        # Assert alias is found
-        self.assertEqual(len(test), 1)
-
-    def test_regular_expression_alias(self):
-        """ Test that if a alias is a regular expression it will work correctly """
-
-        # Collect an ontology
-        ontology = language.ontology()
-
-        # Add an alias
-        ontology.concepts["Kieran"].aliases.add(r"\d+:\d+:\d+ date")
-
-        # Generate the test string and process it
-        document = Document(content="18:09:2018 date speaks English")
-        document.processKnowledge(ontology)
-
-        # Assert that the regex works as expected
-        self.assertEqual(len(document), 1)
-        self.assertEqual(document.datapoints()[0].domain["text"], "18:09:2018 date")
-
-    def test_datapoint_reproducement(self):
-        """ For a datapoint that is processed and found within the text, One should be able to
-        create a new document with that content and extract the same datapoint """
-
-        original = Document(content="Kieran is the best English speaker that has ever lived.")
-        original.processKnowledge(language.ontology())
-
-        self.assertEqual(len(original.datapoints()), 1)
-
-        new_document = Document(content=original.text())
-        new_document.processKnowledge(language.ontology())
-
-        self.assertEqual(len(new_document.datapoints()), 1)
-
-        self.assertEqual(set(original.datapoints()),set(new_document.datapoints()))
-
-    def test_document_save_load(self):
-
-        for path in resources.TEXT_COLLECTIONS:
-            document = Document(filepath=path)
-
-            document.save(filename="./tempDocument.txt")
-            newDocument = Document(filepath="./tempDocument.txt")
-
-            self.assertEqual(document.text(), newDocument.text())
-
-        os.remove("./tempDocument.txt")
-
-    def test_document_scoring_method(self):
-
-        test = language.training(1)[0]
-
-        for dp in test.datapoints():
-            dp.prediction = 1
-
-        corpus, _ = score(language.ontology(), test)
-
-        self.assertTrue(0 < corpus["precision"])
-        self.assertTrue(0 <= corpus["recall"])
-        self.assertTrue(0 <= corpus["f1"])

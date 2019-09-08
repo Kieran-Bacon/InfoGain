@@ -1,8 +1,11 @@
-from .. import resources
-
-import logging, numpy, math
+import re
+import numpy
+import math
 from gensim.models import Word2Vec
 
+from .. import resources
+
+import logging
 log = logging.getLogger(__name__)
 
 class Embedder:
@@ -13,7 +16,7 @@ class Embedder:
         embedding_size (int) - The size of the embedded vectors
         count (int) - The number of times a word needs to be seen before an embedding is made
         workers (int) - The number of processes to be used to help train the model
-    """ 
+    """
 
     def __init__(self,
         word_embedding_model: Word2Vec = None,
@@ -57,30 +60,30 @@ class Embedder:
             vector (numpy.array) - The embedded vector that represents the word
         """
         if word not in self.model.wv:
-            log.warning("Unrecognised word: {}".format(word))
+            # log.warning("Unrecognised word: {}".format(word))
             return numpy.zeros(self.size())
         return self.model.wv[word]
-        
+
 
     def sentence(self, sentence: str) -> numpy.array:  # TODO Improve sentence embedding method
         """ Convert a sentence of variable length into a sentence embedding using the learn word
         embeddings within the model.
-        
+
         Params:
             sentence (str) - A single string that represents a single sentence
             missed (bool) - Toggle to return missed words during embedding
-        
+
         Returns:
             vector (numpy.array) - A vector representation of the of the sentence
         """
-
+        sentence = re.sub("[^A-Za-z ]", "", sentence)
         embedding = numpy.zeros(self.size())  # Sentence embedding
         words = sentence.split()  # Words of the sentence
 
         def pf(index: int, alpha: float = 1, beta: float = 0) -> float:
             """ Return the output of a monotonic function as to include order information into
             the word embeddings.
-            
+
             Params:
                 index (int) - The index of the word within the sentence
                 alpha (float) - A parameter to affect the magnitude of the result
@@ -88,7 +91,7 @@ class Embedder:
             """
             return 1
 
-        # Embedd the words of the sentence
+        # Embed the words of the sentence
         for index, word in enumerate(words): embedding += pf(index)*self.word(word)
 
         if len(words): embedding = embedding/len(words)

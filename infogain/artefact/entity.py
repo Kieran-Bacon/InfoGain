@@ -27,6 +27,8 @@ class Entity:
 
         self._properties = EntityProperties()
 
+    def __repr__(self): return "<Entity: {}({})>".format(self._classType, self._surfaceForm)
+
     @property
     def classType(self): return self._classType
     @property

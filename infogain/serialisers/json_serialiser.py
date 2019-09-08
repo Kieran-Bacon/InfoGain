@@ -1,5 +1,8 @@
 import json
+import collections
+import uuid
 
+from ..artefact import Document, Entity, Annotation
 from ..knowledge import Ontology, Concept, Relation, Rule, Condition
 from .serialiser import AbstractSerialiser, registerSerialiser
 
@@ -120,3 +123,100 @@ class JsonSerialiser(AbstractSerialiser):
             ontology_dict["Relations"][relation.name] = minimised_relations
 
         return json.dumps(ontology_dict, indent=4, sort_keys=True)
+
+@registerSerialiser("json", _type = Document)
+class JsonDocumentSerialiser(AbstractSerialiser):
+
+    def load(self, filepath: str):
+
+        # Load in the json serialised data
+        with open(filepath, "r") as handle:
+            data = json.load(handle)
+
+        def resolveDocumentsContents(docData):
+
+            if "content" in docData:
+                doc = Document(docData['content'], name=docData.get('name'), text_break=docData.get('breaktext'), processed=True)
+            else:
+                doc = Document(name=docData.get('name'), text_break=docData.get('breaktext'), processed=True)
+
+                for document in data['documents']:
+                    doc._sub_documents.append(resolveDocumentsContents(document))
+
+            return doc
+
+        # Resolve the content of the document
+        document = resolveDocumentsContents(data)
+
+        # Load in the entities
+        entities = {}
+        for i, entityData, guid in data['entities']:
+            props = entityData.pop("properties", {})
+            e = Entity(**entityData)
+            e.properties.update(props)
+            entities[guid] = e
+            document.entities.add(e, i)
+
+        # Load in the annotations
+        for ann in data['annotations']:
+            document.annotations.add(
+                Annotation(
+                    entities[ann['domain']],
+                    ann['name'],
+                    entities[ann['target']],
+                    classification=ann['classification'],
+                    confidence=ann['confidence'],
+                    annotation=ann['annotation']
+                )
+            )
+
+        return document
+
+    def dump(self, document: Document):
+
+        def minimiseContent(subDocument):
+
+            data = collections.OrderedDict((
+                ("name", subDocument.name),
+                ("breaktext", subDocument.breaktext),
+            ))
+
+            if subDocument._content is not None:
+                data['content'] = subDocument.content
+
+            else:
+                data['documents'] = [
+                    minimiseContent(doc) for doc in subDocument._sub_documents
+                ]
+
+            return data
+
+        data = minimiseContent(document)
+        data.pop("breaktext")
+
+        entityIDs = collections.defaultdict(lambda: str(uuid.uuid4()))
+
+        data['entities'] = []
+        for i, e in document.entities.indexes():
+            entityData = {
+                "classType": e.classType,
+                "surfaceForm": e.surfaceForm,
+                "confidence": e.confidence,
+                "properties": e.properties._elements
+            }
+            data['entities'].append((i, entityData, entityIDs[e]))
+
+        data['annotations'] = []
+        for annotation in document.annotations:
+            data['annotations'].append({
+                "domain": entityIDs[annotation.domain],
+                "name": annotation.name,
+                "target": entityIDs[annotation.target],
+
+                "classification": annotation.classification,
+                "confidence": annotation.confidence,
+                "annotation": annotation.annotation
+            })
+
+
+        return json.dumps(data, indent=4)

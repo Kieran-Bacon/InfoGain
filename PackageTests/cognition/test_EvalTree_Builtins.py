@@ -1,6 +1,6 @@
 import unittest
 
-from infogain.artefact import Document, Datapoint
+from infogain.artefact import Document, Annotation
 from infogain.knowledge import Concept, Instance, Relation
 
 from infogain.cognition import InferenceEngine
@@ -62,7 +62,7 @@ class Test_EvalTreeBuiltins(unittest.TestCase):
     def test_negative_facts(self):
         logic = "facts(#Kieran-lives_in-#Germany)"
 
-        lives_in = Datapoint({
+        lives_in = Annotation({
             "domain": {"concept": "Kieran", "text": "Kieran"},
             "relation": "lives_in",
             "target": {"concept": "Germany", "text": "Germany"},
@@ -92,7 +92,7 @@ class Test_EvalTreeBuiltins(unittest.TestCase):
     def test_negative_facts2(self):
         logic = "facts(#Kieran-lives_in-#Germany)"
 
-        lives_in = Datapoint({
+        lives_in = Annotation({
             "domain": {"concept": "Kieran", "text": "Kieran"},
             "relation": "lives_in",
             "target": {"concept": "Germany", "text": "Germany"},

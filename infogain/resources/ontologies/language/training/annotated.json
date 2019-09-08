@@ -1,326 +1,457 @@
 {
-    "name": "2cee5c27b5b247259cabd1d6cf8ad6c5",
-    "datapoints": [
-        {
-            "target": {
-                "text": "England",
-                "concept": "England"
+    "name": "e2d338c7a1a5430c9f946121ec4f02ae",
+    "breaktext": "",
+    "content": "Kieran lives in England, therefore, he does not live in France or Germany.Kieran lives in England, therefore, he does not live in France or Germany.Kieran lives in England, therefore, he does not live in France or Germany.Kieran lives in England, therefore, he does not live in France or Germany.Kieran lives in England, therefore, he does not live in France or Germany.Kieran lives in England, therefore, he does not live in France or Germany.Luke has lived in France for the last 10 years, he is planning on moving the England.Luke has lived in France for the last 10 years, he is planning on moving the England.Luke has lived in France for the last 10 years, he is planning on moving the England.Luke has lived in France for the last 10 years, he is planning on moving the England.Though Kieran is born in England, he does not live there.Though Kieran is born in England, he does not live there.Luke was born in Germany, this is strange when considering the fact that he does not speak the language German.Luke was born in Germany, this is strange when considering the fact that he does not speak the language German.Luke was born in Germany, this is strange when considering the fact that he does not speak the language German.Luke was born in Germany, this is strange when considering the fact that he does not speak the language German.",
+    "entities": [
+        [
+            0,
+            {
+                "classType": "Kieran",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "probability": null,
-            "annotation": 0,
-            "prediction": null,
-            "context": {
-                "middle": "lives in",
-                "left": "",
-                "right": ", therefore, he doesn't live in France or Germany."
+            "80e424cd-e356-46a1-a3ef-f5b633763beb"
+        ],
+        [
+            16,
+            {
+                "classType": "England",
+                "surfaceForm": "England",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "born_in",
-            "text": "Kieran lives in England, therefore, he doesn't live in France or Germany. ",
-            "domain": {
-                "text": "Kieran",
-                "concept": "Kieran"
-            }
-        },
-        {
-            "target": {
-                "text": "England",
-                "concept": "England"
+            "9d16ad32-6a19-4843-b333-7112c10a9615"
+        ],
+        [
+            74,
+            {
+                "classType": "Kieran",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "probability": null,
-            "annotation": 1,
-            "prediction": null,
-            "context": {
-                "middle": "lives in",
-                "left": "",
-                "right": ", therefore, he doesn't live in France or Germany."
+            "6a41e1cf-4af0-4db1-b769-dbee630f3a00"
+        ],
+        [
+            90,
+            {
+                "classType": "England",
+                "surfaceForm": "England",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "lives_in",
-            "text": "Kieran lives in England, therefore, he doesn't live in France or Germany. ",
-            "domain": {
-                "text": "Kieran",
-                "concept": "Kieran"
-            }
-        },
-        {
-            "target": {
-                "text": "France",
-                "concept": "France"
+            "d7dbcd25-fbfc-496a-a5f6-1790811893c7"
+        ],
+        [
+            148,
+            {
+                "classType": "Kieran",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "probability": null,
-            "annotation": 0,
-            "prediction": null,
-            "context": {
-                "middle": "lives in England, therefore, he doesn't live in",
-                "left": "",
-                "right": "or Germany."
+            "0f6cd1a6-10fd-47fe-a035-5093fe460747"
+        ],
+        [
+            204,
+            {
+                "classType": "France",
+                "surfaceForm": "France",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "born_in",
-            "text": "Kieran lives in England, therefore, he doesn't live in France or Germany. ",
-            "domain": {
-                "text": "Kieran",
-                "concept": "Kieran"
-            }
-        },
-        {
-            "target": {
-                "text": "France",
-                "concept": "France"
+            "25d4f14d-b25a-4475-a401-398b0316afe7"
+        ],
+        [
+            222,
+            {
+                "classType": "Kieran",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "probability": null,
-            "annotation": -1,
-            "prediction": null,
-            "context": {
-                "middle": "lives in England, therefore, he doesn't live in",
-                "left": "",
-                "right": "or Germany."
+            "ed5b5032-9cde-472b-8d8d-d3656e9b362f"
+        ],
+        [
+            278,
+            {
+                "classType": "France",
+                "surfaceForm": "France",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "lives_in",
-            "text": "Kieran lives in England, therefore, he doesn't live in France or Germany. ",
-            "domain": {
-                "text": "Kieran",
-                "concept": "Kieran"
-            }
-        },
-        {
-            "target": {
-                "text": "Germany",
-                "concept": "Germany"
+            "2e88d988-ecd2-4f44-a3ec-849cb267ce2f"
+        ],
+        [
+            296,
+            {
+                "classType": "Kieran",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "probability": null,
-            "annotation": 0,
-            "prediction": null,
-            "context": {
-                "middle": "lives in England, therefore, he doesn't live in France or",
-                "left": "",
-                "right": "."
+            "d9eac653-3368-4a3c-9e67-9a7265aa737b"
+        ],
+        [
+            362,
+            {
+                "classType": "Germany",
+                "surfaceForm": "Germany",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "born_in",
-            "text": "Kieran lives in England, therefore, he doesn't live in France or Germany. ",
-            "domain": {
-                "text": "Kieran",
-                "concept": "Kieran"
-            }
-        },
-        {
-            "target": {
-                "text": "Germany",
-                "concept": "Germany"
+            "a2d52e0b-ba73-4fd3-a457-0b707fcc5e60"
+        ],
+        [
+            370,
+            {
+                "classType": "Kieran",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "probability": null,
-            "annotation": -1,
-            "prediction": null,
-            "context": {
-                "middle": "lives in England, therefore, he doesn't live in France or",
-                "left": "",
-                "right": "."
+            "258f067a-0c76-4730-b462-e7aeb5c6e914"
+        ],
+        [
+            436,
+            {
+                "classType": "Germany",
+                "surfaceForm": "Germany",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "lives_in",
-            "text": "Kieran lives in England, therefore, he doesn't live in France or Germany. ",
-            "domain": {
-                "text": "Kieran",
-                "concept": "Kieran"
-            }
-        },
-        {
-            "target": {
-                "text": "England",
-                "concept": "England"
+            "d5d8dfa7-fc59-4bcb-a5eb-a77c8e3dc982"
+        ],
+        [
+            444,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "probability": null,
-            "annotation": 0,
-            "prediction": null,
-            "context": {
-                "middle": "has lived in France for the last 10 years, he is planning on moving the",
-                "left": "",
-                "right": "."
+            "ce4fa14d-ada6-47a5-b21f-62ae2a468837"
+        ],
+        [
+            521,
+            {
+                "classType": "England",
+                "surfaceForm": "England",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "born_in",
-            "text": "Luke has lived in France for the last 10 years, he is planning on moving the England. ",
-            "domain": {
-                "text": "Luke",
-                "concept": "Luke"
-            }
-        },
-        {
-            "target": {
-                "text": "England",
-                "concept": "England"
+            "ed5c8657-97ba-45ca-8a88-23306f8b8934"
+        ],
+        [
+            529,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "probability": null,
-            "annotation": -1,
-            "prediction": null,
-            "context": {
-                "middle": "has lived in France for the last 10 years, he is planning on moving the",
-                "left": "",
-                "right": "."
+            "c2d5cf30-a7a0-462c-82ce-be6bbd9275a2"
+        ],
+        [
+            606,
+            {
+                "classType": "England",
+                "surfaceForm": "England",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "lives_in",
-            "text": "Luke has lived in France for the last 10 years, he is planning on moving the England. ",
-            "domain": {
-                "text": "Luke",
-                "concept": "Luke"
-            }
-        },
-        {
-            "target": {
-                "text": "France",
-                "concept": "France"
+            "4715205f-10a3-49e9-813e-e53eedb49900"
+        ],
+        [
+            614,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "probability": null,
-            "annotation": 0,
-            "prediction": null,
-            "context": {
-                "middle": "has lived in",
-                "left": "",
-                "right": "for the last 10 years, he is planning on moving the England."
+            "369bbbfb-6344-482e-82fd-b5832b18989c"
+        ],
+        [
+            632,
+            {
+                "classType": "France",
+                "surfaceForm": "France",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "born_in",
-            "text": "Luke has lived in France for the last 10 years, he is planning on moving the England. ",
-            "domain": {
-                "text": "Luke",
-                "concept": "Luke"
-            }
-        },
-        {
-            "target": {
-                "text": "France",
-                "concept": "France"
+            "e14aa1d6-ede7-4873-b0e0-8769b47db07b"
+        ],
+        [
+            699,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "probability": null,
-            "annotation": 1,
-            "prediction": null,
-            "context": {
-                "middle": "has lived in",
-                "left": "",
-                "right": "for the last 10 years, he is planning on moving the England."
+            "6bf58c46-d6b1-4795-b4b7-8f4aaf84ceb6"
+        ],
+        [
+            717,
+            {
+                "classType": "France",
+                "surfaceForm": "France",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "lives_in",
-            "text": "Luke has lived in France for the last 10 years, he is planning on moving the England. ",
-            "domain": {
-                "text": "Luke",
-                "concept": "Luke"
-            }
-        },
-        {
-            "target": {
-                "text": "England",
-                "concept": "England"
+            "9adebc29-1c7e-4084-a0b5-7a2b498a3783"
+        ],
+        [
+            791,
+            {
+                "classType": "Kieran",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "probability": null,
-            "annotation": 1,
-            "prediction": null,
-            "context": {
-                "middle": "is born in",
-                "left": "Though",
-                "right": ", he doesn't live there."
+            "af75825c-612b-4d5e-8403-9afa564cb0e2"
+        ],
+        [
+            809,
+            {
+                "classType": "England",
+                "surfaceForm": "England",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "born_in",
-            "text": "Though Kieran is born in England, he doesn't live there.\n",
-            "domain": {
-                "text": "Kieran",
-                "concept": "Kieran"
-            }
-        },
-        {
-            "target": {
-                "text": "England",
-                "concept": "England"
+            "a992cf2a-56c7-4edb-b7e2-b1f6ecc8d74d"
+        ],
+        [
+            848,
+            {
+                "classType": "Kieran",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "probability": null,
-            "annotation": -1,
-            "prediction": null,
-            "context": {
-                "middle": "is born in",
-                "left": "Though",
-                "right": ", he doesn't live there."
+            "43b8dc3f-b137-4ef9-8371-852e5091cb49"
+        ],
+        [
+            866,
+            {
+                "classType": "England",
+                "surfaceForm": "England",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "lives_in",
-            "text": "Though Kieran is born in England, he doesn't live there.\n",
-            "domain": {
-                "text": "Kieran",
-                "concept": "Kieran"
-            }
-        },
-        {
-            "target": {
-                "text": "German",
-                "concept": "German"
+            "06ff8c48-b16b-4a9f-b763-459d303e6d6b"
+        ],
+        [
+            898,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "probability": null,
-            "annotation": -1,
-            "prediction": null,
-            "context": {
-                "middle": "was born in Germany, this is strange when considering the fact that he doesn't speak the language",
-                "left": "",
-                "right": "."
+            "630589c6-b575-4fcb-82ba-17c18d005c61"
+        ],
+        [
+            915,
+            {
+                "classType": "German",
+                "surfaceForm": "German",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "speaks",
-            "text": "Luke was born in Germany, this is strange when considering the fact that he doesn't speak the language German. ",
-            "domain": {
-                "text": "Luke",
-                "concept": "Luke"
-            }
-        },
-        {
-            "target": {
-                "text": "Germany",
-                "concept": "Germany"
+            "ec14c47e-80fb-4d3f-9fec-bb7b08911153"
+        ],
+        [
+            1009,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "probability": null,
-            "annotation": 1,
-            "prediction": null,
-            "context": {
-                "middle": "was born in",
-                "left": "",
-                "right": ", this is strange when considering the fact that he doesn't speak the language German."
+            "0c91fa78-d4ee-4e93-9439-7fcd75482d0b"
+        ],
+        [
+            1026,
+            {
+                "classType": "Germany",
+                "surfaceForm": "Germany",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "born_in",
-            "text": "Luke was born in Germany, this is strange when considering the fact that he doesn't speak the language German. ",
-            "domain": {
-                "text": "Luke",
-                "concept": "Luke"
-            }
-        },
-        {
-            "target": {
-                "text": "Germany",
-                "concept": "Germany"
+            "fdbc5a41-13b3-4506-8e01-97236b5141fc"
+        ],
+        [
+            1120,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "probability": null,
-            "annotation": 0,
-            "prediction": null,
-            "context": {
-                "middle": "was born in",
-                "left": "",
-                "right": ", this is strange when considering the fact that he doesn't speak the language German."
+            "1a49b880-247a-4b03-8346-a1d65a1aad03"
+        ],
+        [
+            1137,
+            {
+                "classType": "Germany",
+                "surfaceForm": "Germany",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "lives_in",
-            "text": "Luke was born in Germany, this is strange when considering the fact that he doesn't speak the language German. ",
-            "domain": {
-                "text": "Luke",
-                "concept": "Luke"
-            }
-        },
-        {
-            "target": {
-                "text": "German",
-                "concept": "German"
+            "fb756528-1c20-4c4d-91b9-8d6f2c174dc8"
+        ],
+        [
+            1248,
+            {
+                "classType": "Germany",
+                "surfaceForm": "Germany",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "probability": null,
-            "annotation": 0,
-            "prediction": null,
-            "context": {
-                "middle": ", this is strange when considering the fact that he doesn't speak the language",
-                "left": "Luke was born in",
-                "right": "."
+            "279abb28-4366-4f88-8d33-dceadedc53bb"
+        ],
+        [
+            1248,
+            {
+                "classType": "German",
+                "surfaceForm": "German",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "speaks",
-            "text": "Luke was born in Germany, this is strange when considering the fact that he doesn't speak the language German. ",
-            "domain": {
-                "text": "Germany",
-                "concept": "Germany"
-            }
-        }
+            "62bf144f-e0e2-44bd-9828-2c72519ee895"
+        ]
     ],
-    "content": "Kieran lives in England, therefore, he doesn't live in France or Germany. Luke has lived in France for the last 10 years, he is planning on moving the England. Though Kieran is born in England, he doesn't live there.\n\nLuke was born in Germany, this is strange when considering the fact that he doesn't speak the language German. Things need to be explained alot."
+    "annotations": [
+        {
+            "domain": "0c91fa78-d4ee-4e93-9439-7fcd75482d0b",
+            "name": "born_in",
+            "target": "fdbc5a41-13b3-4506-8e01-97236b5141fc",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "1a49b880-247a-4b03-8346-a1d65a1aad03",
+            "name": "lives_in",
+            "target": "fb756528-1c20-4c4d-91b9-8d6f2c174dc8",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 0
+        },
+        {
+            "domain": "af75825c-612b-4d5e-8403-9afa564cb0e2",
+            "name": "born_in",
+            "target": "a992cf2a-56c7-4edb-b7e2-b1f6ecc8d74d",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "c2d5cf30-a7a0-462c-82ce-be6bbd9275a2",
+            "name": "lives_in",
+            "target": "4715205f-10a3-49e9-813e-e53eedb49900",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": -10
+        },
+        {
+            "domain": "d9eac653-3368-4a3c-9e67-9a7265aa737b",
+            "name": "born_in",
+            "target": "a2d52e0b-ba73-4fd3-a457-0b707fcc5e60",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 0
+        },
+        {
+            "domain": "43b8dc3f-b137-4ef9-8371-852e5091cb49",
+            "name": "lives_in",
+            "target": "06ff8c48-b16b-4a9f-b763-459d303e6d6b",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": -10
+        },
+        {
+            "domain": "630589c6-b575-4fcb-82ba-17c18d005c61",
+            "name": "speaks",
+            "target": "ec14c47e-80fb-4d3f-9fec-bb7b08911153",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": -10
+        },
+        {
+            "domain": "ed5b5032-9cde-472b-8d8d-d3656e9b362f",
+            "name": "lives_in",
+            "target": "2e88d988-ecd2-4f44-a3ec-849cb267ce2f",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": -10
+        },
+        {
+            "domain": "279abb28-4366-4f88-8d33-dceadedc53bb",
+            "name": "speaks",
+            "target": "62bf144f-e0e2-44bd-9828-2c72519ee895",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 0
+        },
+        {
+            "domain": "369bbbfb-6344-482e-82fd-b5832b18989c",
+            "name": "born_in",
+            "target": "e14aa1d6-ede7-4873-b0e0-8769b47db07b",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 0
+        },
+        {
+            "domain": "80e424cd-e356-46a1-a3ef-f5b633763beb",
+            "name": "born_in",
+            "target": "9d16ad32-6a19-4843-b333-7112c10a9615",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 0
+        },
+        {
+            "domain": "6bf58c46-d6b1-4795-b4b7-8f4aaf84ceb6",
+            "name": "lives_in",
+            "target": "9adebc29-1c7e-4084-a0b5-7a2b498a3783",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "ce4fa14d-ada6-47a5-b21f-62ae2a468837",
+            "name": "born_in",
+            "target": "ed5c8657-97ba-45ca-8a88-23306f8b8934",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 0
+        },
+        {
+            "domain": "6a41e1cf-4af0-4db1-b769-dbee630f3a00",
+            "name": "lives_in",
+            "target": "d7dbcd25-fbfc-496a-a5f6-1790811893c7",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "0f6cd1a6-10fd-47fe-a035-5093fe460747",
+            "name": "born_in",
+            "target": "25d4f14d-b25a-4475-a401-398b0316afe7",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 0
+        },
+        {
+            "domain": "258f067a-0c76-4730-b462-e7aeb5c6e914",
+            "name": "lives_in",
+            "target": "d5d8dfa7-fc59-4bcb-a5eb-a77c8e3dc982",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": -10
+        }
+    ]
 }

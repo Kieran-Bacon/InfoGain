@@ -1,6 +1,6 @@
 import unittest, pytest
 
-from infogain.artefact import Document, Datapoint
+from infogain.artefact import Document, Annotation
 from infogain.cognition import InferenceEngine
 from infogain.knowledge import Concept, Instance, Relation, Rule, Condition
 from infogain.resources.ontologies import language
@@ -165,7 +165,7 @@ class Test_InferenceEngine(unittest.TestCase):
             engine.concepts["English"].instance()
         )
 
-        speaks = Datapoint({
+        speaks = Annotation({
             "domain": {"concept": "Kieran", "text": "Kieran"},
             "relation": "speaks",
             "target": {"concept": "English", "text": "English"},
@@ -175,7 +175,7 @@ class Test_InferenceEngine(unittest.TestCase):
         })
 
         world_knowledge = Document()
-        world_knowledge.datapoints([speaks])
+        world_knowledge.Annotations([speaks])
 
         engine.addWorldKnowledge([world_knowledge])
 
@@ -193,7 +193,7 @@ class Test_InferenceEngine(unittest.TestCase):
 
         engine = InferenceEngine(ontology=language.ontology())
 
-        lives_in = Datapoint({
+        lives_in = Annotation({
             "domain": {"concept": "Kieran", "text": "Kieran"},
             "relation": "lives_in",
             "target": {"concept": "Germany", "text": "Germany"},
@@ -203,7 +203,7 @@ class Test_InferenceEngine(unittest.TestCase):
         })
 
         doc = Document()
-        doc.datapoints([lives_in])
+        doc.Annotations([lives_in])
 
         engine.addWorldKnowledge([doc])
 
@@ -220,7 +220,7 @@ class Test_InferenceEngine(unittest.TestCase):
 
         engine = InferenceEngine(ontology=language.ontology())
 
-        lives_in = Datapoint({
+        lives_in = Annotation({
             "domain": {"concept": "Kieran", "text": "Kieran"},
             "relation": "lives_in",
             "target": {"concept": "Germany", "text": "Germany"},
@@ -230,7 +230,7 @@ class Test_InferenceEngine(unittest.TestCase):
         })
 
         doc = Document()
-        doc.datapoints([lives_in])
+        doc.Annotations([lives_in])
 
         engine.addWorldKnowledge([doc])
 

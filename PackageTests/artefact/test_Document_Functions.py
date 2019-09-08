@@ -1,7 +1,7 @@
 import unittest, sys
 from unittest import mock
 
-from infogain.artefact import Document, Datapoint, score, annotate
+from infogain.artefact import Document, Annotation, score, annotate
 from infogain.resources.ontologies import language
 
 class Test_Document_Functions(unittest.TestCase):

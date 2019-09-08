@@ -1,346 +1,485 @@
 {
-    "content": "Kieran speaks English\nKieran speaks Spanish\nKieran can speak English\nKieran can speak Spanish\nKieran has shown that he can speak Spanish\nKieran has learnt how to speak Spanish\nKieran's Spanish is rather good\nKieran can speak English fluently\n\nLuke cant speak English\nLuke can't speak English\nLuke can't speak Spanish\nLuke cant speak Spanish\nLuke doesn't speak English\nLuke doesn't speak Spanish\nLuke never learnt how to speak Spanish\nLuke always wanted to learn Spanish, but he never did\nLuke has never wanted to learn Spanish\nLuke cant speak English",
-    "datapoints": [
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "English",
-                "text": "English"
+    "name": "a5ee975eb9c7466ba298e881d5d2af75",
+    "breaktext": "",
+    "content": "Kieran speaks EnglishKieran speaks SpanishKieran can speak EnglishKieran can speak SpanishKieran has shown that he can speak SpanishKieran has learnt how to speak SpanishKieran can speak English fluentlyLuke cant speak EnglishLuke can not speak EnglishLuke can not speak SpanishLuke cant speak SpanishLuke does not speak EnglishLuke does not speak SpanishLuke never learnt how to speak SpanishLuke always wanted to learn Spanish, but he never didLuke has never wanted to learn SpanishLuke cant speak English",
+    "entities": [
+        [
+            0,
+            {
+                "classType": "Kieran",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "speaks",
-            "text": "Kieran speaks English",
-            "probability": null,
-            "context": {
-                "middle": "speaks",
-                "left": "",
-                "right": ""
+            "59ce3112-a40a-4e36-a4c4-abb23bc98a64"
+        ],
+        [
+            14,
+            {
+                "classType": "English",
+                "surfaceForm": "English",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "domain": {
-                "concept": "Kieran",
-                "text": "Kieran"
+            "ca783335-bc8d-49cb-a709-ad9bc651ab31"
+        ],
+        [
+            21,
+            {
+                "classType": "Kieran",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "prediction": null
-        },
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "Spanish",
-                "text": "Spanish"
+            "1d7bf9ad-8a8e-4425-98aa-342e0c935691"
+        ],
+        [
+            35,
+            {
+                "classType": "Spanish",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "speaks",
-            "text": "Kieran speaks Spanish",
-            "probability": null,
-            "context": {
-                "middle": "speaks",
-                "left": "",
-                "right": ""
+            "20a40ef4-1a5f-4be6-88ce-fa5407445630"
+        ],
+        [
+            42,
+            {
+                "classType": "Kieran",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "domain": {
-                "concept": "Kieran",
-                "text": "Kieran"
+            "288be3bf-bd40-4f0a-b820-816942629b1a"
+        ],
+        [
+            59,
+            {
+                "classType": "English",
+                "surfaceForm": "English",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "prediction": null
-        },
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "English",
-                "text": "English"
+            "c07cdd56-7943-4ab9-8d44-662e25eca82b"
+        ],
+        [
+            66,
+            {
+                "classType": "Kieran",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "speaks",
-            "text": "Kieran can speak English",
-            "probability": null,
-            "context": {
-                "middle": "can speak",
-                "left": "",
-                "right": ""
+            "a68aac50-777a-4d85-a6a7-db94f43a38de"
+        ],
+        [
+            83,
+            {
+                "classType": "Spanish",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "domain": {
-                "concept": "Kieran",
-                "text": "Kieran"
+            "b090e3b2-265e-4b89-ae75-211ac621a47c"
+        ],
+        [
+            90,
+            {
+                "classType": "Kieran",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "prediction": null
-        },
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "Spanish",
-                "text": "Spanish"
+            "9a08009d-6f7b-459d-bd04-7965cf2209b9"
+        ],
+        [
+            125,
+            {
+                "classType": "Spanish",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "speaks",
-            "text": "Kieran can speak Spanish",
-            "probability": null,
-            "context": {
-                "middle": "can speak",
-                "left": "",
-                "right": ""
+            "2e9e8909-d301-400d-aa5c-da60292cdbb2"
+        ],
+        [
+            132,
+            {
+                "classType": "Kieran",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "domain": {
-                "concept": "Kieran",
-                "text": "Kieran"
+            "e6c913d2-d9cd-4070-ac74-ed454fd26bf2"
+        ],
+        [
+            163,
+            {
+                "classType": "Spanish",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "prediction": null
-        },
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "Spanish",
-                "text": "Spanish"
+            "a423b0b3-0976-41c2-8deb-088bacb8409d"
+        ],
+        [
+            170,
+            {
+                "classType": "Kieran",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "speaks",
-            "text": "Kieran has shown that he can speak Spanish",
-            "probability": null,
-            "context": {
-                "middle": "has shown that he can speak",
-                "left": "",
-                "right": ""
+            "e70bdcbb-05fc-4be5-b04c-6a25aa9a2dde"
+        ],
+        [
+            187,
+            {
+                "classType": "English",
+                "surfaceForm": "English",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "domain": {
-                "concept": "Kieran",
-                "text": "Kieran"
+            "bd6f0a08-50de-48db-b638-7fd12c4fef64"
+        ],
+        [
+            203,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "prediction": null
-        },
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "Spanish",
-                "text": "Spanish"
+            "ad3e7afd-9706-4cd2-b115-ec1a0ba6b04f"
+        ],
+        [
+            219,
+            {
+                "classType": "English",
+                "surfaceForm": "English",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "speaks",
-            "text": "Kieran has learnt how to speak Spanish",
-            "probability": null,
-            "context": {
-                "middle": "has learnt how to speak",
-                "left": "",
-                "right": ""
+            "ae513568-0389-4f10-b2c9-e4375171b7aa"
+        ],
+        [
+            226,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "domain": {
-                "concept": "Kieran",
-                "text": "Kieran"
+            "04e16090-5a4f-4380-a960-3597a7322c48"
+        ],
+        [
+            245,
+            {
+                "classType": "English",
+                "surfaceForm": "English",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "prediction": null
-        },
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "English",
-                "text": "English"
+            "70dceec9-83ef-4283-a474-60c068f7f308"
+        ],
+        [
+            252,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "speaks",
-            "text": "Kieran can speak English fluently",
-            "probability": null,
-            "context": {
-                "middle": "can speak",
-                "left": "",
-                "right": "fluently"
+            "20553a96-11af-450d-8c7c-73814b01443f"
+        ],
+        [
+            271,
+            {
+                "classType": "Spanish",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "domain": {
-                "concept": "Kieran",
-                "text": "Kieran"
+            "535c7550-ddae-425d-a28b-bdd4ab3ca015"
+        ],
+        [
+            278,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "prediction": null
-        },
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "English",
-                "text": "English"
+            "a50b4bc0-6597-45ba-8dc5-db0179b7f4f5"
+        ],
+        [
+            294,
+            {
+                "classType": "Spanish",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "speaks",
-            "text": "Luke cant speak English",
-            "probability": null,
-            "context": {
-                "middle": "cant speak",
-                "left": "",
-                "right": ""
+            "1371b4be-e3cc-4755-b60b-10dbc612112a"
+        ],
+        [
+            301,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "domain": {
-                "concept": "Luke",
-                "text": "Luke"
+            "231d7c77-a34d-4a31-b339-d6bba2a7c3ae"
+        ],
+        [
+            321,
+            {
+                "classType": "English",
+                "surfaceForm": "English",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "prediction": null
-        },
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "English",
-                "text": "English"
+            "246f689e-2fa0-4b57-b024-2e88ce96d24a"
+        ],
+        [
+            328,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "speaks",
-            "text": "Luke can't speak English",
-            "probability": null,
-            "context": {
-                "middle": "can't speak",
-                "left": "",
-                "right": ""
+            "7630f92c-7ede-421e-a4be-214bde5709b3"
+        ],
+        [
+            348,
+            {
+                "classType": "Spanish",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "domain": {
-                "concept": "Luke",
-                "text": "Luke"
+            "7c842b86-6eeb-49ed-b475-680ecf1b0244"
+        ],
+        [
+            355,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "prediction": null
-        },
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "Spanish",
-                "text": "Spanish"
+            "870abbf6-7457-42fc-997c-bd5b7ea0ec04"
+        ],
+        [
+            386,
+            {
+                "classType": "Spanish",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "speaks",
-            "text": "Luke can't speak Spanish",
-            "probability": null,
-            "context": {
-                "middle": "can't speak",
-                "left": "",
-                "right": ""
+            "1b4f4097-4f79-404a-ab55-cd3562679c11"
+        ],
+        [
+            393,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "domain": {
-                "concept": "Luke",
-                "text": "Luke"
+            "5ce51430-446d-46d1-8cbf-442ba46f93ad"
+        ],
+        [
+            421,
+            {
+                "classType": "Spanish",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "prediction": null
-        },
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "Spanish",
-                "text": "Spanish"
+            "b1e2966a-4cf9-4526-944e-ae9a49aa29a3"
+        ],
+        [
+            446,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "speaks",
-            "text": "Luke cant speak Spanish",
-            "probability": null,
-            "context": {
-                "middle": "cant speak",
-                "left": "",
-                "right": ""
+            "a6bc8db9-b173-45a9-b704-6b20faf8411c"
+        ],
+        [
+            477,
+            {
+                "classType": "Spanish",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "domain": {
-                "concept": "Luke",
-                "text": "Luke"
+            "20f3847c-ebd7-4d8d-b82b-c3123e20b9dd"
+        ],
+        [
+            484,
+            {
+                "classType": "Luke",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "prediction": null
-        },
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "English",
-                "text": "English"
+            "9e4a638f-21c2-41d8-a8c1-ef7af0e4f40a"
+        ],
+        [
+            500,
+            {
+                "classType": "English",
+                "surfaceForm": "English",
+                "confidence": 1.0,
+                "properties": {}
             },
-            "relation": "speaks",
-            "text": "Luke doesn't speak English",
-            "probability": null,
-            "context": {
-                "middle": "doesn't speak",
-                "left": "",
-                "right": ""
-            },
-            "domain": {
-                "concept": "Luke",
-                "text": "Luke"
-            },
-            "prediction": null
-        },
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "Spanish",
-                "text": "Spanish"
-            },
-            "relation": "speaks",
-            "text": "Luke doesn't speak Spanish",
-            "probability": null,
-            "context": {
-                "middle": "doesn't speak",
-                "left": "",
-                "right": ""
-            },
-            "domain": {
-                "concept": "Luke",
-                "text": "Luke"
-            },
-            "prediction": null
-        },
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "Spanish",
-                "text": "Spanish"
-            },
-            "relation": "speaks",
-            "text": "Luke never learnt how to speak Spanish",
-            "probability": null,
-            "context": {
-                "middle": "never learnt how to speak",
-                "left": "",
-                "right": ""
-            },
-            "domain": {
-                "concept": "Luke",
-                "text": "Luke"
-            },
-            "prediction": null
-        },
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "Spanish",
-                "text": "Spanish"
-            },
-            "relation": "speaks",
-            "text": "Luke always wanted to learn Spanish, but he never did",
-            "probability": null,
-            "context": {
-                "middle": "always wanted to learn",
-                "left": "",
-                "right": ", but he never did"
-            },
-            "domain": {
-                "concept": "Luke",
-                "text": "Luke"
-            },
-            "prediction": null
-        },
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "Spanish",
-                "text": "Spanish"
-            },
-            "relation": "speaks",
-            "text": "Luke has never wanted to learn Spanish",
-            "probability": null,
-            "context": {
-                "middle": "has never wanted to learn",
-                "left": "",
-                "right": ""
-            },
-            "domain": {
-                "concept": "Luke",
-                "text": "Luke"
-            },
-            "prediction": null
-        },
-        {
-            "annotation": 1,
-            "target": {
-                "concept": "English",
-                "text": "English"
-            },
-            "relation": "speaks",
-            "text": "Luke cant speak English",
-            "probability": null,
-            "context": {
-                "middle": "cant speak",
-                "left": "",
-                "right": ""
-            },
-            "domain": {
-                "concept": "Luke",
-                "text": "Luke"
-            },
-            "prediction": null
-        }
+            "07b2394f-c944-4c1d-a111-c4e93a5c04b7"
+        ]
     ],
-    "name": "training_text.json"
+    "annotations": [
+        {
+            "domain": "e70bdcbb-05fc-4be5-b04c-6a25aa9a2dde",
+            "name": "speaks",
+            "target": "bd6f0a08-50de-48db-b638-7fd12c4fef64",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "a68aac50-777a-4d85-a6a7-db94f43a38de",
+            "name": "speaks",
+            "target": "b090e3b2-265e-4b89-ae75-211ac621a47c",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "231d7c77-a34d-4a31-b339-d6bba2a7c3ae",
+            "name": "speaks",
+            "target": "246f689e-2fa0-4b57-b024-2e88ce96d24a",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "1d7bf9ad-8a8e-4425-98aa-342e0c935691",
+            "name": "speaks",
+            "target": "20a40ef4-1a5f-4be6-88ce-fa5407445630",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "9e4a638f-21c2-41d8-a8c1-ef7af0e4f40a",
+            "name": "speaks",
+            "target": "07b2394f-c944-4c1d-a111-c4e93a5c04b7",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "a50b4bc0-6597-45ba-8dc5-db0179b7f4f5",
+            "name": "speaks",
+            "target": "1371b4be-e3cc-4755-b60b-10dbc612112a",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "288be3bf-bd40-4f0a-b820-816942629b1a",
+            "name": "speaks",
+            "target": "c07cdd56-7943-4ab9-8d44-662e25eca82b",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "20553a96-11af-450d-8c7c-73814b01443f",
+            "name": "speaks",
+            "target": "535c7550-ddae-425d-a28b-bdd4ab3ca015",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "870abbf6-7457-42fc-997c-bd5b7ea0ec04",
+            "name": "speaks",
+            "target": "1b4f4097-4f79-404a-ab55-cd3562679c11",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "a6bc8db9-b173-45a9-b704-6b20faf8411c",
+            "name": "speaks",
+            "target": "20f3847c-ebd7-4d8d-b82b-c3123e20b9dd",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "04e16090-5a4f-4380-a960-3597a7322c48",
+            "name": "speaks",
+            "target": "70dceec9-83ef-4283-a474-60c068f7f308",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "5ce51430-446d-46d1-8cbf-442ba46f93ad",
+            "name": "speaks",
+            "target": "b1e2966a-4cf9-4526-944e-ae9a49aa29a3",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "ad3e7afd-9706-4cd2-b115-ec1a0ba6b04f",
+            "name": "speaks",
+            "target": "ae513568-0389-4f10-b2c9-e4375171b7aa",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "59ce3112-a40a-4e36-a4c4-abb23bc98a64",
+            "name": "speaks",
+            "target": "ca783335-bc8d-49cb-a709-ad9bc651ab31",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "7630f92c-7ede-421e-a4be-214bde5709b3",
+            "name": "speaks",
+            "target": "7c842b86-6eeb-49ed-b475-680ecf1b0244",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "9a08009d-6f7b-459d-bd04-7965cf2209b9",
+            "name": "speaks",
+            "target": "2e9e8909-d301-400d-aa5c-da60292cdbb2",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        },
+        {
+            "domain": "e6c913d2-d9cd-4070-ac74-ed454fd26bf2",
+            "name": "speaks",
+            "target": "a423b0b3-0976-41c2-8deb-088bacb8409d",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        }
+    ]
 }

@@ -1,5 +1,5 @@
 import os
-from ...serialisers import SerialiseFactory
+from ... import Serialiser
 from ...knowledge import Ontology
 from ...artefact import Document
 
@@ -26,7 +26,7 @@ class OntologyManager:
             Ontology - the ontology object of the domain
             str - The path, may be returned
             """
-        return SerialiseFactory("json").load(self.path_ontology)
+        return Serialiser("json").load(self.path_ontology)
 
     def training(self, num_of_docs: int = None) -> [Document]:
         """ Load and store training documents for the domain
@@ -44,8 +44,9 @@ class OntologyManager:
 
         if num_of_docs: trainingFiles = trainingFiles[:num_of_docs]
 
-        return [Document(filepath=os.path.join(self.directory, "training", filename))
-            for filename in trainingFiles]
+        # Set up a document seraliser object and load all the documents
+        json = Serialiser('json', Document)
+        return [json.load(os.path.join(self.directory, "training", filename)) for filename in trainingFiles]
 
     def testing(self, num_of_docs: int = None) -> [Document]:
         """ Load and store un-annotated documents from the domain to act as documents to predict
@@ -64,8 +65,8 @@ class OntologyManager:
 
         if num_of_docs: testingFiles = testingFiles[:num_of_docs]
 
-        return [Document(filepath=os.path.join(self.directory, "testing", filename))
-            for filename in testingFiles]
+        json = Serialiser('json', Document)
+        return [json.load(os.path.join(self.directory, "testing", filename)) for filename in testingFiles]
 
 language = OntologyManager(filepath=os.path.join(os.path.dirname(os.path.realpath(__file__)), "language"))
 school = OntologyManager(filepath=os.path.join(os.path.dirname(os.path.realpath(__file__)), "school"))

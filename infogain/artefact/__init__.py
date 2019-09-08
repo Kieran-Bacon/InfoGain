@@ -3,9 +3,8 @@ class IncompleteDatapoint(Exception): pass
 
 from .entity import Entity
 from .annotation import Annotation
-
 from .document import Document
-from .datapoint import Datapoint
+
 
 def score(ontology, documents: [Document], pprint: bool=False)->(dict, dict):
     """ Calculate the precision, recall and F1 score for a collection of documents.

@@ -1,5 +1,5 @@
 
-from infogain.artefact import Document, Datapoint
+from infogain.artefact import Document, Annotation
 from infogain.cognition import InferenceEngine
 from infogain.resources.ontologies import language
 
@@ -32,7 +32,7 @@ lives_inConf = engine.inferRelation(
 )
 print("Kieran lives in England has a confidence of {}".format(lives_inConf))
 
-lives_in = Datapoint({
+lives_in = Annotation({
     "domain": {"concept": "Kieran", "text": "Kieran"},
     "relation": "lives_in",
     "target": {"concept": "German", "text": "German"},

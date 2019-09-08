@@ -1,8 +1,7 @@
 import unittest
 import pytest
 
-from infogain.artefact import Entity, Annotation
-from infogain.artefact.document2 import Document
+from infogain.artefact import Entity, Annotation, Document
 
 class Test_DocumentEntities(unittest.TestCase):
 
@@ -160,5 +159,17 @@ class Test_DocumentEntities(unittest.TestCase):
         self.assertEqual(list(self.document.entities), [self.documentEntity, self.contentEntity])
         self.assertEqual(len(self.document.annotations), 0)
         self.assertEqual(list(self.document.annotations), [])
+
+    def test_entityIndexes(self):
+        self.fail(
+            "Test that the document gives back the indexes that you expect and that when the document is split"
+            " it works"
+        )
+
+    def test_entityAddingOutOfOrder(self):
+        self.fail(
+            "The function for adding entities is different based on where the entity is going to turn up. If an entity "
+            "is added after an entity who has an index greater than the entity it shall trigger a insert that was wrong"
+        )
 
 

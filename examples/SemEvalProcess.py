@@ -1,7 +1,7 @@
 import os, re, logging
 
 from infogain.knowledge import Ontology, Concept, Relation
-from infogain.artefact import Document, Datapoint, score
+from infogain.artefact import Document, Annotation, score
 from infogain.extraction import RelationExtractor
 
 logging.config.dictConfig({'disable_existing_loggers': True})
@@ -82,14 +82,14 @@ def buildTraining():
             point["domain"] = {"concept": point["domain"], "text": point["domain"]}
             point["target"] = {"concept": point["target"], "text": point["target"]}
 
-            datapoint = Datapoint(point)
+            datapoint = Annotation(point)
             datapoint.annotation = point["value"]
             datapoints.append(datapoint)
 
     document = Document()
     document.datapoints(datapoints)
     document.save(folder=DATA, filename="training.json")
-    
+
     ontology = Ontology()
 
     for concept in concepts:
@@ -120,7 +120,7 @@ def buildTesting():
                 point["domain"] = {"concept": point["domain"], "text": point["domain"]}
                 point["target"] = {"concept": point["target"], "text": point["target"]}
 
-                datapoint = Datapoint(point)
+                datapoint = Annotation(point)
                 datapoint.annotation = point["value"]
                 datapoints.append(datapoint)
 

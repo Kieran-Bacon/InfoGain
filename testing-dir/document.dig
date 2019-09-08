@@ -1,0 +1,37 @@
+{
+    "name": "0bd01d93a2f5434a8cbc0d8232c5f55c",
+    "breaktext": "",
+    "content": "This is a document stating that Kieran can speak English",
+    "entities": [
+        [
+            32,
+            {
+                "classType": "Person",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
+            },
+            "998103e2-2a0f-425a-94a0-35926e4f8dd8"
+        ],
+        [
+            49,
+            {
+                "classType": "Language",
+                "surfaceForm": "English",
+                "confidence": 1.0,
+                "properties": {}
+            },
+            "9b51082b-8b45-4bec-af80-9ce7b738d61c"
+        ]
+    ],
+    "annotations": [
+        {
+            "domain": "998103e2-2a0f-425a-94a0-35926e4f8dd8",
+            "name": "speaks",
+            "target": "9b51082b-8b45-4bec-af80-9ce7b738d61c",
+            "classification": null,
+            "confidence": 1.0,
+            "annotation": 10
+        }
+    ]
+}

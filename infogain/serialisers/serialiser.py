@@ -1,5 +1,6 @@
 from abc import abstractmethod
 
+from ..artefact.document import Document
 from ..knowledge.ontology import Ontology
 
 class AbstractSerialiser:
@@ -39,7 +40,8 @@ class AbstractSerialiser:
             handler.write(self.dump(ontology))
 
 _SERIALENCODERS = {}
-def registerSerialiser(encoder_name: str):
+_DOCUMENTENCODERS = {}
+def registerSerialiser(encoder_name: str, _type: object = "ontology"):
     """ Register a Serialiser object against its name such that
 
     Params:
@@ -47,11 +49,15 @@ def registerSerialiser(encoder_name: str):
     """
 
     def store_encoder(encoder: object):
-        _SERIALENCODERS[encoder_name] = encoder
+        if _type == "ontology":
+            _SERIALENCODERS[encoder_name] = encoder
+        else:
+            _DOCUMENTENCODERS[encoder_name] = encoder
 
     return store_encoder
 
-class SerialiseFactory(AbstractSerialiser):
+
+class SerialiserFactory(AbstractSerialiser):
     """ Generate a new Serialiser object for the encoding type that has been
     provided to load/save infogain components
 
@@ -71,9 +77,15 @@ class SerialiseFactory(AbstractSerialiser):
                 the knowledge
             classtype (Ontology): Ontology class that is to be serialised into
                 and from
+
+        Raise:
+            KeyError: when an encoder is specified that doesn't exist for the classtype given
+            TypeError: when the classtype given is not recognised
         """
 
-        if encoding in _SERIALENCODERS:
+        if issubclass(classtype, Ontology):
             return _SERIALENCODERS[encoding](classtype)
+        elif issubclass(classtype, Document):
+            return _DOCUMENTENCODERS[encoding](classtype)
         else:
-            raise ValueError("Encoding type {} for knowledge serialiser is unrecognised".format(encoding))
+            raise TypeError("Unrecognised class type provided '{}'".format(str(classtype)))

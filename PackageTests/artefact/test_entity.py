@@ -1,7 +1,7 @@
 import unittest
 import pytest
 
-from infogain.artefact.document2 import Entity
+from infogain.artefact import Entity
 
 class Test_Entity(unittest.TestCase):
 

@@ -8,10 +8,16 @@ class Annotation:
     INSUFFICIENT = 0
     NEGATIVE = -10
 
+    _CLASSMAPPER = {
+        POSITIVE: "POSITIVE",
+        INSUFFICIENT: "INSUFFICIENT",
+        NEGATIVE: "NEGATIVE"
+    }
+
     def __init__(
         self,
         domain: Entity,
-        annotationType: str,
+        name: str,
         target: Entity,
         *,
         classification: int = None,
@@ -19,7 +25,7 @@ class Annotation:
         annotation: str = None
         ):
         self.domain = domain
-        self._annotationType = annotationType
+        self._name = name
         self.target = target
 
         self.confidence = confidence
@@ -34,8 +40,17 @@ class Annotation:
         self._context = None
         self._embedding = None
 
-    def __str__(self):
-        return "<Annotation: {} {} {} {}%>".format(self.domain, self.annotationType, self.target, self.confidence)
+    def __repr__(self):
+
+        title = "Annotation"
+        if self.annotation is not None:
+            title = "Annotation({})".format(self._CLASSMAPPER[self.annotation])
+
+        prediction = ''
+        if self.classification is not None:
+            prediction = " {} {:.0%}".format(self._CLASSMAPPER[self.classification], self.confidence)
+
+        return "<{}: {} {} {}{}>".format(title, self.domain, self.name, self.target, prediction)
 
     @property
     def domain(self): return self._domain
@@ -44,7 +59,7 @@ class Annotation:
         if isinstance(entity, Entity): self._domain = entity
         else: raise ValueError("Annotation domain must be an Entity not '{}'".format(type(entity)))
     @property
-    def annotationType(self): return self._annotationType
+    def name(self): return self._name
     @property
     def target(self): return self._target
     @target.setter
@@ -64,9 +79,11 @@ class Annotation:
     @property
     def classification(self): return self._classification
     @classification.setter
-    def classification(self, classtype: int):
-        if any(classtype is annType for annType in (self.POSITIVE, self.INSUFFICIENT, self.NEGATIVE)):
-            self._classification = classtype
+    def classification(self, classification: int):
+        for classtype in (self.POSITIVE, self.INSUFFICIENT, self.NEGATIVE):
+            if classification == classtype:
+                self._classification = classtype
+                break
         else:
             raise TypeError("Provided classification class was not a valid type '{}'".format(classtype))
 
@@ -74,8 +91,10 @@ class Annotation:
     def annotation(self): return self._annotation
     @annotation.setter
     def annotation(self, anntype):
-        if any(anntype is classType for classType in (self.POSITIVE, self.INSUFFICIENT, self.NEGATIVE)):
-            self._annotation = anntype
+        for classtype in (self.POSITIVE, self.INSUFFICIENT, self.NEGATIVE):
+            if anntype == classtype:
+                self._annotation = classtype
+                break
         else:
             raise TypeError("Provided annotation class was not a valid type '{}'".format(anntype))
 

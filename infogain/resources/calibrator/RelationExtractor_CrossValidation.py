@@ -4,12 +4,12 @@ from gensim.models import Word2Vec
 import logging
 
 from ...knowledge import Ontology
-from ...artefact import Datapoint, Document, score
+from ...artefact import Annotation, Document, score
 from ...extraction import RelationExtractor
 
 from multiprocessing import Process, Queue
 
-def RETune(ont: Ontology, training: [Datapoint]):
+def RETune(ont: Ontology, training: [Annotation]):
     """ Tune the relation extraction class over a range of various values and return the correct
     parameters
 
@@ -22,7 +22,7 @@ def RETune(ont: Ontology, training: [Datapoint]):
         scores - A data structure that holds all of the metric scores for the extractor against
             the structures then against the alphas
         structures - The network sizes and shapes
-        alphas - The neural network 
+        alphas - The neural network
     """
 
     logging.getLogger().setLevel(logging.ERROR)  # Ensure that logging output is captured
@@ -55,7 +55,7 @@ def RETune(ont: Ontology, training: [Datapoint]):
                 queue.put(results[0])
 
             queue = Queue()
-            processors = [Process(target=run, args=(queue, tr, val)) 
+            processors = [Process(target=run, args=(queue, tr, val))
                 for tr, val in KFold(n_splits=5, shuffle=True).split(training)]
             [p.start() for p in processors]
             [p.join() for p in processors]
@@ -66,7 +66,7 @@ def RETune(ont: Ontology, training: [Datapoint]):
             for r in alpha_scores:
                 for k, v in r.items():
                     compressed[k].append(v)
-            
+
             for k, v in compressed.items():
                 compressed[k] = sum(v)/len(v)
 

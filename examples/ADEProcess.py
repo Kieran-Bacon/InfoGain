@@ -1,7 +1,7 @@
 import os, re, random
 
 from infogain.knowledge import Ontology, Concept, Relation
-from infogain.artefact import Document, Datapoint, score
+from infogain.artefact import Document, Annotation, score
 from infogain.extraction import RelationExtractor
 
 DATA = os.path.abspath(os.path.join(os.path.dirname(__file__), "Dataset-ADE"))
@@ -53,7 +53,7 @@ def buildPositive(ADE):
         content["relation"] = "causes"
         content["annotation"] = 1
 
-        points.append(Datapoint(content))
+        points.append(Annotation(content))
 
     [ADE.concept("Drug").alias.add(r) for r in domains]
     [ADE.concept("Effect").alias.add(r) for r in targets]
@@ -131,5 +131,5 @@ if __name__ == "__main__":
     testing = extractor.predict(testing)
     print("\t\tComplete.")
 
-    # Pretty print the results  
+    # Pretty print the results
     score(extractor, testing, pprint=True)
