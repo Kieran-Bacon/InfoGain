@@ -1,8 +1,9 @@
-import collections
 import weakref
+import typing
+import collections
 
 from ..exceptions import ConsistencyError
-from ..artefact import Document
+from ..artefact import Document, Entity, Annotation
 from ..knowledge.concept import Concept, ConceptSet
 from ..knowledge import Instance, Relation, Rule
 from ..knowledge.ontology import Ontology, OntologyConcepts, OntologyRelations
@@ -187,7 +188,7 @@ class InferenceEngine(Ontology):
     @property
     def instances(self) -> InferenceEngineInstances: return self._instances
 
-    def addWorldKnowledge(self, documents: [Document]) -> None:
+    def addWorldKnowledge(self, documents: typing.Iterable[Document]) -> None:
         """ Add world knowledge into the inference engine via document datapoints, unmatched datapoints
         are ignored.
 
@@ -195,24 +196,47 @@ class InferenceEngine(Ontology):
             documents ([Document]): A list of document objects each with datapoints (hopefully)
         """
 
+        def get_instance_for(entity: Entity):
+
+            concept = self.concepts[entity.classType]
+
+            if concept.category is Concept.ABSTRACT:
+                raise ConsistencyError("Cannot have found entities for abstract concepts")
+
+            elif concept.category is Concept.STATIC:
+                return concept.instance()
+
+            else:
+                return concept.instance(entity.surfaceForm)
+
         for document in documents:
-            for point in document.datapoints():
-                if point.prediction == 0: continue  # No information
 
-                domain = self.concepts[point.domain["concept"]]
-                relation = self.relations[point.relation]
-                target = self.concepts[point.target["concept"]]
+            instanceMapper = {}
 
-                if relation:
-                    rule = EvalRule(
-                        domain,
-                        target,
-                        point.probability*100,
-                        supporting = point.prediction == point.POSITIVE,
+            for annotation in document.annotations:
+                if annotation.classification is Annotation.INSUFFICIENT: continue
+
+                # Verify the relation
+                relation = self.relations[annotation.name]
+                if not relation.between(annotation.domain.classType, annotation.target.classType): continue
+
+                # Get instances for the entities identified
+                dom = instanceMapper.get(annotation.domain, get_instance_for(annotation.domain))
+                tar = instanceMapper.get(annotation.target, get_instance_for(annotation.target))
+
+                # Create the rule for the annotation
+                relation.rules.add(
+                    EvalRule(
+                        dom,
+                        tar,
+                        annotation.confidence,
+                        supporting = annotation.classification == Annotation.POSITIVE
                     )
-                    relation.rules.add(rule)
-                else:
-                    log.debug("Datapoint's relation {} missed during adding of world knowledge".format(point.relation))
+                )
+
+                # Set the instances found to the entities used
+                instanceMapper[annotation.domain] = dom
+                instanceMapper[annotation.target] = tar
 
         self.reset()
 
@@ -244,7 +268,7 @@ class InferenceEngine(Ontology):
             if not evaluate_conditions and rule.hasConditions(domain, target):
                 continue  # Avoid condition rules
 
-            ruleValue = (1.0 - rule.eval(self, domain, target)/100)
+            ruleValue = (1.0 - rule.eval(self, domain, target))
             if rule.supporting:
                 rulePositive = True
                 confidence *= ruleValue
@@ -257,9 +281,9 @@ class InferenceEngine(Ontology):
         # we don't want to do it
 
         if rulePositive:
-            return ((1.0 - confidence) * (scepticism))*100
+            return ((1.0 - confidence) * (scepticism))
         elif ruleNegative:
-            return scepticism*100
+            return scepticism
         else:
             None  # There is nothing to suggest any answer - don't suggest that it is entirely negative
 

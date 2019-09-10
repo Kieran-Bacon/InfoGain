@@ -32,7 +32,7 @@ class Test_eval_trees(unittest.TestCase):
 
         self.assertEqual(str(conceptNode), logic)
         self.assertEqual(conceptNode.parameters(), {"#example"})
-        self.assertEqual(conceptNode.eval(scenario=self.scenario), 100)
+        self.assertEqual(conceptNode.eval(scenario=self.scenario), 1.)
         self.assertEqual(conceptNode.instance(scenario=self.scenario).concept, self.example)
 
     def test_FunctionNode_functions(self):

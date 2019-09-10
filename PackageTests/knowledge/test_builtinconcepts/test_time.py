@@ -28,7 +28,7 @@ class Test_Time_Builtin(unittest.TestCase):
                         "#example": example.instance()
                     }
                 ),
-                100
+                1.
             )
 
     def test_calls_return_instances_that_behave(self):

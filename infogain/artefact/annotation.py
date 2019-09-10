@@ -4,9 +4,9 @@ from .entity import Entity
 
 class Annotation:
 
-    POSITIVE = 10
+    POSITIVE = 1
     INSUFFICIENT = 0
-    NEGATIVE = -10
+    NEGATIVE = -1
 
     _CLASSMAPPER = {
         POSITIVE: "POSITIVE",
@@ -21,8 +21,7 @@ class Annotation:
         target: Entity,
         *,
         classification: int = None,
-        confidence: float = 1.,
-        annotation: str = None
+        confidence: float = 1.
         ):
         self.domain = domain
         self._name = name
@@ -33,24 +32,17 @@ class Annotation:
         if classification is None: self._classification = None
         else: self.classification = classification
 
-        if annotation is None: self._annotation = None
-        else: self.annotation = annotation
-
         self._contextOwner = None
         self._context = None
         self._embedding = None
 
     def __repr__(self):
 
-        title = "Annotation"
-        if self.annotation is not None:
-            title = "Annotation({})".format(self._CLASSMAPPER[self.annotation])
-
         prediction = ''
         if self.classification is not None:
             prediction = " {} {:.0%}".format(self._CLASSMAPPER[self.classification], self.confidence)
 
-        return "<{}: {} {} {}{}>".format(title, self.domain, self.name, self.target, prediction)
+        return "<Annotation: {} {} {}{}>".format(self.domain, self.name, self.target, prediction)
 
     @property
     def domain(self): return self._domain
@@ -86,17 +78,6 @@ class Annotation:
                 break
         else:
             raise TypeError("Provided classification class was not a valid type '{}'".format(classtype))
-
-    @property
-    def annotation(self): return self._annotation
-    @annotation.setter
-    def annotation(self, anntype):
-        for classtype in (self.POSITIVE, self.INSUFFICIENT, self.NEGATIVE):
-            if anntype == classtype:
-                self._annotation = classtype
-                break
-        else:
-            raise TypeError("Provided annotation class was not a valid type '{}'".format(anntype))
 
     @property
     def _owner(self): return self._contextOwner() if self._contextOwner is not None else None

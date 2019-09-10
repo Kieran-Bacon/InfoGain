@@ -249,97 +249,97 @@
             "domain": "9c60205d-20b3-4274-9231-7a99e3327a9e",
             "name": "lives_in",
             "target": "b9dc2abd-9fa2-4774-bb4b-4333a7d726ff",
-            "classification": null,
+
             "confidence": 1.0,
-            "annotation": 0
+            "classification": 0
         },
         {
             "domain": "ed805a5f-4138-479d-b42e-3f5b71e105b4",
             "name": "born_in",
             "target": "481cb004-1272-404e-99fb-7d69ed74245d",
-            "classification": null,
+
             "confidence": 1.0,
-            "annotation": 10
+            "classification": 1
         },
         {
             "domain": "55ca6cd8-52e2-44e8-a6c3-9087c19bf71c",
             "name": "born_in",
             "target": "12e9907d-d479-4564-b90f-890076403990",
-            "classification": null,
+
             "confidence": 1.0,
-            "annotation": 0
+            "classification": 0
         },
         {
             "domain": "62a67e6b-71c3-48b3-95f5-c31da4d71176",
             "name": "lives_in",
             "target": "f0edf66f-8e0d-4b20-ad5d-2592abf30236",
-            "classification": null,
+
             "confidence": 1.0,
-            "annotation": 0
+            "classification": 0
         },
         {
             "domain": "ccf49c21-d707-4f1f-a365-dafdf80fb0f9",
             "name": "lives_in",
             "target": "6d6f5dea-30df-4ab2-8413-3eb36927112c",
-            "classification": null,
+
             "confidence": 1.0,
-            "annotation": 10
+            "classification": 1
         },
         {
             "domain": "0a40f6ac-f4d0-4e64-bf46-19c073b1598a",
             "name": "lives_in",
             "target": "f23baa5b-a868-4e52-93d5-a7cf6bdc3c3c",
-            "classification": null,
+
             "confidence": 1.0,
-            "annotation": 10
+            "classification": 1
         },
         {
             "domain": "a409210f-ae69-4bac-b000-edd13f5c89f1",
             "name": "born_in",
             "target": "3d7b37e6-cbcf-4787-a490-2e00b0288d94",
-            "classification": null,
+
             "confidence": 1.0,
-            "annotation": 10
+            "classification": 1
         },
         {
             "domain": "e63b51b0-017f-4929-b140-7108352b055e",
             "name": "born_in",
             "target": "03b9e41c-634e-43bf-a66c-ef6d3087868d",
-            "classification": null,
+
             "confidence": 1.0,
-            "annotation": 0
+            "classification": 0
         },
         {
             "domain": "594e519f-f438-4e5d-9be9-f750d275f8de",
             "name": "born_in",
             "target": "c7643c63-6a13-48bc-9bad-d6b89ec5442b",
-            "classification": null,
+
             "confidence": 1.0,
-            "annotation": 0
+            "classification": 0
         },
         {
             "domain": "57cee270-1bc9-473c-83c6-bdc5e163d97d",
             "name": "lives_in",
             "target": "43d3e6b0-9032-4d42-860e-9fe5e110bb3c",
-            "classification": null,
+
             "confidence": 1.0,
-            "annotation": 0
+            "classification": 0
         },
         {
             "domain": "b7cb1682-6c7e-412c-98ac-067b2773d906",
             "name": "born_in",
             "target": "642ef1e9-9fb8-4b10-af0a-2a8112294448",
-            "classification": null,
+
             "confidence": 1.0,
-            "annotation": 0
+            "classification": 0
         },
         {
             "domain": "93e50f8e-aada-422a-a071-fb5cc57fce57",
             "name": "lives_in",
             "target": "0fe4c7a0-b38e-4a26-930b-f001ef31eed8",
-            "classification": null,
+
             "confidence": 1.0,
-            "annotation": 0
+            "classification": 0
         }
     ]
 }

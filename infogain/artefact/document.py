@@ -28,7 +28,7 @@ class EntitySet(collections.abc.MutableSet):
         if self._entities is not None: return len(self._entities)
         else: return sum(len(doc.entities) for doc in self._owner()._sub_documents)
 
-    def __iter__(self):
+    def __iter__(self) -> Entity:
         if self._entities is not None: return iter(self._entities)
         else: return (entity for doc in self._owner()._sub_documents for entity in doc.entities)
 
@@ -271,7 +271,7 @@ class AnnotationSet(collections.abc.MutableSet):
         if self._elements is not None: return len(self._elements)
         else: return sum(len(doc.annotations) for doc in self._owner()._sub_documents)
 
-    def __iter__(self):
+    def __iter__(self) -> Annotation:
         if self._elements is not None: return iter(self._elements)
         return (annotation for doc in self._owner()._sub_documents for annotation in doc.annotations)
 
@@ -479,7 +479,7 @@ class Document:
         if self._content is not None: return self._length
         return sum(len(doc) for doc in self._sub_documents) + len(self._CONTENTJOIN)*(len(self._sub_documents) - 1)
 
-    def __iter__(self) -> Annotation:
+    def __iter__(self) -> str:
         # Iterate over the paragraphs that the document has been broken into and return their text
 
         if self._content:
@@ -495,14 +495,14 @@ class Document:
             self._yieldedSection = None
 
     @property
-    def breaktext(self): return self._break
+    def breaktext(self) -> str: return self._break
     @property
     def entities(self) -> EntitySet: return self._entities
     @property
     def annotations(self) -> AnnotationSet: return self._annotations
 
     @property
-    def content(self):
+    def content(self) -> str:
         """ Get the content for the document or form the document by combinding the sub-documents """
         if self._content:
             return self._content

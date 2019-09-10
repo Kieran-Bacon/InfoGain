@@ -38,8 +38,8 @@ class RelationNode(EvalTree):
             self.target.instance(**kwargs),
             evaluate_conditions = kwargs.get("evaluate_conditions", True)
         )
-        if confidence is None: return 0
-        return confidence if self.isPositive else 100.0 - confidence
+        if confidence is None: return 0.
+        return confidence if self.isPositive else 1. - confidence
 
     @staticmethod
     def split(expression):

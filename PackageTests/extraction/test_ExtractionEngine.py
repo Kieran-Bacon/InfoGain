@@ -1,12 +1,13 @@
 import os, unittest, pytest
 
-from infogain.artefact import Document
-from infogain.knowledge import Concept
+from infogain.artefact import Document, Entity, Annotation
+from infogain.knowledge import Concept, Relation
 from infogain.extraction import ExtractionEngine, ExtractionRelation
 from infogain.extraction.embedder import Embedder
 
 from infogain.resources.ontologies import language
 
+@unittest.skip
 class Test_ExtractionEngine(unittest.TestCase):
 
     def setUp(self):
@@ -26,9 +27,9 @@ class Test_ExtractionEngine(unittest.TestCase):
         self.extractor.predict(self.testing)
 
         # Assert that there are datapoints for the testing document and they they are high accuracy
-        self.assertTrue(len(self.testing.datapoints()) > 0)
-        for point in self.testing.datapoints():
-            self.assertAlmostEqual(point.prediction, 0.9, delta=0.1)
+        self.assertTrue(len(self.testing.annotations) > 0)
+        for ann in self.testing.annotations:
+            self.assertAlmostEqual(ann.confidence, 0.9, delta=0.1)
 
     def test_addingConcept_fit_predict(self):
 
@@ -46,8 +47,8 @@ class Test_ExtractionEngine(unittest.TestCase):
 
         # Show that only document luke has a datapoint as the other text representations were not found
         for document in processed_set:
-            if document.name == "luke": self.assertTrue(document.datapoints())
-            else:                       self.assertFalse(document.datapoints())
+            if document.name == "luke": self.assertTrue(document.annotations)
+            else:                       self.assertFalse(document.annotations)
 
         # Expand the concepts text representations
         self.extractor.concepts["Luke"].aliases.add("Luke-san")
@@ -55,32 +56,39 @@ class Test_ExtractionEngine(unittest.TestCase):
 
         # Predict the documents again - assert that all documents now have datapoints - concepts found
         processed_set = [self.extractor.predict(doc) for doc in document_set]
-        for document in processed_set: self.assertTrue(document.datapoints())
+        for document in processed_set: self.assertTrue(document.annotations)
 
     def test_addingRelation_fit_predict(self):
 
             # Creating the relationship friends with
             person = self.extractor.concepts["Person"]  # Collecting the person concept for relation binding
-            Friends = ExtractionRelation({person}, "friendsWith", {person})  # Creating the relation object
+            Friends = Relation({person}, "friendsWith", {person})  # Creating the relation object
             self.extractor.relations.add(Friends)  # Adding the relationship to the relation extractor
 
+            # Create a collection of documents
             document_set = [
                 Document(content="Kieran is a good friend of Luke."),
                 Document(content="Kieran has always been good friends with Luke"),
                 Document(content="Kieran has only recently became good friends with Luke.")
             ]
 
-            for doc in document_set: doc.processKnowledge(self.extractor)
-            for datapoint in [point for document in document_set for point in document.datapoints()]:
-                datapoint.annotation = 1
+            # Annotate each of the documents within the document set
+            for document in document_set:
+                kieran, luke = Entity('Person', 'Kieran'), Entity('Person', 'Luke')
 
+                document.entities.add(kieran, document.content.find("Kieran"))
+                document.entities.add(luke, document.content.find('Luke'))
+
+                document.annotations.add(Annotation(kieran, 'friendsWith', luke, classification=Annotation.POSITIVE))
+                document.annotations.add(Annotation(kieran, 'informs', luke, classification=Annotation.INSUFFICIENT))
+
+            # Fit an extractor on this training data
             self.extractor.fit(document_set)
 
             # Create a test document and predict on it
             test = Document(content="Kieran has always been a friend of Luke's")
             test = self.extractor.predict(test)
 
-            self.assertEqual(len(test), 4)  # 2 from inform, 2 from friendsWith
-            count = 0
-            for datapoint in test.datapoints(): count += 1 if datapoint.relation == "friendsWith" else 0
-            self.assertEqual(count, 2)
+            # Test the consequences of the prediction on the document
+            self.assertEqual(len(test.annotations), 4)  # 2 from inform, 2 from friendsWith
+            self.assertEqual(sum(1 for ann in test.annotations if ann.name == 'friendsWith'), 2)

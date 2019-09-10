@@ -1,6 +1,6 @@
 import unittest, pytest
 
-from infogain.artefact import Document, Annotation
+from infogain.artefact import Document, Entity, Annotation
 from infogain.cognition import InferenceEngine
 from infogain.knowledge import Concept, Instance, Relation, Rule, Condition
 from infogain.resources.ontologies import language
@@ -165,19 +165,13 @@ class Test_InferenceEngine(unittest.TestCase):
             engine.concepts["English"].instance()
         )
 
-        speaks = Annotation({
-            "domain": {"concept": "Kieran", "text": "Kieran"},
-            "relation": "speaks",
-            "target": {"concept": "English", "text": "English"},
+        doc = Document("I'm like 69% sure that Kieran speaks English")
+        kieran, english = Entity('Kieran', 'Kieran'), Entity('English', 'English')
+        doc.entities.add(kieran, doc.content.find('Kieran'))
+        doc.entities.add(english, doc.content.find('English'))
+        doc.annotations.add(Annotation(kieran, 'speaks', english, classification=Annotation.POSITIVE, confidence=.69))
 
-            "prediction": 1,
-            "probability": 0.69
-        })
-
-        world_knowledge = Document()
-        world_knowledge.Annotations([speaks])
-
-        engine.addWorldKnowledge([world_knowledge])
+        engine.addWorldKnowledge([doc])
 
         confidence = engine.inferRelation(
             engine.concepts["Kieran"].instance(),
@@ -187,23 +181,17 @@ class Test_InferenceEngine(unittest.TestCase):
 
         # Ensure that the confidence relation has been affected by the world knowledge
         # Ensure that the confidence of the rules within the ontology are included
-        self.assertEqual(confidence, (1 - (1-0.69)*(1-originalConfidence/100))*100)
+        self.assertEqual(confidence, (1 - (1-0.69)*(1-originalConfidence)))
 
     def test_worldKnowledge2(self):
 
         engine = InferenceEngine(ontology=language.ontology())
 
-        lives_in = Annotation({
-            "domain": {"concept": "Kieran", "text": "Kieran"},
-            "relation": "lives_in",
-            "target": {"concept": "Germany", "text": "Germany"},
-
-            "prediction": 1,
-            "probability": 0.69
-        })
-
-        doc = Document()
-        doc.Annotations([lives_in])
+        doc = Document("I'm like 69% sure that Kieran does live in Germany")
+        kieran, germany = Entity('Kieran', 'Kieran'), Entity('Germany', 'Germany')
+        doc.entities.add(kieran, doc.content.find('Kieran'))
+        doc.entities.add(germany, doc.content.find('Germany'))
+        doc.annotations.add(Annotation(kieran, 'lives_in', germany, classification=Annotation.POSITIVE, confidence=.69))
 
         engine.addWorldKnowledge([doc])
 
@@ -213,24 +201,18 @@ class Test_InferenceEngine(unittest.TestCase):
                 "lives_in",
                 engine.concepts["Germany"].instance()
             ),
-            69
+            .69
         )
 
     def test_worldKnowledge3(self):
 
         engine = InferenceEngine(ontology=language.ontology())
 
-        lives_in = Annotation({
-            "domain": {"concept": "Kieran", "text": "Kieran"},
-            "relation": "lives_in",
-            "target": {"concept": "Germany", "text": "Germany"},
-
-            "prediction": -1,
-            "probability": 0.69
-        })
-
-        doc = Document()
-        doc.Annotations([lives_in])
+        doc = Document("I'm like 69% sure that Kieran doesn't live in Germany")
+        kieran, germany = Entity('Kieran', 'Kieran'), Entity('Germany', 'Germany')
+        doc.entities.add(kieran, doc.content.find('Kieran'))
+        doc.entities.add(germany, doc.content.find('Germany'))
+        doc.annotations.add(Annotation(kieran, 'lives_in', germany, classification=Annotation.NEGATIVE, confidence=.69))
 
         engine.addWorldKnowledge([doc])
 
@@ -240,5 +222,5 @@ class Test_InferenceEngine(unittest.TestCase):
                 "lives_in",
                 engine.concepts["Germany"].instance()
             ),
-            31
+            .31
         )

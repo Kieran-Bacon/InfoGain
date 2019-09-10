@@ -29,7 +29,7 @@ class ExtractionRelation(Relation):
         Xtr, ttr = [], []
         for ann in annotations:
             Xtr.append(np.concatenate(ann.embedding))
-            ttr.append(ann.annotation)
+            ttr.append(ann.classification)
 
         # Fit the classifier
         self.classifier.fit(Xtr, ttr)

@@ -262,14 +262,14 @@ class BuiltInFunctionNode(EvalTree):
             concept_two (EvalTree::ConceptNode) - A concept node
 
         Returns:
-            float - 100.0 if true else 0.0
+            float - 1. if true else 0.
 
         >>> is(%, #example)
         100
         >>> is(#[1]example, #[another_tag]example)
         0
         """
-        return (concept_one.instance(**kwargs) is concept_two.instance(**kwargs))*100
+        return float(concept_one.instance(**kwargs) is concept_two.instance(**kwargs))
 
     @staticmethod
     def isNot(concept_one: EvalTree, concept_two, **kwargs) -> float:
@@ -278,14 +278,14 @@ class BuiltInFunctionNode(EvalTree):
         shouldn't be linked, but they can be.
 
         Returns
-            float - 100.0 if true else 0.0
+            float - 1. if true else 0.
 
         >>> isNot(#[0]example, #[1]example)
         0
         >>> isNot(#[0]example, @)
         100
         """
-        return (concept_one.instance(**kwargs) is not concept_two.instance(**kwargs))*100
+        return float(concept_one.instance(**kwargs) is not concept_two.instance(**kwargs))
 
     @staticmethod
     def approx(a: EvalTree, b: EvalTree, distance: NumberNode, **kwargs) -> float:
@@ -294,10 +294,10 @@ class BuiltInFunctionNode(EvalTree):
         a_val, b_val, d_val = a.eval(**kwargs), b.eval(**kwargs), distance.eval(**kwargs)
         prox = math.isclose(a_val, b_val, abs_tol=d_val)
 
-        if prox: return (1 - (abs(a_val - b_val)/d_val))*100
-        else: return 0
+        if prox: return float(1 - (abs(a_val - b_val)/d_val))
+        else: return 0.
 
     @staticmethod
-    def eq(a: EvalTree, b: EvalTree, **kwargs): return (a.eval(**kwargs) == b.eval(**kwargs))*100
+    def eq(a: EvalTree, b: EvalTree, **kwargs): return float(a.eval(**kwargs) == b.eval(**kwargs))
     @staticmethod
-    def eqNot(a: EvalTree, b: EvalTree, **kwargs): return (a.eval(**kwargs) != b.eval(**kwargs))*100
+    def eqNot(a: EvalTree, b: EvalTree, **kwargs): return float(a.eval(**kwargs) != b.eval(**kwargs))

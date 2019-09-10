@@ -161,10 +161,10 @@ class EvalRule(Rule):
             log.debug("Evaluating rule scenario - {}".format({k: str(v) for k,v in scenario.items()}))
 
             # Evaluate the scenario against all the conditions
-            ruleConfidence *= (1.0-(self.evalScenario(engine, scenario)/100))
+            ruleConfidence *= (1.0-(self.evalScenario(engine, scenario)))
 
         # Store the evaluation pairs outcome and return it
-        pairing_key_confidence = (1.0 - ruleConfidence)*100
+        pairing_key_confidence = (1.0 - ruleConfidence)
         self._evaluatedConfidences[pairing_key] = pairing_key_confidence
         return pairing_key_confidence
 
@@ -179,21 +179,21 @@ class EvalRule(Rule):
             float: The confidence of the given scenario
         """
 
-        scenarioConfidence = 0  # The confidence over the course of the trees
+        scenarioConfidence = 0.  # The confidence over the course of the trees
 
         for condition, conditionEvalTree in self.conditions.evalTrees():
 
             log.debug("Evaluating condition of the rule - {}".format(conditionEvalTree))
-            confidence = conditionEvalTree.eval(engine = engine, scenario = scenario)/100  # Apply scenario
+            confidence = conditionEvalTree.eval(engine = engine, scenario = scenario)  # Apply scenario
 
-            scenarioConfidence += (1 - confidence)*(condition.salience/100)
+            scenarioConfidence += (1. - confidence)*(condition.salience/100)
             log.debug("Condition evaluated with confidence {}. Sum of error: {}".format(confidence, scenarioConfidence))
 
-            if scenarioConfidence >= 1.0:
+            if scenarioConfidence >= 1.:
                 log.debug("Evaluating scenarion ended - Conditions failed early returning 0")
-                return 0
+                return 0.
 
-        scenarioConfidence = round((self.confidence/100)*(1 - scenarioConfidence)*100, 2)
+        scenarioConfidence = (self.confidence)*(1 - scenarioConfidence)
         log.debug("Evaluated Scenario completed with confidence {}%".format(scenarioConfidence))
         return scenarioConfidence
 

@@ -19,7 +19,6 @@ class Test_Annotation(unittest.TestCase):
         self.assertEqual(ann.target, self.e2)
         self.assertEqual(ann.classification, Annotation.POSITIVE)
         self.assertEqual(ann.confidence, 1.)
-        self.assertEqual(ann.annotation, None)
 
     def test_SetDomainTarget(self):
 
@@ -59,20 +58,6 @@ class Test_Annotation(unittest.TestCase):
 
         with pytest.raises(TypeError):
             ann.classification = 100
-
-    def test_annotation(self):
-
-        ann = Annotation(self.e1, "speaks", self.e2, annotation=Annotation.NEGATIVE)
-        self.assertEqual(ann.annotation, Annotation.NEGATIVE)
-        with pytest.raises(TypeError):
-            ann.annotation = 100
-
-
-        ann = Annotation(self.e1, "speaks", self.e2)
-        ann.annotation = Annotation.NEGATIVE
-        self.assertEqual(ann.annotation, Annotation.NEGATIVE)
-        with pytest.raises(TypeError):
-            ann.annotation = 100
 
     def test_context(self):
 

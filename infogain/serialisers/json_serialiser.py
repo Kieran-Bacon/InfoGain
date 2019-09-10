@@ -165,8 +165,7 @@ class JsonDocumentSerialiser(AbstractSerialiser):
                     ann['name'],
                     entities[ann['target']],
                     classification=ann['classification'],
-                    confidence=ann['confidence'],
-                    annotation=ann['annotation']
+                    confidence=ann['confidence']
                 )
             )
 
@@ -214,8 +213,7 @@ class JsonDocumentSerialiser(AbstractSerialiser):
                 "target": entityIDs[annotation.target],
 
                 "classification": annotation.classification,
-                "confidence": annotation.confidence,
-                "annotation": annotation.annotation
+                "confidence": annotation.confidence
             })
 
 

@@ -10,7 +10,7 @@ from .decorators import *
 class ConceptNode(EvalTree):
 
     expression = re.compile(r"(^\s*){}(\s*$)".format(EvalTree.concept_syntax.pattern))
-    
+
     def __init__(self, concept_name: str, callparameters: [object] = None):
         self.concept_name = concept_name
         self.callparameters = callparameters
@@ -41,7 +41,7 @@ class ConceptNode(EvalTree):
     def eval(self, **kwargs):
 
         if self.callparameters is not None: return self.instance(**kwargs, ignore=True)
-        else: return 100
+        else: return 1.
 
     def _evaluatedParameters(self, **kwargs):
         """ Evaluate all the parameters in the call parameters and return a list of their results """

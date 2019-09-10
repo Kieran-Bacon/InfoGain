@@ -14,7 +14,7 @@ class Test_JsonDocumentSerialising(unittest.TestCase):
 
         document.entities.add(kieran, 32)
         document.entities.add(english, 49)
-        document.annotations.add(Annotation(kieran, "speaks", english, annotation=Annotation.POSITIVE))
+        document.annotations.add(Annotation(kieran, "speaks", english, classification=Annotation.POSITIVE))
 
         with tempfile.TemporaryDirectory() as directory:
             filepath = os.path.join(directory, 'temp.dig')
@@ -44,7 +44,7 @@ class Test_JsonDocumentSerialising(unittest.TestCase):
         document.entities.add(kieran, 32)
         document.entities.add(english, 49)
         document.entities.add(better, 57 + 34)
-        document.annotations.add(Annotation(kieran, "speaks", english, annotation=Annotation.POSITIVE))
+        document.annotations.add(Annotation(kieran, "speaks", english, classification=Annotation.POSITIVE))
 
         document.split(r"\.")
 
@@ -52,7 +52,6 @@ class Test_JsonDocumentSerialising(unittest.TestCase):
             filepath = os.path.join(directory, 'temp.dig')
 
             json = Serialiser("json", Document)
-            print(json.dump(document))
             json.save(document, filepath)
             rebuilt = json.load(filepath)
 
