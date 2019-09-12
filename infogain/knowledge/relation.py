@@ -1,5 +1,6 @@
 import weakref
 import collections
+import typing
 
 from ..exceptions import MissingConcept
 from ..information import Vertex
@@ -210,11 +211,10 @@ class RelationConceptManager(collections.abc.MutableSequence):
     def __len__(self): return len(self._elements)
     def __iter__(self): return iter(self._elements)
     def __getitem__(self, index: int): return self._elements[index]
-    def __setitem__(self, index: int, item: ConceptSet):
-        if isinstance(item, ConceptSet):
-            self._elements[index].empty()
-            for concept in item:
-                self._elements[item].add(concept)
+    def __setitem__(self, index: int, conceptSet: typing.Iterable[Concept]):
+        self._elements[index].clear()
+        for concept in conceptSet:
+            self._elements[index].add(concept)
     def __delitem__(self, index: int):
         # Delete from both group the references to the concept sets
         del self._elements[index]
@@ -228,12 +228,12 @@ class RelationConceptManager(collections.abc.MutableSequence):
 
     def insert(self, index: int, concepts: ConceptSet):
         self._elements.insert(index, RelationConceptSet(self._owner, concepts))
-        self._correspondingGroup()._elements.insert(index, RelationConceptSet(self.owner, []))
+        self._correspondingGroup()._elements.insert(index, RelationConceptSet(self._owner, []))
 
     def append(self, concepts: ConceptSet):
 
         self._elements.append(RelationConceptSet(self._owner, concepts))
-        self._correspondingGroup()._elements.append(RelationConceptSet(self.owner, []))
+        self._correspondingGroup()._elements.append(RelationConceptSet(self._owner, []))
 
         return len(self) - 1  # Index of newly added conceptset
 
@@ -259,7 +259,6 @@ class RuleManager:
     def __getitem__(self, index: int): return self._elements[index]
     def __delitem__(self, index: int): self.remove(self._elements[index])
     def __contains__(self, rule: Rule): return rule in self._elements
-
     def __call__(self, domain: Concept, target: Concept):
         """ Collect the rules within the relation, if domain and target is passed, collect together only rules that
         apply to those concepts. Perform a sanity check within the relation first to avoid unnecessary checking.
@@ -271,9 +270,6 @@ class RuleManager:
         Returns:
             [Rule]: A list of rules of the relation or that apply to the scenario
         """
-
-        #TODO Do we want this or do we want to have this as its own function like applies()
-        #for rule in relation.rules.applies(x, y) rather than for rule in relation.rules(x, y)
         if not self.owner.between(domain, target): return []
         return [rule for rule in self._elements if rule.applies(domain, target)]
 
@@ -336,14 +332,18 @@ class Relation:
     def __str__(self):
         return " ".join([str({str(x) for x in self._domains}), self.name, str({str(x) for x in self._targets})])
 
-    def appendConceptPairing(self, domains: ConceptSet, targets: ConceptSet) -> int:
+    def appendConceptSets(self, domains: ConceptSet, targets: ConceptSet) -> int:
+        """ Append a concept set mapping from specified domains to specified targets
 
-        #TODO test and document
-        #todo this is something right
+        Params:
+            domains (ConceptSet): The collection of domain concepts
+            targets (ConceptSet): The collection of target concepts
 
+        Returns:
+            int: The index of concept sets
+        """
         index = self._domains.append(domains)
         self._targets[index] = targets
-
         return index
 
     def between(self, domain: Concept, target: Concept) -> bool:

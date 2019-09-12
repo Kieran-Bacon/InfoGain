@@ -179,8 +179,6 @@ class RuleConceptSet(ConceptSet):
 
         """
 
-        #TODO: Ensure that the base isn't expressed by bases of the rule already - paying attention to domain/target
-
         self._bases.add(concept)
         super().add(concept)
 

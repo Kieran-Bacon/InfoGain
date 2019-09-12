@@ -236,5 +236,19 @@ class Test_Relation(unittest.TestCase):
 
         self.assertEqual(rule.domains, {a, a1, a11})
 
+    def test_RelationAppendConceptSet(self):
+
+        # Define the concept and relation
+        con1, con2, con3 = Concept("1"), Concept("2"), Concept("3")
+        rel = Relation({con1, con2}, "A", {con1, con2})
+
+        # Add another ConceptSet Paring
+        rel.appendConceptSets({con3}, {con3})
+
+        # Test that the sets are correctly added
+        one, two = zip(rel.domains, rel.targets)
+        self.assertEqual(one, ({con1, con2}, {con1, con2}))
+        self.assertEqual(two, ({con3}, {con3}))
+
 if __name__ == "__main__":
     unittest.main()
