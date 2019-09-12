@@ -161,15 +161,23 @@ class Test_DocumentEntities(unittest.TestCase):
         self.assertEqual(list(self.document.annotations), [])
 
     def test_entityIndexes(self):
-        self.fail(
-            "Test that the document gives back the indexes that you expect and that when the document is split"
-            " it works"
-        )
+
+        entities = [(self.documentEntity, 10), (self.sentencesEntity, 28), (self.contentEntity, 52)]
+
+        for e, i in entities:
+            self.document.entities.add(e, i)
+
+        for (i, e), (e2, i2) in zip(self.document.entities.indexes(), entities):
+            self.assertEqual((i, e), (i2, e2))
+
+        self.document.split(r"\.")
+
+        for (i, e), (e2, i2) in zip(self.document.entities.indexes(), entities):
+            self.assertEqual((i, e), (i2, e2))
 
     def test_entityAddingOutOfOrder(self):
-        self.fail(
-            "The function for adding entities is different based on where the entity is going to turn up. If an entity "
-            "is added after an entity who has an index greater than the entity it shall trigger a insert that was wrong"
-        )
 
+        entities = [(self.sentencesEntity, 28), (self.contentEntity, 52), (self.documentEntity, 10)]
 
+        for e1, e2 in zip(self.document.entities, [self.documentEntity, self.sentencesEntity, self.contentEntity]):
+            self.assertIs(e1, e2)
