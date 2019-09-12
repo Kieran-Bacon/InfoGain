@@ -1,5 +1,6 @@
 import itertools
 
+from .. import exceptions
 from ..information import Vertex
 from ..knowledge import Ontology
 from ..knowledge.rule import Rule, RuleConceptSet, ConditionManager, Condition
@@ -186,11 +187,17 @@ class EvalRule(Rule):
             log.debug("Evaluating condition of the rule - {}".format(conditionEvalTree))
             confidence = conditionEvalTree.eval(engine = engine, scenario = scenario)  # Apply scenario
 
-            scenarioConfidence += (1. - confidence)*(condition.salience/100)
+            if not isinstance(confidence, (int, float)) or not 0. <= confidence <= 1.:
+                raise exceptions.EvaluationInvalidResponse(
+                    "Scenario evaluation of condition resulted in a invalid confidence being produced\n"
+                    "{} with scenario {} evaluated to {}".format(conditionEvalTree, scenario, confidence)
+                )
+
+            scenarioConfidence += (1. - confidence)*(condition.salience)
             log.debug("Condition evaluated with confidence {}. Sum of error: {}".format(confidence, scenarioConfidence))
 
             if scenarioConfidence >= 1.:
-                log.debug("Evaluating scenarion ended - Conditions failed early returning 0")
+                log.debug("Evaluating scenario ended - Conditions failed early returning 0")
                 return 0.
 
         scenarioConfidence = (self.confidence)*(1 - scenarioConfidence)
