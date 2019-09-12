@@ -7,7 +7,7 @@ from infogain.extraction.embedder import Embedder
 
 from infogain.resources.ontologies import language
 
-@unittest.skip
+@unittest.skipIf('PYTHON_TEST_FULL' not in os.environ, "Full testing not specified")
 class Test_ExtractionEngine(unittest.TestCase):
 
     def setUp(self):

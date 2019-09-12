@@ -13,10 +13,7 @@ log = logging.getLogger(__name__)
 
 
 class RelationConceptSet(ConceptSet):
-    """ Concept Set #TODO DOCUMENT
-
-    """
-
+    #TODO document
 
     def __init__(self, owner: weakref.ref, iterable: collections.abc.Iterable):
 
@@ -76,9 +73,7 @@ class RelationConceptSet(ConceptSet):
         self._add(concept)
 
     def _add(self, concept: Concept):
-        """ Only add the concept in to the derive elements if not already present
-
-        """
+        #TODO document
 
         queryGroup = [concept]
 
@@ -97,6 +92,7 @@ class RelationConceptSet(ConceptSet):
                     queryGroup += list(query.children)
 
     def _subscribe(self, concept: Concept):
+        #TODO document
 
         #! Partial concepts that are added as children to concepts shall not inherit of become part of this concept
 
@@ -121,9 +117,7 @@ class RelationConceptSet(ConceptSet):
             self._add(concept)
 
     def discard(self, concept: Concept):
-        """
-
-        """
+        #TODO document
         if concept not in self._elements: return False  # Not present
         if concept in self._partial: return super().discard(concept)  # Only partial - remove and return
 
@@ -136,6 +130,7 @@ class RelationConceptSet(ConceptSet):
         return self._discard(list(concept.children))
 
     def _unsubscribe(self, concept: Concept):
+        #TODO document
 
         if concept not in self._derivedElements: return
 
@@ -144,6 +139,7 @@ class RelationConceptSet(ConceptSet):
         self._discard([concept])
 
     def _discard(self, concepts: [Concept]):
+        #TODO document
 
         while concepts:
             concept = concepts.pop()
@@ -162,14 +158,15 @@ class RelationConceptSet(ConceptSet):
         return True
 
     def _delink(self, concept: Concept):
+        #TODO document
+
         concept._relationMembership[self.owner] -= 1
         if concept._relationMembership[self.owner] == 0:
             del concept._relationMembership[self.owner]
 
     def _decrementDerivedPartial(self, partial: str):
-        """
+        #TODO document
 
-        """
         # Decrement the existence of the partial child
         self._derivedPartial[partial] -= 1
 
@@ -227,10 +224,12 @@ class RelationConceptManager(collections.abc.MutableSequence):
     def owner(self): return self._owner()
 
     def insert(self, index: int, concepts: ConceptSet):
+        #TODO document
         self._elements.insert(index, RelationConceptSet(self._owner, concepts))
         self._correspondingGroup()._elements.insert(index, RelationConceptSet(self._owner, []))
 
     def append(self, concepts: ConceptSet):
+        #TODO document
 
         self._elements.append(RelationConceptSet(self._owner, concepts))
         self._correspondingGroup()._elements.append(RelationConceptSet(self._owner, []))
@@ -238,6 +237,7 @@ class RelationConceptManager(collections.abc.MutableSequence):
         return len(self) - 1  # Index of newly added conceptset
 
     def add(self, concept: Concept, group: int = None):
+        #TODO document
 
         if group:
             self._elements[group].add(concept)
@@ -246,9 +246,12 @@ class RelationConceptManager(collections.abc.MutableSequence):
         for group in self._elements:
             group.add(concept)
 
-    def _correspondingGroup(self): return self.owner.targets if self._isDomain else self.owner.domains
+    def _correspondingGroup(self):
+        #TODO document
+        return self.owner.targets if self._isDomain else self.owner.domains
 
-class RuleManager:
+class RuleManager(collections.abc.Sequence):
+    #TODO document
 
     def __init__(self, owner: weakref.ref, rules: list = []):
         self._owner = owner
@@ -290,6 +293,7 @@ class RuleManager:
         self._elements.insert(i, rule)
 
     def remove(self, rule: Rule):
+        #TODO document
         self._elements.remove(rule)
 
 class Relation:
@@ -392,7 +396,7 @@ class Relation:
         for rule in self._rules: rule._subscribe(concept)
 
     def _unsubscribe(self, concept: Concept):
-        """ """
+        #TODO document
 
         # Collect the ancestors of this concept
         ancestors = concept.ancestors()
@@ -405,6 +409,7 @@ class Relation:
         for rule in self._rules: rule._unsubscribe(concept)
 
     def clone(self):
+        #TODO document
         return Relation(
             [domain.bases.toStringSet() for domain in self.domains],
             self.name,

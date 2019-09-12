@@ -31,17 +31,6 @@ class Test_Ontology_Creation(unittest.TestCase):
         with pytest.raises(ImportError):
             emptyOnt.importBuiltin("NotAModule")
 
-    @unittest.skip("Saving is going to change soon")
-    def test_load_and_save(self):
-        """ Test that saving and ontology returns it to the same state as it was before """
-
-        ont = Language.ontology()
-
-        with open(Language.path_ontology, "r") as handler:
-            content = handler.read()
-
-        self.assertEqual(content, Serialiser("json").dump(ont))
-
     def test_Concepts_Ontology(self):
 
         ontology = Ontology("Sample")

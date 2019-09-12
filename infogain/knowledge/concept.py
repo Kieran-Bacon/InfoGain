@@ -264,6 +264,15 @@ class FamilyConceptSet(ConceptSet):
         return concept not in self._partial and concept in self._elements
 
     def discard(self, concept: Vertex) -> bool:
+        """ Discard a family concept from the set, if the member does does not exist do nothing. Indicate whether or
+        not the concept was discarded
+
+        Params:
+            concept (Vertex): A family member/string to be removed
+
+        Returns:
+            bool: True if removed, False if not present to remove
+        """
 
         # Remove the object from the concept set
         isRemoved = super().discard(concept)
@@ -347,6 +356,7 @@ class ConceptAliases(collections.abc.MutableSet):
                 child.aliases._addInherited(name, cascade = False)
 
     def discard(self, name: str):
+        #TODO document
 
         if (
             not isinstance(name, str) or
@@ -368,6 +378,7 @@ class ConceptAliases(collections.abc.MutableSet):
         return True
 
     def _discardInherited(self, name: str, cascade: bool = True):
+        #TODO document
 
         if name not in self._inheritedCounter or not self._inheritedCounter[name]: return False
 
@@ -383,12 +394,15 @@ class ConceptAliases(collections.abc.MutableSet):
                     child.aliases._discardInherited(name, cascade = False)
 
     def inherited(self):
+        #TODO document
         return set(self._inheritedCounter.keys())
 
     def specific(self):
+        #TODO document
         return self._elements.difference(self.inherited())
 
 class MultiplePartProperty(collections.abc.MutableSet):
+    #TODO document
 
     def __init__(self, iterable = None):
         self._elements = collections.Counter(iterable)
@@ -397,9 +411,12 @@ class MultiplePartProperty(collections.abc.MutableSet):
     def __len__(self): return len(self._elements)
     def __iter__(self): return iter(self._elements.keys())
     def __contains__(self, item: object): return item in self._elements
-    def add(self, item: object, count = 1): self._elements[item] += max(1, count)
+    def add(self, item: object, count = 1):
+        #TODO document
+        self._elements[item] += max(1, count)
 
     def discard(self, item: object):
+        #TODO document
 
         if item not in self._elements: return False
 
@@ -411,6 +428,7 @@ class MultiplePartProperty(collections.abc.MutableSet):
         return True
 
 class ConceptProperties(collections.abc.MutableMapping):
+    #TODO document
 
     def __init__(self, owner: weakref.ref):
         self._owner = owner
@@ -422,6 +440,7 @@ class ConceptProperties(collections.abc.MutableMapping):
     def __iter__(self): return iter({**self._inheritedElements, **self._elements})
 
     def __setitem__(self, key: str, value: object):
+        #TODO document
         """ Set the value for a property value on the concept. There are three states a property can have: It can not be
         set which results in a new property being added; It can be set and the new value is the same as the old, nothing
         happens; propery was set and has now changed.
@@ -612,6 +631,7 @@ class ConceptProperties(collections.abc.MutableMapping):
                 child.properties._removeInherited(key, value)
 
     def copy(self):
+        #TODO document
         return dict(self.items())
 
 class Concept(Vertex):

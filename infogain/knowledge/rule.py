@@ -1,9 +1,13 @@
 import collections
+import weakref
+
+#TODO Change the order of the fucking objects + use weak refs between the various objects
 
 from .concept import Concept, ConceptSet
 from .instance import Instance
 
 class Condition:
+    #TODO document
 
     def __init__(self, logic: str, salience: float = .1):
         self.logic = logic
@@ -26,8 +30,6 @@ class Condition:
 
     def containsDomain(self): return "%" in self.logic
     def containsTarget(self): return "@" in self.logic
-
-    def minimise(self): return {"logic": self.logic, "salience": self.salience}
     def clone(self): return Condition(self.logic, self.salience)
 
 class Rule:

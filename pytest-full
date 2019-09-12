@@ -1,0 +1,4 @@
+export PYTHON_TEST_FULL=1
+pytest --cov=infogain --cov-report html:coverage
+unset PYTHON_TEST_FULL
+open -a 'Google Chrome' coverage/index.html
