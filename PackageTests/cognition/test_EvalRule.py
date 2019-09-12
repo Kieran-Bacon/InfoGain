@@ -17,11 +17,11 @@ class Test_EvalRule(unittest.TestCase):
         self.engine.concepts.add(self.con1)
         self.engine.concepts.add(self.con2)
 
-        self.conceptRule = EvalRule({self.con1}, {self.con2}, 100)
-        self.instanceRule = EvalRule({self.inst1}, {self.inst2}, 80)
+        self.conceptRule = EvalRule({self.con1}, {self.con2}, 1.)
+        self.instanceRule = EvalRule({self.inst1}, {self.inst2}, .8)
 
-        self.conditionRule = EvalRule(self.con1, self.con2, 80, conditions=[
-            Condition("100", 100)
+        self.conditionRule = EvalRule(self.con1, self.con2, .8, conditions=[
+            Condition("1.", 1.)
         ])
 
     def test_hasCondition(self):
@@ -42,17 +42,17 @@ class Test_EvalRule(unittest.TestCase):
 
     def test_eval_on_facts(self):
 
-        self.assertEqual(self.conceptRule.eval(self.engine, self.inst1, self.inst2), 100)
-        self.assertEqual(self.instanceRule.eval(self.engine, self.inst1, self.inst2), 80)
+        self.assertEqual(self.conceptRule.eval(self.engine, self.inst1, self.inst2), 1.)
+        self.assertEqual(self.instanceRule.eval(self.engine, self.inst1, self.inst2), .8)
 
     def test_eval_on_condition(self):
-        self.assertEqual(self.conditionRule.eval(self.engine, self.inst1, self.inst2), 80)
+        self.assertEqual(self.conditionRule.eval(self.engine, self.inst1, self.inst2), .8)
 
     def test_eval_when_lots_of_params(self):
         engine = InferenceEngine(ontology=language.ontology())
         self.assertAlmostEqual(
             engine.inferRelation(engine.instances["Kieran"], "speaks", engine.instances["English"]),
-            19.5
+            .195
         )
 
     def test_reset(self):

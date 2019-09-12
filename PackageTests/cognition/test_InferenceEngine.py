@@ -48,13 +48,13 @@ class Test_InferenceEngine(unittest.TestCase):
 
         engine.relations.add(Relation("x", "simple", "y"))
         engine.relations.add(
-            Relation("x", "soundlogic", "y", [Rule("x", "y", 100, conditions=[Condition("%", 100)])])
+            Relation("x", "soundlogic", "y", [Rule("x", "y", conditions=[Condition("%")])])
         )
 
 
         with pytest.raises(IncorrectLogic):
             engine.relations.add(
-                Relation("x", "wrong", "y", [Rule("x", "y", 100, conditions=[Condition("graph()()", 100)])])
+                Relation("x", "wrong", "y", [Rule("x", "y", conditions=[Condition("graph()()")])])
             )
 
     def test_addInstance(self):
@@ -111,7 +111,7 @@ class Test_InferenceEngine(unittest.TestCase):
 
         a, b = Concept("A", category="static"), Concept("B", category="static")
         atob = Relation({a}, "atob", {b})
-        atob.rules.add(Rule(a, b, 45.0))
+        atob.rules.add(Rule(a, b, .45))
 
         assert(len(atob.rules) == 1)
 
@@ -120,7 +120,7 @@ class Test_InferenceEngine(unittest.TestCase):
 
         assert(len(atob.rules) == 1)
 
-        self.assertAlmostEqual(engine.inferRelation(a.instance(), atob, b.instance()), 45.0)
+        self.assertAlmostEqual(engine.inferRelation(a.instance(), atob, b.instance()), .45)
 
 
     def test_inferRelation_conditions(self):
@@ -128,15 +128,15 @@ class Test_InferenceEngine(unittest.TestCase):
 
         a, b = Concept("A", properties={"x": 10, "y": 15}, category="static"), Concept("B", category="static")
         atob = Relation({a}, "atob", {b})
-        atob.rules.add(Rule(a, b, 45.0, conditions=[
-            Condition("f(%.x, '(x == 10)*100')", 100.),
-            Condition("f(%.y, '(y == 14)*100')", 50.)
+        atob.rules.add(Rule(a, b, .45, conditions=[
+            Condition("f(%.x, '(x == 10)')", 1.),
+            Condition("f(%.y, '(y == 14)')", .5)
         ]))
 
         for con in [a, b]: engine.concepts.add(con)
         engine.relations.add(atob)
 
-        self.assertAlmostEqual(engine.inferRelation(a.instance(), atob, b.instance()), 22.5)
+        self.assertAlmostEqual(engine.inferRelation(a.instance(), atob, b.instance()), .225)
 
     def test_inferRelation_ignore_logic_conditions(self):
 
@@ -144,16 +144,16 @@ class Test_InferenceEngine(unittest.TestCase):
 
         a, b = Concept("A", properties={"x": 10, "y": 15}, category="static"), Concept("B", category="static")
         atob = Relation({a}, "atob", {b})
-        atob.rules.add(Rule(a, b, 55.0))
-        atob.rules.add(Rule(a, b, 45.0, conditions=[
-            Condition("f(%.x, '(x == 10)*100')", 100),
-            Condition("f(%.y, '(y == 14)*100')",50)
+        atob.rules.add(Rule(a, b, .55))
+        atob.rules.add(Rule(a, b, .45, conditions=[
+            Condition("f(%.x, '(x == 10)')"),
+            Condition("f(%.y, '(y == 14)')", .5)
         ]))
 
         for con in [a, b]: engine.concepts.add(con)
         engine.relations.add(atob)
 
-        self.assertAlmostEqual(engine.inferRelation(a.instance(), atob, b.instance(), evaluate_conditions=False), 55.0)
+        self.assertAlmostEqual(engine.inferRelation(a.instance(), atob, b.instance(), evaluate_conditions=False), .55)
 
     def test_addWorldKnowledge(self):
 

@@ -25,10 +25,10 @@
                     "domains": ["Person"],
                     "targets": ["Class"],
 
-                    "confidence": 100,
+                    "confidence": 1.0,
                     "conditions": [
-                        {"logic": "%=enrolled_on=@", "salience": 100},
-                        {"logic": "count(#Person=enrolled_on=@, #Person.age > %.age) == 0", "salience": 100}
+                        {"logic": "%=enrolled_on=@", "salience": 1.0},
+                        {"logic": "count(#Person=enrolled_on=@, #Person.age > %.age) == 0", "salience": 1.0}
                     ]
                 }
             ]

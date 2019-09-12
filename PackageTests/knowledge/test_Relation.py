@@ -104,9 +104,9 @@ class test_RelationInterface(unittest.TestCase):
 
     def test_rules(self):
 
-        rule1 = Rule(self.a, self.x, 95)
-        rule2 = Rule(self.a, self.x, 85)
-        rule3 = Rule(self.b, self.y, 70)
+        rule1 = Rule(self.a, self.x, .95)
+        rule2 = Rule(self.a, self.x, .85)
+        rule3 = Rule(self.b, self.y, .70)
 
         self.singleRelation.rules.add(rule2)
         self.singleRelation.rules.add(rule3)
@@ -115,7 +115,7 @@ class test_RelationInterface(unittest.TestCase):
         self.assertEqual(len(self.singleRelation.rules), 3)
         self.assertEqual(set(self.singleRelation.rules), {rule1, rule2, rule3})
 
-        for rule, confidence in zip(self.singleRelation.rules, [95, 85, 70]):
+        for rule, confidence in zip(self.singleRelation.rules, [.95, .85, .70]):
             self.assertEqual(rule.confidence, confidence)
 
     def test_between(self):
@@ -227,7 +227,7 @@ class Test_Relation(unittest.TestCase):
         a1, b1, = Concept("A1", parents={a}), Concept("B1", parents={b})
 
         rel = Relation({a}, "test", {b1})
-        rule = Rule(a,  b1, 100)
+        rule = Rule(a,  b1)
         rel.rules.add(rule)
 
         self.assertEqual(rule.domains, {a, a1})

@@ -26,8 +26,8 @@ class test_BuiltinNode_count(unittest.TestCase):
 
         relation_enrolledOn = self.school.relations("enrolled_on")
 
-        relation_enrolledOn.rules.add(EvalRule({self.school.instances["Kieran"]}, {inst_english}, 100))
-        relation_enrolledOn.rules.add(EvalRule({self.school.instances["Luke"]}, {inst_english}, 100))
+        relation_enrolledOn.rules.add(EvalRule({self.school.instances["Kieran"]}, {inst_english}, 1.))
+        relation_enrolledOn.rules.add(EvalRule({self.school.instances["Luke"]}, {inst_english}, 1.))
 
         self.factory = EvalTreeFactory()
 

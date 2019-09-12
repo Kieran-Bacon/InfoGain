@@ -5,14 +5,24 @@ from .instance import Instance
 
 class Condition:
 
-    def __init__(self, logic: str, salience: float = 100):
+    def __init__(self, logic: str, salience: float = .1):
         self.logic = logic
+        self._salience = None
         self.salience = salience
     def __str__(self): return self.logic
     def __repr__(self): return "<Condition: '{}' with salience {}>".format(self.logic, self.salience)
     def __hash__(self): return hash(self.logic)
     def __eq__(self, other): self.logic == other
     def __ne__(self, other): not self.__eq__(other)
+
+    @property
+    def salience(self) -> float: return self._salience
+    @salience.setter
+    def salience(self, sal: float) -> None:
+        if isinstance(sal, (float, int)) and 0. <= sal <= 1.:
+            self._salience = sal
+        else:
+            raise ValueError("Cannot set {} salience as {}".format(repr(self), sal))
 
     def containsDomain(self): return "%" in self.logic
     def containsTarget(self): return "@" in self.logic
@@ -38,7 +48,7 @@ class Rule:
         self,
         domains: {Concept},
         targets: {Concept},
-        confidence: float,
+        confidence: float = 1.,
         *,
         supporting: bool = True,
         conditions: [Condition] = []):
@@ -53,12 +63,16 @@ class Rule:
         # Set the conditions of the rule
         self.conditions = conditions
 
-        self.confidence = confidence
         self.supporting = supporting
+        self.confidence = confidence
+
 
     def __repr__(self):
+        return "<Rule({}): {} {}>".format(id(self), self.domains, self.targets)
+
+    def __str__(self):
         confidence = self.confidence if self.supporting else self.confidence*-1
-        base = "<Rule: {} {} is true with {}".format(self.domains, self.targets, confidence)
+        base = "{} is true with {}".format(repr(self), confidence)
         if self._conditions:
             base += " when:\n"
             base += "\n".join([str(condition) for condition in self._conditions])
@@ -69,6 +83,15 @@ class Rule:
     def domains(self): return self._domains
     @property
     def targets(self): return self._targets
+
+    @property
+    def confidence(self): return self._confidence
+    @confidence.setter
+    def confidence(self, value):
+        if isinstance(value, (int, float)) and 0. <= value <= 1.:
+            self._confidence = value
+        else:
+            raise ValueError("Cannot set {} confidence as {} - must be float 0. - 1.".format(repr(self), value))
 
     @property
     def conditions(self): return self._conditions

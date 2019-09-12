@@ -30,7 +30,7 @@ class Test_Rule(unittest.TestCase):
         concepts passed at initialisation
         """
 
-        rule = knowledge.Rule({self.b, self.d}, self.k, 80)
+        rule = knowledge.Rule({self.b, self.d}, self.k, .8)
 
         self.assertEqual(rule.domains, {self.b, self.d, self.c})
         self.assertEqual(rule.targets, {self.k, self.j})
@@ -38,7 +38,7 @@ class Test_Rule(unittest.TestCase):
     def test_applies_with_no_conditions(self):
         """ Assert that a rule only applies to domains and targets (and their instances) of the Rule """
 
-        rule = knowledge.Rule(self.k, self.g, 100)
+        rule = knowledge.Rule(self.k, self.g)
 
         self.assertTrue(rule.applies(self.k, self.g))
         self.assertTrue(rule.applies(self.k.instance(), self.g.instance()))
@@ -48,7 +48,7 @@ class Test_Rule(unittest.TestCase):
     def test_conditions_with_no_conditions(self):
         """ Test that the conditions have the values we would expect from them given that they aren't present... """
 
-        rule = knowledge.Rule(self.k, self.g, 50)
+        rule = knowledge.Rule(self.k, self.g, .5)
 
         self.assertFalse(rule.conditions)
         for _ in rule.conditions:
@@ -62,28 +62,27 @@ class Test_Rule(unittest.TestCase):
         rule = knowledge.Rule(
             self.k,
             self.g,
-            100,
             conditions = [
-                knowledge.Condition("10", salience=67),
-                knowledge.Condition("199", salience=99),
-                knowledge.Condition("asd", salience=70),
-                knowledge.Condition("sda", salience=40)
+                knowledge.Condition("10", salience=.67),
+                knowledge.Condition("199", salience=.99),
+                knowledge.Condition("asd", salience=.70),
+                knowledge.Condition("sda", salience=.40)
             ]
         )
 
-        for condition, salience in zip(rule.conditions, [99, 70, 67, 40]):
+        for condition, salience in zip(rule.conditions, [.99, .70, .67, .40]):
             self.assertEqual(condition.salience, salience)
 
     def test_domains_targets_with_conditions_conditional_on_target(self):
 
-        rule = knowledge.Rule({self.b, self.d}, self.k, 80, conditions=[knowledge.Condition("@", 100)])
+        rule = knowledge.Rule({self.b, self.d}, self.k, .80, conditions=[knowledge.Condition("@", .100)])
 
         self.assertEqual(rule.domains, {self.b, self.d, self.c})
         self.assertEqual(rule.targets, {self.k, self.j, self.l})
 
     def test_applies_with_conditions_conditional_on_target(self):
 
-        rule = knowledge.Rule({self.b, self.d}, self.k, 80, conditions=[knowledge.Condition("@", 100)])
+        rule = knowledge.Rule({self.b, self.d}, self.k, .80, conditions=[knowledge.Condition("@", .100)])
 
 
         self.assertTrue(rule.applies(self.b, self.k))
@@ -108,7 +107,7 @@ class Test_RelationConceptSet(unittest.TestCase):
 
     def test_add(self):
 
-        rule = Rule(self.domain, self.target, 67)
+        rule = Rule(self.domain, self.target, .67)
 
         self.assertEqual(rule.domains, {self.domain})
         self.assertEqual(rule.targets, {self.target})
@@ -121,8 +120,8 @@ class Test_RelationConceptSet(unittest.TestCase):
 
     def test_addWhileConditional(self):
 
-        rule = Rule(self.domain, self.target, 67)
-        rule.conditions.add(Condition("@", 8))
+        rule = Rule(self.domain, self.target, .67)
+        rule.conditions.add(Condition("@", .08))
 
         self.assertEqual(rule.domains, {self.domain})
         self.assertEqual(rule.targets, {self.target})
@@ -135,7 +134,7 @@ class Test_RelationConceptSet(unittest.TestCase):
 
     def test_discard(self):
 
-        rule = Rule({self.domain, self.b}, {self.target, self.y}, 89)
+        rule = Rule({self.domain, self.b}, {self.target, self.y}, .89)
 
         self.assertEqual(rule.domains, {self.domain, self.b, self.c})
         self.assertEqual(rule.targets, {self.target, self.x, self.y})
@@ -148,8 +147,8 @@ class Test_RelationConceptSet(unittest.TestCase):
 
     def test_discardWhileConditional(self):
 
-        rule = Rule({self.domain, self.b}, {self.target, self.y}, 89)
-        rule.conditions.add(Condition("@", 8))
+        rule = Rule({self.domain, self.b}, {self.target, self.y}, .89)
+        rule.conditions.add(Condition("@", .08))
 
         self.assertEqual(rule.domains, {self.domain, self.b, self.c})
         self.assertEqual(rule.targets, {self.target, self.x, self.y, self.z})
@@ -174,16 +173,16 @@ class Test_ConditionManager(unittest.TestCase):
 
         self.relation = Relation({self.a}, "example", {self.x})
 
-        self.rule = Rule(self.b, self.y, 67)
+        self.rule = Rule(self.b, self.y, .67)
 
         self.relation.rules.add(self.rule)
 
     def test_add(self):
         # Test that adding a condition (and the other forms of add) add in the order of salience
 
-        con1 = Condition("%", 78.)
-        con2 = Condition("%", 50.)
-        con3 = Condition("%", 62.)
+        con1 = Condition("%", .78)
+        con2 = Condition("%", .50)
+        con3 = Condition("%", .62)
 
         self.assertEqual(list(self.rule.conditions), [])
 
@@ -200,7 +199,7 @@ class Test_ConditionManager(unittest.TestCase):
         # Test that adding the target dependent condition that it causes the targets to cascade
 
         # Target dependant condition
-        con1 = Condition("@", 68.)
+        con1 = Condition("@", .68)
 
         self.assertEqual(self.rule.targets, {self.y, self.x})
 
@@ -222,9 +221,9 @@ class Test_ConditionManager(unittest.TestCase):
 
     def test_remove(self):
 
-        con1 = Condition("%", 78.)
-        con2 = Condition("%", 50.)
-        con3 = Condition("%", 62.)
+        con1 = Condition("%", .78)
+        con2 = Condition("%", .50)
+        con3 = Condition("%", .62)
 
         self.rule.conditions.add(con1)
         self.rule.conditions.add(con2)
@@ -237,8 +236,8 @@ class Test_ConditionManager(unittest.TestCase):
 
     def test_removeLastTargetDependentCondition(self):
 
-        con1 = Condition("@", 68.)
-        con2 = Condition("@", 54.)
+        con1 = Condition("@", .68)
+        con2 = Condition("@", .54)
 
         self.rule.conditions.add(con1)
 
@@ -269,8 +268,8 @@ class Test_RulesWithPartials(unittest.TestCase):
 
     def test_expandingConceptSet(self):
 
-        rule = Rule(self.b, {self.y, "partial"}, 70)
-        rule.conditions.add(Condition("@", 20))
+        rule = Rule(self.b, {self.y, "partial"}, .7)
+        rule.conditions.add(Condition("@", .2))
 
         self.assertEqual(rule.targets, {self.x, self.y, self.z, "partial"})
 

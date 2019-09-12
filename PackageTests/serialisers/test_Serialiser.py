@@ -26,7 +26,7 @@ class Test_SerialiserFactory(unittest.TestCase):
 
         # Generate a relationship
         a_x = Relation({a}, "to", {x}, rules=[
-            Rule(b, y, 100)
+            Rule(b, y)
         ])
 
         for concept in (a,b,c,x,y,z,):

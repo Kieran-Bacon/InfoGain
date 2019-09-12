@@ -118,7 +118,7 @@
             ],
             "rules": [
                 {
-                    "confidence": 50,
+                    "confidence": 0.5,
                     "domains": [
                         "Kieran"
                     ],
@@ -145,14 +145,14 @@
                     "conditions": [
                         {
                             "logic": "%=lives_in=#Country",
-                            "salience": 100
+                            "salience": 1.0
                         },
                         {
                             "logic": "#Country=speaks=@",
-                            "salience": 100
+                            "salience": 1.0
                         }
                     ],
-                    "confidence": 50,
+                    "confidence": 0.5,
                     "domains": [
                         "Person"
                     ],
@@ -161,7 +161,7 @@
                     ]
                 },
                 {
-                    "confidence": 89,
+                    "confidence": 0.89,
                     "domains": [
                         "England"
                     ],
