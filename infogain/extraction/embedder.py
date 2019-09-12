@@ -65,7 +65,7 @@ class Embedder:
         return self.model.wv[word]
 
 
-    def sentence(self, sentence: str) -> numpy.array:  # TODO Improve sentence embedding method
+    def sentence(self, sentence: str) -> numpy.array:
         """ Convert a sentence of variable length into a sentence embedding using the learn word
         embeddings within the model.
 

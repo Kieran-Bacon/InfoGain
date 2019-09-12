@@ -247,11 +247,8 @@ class ExtractionEngine(Ontology):
             for pattern in aliases.keys()
         ]
 
-        print("Finished setting up the aliases")
-
         # For each sentence of the document predict datapoints
         for sentence in document.sentences():
-            print("Yielding sentences: "+sentence)
 
             # Find all entities within the sentence - stack them upon their spans so patterns matching for the same
             entities = collections.defaultdict(set)
@@ -334,12 +331,7 @@ class ExtractionEngine(Ontology):
                         d1, ann1 = d2, ann2
 
                 # Add the document information and its entities/annotations
-                import time
-                print("Before inputing entities")
-                for i, e in d1.entities.indexes():
-                    print("Entity: {} {}".format(i, e))
-                    document.entities.add(e, i)
-                    time.sleep(1)
+                for i, e in d1.entities.indexes(): document.entities.add(e, i)
                 for ann in d1.annotations: document.annotations.add(ann)
 
         return document

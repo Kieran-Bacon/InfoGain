@@ -136,7 +136,12 @@ class JsonDocumentSerialiser(AbstractSerialiser):
         def resolveDocumentsContents(docData):
 
             if "content" in docData:
-                doc = Document(docData['content'], name=docData.get('name'), text_break=docData.get('breaktext'), processed=True)
+                doc = Document(
+                    docData['content'],
+                    name = docData.get('name'),
+                    text_break = docData.get('breaktext'),
+                    processed = True
+                )
             else:
                 doc = Document(name=docData.get('name'), text_break=docData.get('breaktext'), processed=True)
 
