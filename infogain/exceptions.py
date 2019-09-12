@@ -6,3 +6,6 @@ class ConsistencyError(Exception):
 
 class MissingConcept(Exception):
     pass
+
+class EvaluationInvalidResponse(Exception):
+    pass
