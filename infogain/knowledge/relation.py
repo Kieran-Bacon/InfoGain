@@ -13,11 +13,17 @@ log = logging.getLogger(__name__)
 
 
 class RelationConceptSet(ConceptSet):
-    #TODO document
+    """ Holds a set of concepts has the/a relation to another set of concepts for the Relation. Handle consistency of
+    concepts set by updating via subscription on concept hierachy changes
 
-    def __init__(self, owner: weakref.ref, iterable: collections.abc.Iterable):
+    Params:
+        owner (weakref.ref): Owning Relation object
+        iterable (typing.Iterable[Concept]): Initial seed of concepts for set
+    """
 
-        self._owner = owner
+    def __init__(self, owner: weakref.ref, iterable: typing.Iterable[Concept]):
+
+        self._ownerRef = owner
 
         # These are the base concepts for the relation concept set
         self._elements = set()
@@ -31,7 +37,7 @@ class RelationConceptSet(ConceptSet):
         for concept in iterable: self.add(concept)
 
     @property
-    def owner(self): return self._owner()
+    def _owner(self): return self._ownerRef()
     @property
     def bases(self) -> ConceptSet: return ConceptSet(self._elements)
 
@@ -72,8 +78,14 @@ class RelationConceptSet(ConceptSet):
         super().add(concept)
         self._add(concept)
 
-    def _add(self, concept: Concept):
-        #TODO document
+    def _add(self, concept: Concept) -> None:
+        """ Add a concept into the Set, but, don't record the concept as a base. Non base concepts must be expressed by
+        a base concept. Being a none base concept shall mean that the concept is removed when all expressing concepts
+        are removed.
+
+        Params:
+            concept (Concept):
+        """
 
         queryGroup = [concept]
 
@@ -87,12 +99,16 @@ class RelationConceptSet(ConceptSet):
             else:
                 if query not in self._derivedElements:
                     self._derivedElements.add(query)
-                    query._relationMembership[self.owner] = query._relationMembership.get(self.owner, 0) + 1
+                    query._relationMembership[self._owner] = query._relationMembership.get(self._owner, 0) + 1
 
                     queryGroup += list(query.children)
 
     def _subscribe(self, concept: Concept):
-        #TODO document
+        """ Add the concept into the concept set if it is expressed by another concept
+
+        Params:
+            concept (Concept)
+        """
 
         #! Partial concepts that are added as children to concepts shall not inherit of become part of this concept
 
@@ -116,8 +132,15 @@ class RelationConceptSet(ConceptSet):
         if concept not in self._derivedElements and concept.ancestors().intersection(self._elements):
             self._add(concept)
 
-    def discard(self, concept: Concept):
-        #TODO document
+    def discard(self, concept: Concept) -> bool:
+        """ Remove a concept from the concept set if it is present
+
+        Params:
+            concept (Concept)
+
+        Returns:
+            bool: True if the concept was removed
+        """
         if concept not in self._elements: return False  # Not present
         if concept in self._partial: return super().discard(concept)  # Only partial - remove and return
 
@@ -130,7 +153,11 @@ class RelationConceptSet(ConceptSet):
         return self._discard(list(concept.children))
 
     def _unsubscribe(self, concept: Concept):
-        #TODO document
+        """ Re-evaluate a concepts membership. Remove concept if they are unexpressed
+
+        Params:
+            concept (Concept)
+        """
 
         if concept not in self._derivedElements: return
 
@@ -138,8 +165,12 @@ class RelationConceptSet(ConceptSet):
             return self._decrementDerivedPartial(concept)
         self._discard([concept])
 
-    def _discard(self, concepts: [Concept]):
-        #TODO document
+    def _discard(self, concepts: typing.Iterable[Concept]):
+        """ Discard a number of concepts performing all consistency actions in the interim
+
+        Params:
+            concepts (typing.Iterable[Concept]): An iterable of concepts to be discarded
+        """
 
         while concepts:
             concept = concepts.pop()
@@ -150,22 +181,30 @@ class RelationConceptSet(ConceptSet):
 
                 self._derivedElements.discard(concept)
                 self._delink(concept)
-                concept._relationMembership[self.owner] = concept._relationMembership.get(self.owner, 1) - 1
-                if concept._relationMembership[self.owner] == 0: del concept._relationMembership[self.owner]
+                concept._relationMembership[self._owner] = concept._relationMembership.get(self._owner, 1) - 1
+                if concept._relationMembership[self._owner] == 0: del concept._relationMembership[self._owner]
 
                 concepts += list(concept.children)
 
         return True
 
     def _delink(self, concept: Concept):
-        #TODO document
+        """ Remove the concepts reference to the relation as the relation no longer applies/uses this concept
 
-        concept._relationMembership[self.owner] -= 1
-        if concept._relationMembership[self.owner] == 0:
-            del concept._relationMembership[self.owner]
+        Params:
+            concept (Concept): the concept to remove connection/link from
+        """
+
+        concept._relationMembership[self._owner] -= 1
+        if concept._relationMembership[self._owner] == 0:
+            del concept._relationMembership[self._owner]
 
     def _decrementDerivedPartial(self, partial: str):
-        #TODO document
+        """ Decrement a partial concept's counter, removing it entirely if the counter becomes 0
+
+        Params:
+            partial (str): partial name
+        """
 
         # Decrement the existence of the partial child
         self._derivedPartial[partial] -= 1
@@ -187,7 +226,7 @@ class RelationConceptManager(collections.abc.MutableSequence):
 
     def __init__(self, owner: weakref.ref, concepts: list, isDomain: bool = True):
 
-        self._owner = owner
+        self._ownerRef = owner
         self._elements = []
         self._isDomain = isDomain
 
@@ -203,6 +242,9 @@ class RelationConceptManager(collections.abc.MutableSequence):
                 # The inputs is a list of concept iterables
                 for group in concepts:
                     self._elements.append(RelationConceptSet(owner, group))
+
+    @property
+    def _owner(self): return self._ownerRef()
 
     def __repr__(self): return "<RelationConceptGroups[{}]>".format(",".join(self._elements))
     def __len__(self): return len(self._elements)
@@ -220,41 +262,57 @@ class RelationConceptManager(collections.abc.MutableSequence):
     def __contains__(self, concept: Concept): return any(concept in group for group in self._elements)
     def __call__(self): return {concept for conceptset in self._elements for concept in conceptset}
 
-    @property
-    def owner(self): return self._owner()
-
     def insert(self, index: int, concepts: ConceptSet):
-        #TODO document
-        self._elements.insert(index, RelationConceptSet(self._owner, concepts))
-        self._correspondingGroup()._elements.insert(index, RelationConceptSet(self._owner, []))
+        """ Insert into ConceptSet Manager a new source ConceptSet. Ensure that the corresponding Manager inserts a
+        new source set at the same location to keep consistency
+
+        Params:
+            index (int):
+            concepts (ConceptSet): The source concept set
+        """
+        self._elements.insert(index, RelationConceptSet(self._ownerRef, concepts))
+        self._correspondingGroup()._elements.insert(index, RelationConceptSet(self._ownerRef, []))
 
     def append(self, concepts: ConceptSet):
-        #TODO document
+        """ Add a source ConceptSet to the manager, trigger the appending of an empty set to the corresponding manager
 
-        self._elements.append(RelationConceptSet(self._owner, concepts))
-        self._correspondingGroup()._elements.append(RelationConceptSet(self._owner, []))
+        Params:
+            concepts (ConceptSet): the set of concepts to act as a source
+        """
+
+        self._elements.append(RelationConceptSet(self._ownerRef, concepts))
+        self._correspondingGroup()._elements.append(RelationConceptSet(self._ownerRef, []))
 
         return len(self) - 1  # Index of newly added conceptset
 
     def add(self, concept: Concept, group: int = None):
-        #TODO document
+        """ Add a concept to the managers sources. If a source/group is selected, add specifically to that group
+
+        Params:
+            concept (Concept): The concept to add
+            group (int) = None: index of the group to add the concept to, all if None
+        """
 
         if group:
-            self._elements[group].add(concept)
-            return
+            return self._elements[group].add(concept)
 
         for group in self._elements:
             group.add(concept)
 
     def _correspondingGroup(self):
-        #TODO document
-        return self.owner.targets if self._isDomain else self.owner.domains
+        """ Using the owner - return the corresponding manager object of the relation (domain <-> target) """
+        return self._owner.targets if self._isDomain else self._owner.domains
 
 class RuleManager(collections.abc.Sequence):
-    #TODO document
+    """ Rule Manager which orders and maintains the rules that provide confidence for the relation.
 
-    def __init__(self, owner: weakref.ref, rules: list = []):
-        self._owner = owner
+    Params:
+        owner (weakref.ref): Owning Relation
+        rules (typing.Iterable[Rule]): seed iterable of rules
+    """
+
+    def __init__(self, owner: weakref.ref, rules: typing.Iterable[Rule] = []):
+        self._ownerRef = owner
         self._elements = rules.copy()
 
     def __len__(self): return len(self._elements)
@@ -273,11 +331,11 @@ class RuleManager(collections.abc.Sequence):
         Returns:
             [Rule]: A list of rules of the relation or that apply to the scenario
         """
-        if not self.owner.between(domain, target): return []
+        if not self._owner.between(domain, target): return []
         return [rule for rule in self._elements if rule.applies(domain, target)]
 
     @property
-    def owner(self): return self._owner()
+    def _owner(self): return self._ownerRef()
 
     def add(self, rule: Rule):
         """ Add a Rule object to the relation, order the rule correctly based on confidence
@@ -292,9 +350,7 @@ class RuleManager(collections.abc.Sequence):
             i += 1
         self._elements.insert(i, rule)
 
-    def remove(self, rule: Rule):
-        #TODO document
-        self._elements.remove(rule)
+    def remove(self, rule: Rule) -> None: self._elements.remove(rule)
 
 class Relation:
     """ A relation expresses a connection between concepts. It declares how particular concepts interact and informs
@@ -396,7 +452,12 @@ class Relation:
         for rule in self._rules: rule._subscribe(concept)
 
     def _unsubscribe(self, concept: Concept):
-        #TODO document
+        """ Check whether a concept should still be a member, ensure that it is removed if it is present and it should
+        no longer be a member
+
+        Params:
+            concept (Concept)
+        """
 
         # Collect the ancestors of this concept
         ancestors = concept.ancestors()
@@ -409,7 +470,6 @@ class Relation:
         for rule in self._rules: rule._unsubscribe(concept)
 
     def clone(self):
-        #TODO document
         return Relation(
             [domain.bases.toStringSet() for domain in self.domains],
             self.name,
