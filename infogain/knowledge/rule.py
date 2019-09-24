@@ -1,5 +1,6 @@
 import collections
 import weakref
+import typing
 
 from .concept import Concept, ConceptSet
 from .instance import Instance
@@ -49,23 +50,30 @@ class Condition:
 
 
 class RuleConceptSet(ConceptSet):
-    #TODO document
+    """ Concept Manager for the rule's domain/target groups. Governs the interactions with the rule and handles the
+    inclusion of ancestors/descendants whenever applicable
 
-    def __init__(self, owner: weakref.ref, iterable: {Concept} = set(), isDomain: bool = True):
+    Params:
+        owner (weakref.ref): Owning Rule
+        concepts (typing.Iterable[Concept]/Concept): seed concepts to be apart of the set or concept singular
+        isDomain (bool): indicate which of the rule's sets is it managing
+    """
 
-        self._weakOwner = owner
+    def __init__(self, owner: weakref.ref, concepts: typing.Iterable[Concept] = set(), isDomain: bool = True):
+
+        self._ownerRef = owner
         self._isDomain = isDomain
 
         self._bases = set()
         super().__init__(self)  # Initialise the internal variables of the concept set
 
-        if isinstance(iterable, (str, Concept, Instance)):
-            self.add(iterable)
+        if isinstance(concepts, (str, Concept, Instance)):
+            self.add(concepts)
         else:
-            for con in iterable: self.add(con)
+            for con in concepts: self.add(con)
 
     @property
-    def _owner(self): return self._weakOwner()
+    def _owner(self): return self._ownerRef()
     @property
     def bases(self): return ConceptSet(self._bases)
 
@@ -227,12 +235,13 @@ class ConditionManager:
     them
 
     Params:
-
+        owner (weakref.ref): Owning Rule
+        conditions (typing.Iterable[Condition]) = []: Seed conditions
     """
 
-    def __init__(self, owner: weakref.ref, conditions: list):
+    def __init__(self, owner: weakref.ref, conditions: typing.Iterable[Condition] = []):
 
-        self._weakOwner = owner
+        self._ownerRef = owner
         self._elements = []
 
         # Add in each condition object
@@ -246,7 +255,7 @@ class ConditionManager:
     def __delitem__(self, index: int): self.remove(self._elements[index])
 
     @property
-    def _owner(self): return self._weakOwner()
+    def _owner(self): return self._ownerRef()
 
     def add(self, condition: Condition) -> None:
         """ Add a condition object into this condition Manager, order the conditions relative to its salience
@@ -284,9 +293,7 @@ class ConditionManager:
             self._owner._isConditionalOnTargets = False
             self._owner.targets._minimise()
 
-    def isConditionalOnTarget(self):
-        # TODO
-        return self._owner._isConditionalOnTargets
+    def isConditionalOnTarget(self) -> bool: return self._owner._isConditionalOnTargets
 
 
 class Rule:
@@ -338,12 +345,12 @@ class Rule:
         return base
 
     @property
-    def domains(self): return self._domains
+    def domains(self) -> RuleConceptSet: return self._domains
     @property
-    def targets(self): return self._targets
+    def targets(self) -> RuleConceptSet: return self._targets
 
     @property
-    def confidence(self): return self._confidence
+    def confidence(self) -> float: return self._confidence
     @confidence.setter
     def confidence(self, value):
         if isinstance(value, (int, float)) and 0. <= value <= 1.:
@@ -352,7 +359,7 @@ class Rule:
             raise ValueError("Cannot set {} confidence as {} - must be float 0. - 1.".format(repr(self), value))
 
     @property
-    def conditions(self): return self._conditions
+    def conditions(self) -> ConditionManager: return self._conditions
     @conditions.setter
     def conditions(self, conditions: list) -> None: self._conditions = ConditionManager(weakref.ref(self), conditions)
 
