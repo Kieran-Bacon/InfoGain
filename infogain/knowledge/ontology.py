@@ -19,7 +19,7 @@ class OntologyConcepts(collections.abc.MutableMapping):
     """
 
     def __init__(self, owner: weakref.ref):
-        self._owner = owner
+        self._ownerRef = owner
         self._elements = {}
 
         self._missedConcepts = collections.defaultdict(set)   # Mapping between incomplete concepts
@@ -33,7 +33,7 @@ class OntologyConcepts(collections.abc.MutableMapping):
     def __call__(self) -> Concept: return set(self._elements.values())
 
     @property
-    def owner(self): return self._owner()
+    def _owner(self): return self._ownerRef()
 
     def add(self, concept: Concept) -> None:
         """ Add concept object to ontology, overwrite previous concept if present.
@@ -74,7 +74,7 @@ class OntologyConcepts(collections.abc.MutableMapping):
 class OntologyRelations(collections.abc.MutableMapping):
 
     def __init__(self, owner: weakref.ref):
-        self._owner = owner
+        self._ownerRef = owner
         self._elements = {}
 
     def __len__(self): return len(self._elements)
@@ -85,7 +85,7 @@ class OntologyRelations(collections.abc.MutableMapping):
     def __call__(self, name: str = None) -> Relation: return set(self._elements.values())
 
     @property
-    def owner(self): return self._owner()
+    def _owner(self): return self._ownerRef()
 
     def add(self, relation: Relation) -> Relation:
         """ Add a new relation object to the ontology, correctly link the relation concepts to the
@@ -100,20 +100,20 @@ class OntologyRelations(collections.abc.MutableMapping):
 
         for rule in relation.rules:
             for partial in {p for g in (rule.domains, rule.targets) for p in g.partials()}:
-                found = self.owner.concepts.get(partial)
+                found = self._owner.concepts.get(partial)
                 if found:
                     rule._subscribe(found)
                 else:
-                    self.owner.concepts._missedSubscriptions[partial].add(rule)
+                    self._owner.concepts._missedSubscriptions[partial].add(rule)
 
         # Resolve any partial concepts that exist within the relation - record missed concepts
         for partial in {p for c in (relation.domains, relation.targets) for g in c for p in g.partials()}:
 
-            found = self.owner.concepts.get(partial)
+            found = self._owner.concepts.get(partial)
             if found:
                 relation._subscribe(found)
             else:
-                self.owner.concepts._missedSubscriptions[partial].add(relation)
+                self._owner.concepts._missedSubscriptions[partial].add(relation)
 
         log.debug("Added Relation {}".format(str(relation)))
         self[relation.name] = relation

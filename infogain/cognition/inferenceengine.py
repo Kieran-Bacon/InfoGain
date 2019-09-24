@@ -27,12 +27,12 @@ class InferenceEngineConcepts(OntologyConcepts):
         super().add(concept)
 
         if concept.category is Concept.STATIC:
-            self.owner.instances.add(concept.instance())
+            self._owner.instances.add(concept.instance())
 
     def remove(self, concept: Concept) -> None:
         super().remove(concept)
 
-        self.owner.instances().remove(concept)
+        self._owner.instances().remove(concept)
 
 class InferenceEngineInstances(collections.abc.MutableMapping):
 
