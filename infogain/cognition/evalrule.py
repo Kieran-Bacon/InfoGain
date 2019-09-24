@@ -1,4 +1,5 @@
 import itertools
+import weakref
 
 from .. import exceptions
 from ..information import Vertex
@@ -71,7 +72,7 @@ class EvalRule(Rule):
     @property
     def conditions(self): return self._conditions
     @conditions.setter
-    def conditions(self, conditions: list): self._conditions = EvalConditionManager(self, conditions)
+    def conditions(self, conditions: list): self._conditions = EvalConditionManager(weakref.ref(self), conditions)
 
 
     # def __init__(self,
