@@ -19,7 +19,7 @@ log = logging.getLogger(__name__)
 class ExtractionRelations(OntologyRelations):
 
     def __init__(self, owner: weakref.ref, relationClass = ExtractionRelation):
-        self._owner = owner
+        self._ownerRef = owner
         self._relationClass = relationClass
         self._elements = {}
 
