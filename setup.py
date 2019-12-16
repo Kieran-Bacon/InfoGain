@@ -3,7 +3,9 @@ from setuptools import setup, find_packages
 
 with open(os.path.abspath(os.path.join(os.path.dirname(__file__), "README.md")), "r") as handler:
       README = handler.read()
-requires = ["sklearn", "matplotlib", "gensim", "mock", "tqdm"]
+
+with open(os.path.abspath(os.path.join(os.path.dirname(__file__), "requirements.txt")), "r") as handler:
+      requires = handler.read().splitlines()
 
 setup(name='infogain',
       install_requires=requires,
@@ -17,6 +19,6 @@ setup(name='infogain',
       url="https://github.com/Kieran-Bacon/InfoGain",
 
       packages=find_packages(),
-      package_data={"": ["*.txt", "*.json"]},
+      package_data={"": ["*.txt", "*.json", "*.dig"]},
       include_package_data=True
 )
