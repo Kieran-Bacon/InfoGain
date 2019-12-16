@@ -1,5 +1,6 @@
-import argparse
+import os
 import sys
+import argparse
 
 parser = argparse.ArgumentParser(
     prog="InfoGain",
@@ -24,35 +25,26 @@ if args.command == "Document":
 
     commands.add_argument(
         "--annotate",
-        nargs=2,
-        metavar=("OntologyPath", "DocumentPath"),
-        help="Annotate a document acording to an ontology."
+        nargs=1,
+        metavar=("document_path"),
+        help="Annotate a document according to an ontology."
     )
 
     commands.add_argument(
         "--score",
         nargs=2,
-        metavar=("OntologyPath", "DocumentPath"),
+        metavar=("document_path", "extractor_path"),
         help="Produce metric results for a document, according to an ontology"
     )
 
     args = parser.parse_args(sys.argv[2:])
 
     if args.annotate:
-        from . import artefact
-        from . import knowledge
+        from .artefact.annotator import Annotator
 
-        artefact.annotate(
-            knowledge.Ontology(filepath=args.annotate[0]),
-            artefact.Document(filepath=args.annotate[1])
-        )
+        annotator = Annotator(args.annotate[0])
+        annotator.serve()
+        annotator.save()
 
     elif args.score:
-        from . import artefact
-        from . import knowledge
-
-        artefact.score(
-            knowledge.Ontology(filepath=args.annotate[0]),
-            artefact.Document(filepath=args.annotate[1]),
-            True
-        )
+        print('hello')

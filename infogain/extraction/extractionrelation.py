@@ -31,8 +31,11 @@ class ExtractionRelation(Relation):
             Xtr.append(np.concatenate(ann.embedding))
             ttr.append(ann.classification)
 
+        import time
+        start = time.time()
         # Fit the classifier
         self.classifier.fit(Xtr, ttr)
+        print('Classifer', time.time() -  start)
         self.fitted = True
 
     def predict(self, point: Annotation) -> Annotation:

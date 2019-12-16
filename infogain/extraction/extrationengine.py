@@ -5,6 +5,7 @@ import collections
 import re
 from tqdm import tqdm
 import itertools
+import functools
 
 from ..artefact import Document, Entity, Annotation
 from ..knowledge import Concept, Relation
@@ -98,7 +99,7 @@ class ExtractionEngine(Ontology):
             for ann in annotations: ann.embedding = tuple(self._embedder.sentence(context) for context in ann.context)
             relation.fit(annotations)
 
-    def predict(self, document: Document):
+    def predict(self, document: Document) -> Document:
         """ Identify entities and relationships within the document and predict their confidences
 
         Parmas:
@@ -212,3 +213,141 @@ class ExtractionEngine(Ontology):
                 for ann in d1.annotations: document.annotations.add(ann)
 
         return document
+
+    def score(self, documents: [Document], pprint: bool=False) -> (dict, dict):
+        """ Calculate the precision, recall and F1 score for a collection of documents.
+        The datapoints within the document are used to perform the scoring. The precision is
+        calculated from the datapoints correctly returned in recall. A comparison is made between
+        the annotation of the datapoint and its prediction.
+        Recall is determined by processing the text of the datapoints using the ontology provided.
+        The F1 score is an equation of the two other scores.
+
+        Handles a single document or a collection
+
+        Params:
+            ontology (Ontology) - An ontology of concepts and relations to direct processing
+            documents ([Document]) - A collection of document objects to score.
+            print (bool) - A toggle to allow the output to be printed nicely to the screen
+
+        Returns:
+            corpus scores (dict) - A dictionary where the keys are the metrics, and the
+                value is the collection averages
+            document scores (dict) -  A dictionary where the keys are the documents, and
+                the values are a dictionary of the metric values for that document
+        """
+
+        corpus = {
+            'entities': {'precision': 0,  'recall': 0, 'f1': 0, 'sum': 0},
+            'annotations': {'precision': 0,  'recall': 0, 'f1': 0, 'sum': 0}
+        }
+        scores = {}
+
+        for document in documents:
+
+            # Predict on the content to get new entities and annotations
+            pred = self.predict(Document(document.content))
+
+            # Calculate entity scores
+            entityGroundTruth = set(i for i, _ in document.entities.indexes())
+            entityPrediction = set(i for i, _ in pred.entities.indexes())
+            overlap_indexes = entityGroundTruth.intersection(entityPrediction)
+
+            entities_true_positive = sum(document.entities[i] == pred.entities[i] for i in overlap_indexes)
+            entity_precision = entities_true_positive/len(pred.entities)
+            entity_recall = entities_true_positive/len(document.entities)
+            try:
+                entity_f1 = (2*(entity_precision * entity_recall))/(entity_precision + entity_recall)
+            except ZeroDivisionError:
+                entity_f1 = 0
+
+            # Calculate annotation scores
+            document_annotations = tuple(ann for ann in document.annotations if ann.classification != Annotation.INSUFFICIENT)
+            predict_annotations = tuple(ann for ann in pred.annotations if ann.classification != Annotation.INSUFFICIENT)
+
+            annotation_true_positive = sum(
+                predAnn == docAnn for predAnn in document_annotations for docAnn in predict_annotations
+            )
+            annotation_precision = annotation_true_positive/len([ann for ann in predict_annotations if ann.classification == Annotation.POSITIVE])
+            annotation_recall = annotation_true_positive/len(document_annotations)
+            try:
+                annotation_f1 = (2*(annotation_precision * annotation_recall))/(annotation_precision + annotation_recall)
+            except ZeroDivisionError:
+                annotation_f1 = 0
+
+            # Record the document scores
+            scores[document] = {
+                'entities': {'precision': entity_precision,  'recall': entity_recall, 'f1': entity_f1},
+                'annotations': {'precision': annotation_precision,  'recall': annotation_recall, 'f1': annotation_f1}
+            }
+
+            corpus['entities']['sum'] += len(pred.entities)
+            corpus['entities']['precision'] += entity_precision*len(pred.entities)
+            corpus['entities']['recall'] += entity_recall*len(pred.entities)
+            corpus['entities']['f1'] += entity_f1*len(pred.entities)
+
+            corpus['annotations']['sum'] += len(pred.annotations)
+            corpus['annotations']['precision'] = annotation_precision*len(pred.annotations)
+            corpus['annotations']['recall'] = annotation_recall*len(pred.annotations)
+            corpus['annotations']['f1'] = annotation_f1*len(pred.annotations)
+
+        # Reduce the corpus data
+        for value in corpus.values():
+            for metric in ['precision', 'recall', 'f1']:
+                value[metric] /= value['sum']
+
+        if pprint:
+
+            columns, widths = ['Artefact', 'Precision', 'Recall', 'F1'], [20]*4
+
+            # define the row formats
+            rowTemplate = '|'.join(['{'+str(i)+':^{'+str(i + len(columns))+'}}' for i in range(len(columns))])
+
+            header = rowTemplate.format(*columns, *widths)
+            print()
+            print("{0:^{1}}".format('Entire corpus scores', len(header)))
+            print('='*len(header))
+            print(header)
+            print('='*len(header))
+            for k, v in corpus.items():
+                print(rowTemplate.format(k, v['precision'], v['recall'], v['f1'], *widths))
+            print()
+
+            columns, widths = ['Document', 'Artefact', 'Precision', 'Recall', 'F1'], [max([len(doc.name) for doc in scores.keys()]) + 2] + [20]*4
+            rowTemplate = '|'.join(['{'+str(i)+':^{'+str(i + len(columns))+'}}' for i in range(len(columns))])
+
+            header = rowTemplate.format(*columns, *widths)
+            print()
+            print("{0:^{1}}".format('Document Scores', len(header)))
+            print('='*len(header))
+            print(header)
+            print('='*len(header))
+
+            for document, score in scores.items():
+                # Print the scores for the document
+
+                print(
+                    rowTemplate.format(
+                        document.name,
+                        'entities',
+                        score['entities']['precision'],
+                        score['entities']['recall'],
+                        score['entities']['f1'],
+                        *widths
+                    )
+                )
+
+                print(
+                    rowTemplate.format(
+                        '',
+                        'annotations',
+                        score['annotations']['precision'],
+                        score['annotations']['recall'],
+                        score['annotations']['f1'],
+                        *widths
+                    )
+                )
+
+                print('-'*len(header))
+
+        print('\n\n')
+        return corpus, scores

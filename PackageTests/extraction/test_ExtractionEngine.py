@@ -92,3 +92,39 @@ class Test_ExtractionEngine(unittest.TestCase):
             # Test the consequences of the prediction on the document
             self.assertEqual(len(test.annotations), 4)  # 2 from inform, 2 from friendsWith
             self.assertEqual(sum(1 for ann in test.annotations if ann.name == 'friendsWith'), 2)
+
+    def test_score(self):
+
+        # Train the extractor
+        self.extractor.fit(self.training)
+
+        # Creating the relationship friends with
+        person = self.extractor.concepts["Person"]  # Collecting the person concept for relation binding
+        Friends = Relation({person}, "friendsWith", {person})  # Creating the relation object
+        self.extractor.relations.add(Friends)  # Adding the relationship to the relation extractor
+
+        # Create a collection of documents
+        document_set = [
+            Document(content="Kieran is a good friend of Luke."),
+            Document(content="Kieran has always been good friends with Luke"),
+            Document(content="Kieran has only recently became good friends with Luke.")
+        ]
+
+        # Annotate each of the documents within the document set
+        for document in document_set:
+            kieran, luke = Entity('Person', 'Kieran'), Entity('Person', 'Luke')
+
+            document.entities.add(kieran, document.content.find("Kieran"))
+            document.entities.add(luke, document.content.find('Luke'))
+
+            document.annotations.add(Annotation(kieran, 'friendsWith', luke, classification=Annotation.POSITIVE))
+            document.annotations.add(Annotation(kieran, 'informs', luke, classification=Annotation.INSUFFICIENT))
+
+        self.extractor.fit(document_set)
+
+        corpus, scores = self.extractor.score(self.training, pprint=True)
+
+        print(corpus, scores)
+
+        self.fail()
+
