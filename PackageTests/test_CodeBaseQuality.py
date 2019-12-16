@@ -1,5 +1,6 @@
 import os, sys, re, unittest
 
+@unittest.skipIf(os.getenv("PYTEST_CODE_QUALITY") is None, 'Only run when code quality is to be tested')
 class Test_CodeQuality(unittest.TestCase):
 
     def setUp(self):
@@ -65,7 +66,7 @@ class Test_CodeQuality(unittest.TestCase):
                             previous = content
                 except:
                     continue
-        
+
         return issues
 
 
