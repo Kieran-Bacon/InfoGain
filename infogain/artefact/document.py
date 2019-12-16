@@ -36,6 +36,14 @@ class EntitySet(collections.abc.MutableSet):
         if self._entities is not None: return entity in self._entities
         else: return any(entity in doc.entities for doc in self._owner()._sub_documents)
 
+    def __getitem__(self, index: int):
+        try:
+            i = self._indexes.index(index)
+        except ValueError:
+            raise ValueError('No entity at the location: {}'.format(index))
+
+        return self._entities[i]
+
     def _insert(self, index: int, entity: Entity):
         """ Record the entity at the given location, insert the index and the entity into the two internal stores and
         keep consistency. Can (should) only be called on a bottom level entities container.
@@ -421,7 +429,7 @@ class Document:
 
     _CONTENTJOIN = '. '
 
-    _SENTENCE_RGX = re.compile(r"[^\.\?\!]\n|((\.|\?|\!)+\s*)|$")
+    _SENTENCE_RGX = re.compile(r"(?<=[^\.\?\!])\n|((\.|\?|\!)+\s*)|$")
     _WHITESPACE_RGX = re.compile(r"[ \t]+")  # Match sections of multiple while space characters
     _WHITESPACEGRAMMER_RGX = re.compile(" [,]")  # Match whitespace that proceeds a grammar item TODO
     _NOTS_RGX = re.compile(r"n't")
@@ -472,8 +480,6 @@ class Document:
         self._yieldedSection = None  # Record the index of the subdocument that the entity is to exist in
         self._yieldedSentence = 0  # Record the length of previous sentences within the document
         self._yieldedWord = 0  # Record previous word lengths
-
-
 
     def __len__(self):
         if self._content is not None: return self._length

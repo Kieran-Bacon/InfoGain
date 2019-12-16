@@ -253,3 +253,18 @@ class Test_Document(unittest.TestCase):
 
         self.assertEqual(document.content, remade)
 
+    def test_sentencesNewLineEndings(self):
+
+        content = (
+            "Kieran speaks English\n"
+            "Kieran speaks Spanish\n"
+            "Kieran can speak English"
+        )
+
+        document = Document(content)
+
+        self.assertEqual(document.content, content)
+
+        for sentence, expected in zip(document.sentences(), content.split('\n')):
+            self.assertEqual(sentence, expected)
+
