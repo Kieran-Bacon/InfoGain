@@ -38,9 +38,7 @@ class OntologyManager:
             [Document] - A collection of training documents for this domain
         """
 
-        trainingFiles = os.listdir(os.path.join(self.directory, "training"))
-        trainingFiles.remove("__init__.py")
-        if "__pycache__" in trainingFiles: trainingFiles.remove("__pycache__")
+        trainingFiles = [name for name in os.listdir(os.path.join(self.directory, "training")) if name[-4:] == '.dig']
 
         if num_of_docs: trainingFiles = trainingFiles[:num_of_docs]
 
