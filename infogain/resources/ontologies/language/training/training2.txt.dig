@@ -1,0 +1,173 @@
+{
+    "name": "8151fe56c8bc4cc2a6262201154b68a2",
+    "content": "Luke has always wanted to live further a field, somewhere like France or Germany.\nLuke was born in France, and lived there for a short while before moving to Spain.\nKieran was born in England and hasn't ever lived anywhere else, though he has visited Germany.",
+    "entities": {
+        "adcacfbc-d647-4875-b3f7-d0b9959934b5": [
+            0,
+            {
+                "classType": "Person",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "a75453ba-ad09-4f19-aa59-55bc7c955db0": [
+            63,
+            {
+                "classType": "Country",
+                "surfaceForm": "France",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "390eea64-cebc-4dd3-bba4-94a51e7bd676": [
+            73,
+            {
+                "classType": "Country",
+                "surfaceForm": "Germany",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "a45f070b-a77a-4cbc-a108-ce8ca50b8e6b": [
+            82,
+            {
+                "classType": "Person",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "59c3fbf6-4b24-4ba1-b437-21b188c5e32e": [
+            99,
+            {
+                "classType": "Country",
+                "surfaceForm": "France,",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "5abd84f5-4643-4d51-84a3-3c5144dafb7f": [
+            158,
+            {
+                "classType": "Country",
+                "surfaceForm": "Spain",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "f877fcfa-0d14-410e-bec9-513a16f74f81": [
+            165,
+            {
+                "classType": "Person",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "dccb1961-b931-4832-95fe-29e4c595aee7": [
+            184,
+            {
+                "classType": "Country",
+                "surfaceForm": "England",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "0ba43112-0fe5-45e5-9978-ae1408c5dfde": [
+            251,
+            {
+                "classType": "Country",
+                "surfaceForm": "Germany",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ]
+    },
+    "annotations": [
+        {
+            "domain": "f877fcfa-0d14-410e-bec9-513a16f74f81",
+            "name": "born_in",
+            "target": "0ba43112-0fe5-45e5-9978-ae1408c5dfde",
+            "classification": -1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "adcacfbc-d647-4875-b3f7-d0b9959934b5",
+            "name": "born_in",
+            "target": "a75453ba-ad09-4f19-aa59-55bc7c955db0",
+            "classification": 0,
+            "confidence": 1.0
+        },
+        {
+            "domain": "adcacfbc-d647-4875-b3f7-d0b9959934b5",
+            "name": "born_in",
+            "target": "390eea64-cebc-4dd3-bba4-94a51e7bd676",
+            "classification": 0,
+            "confidence": 1.0
+        },
+        {
+            "domain": "f877fcfa-0d14-410e-bec9-513a16f74f81",
+            "name": "lives_in",
+            "target": "dccb1961-b931-4832-95fe-29e4c595aee7",
+            "classification": 1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "f877fcfa-0d14-410e-bec9-513a16f74f81",
+            "name": "born_in",
+            "target": "dccb1961-b931-4832-95fe-29e4c595aee7",
+            "classification": 1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "adcacfbc-d647-4875-b3f7-d0b9959934b5",
+            "name": "lives_in",
+            "target": "390eea64-cebc-4dd3-bba4-94a51e7bd676",
+            "classification": 0,
+            "confidence": 1.0
+        },
+        {
+            "domain": "a45f070b-a77a-4cbc-a108-ce8ca50b8e6b",
+            "name": "born_in",
+            "target": "5abd84f5-4643-4d51-84a3-3c5144dafb7f",
+            "classification": -1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "a45f070b-a77a-4cbc-a108-ce8ca50b8e6b",
+            "name": "born_in",
+            "target": "59c3fbf6-4b24-4ba1-b437-21b188c5e32e",
+            "classification": 1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "adcacfbc-d647-4875-b3f7-d0b9959934b5",
+            "name": "lives_in",
+            "target": "a75453ba-ad09-4f19-aa59-55bc7c955db0",
+            "classification": 0,
+            "confidence": 1.0
+        },
+        {
+            "domain": "a45f070b-a77a-4cbc-a108-ce8ca50b8e6b",
+            "name": "lives_in",
+            "target": "5abd84f5-4643-4d51-84a3-3c5144dafb7f",
+            "classification": 1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "a45f070b-a77a-4cbc-a108-ce8ca50b8e6b",
+            "name": "lives_in",
+            "target": "59c3fbf6-4b24-4ba1-b437-21b188c5e32e",
+            "classification": -1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "f877fcfa-0d14-410e-bec9-513a16f74f81",
+            "name": "lives_in",
+            "target": "0ba43112-0fe5-45e5-9978-ae1408c5dfde",
+            "classification": -1,
+            "confidence": 1.0
+        }
+    ]
+}

@@ -1,0 +1,440 @@
+{
+    "name": "2f1b468d1e014c0bade21811c9bf87dc",
+    "content": "Kieran speaks English\nKieran speaks Spanish\nKieran can speak English\nKieran can speak Spanish\nKieran has shown that he can speak Spanish\nKieran has learnt how to speak Spanish\nKieran can speak English fluently\nLuke cant speak English\nLuke can not speak English\nLuke can not speak Spanish\nLuke cant speak Spanish\nLuke does not speak English\nLuke does not speak Spanish\nLuke never learnt how to speak Spanish\nLuke always wanted to learn Spanish, but he never did\nLuke has never wanted to learn Spanish\nLuke cant speak English",
+    "entities": {
+        "30920e8d-0c62-43eb-9103-36777618b270": [
+            0,
+            {
+                "classType": "Person",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "1fe8f5f2-5ae7-445e-b448-3bf1ff0e40da": [
+            14,
+            {
+                "classType": "Language",
+                "surfaceForm": "English",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "3be48b86-2c50-4e0e-94a9-bd392b6517a7": [
+            22,
+            {
+                "classType": "Person",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "3c0d489c-90bf-4d33-b824-bf63945d7d9e": [
+            36,
+            {
+                "classType": "Language",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "41aef66e-f480-4c00-a2c9-8cef8747f1a9": [
+            44,
+            {
+                "classType": "Person",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "b1fc52c0-8876-4867-9939-edaa03b16052": [
+            61,
+            {
+                "classType": "Language",
+                "surfaceForm": "English",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "db1501c6-3f22-427e-821a-1bc9150d115a": [
+            69,
+            {
+                "classType": "Person",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "1e591e7c-f70b-4c80-a469-43dc9a437352": [
+            86,
+            {
+                "classType": "Language",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "449a77a6-0401-4670-8ee0-20379862ff4e": [
+            94,
+            {
+                "classType": "Person",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "adf86a89-b6a0-4fc3-ac4f-9a6b95ccfeb0": [
+            129,
+            {
+                "classType": "Language",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "4e5f3c80-bd6e-4816-b9e3-06537ae65c72": [
+            137,
+            {
+                "classType": "Person",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "e0ba760a-b083-4727-9be0-5f283d355547": [
+            168,
+            {
+                "classType": "Language",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "34ab35d5-0e0f-45eb-8525-2773cbc73e12": [
+            176,
+            {
+                "classType": "Person",
+                "surfaceForm": "Kieran",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "e0d04ae5-d964-4e61-9526-4de765822f6d": [
+            193,
+            {
+                "classType": "Language",
+                "surfaceForm": "English",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "ab48e47b-d6b8-4168-9071-ba09e2b9f382": [
+            210,
+            {
+                "classType": "Person",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "9d78569d-0861-43fa-9f44-87cbfc3cec2f": [
+            226,
+            {
+                "classType": "Language",
+                "surfaceForm": "English",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "737a6d82-b317-4a5e-8c41-21cb66d68e5f": [
+            234,
+            {
+                "classType": "Person",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "b520cd32-a982-4c86-aafb-9bf94f734065": [
+            253,
+            {
+                "classType": "Language",
+                "surfaceForm": "English",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "394fc0f6-1b1f-4be6-a48c-2b7958db8977": [
+            261,
+            {
+                "classType": "Person",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "9b7bf1e6-c1fc-4d91-8535-ac89359622cd": [
+            280,
+            {
+                "classType": "Language",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "e7e38b88-e379-4954-be44-b7f7102aded9": [
+            288,
+            {
+                "classType": "Person",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "0ee3232c-f19e-4924-8c3d-3366333ac982": [
+            304,
+            {
+                "classType": "Language",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "182f7f3c-392a-4e22-9f0d-5037edb0aa31": [
+            312,
+            {
+                "classType": "Person",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "33565a6d-b569-4154-ae61-92bfcfd2d1c4": [
+            332,
+            {
+                "classType": "Language",
+                "surfaceForm": "English",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "7926ca0e-44e5-4340-b7f5-1362e5189764": [
+            340,
+            {
+                "classType": "Person",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "94d459a8-b259-4c06-b33c-3d0e85dc3f2a": [
+            360,
+            {
+                "classType": "Language",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "50b54b63-dc17-4ef5-af42-64dbf3057df8": [
+            368,
+            {
+                "classType": "Person",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "33824e65-5e64-4c0c-8e12-db40fc06d5c0": [
+            399,
+            {
+                "classType": "Language",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "c05cd307-1d75-4712-8968-1ff5ebb16720": [
+            407,
+            {
+                "classType": "Person",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "9faa2943-e1aa-4101-8200-94e2debff234": [
+            435,
+            {
+                "classType": "Language",
+                "surfaceForm": "Spanish,",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "e908de58-266e-4c98-aca1-0d0d1689458e": [
+            461,
+            {
+                "classType": "Person",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "8c4879ea-4905-4f50-816f-07f63051b1d4": [
+            492,
+            {
+                "classType": "Language",
+                "surfaceForm": "Spanish",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "fa36fb78-ca7c-4bef-842f-335292a4a704": [
+            500,
+            {
+                "classType": "Person",
+                "surfaceForm": "Luke",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ],
+        "1fb241a8-4979-4cac-be60-d3f5637a865f": [
+            516,
+            {
+                "classType": "English",
+                "surfaceForm": "English",
+                "confidence": 1.0,
+                "properties": {}
+            }
+        ]
+    },
+    "annotations": [
+        {
+            "domain": "7926ca0e-44e5-4340-b7f5-1362e5189764",
+            "name": "speaks",
+            "target": "94d459a8-b259-4c06-b33c-3d0e85dc3f2a",
+            "classification": -1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "4e5f3c80-bd6e-4816-b9e3-06537ae65c72",
+            "name": "speaks",
+            "target": "e0ba760a-b083-4727-9be0-5f283d355547",
+            "classification": 1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "e7e38b88-e379-4954-be44-b7f7102aded9",
+            "name": "speaks",
+            "target": "0ee3232c-f19e-4924-8c3d-3366333ac982",
+            "classification": -1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "41aef66e-f480-4c00-a2c9-8cef8747f1a9",
+            "name": "speaks",
+            "target": "b1fc52c0-8876-4867-9939-edaa03b16052",
+            "classification": 1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "ab48e47b-d6b8-4168-9071-ba09e2b9f382",
+            "name": "speaks",
+            "target": "9d78569d-0861-43fa-9f44-87cbfc3cec2f",
+            "classification": -1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "737a6d82-b317-4a5e-8c41-21cb66d68e5f",
+            "name": "speaks",
+            "target": "b520cd32-a982-4c86-aafb-9bf94f734065",
+            "classification": -1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "db1501c6-3f22-427e-821a-1bc9150d115a",
+            "name": "speaks",
+            "target": "1e591e7c-f70b-4c80-a469-43dc9a437352",
+            "classification": 1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "182f7f3c-392a-4e22-9f0d-5037edb0aa31",
+            "name": "speaks",
+            "target": "33565a6d-b569-4154-ae61-92bfcfd2d1c4",
+            "classification": -1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "c05cd307-1d75-4712-8968-1ff5ebb16720",
+            "name": "speaks",
+            "target": "9faa2943-e1aa-4101-8200-94e2debff234",
+            "classification": -1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "449a77a6-0401-4670-8ee0-20379862ff4e",
+            "name": "speaks",
+            "target": "adf86a89-b6a0-4fc3-ac4f-9a6b95ccfeb0",
+            "classification": 1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "50b54b63-dc17-4ef5-af42-64dbf3057df8",
+            "name": "speaks",
+            "target": "33824e65-5e64-4c0c-8e12-db40fc06d5c0",
+            "classification": -1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "34ab35d5-0e0f-45eb-8525-2773cbc73e12",
+            "name": "speaks",
+            "target": "e0d04ae5-d964-4e61-9526-4de765822f6d",
+            "classification": 1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "e908de58-266e-4c98-aca1-0d0d1689458e",
+            "name": "speaks",
+            "target": "8c4879ea-4905-4f50-816f-07f63051b1d4",
+            "classification": 0,
+            "confidence": 1.0
+        },
+        {
+            "domain": "db1501c6-3f22-427e-821a-1bc9150d115a",
+            "name": "",
+            "target": "1e591e7c-f70b-4c80-a469-43dc9a437352",
+            "classification": 1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "30920e8d-0c62-43eb-9103-36777618b270",
+            "name": "speaks",
+            "target": "1fe8f5f2-5ae7-445e-b448-3bf1ff0e40da",
+            "classification": 1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "fa36fb78-ca7c-4bef-842f-335292a4a704",
+            "name": "speaks",
+            "target": "1fb241a8-4979-4cac-be60-d3f5637a865f",
+            "classification": -1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "394fc0f6-1b1f-4be6-a48c-2b7958db8977",
+            "name": "speaks",
+            "target": "9b7bf1e6-c1fc-4d91-8535-ac89359622cd",
+            "classification": -1,
+            "confidence": 1.0
+        },
+        {
+            "domain": "3be48b86-2c50-4e0e-94a9-bd392b6517a7",
+            "name": "speaks",
+            "target": "3c0d489c-90bf-4d33-b824-bf63945d7d9e",
+            "classification": 1,
+            "confidence": 1.0
+        }
+    ]
+}

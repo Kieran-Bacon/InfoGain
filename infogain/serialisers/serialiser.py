@@ -89,3 +89,6 @@ class SerialiserFactory(AbstractSerialiser):
             return _DOCUMENTENCODERS[encoding](classtype)
         else:
             raise TypeError("Unrecognised class type provided '{}'".format(str(classtype)))
+
+    def __init__(self, encoding: str = "python", classtype: Ontology = Ontology):
+        pass

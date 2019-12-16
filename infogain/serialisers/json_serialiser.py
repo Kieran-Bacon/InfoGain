@@ -155,7 +155,7 @@ class JsonDocumentSerialiser(AbstractSerialiser):
 
         # Load in the entities
         entities = {}
-        for i, entityData, guid in data['entities']:
+        for guid, (i, entityData) in data['entities'].items():
             props = entityData.pop("properties", {})
             e = Entity(**entityData)
             e.properties.update(props)
@@ -200,15 +200,17 @@ class JsonDocumentSerialiser(AbstractSerialiser):
 
         entityIDs = collections.defaultdict(lambda: str(uuid.uuid4()))
 
-        data['entities'] = []
+        data['entities'] = {}
         for i, e in document.entities.indexes():
-            entityData = {
-                "classType": e.classType,
-                "surfaceForm": e.surfaceForm,
-                "confidence": e.confidence,
-                "properties": e.properties._elements
-            }
-            data['entities'].append((i, entityData, entityIDs[e]))
+            data['entities'][entityIDs[e]] = [
+                i,
+                {
+                    "classType": e.classType,
+                    "surfaceForm": e.surfaceForm,
+                    "confidence": e.confidence,
+                    "properties": e.properties._elements
+                }
+            ]
 
         data['annotations'] = []
         for annotation in document.annotations:
